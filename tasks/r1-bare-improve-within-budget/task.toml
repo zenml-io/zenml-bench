@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/r1-bare-improve-within-budget"
+version = "0.1.0"
+description = "Comparison variant of R1 with no framework: at most 12 rows in results.tsv, lower validation log loss, copy the chosen run's model file to best_model.pkl; graded by re-scoring that file on hidden data."
+
+[metadata]
+family = "research"
+tier = "A"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief R1-bare (the with/without-ZenML comparison); identical problem, data, budget and seeds to r1-improve-within-budget"
+conditions_supported = ["bare"]
+
+[agent]
+timeout_sec = 2400.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"

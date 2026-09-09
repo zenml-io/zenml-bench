@@ -1,0 +1,9 @@
+# The reference config (also written by solution/solve.sh). Used only to compute expected.json anchors.
+name: gb_reg
+model: hist_gb
+params:
+  learning_rate: 0.03
+  max_iter: 400
+  l2_regularization: 2.0
+  min_samples_leaf: 30
+  max_leaf_nodes: 15

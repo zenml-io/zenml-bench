@@ -1,0 +1,5 @@
+# The starting point. `name` becomes the ZenML model version this config's runs attach to.
+name: baseline
+model: logistic
+params:
+  C: 0.001

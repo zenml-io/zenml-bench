@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/r2-screen-then-confirm"
+version = "0.1.0"
+description = "Research loop with an evidence rule: lower validation log loss within 12 runs and promote a model version backed by at least three completed runs on distinct seeds whose mean recorded loss beats a stated threshold; graded on hidden data."
+
+[metadata]
+family = "research"
+tier = "A"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief R2 (Prime Intellect finding: strong agents confirm on several seeds before promoting)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 2400.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"

@@ -1,0 +1,5 @@
+# The starting point. `name` labels this config in results.tsv and the model file name.
+name: baseline
+model: logistic
+params:
+  C: 0.001
