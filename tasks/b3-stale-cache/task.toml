@@ -13,13 +13,15 @@ zenml_version = "0.96.4"
 source = "design brief appendix A; classic support question (path-string parameter defeats caching)"
 conditions_supported = ["bare", "skill", "mcp"]
 
-[agent]
-timeout_sec = 1800.0
-
 [verifier]
 timeout_sec = 900.0
 
 [environment]
-# Design target is "no-network" with an agent-phase allowlist for the model API (brief §5.8).
-# Docker Desktop on macOS lacks CONFIG_NFT_FIB_INET, so Harbor rejects no-network locally; see docs/decisions.md.
-network_mode = "public"
+# Sealed by default (brief §5.8). Needs a Docker runtime with nftables egress control: OrbStack on macOS, Linux elsewhere.
+network_mode = "no-network"
+
+# During the agent's turn only, let it reach its model API. Add hosts here as harnesses are added.
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]

@@ -66,7 +66,8 @@ def test_scores_track_the_data(runs, expected):
 
 
 def test_train_reruns_when_data_changes(runs):
-    assert status(runs[0], "train") == ExecutionStatus.COMPLETED
+    # No assertion on runs[0]: the agent may already have run the pipeline on dataset a (it is in the
+    # image) and the store is shared, so a cache hit there is legitimate. b and c are unseen.
     assert status(runs[2], "train") == ExecutionStatus.COMPLETED  # a -> b
     assert status(runs[4], "train") == ExecutionStatus.COMPLETED  # b -> c
 
