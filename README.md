@@ -2,7 +2,7 @@
 
 A public benchmark of tasks in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to build, fix, configure and research with **real ZenML**, packaged in [Harbor](https://www.harborframework.com) task format so the same tasks run as an evaluation today and as a training environment (via verifiers / prime-rl) without rewriting them.
 
-Status: early. Four build-and-fix tasks, three baselined with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
+Status: early. Four build-and-fix tasks, all baselined with Claude Code and Codex at frontier and cheap tiers with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
 
 ## What a task looks like
 
