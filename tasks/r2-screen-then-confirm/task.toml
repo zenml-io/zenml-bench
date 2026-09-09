@@ -8,7 +8,7 @@ description = "Research loop with an evidence rule: lower validation log loss wi
 [metadata]
 family = "research"
 tier = "A"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # 2026-09-10: opus 3/3 (sequential) and terra 3/3 at the frontier tier; the evidence rule is followed when stated
 zenml_version = "0.96.4"
 source = "design brief R2 (Prime Intellect finding: strong agents confirm on several seeds before promoting)"
 conditions_supported = ["bare", "skill", "mcp"]
