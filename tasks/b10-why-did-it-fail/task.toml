@@ -8,7 +8,7 @@ description = "This morning's scheduled daily_report run failed. Use the ZenML s
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 18/18 on 2026-09-09 (opus-5, terra, haiku-4.5, gpt-5.4-mini); see results/level2-b10.md for a harder variant
 zenml_version = "0.96.4"
 source = "design brief B10; instruction gives the symptom only, never the date or the cause; history produced by real runs at image build (environment/setup_store.sh)"
 conditions_supported = ["bare", "skill", "mcp"]

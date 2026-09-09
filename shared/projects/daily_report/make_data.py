@@ -44,4 +44,7 @@ if __name__ == "__main__":
     write(HERE / "data" / "2026-09-09.csv", day("2026-09-09", 9, 46, {3: 1234.5, 17: 2000.0, 29: 1050.25}))
     write(HERE / "fixtures" / "hidden_plain.csv", day("2026-08-30", 30, 35, {}))
     write(HERE / "fixtures" / "hidden.csv", day("2026-08-31", 31, 52, {0: 12000.0, 8: 1000.0, 21: 3499.99, 40: 1500.5, 51: 9999.01}))
-    print("wrote data/2026-09-0{6,7,8,9}.csv, fixtures/hidden.csv and fixtures/hidden_plain.csv")
+    # B14's hand-run backfill of late August (no separator amounts; that fault first appears on 2026-09-09)
+    for date, seed, n in (("2026-08-24", 24, 30), ("2026-08-25", 25, 38), ("2026-08-26", 26, 60), ("2026-08-27", 27, 34)):
+        write(HERE / "fixtures" / "backfill" / f"{date}.csv", day(date, seed, n, {}))
+    print("wrote data/2026-09-0{6,7,8,9}.csv, fixtures/hidden*.csv and fixtures/backfill/*.csv")

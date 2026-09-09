@@ -5,7 +5,7 @@
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TASK="$1"; PATCH="${2:-}"
-PROJECT="$(ls -d "$ROOT/$TASK"/environment/*/ | head -1 | xargs basename)"  # the synced project dir
+PROJECT="$(for d in "$ROOT/$TASK"/environment/*/; do n="$(basename "$d")"; [ -d "$ROOT/shared/projects/$n" ] && echo "$n" && break; done)"  # the synced project dir (environment/ may hold other dirs, e.g. B14's backfill/)
 WORK="$(mktemp -d)"; export APP_DIR="$WORK/app" FIXTURES_DIR="$ROOT/$TASK/tests/fixtures"
 export ZENML_CONFIG_PATH="$WORK/zenml" ZENML_ANALYTICS_OPT_IN=false ZENML_LOGGING_VERBOSITY=ERROR
 cp -r "$ROOT/shared/projects/$PROJECT" "$APP_DIR"; rm -rf "$APP_DIR/.zen" "$APP_DIR/fixtures"

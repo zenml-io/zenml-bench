@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b14-artifact-retrieval"
+version = "0.1.0"
+description = "Among a week of daily_report runs (scheduled, manual, backfill; some failed), find the completed backfill run with the largest total and build a one-step pipeline that consumes that run's stored summary artifact, not the CSV."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B14; history produced by real runs at image build (environment/setup_store.sh); distractors: a failed run whose summary artifact has the largest total, and a completed non-backfill run that beats every backfill day"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
