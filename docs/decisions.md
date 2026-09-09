@@ -65,3 +65,24 @@ Established by installing `harbor==0.22.0` (`uv tool install`) and running a hel
 - Harbor requires `-m <model>` for Codex ("Model name is required"). First baseline models: `codex` → `gpt-5.6-terra` (named on OpenAI's Codex models page as the replacement for the retired `gpt-5.4`), `claude-code` → `claude-opus-5`. Both confirmed available to the keys in `.env` via the providers' `/v1/models` endpoints.
 - "+ skill" condition: `zenml-io/skills` is laid out as plugins (`skills/<plugin>/skills/<skill>/SKILL.md`), so Harbor's `org/name` shorthand does not find them. `run_baselines.py` clones the repo at pinned commit `e8534cad` into `.skills-cache/` and passes `zenml-pipeline-authoring` and `zenml-quick-wins` via `--skill`.
 - Grader rule learned from the first Codex trial (see findings.md): the ZenML store is shared between the agent and the grader, so only assert "step executed" on inputs the agent has never seen.
+
+## 2026-09-09 — B9 modernise-old-api: what 0.96.4 does with 0.4x code
+
+- Gone outright: `zenml.steps.BaseParameters`, `zenml.steps.Output`, `zenml.pipelines.BasePipeline`, `zenml.post_execution`. Still importable: `zenml.steps.step`, `zenml.pipelines.pipeline`, `BaseStep`, `StepContext`. So an old project fails at import, and the grader's "no deprecated symbols" check is automatic: if it runs, they are gone.
+- The offline docs include the 0.39.1 → 0.41.0 migration guide, so the task is docs-solvable; expected to saturate like B3. It stays as the regression task for the "unlearn old API" category.
+- Trap kept in the task: a step annotated `Tuple[Annotated[...], ...]` that `return`s a function call (not a literal tuple) is treated by ZenML as **one** output (`has_tuple_return` inspects the function's source for a tuple literal). The legacy code returns `train_test_split(...)` directly; a mechanical conversion hits `StepInterfaceError: Unable to unpack step artifact` at run time.
+- Grader must defeat the agent's own cache: `load_data()` has no inputs so every rerun is a cache hit. The grader expires every existing step run as a cache candidate with `Client().update_step_run(id, cache_expires_at=now)` (documented API) before each of its runs. Fixture scores with test_size=0.25, C=0.5: a=0.9067, c=0.7467; with defaults (0.3, 1.0): a=0.9056, c=0.75, so dropped parameters are detectable at 1e-4.
+- Parameters are checked by value inside the recorded step parameters, flattened, so both plain-argument and pydantic-model parameter styles pass.
+
+## 2026-09-09 — B7 kubernetes-settings: how to grade Kubernetes config with no cluster (tier C1)
+
+- On a local stack ZenML **drops** orchestrator settings that don't belong to the active orchestrator's flavor at compile time (warning "Not including stack component settings with key …"), whether keyed `orchestrator` or `orchestrator.kubernetes`. They never reach the run record. Resource settings *are* recorded (with a warning that the local orchestrator ignores them). So the run record cannot be the grader.
+- Registering a Kubernetes orchestrator against the local SQLite store works (warning only: "component running remotely while connected to the local database"). The task image registers `k8s` (flavor kubernetes), `reg` (default container registry) and `k8s-stack`; the active stack stays `default`.
+- Grader = dry-run compile: import `pipeline.training_pipeline`, apply `config.yaml` the way `run.py` does (`pipe._parse_config_file(...)` → `PipelineRunConfiguration`, plus `with_options(config_path=...)`), `pipe.prepare()`, then `Compiler().compile(pipeline, stack=Stack.from_model(Client().get_stack("k8s-stack")), run_configuration)`. In the compiled deployment the settings key is renamed to `orchestrator:<component-name>` (`orchestrator:k8s`), stored as a generic `BaseSettings`; re-validate with `KubernetesOrchestratorSettings.model_validate(raw.model_dump())`.
+- Pipeline-level `pod_settings` are merged into every step at compile, so "only `train` gets the GPU" is checked by asserting the other steps have none.
+- `ResourceSettings.memory` rejects Kubernetes quantities like `8Gi` (`SettingsResolvingError`) and wants `8GB`; `KubernetesPodSettings.resources` takes `8Gi`. Both forms are accepted by the grader (the orchestrator honours both). Kept as a realistic trap; the instruction says "8Gi".
+- Base image now installs the `kubernetes` client (needed by the settings classes).
+
+## 2026-09-09 — solution scripts under `verify_task.py`
+
+A shortcut or alternative that builds on the reference must not call `../../solution/solve.sh`: inside Harbor the script *is* `/solution/solve.sh` and it recurses until the container is killed (observed: "shell level (1000) too high"). `verify_task.py` now copies the real reference to `solution/reference.sh` in the temp task, and scripts use `REF="$HERE/reference.sh"; [ -f "$REF" ] || REF="$HERE/../../solution/solve.sh"`. Crashed trials show as `nan` rewards (FAIL) rather than crashing the verifier.
