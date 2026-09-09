@@ -8,7 +8,7 @@ description = "Research loop: lower a model's validation log loss within a budge
 [metadata]
 family = "research"
 tier = "A"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # pass/fail saturated 6/6 at the frontier tier on 2026-09-09; hidden_log_loss separates harnesses
 zenml_version = "0.96.4"
 source = "design brief R1 (autoresearch-style loop; Prime Intellect 'Measuring Autonomous AI Research' promotion-evidence finding)"
 conditions_supported = ["bare", "skill", "mcp"]

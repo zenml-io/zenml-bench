@@ -6,7 +6,7 @@
     uv run scripts/analyse_trajectories.py jobs/<job> [jobs/<job2> ...] [--jsonl out.jsonl]
 
 Per trial: reward, infra_error, steps, tool calls, whether the offline docs were read, whether a
-skill file was read, MCP calls, pipeline runs attempted. Trajectories are ATIF (`agent/trajectory.json`).
+skill file was read, MCP calls, entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs). Trajectories are ATIF (`agent/trajectory.json`).
 """
 import argparse
 import json
@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 DOCS_MARKERS = ("/opt/zenml-docs", "llms-full.txt")
+ENTRYPOINTS = ("run.py", "research.py", "train.py")  # project entrypoints: nightly/k8s/legacy/churn, research, research_bare
 SKILL_MARKERS = ("SKILL.md", "/harbor/skills", "/.agents/skills", ".claude/skills", "CLAUDE_CONFIG_DIR/skills")
 
 
@@ -44,7 +45,7 @@ def summarise(trial: Path) -> dict[str, Any]:
             row["docs_read"] |= any(m in args for m in DOCS_MARKERS)
             row["skill_loaded"] |= name == "Skill" or any(m in args for m in SKILL_MARKERS)
             row["mcp_calls"] += name.startswith("mcp") or "mcp__" in name
-            row["pipeline_runs"] += "run.py" in args and ("python" in args or "uv run" in args)
+            row["pipeline_runs"] += any(e in args for e in ENTRYPOINTS) and ("python" in args or "uv run" in args)
     fm = t.get("final_metrics") or {}
     row["total_tokens"] = (fm.get("total_prompt_tokens") or 0) + (fm.get("total_completion_tokens") or 0) or None
     row["cost_usd"] = fm.get("total_cost_usd")
