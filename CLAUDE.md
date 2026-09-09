@@ -25,7 +25,7 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 
 ## Layout (grows as levels land; see brief section 9)
 
-- `docs/` — brief, decisions, task-authoring guide, findings.
+- `docs/` — brief, `decisions.md`, `task-authoring.md` (read before writing a task), `findings.md`.
 - `shared/base/Dockerfile` — base image; the ZenML pin lives here (`ARG ZENML_PIN`).
 - `shared/projects/` — working example projects that tasks are generated from. `nightly/` (B3), `legacy_training/` (B9, written in the 0.4x API on purpose), `k8s_training/` (B7). `nightly/make_data.py` regenerates the shared fixtures.
 - `tasks/<id>/` — Harbor tasks: `instruction.md`, `task.toml`, `environment/Dockerfile`, `solution/solve.sh` + `solution/alternatives/*.sh`, `tests/test.sh` + `tests/test_*.py` + `tests/fixtures/` + `tests/shortcuts/*.sh`. Solutions and shortcuts are bash scripts that patch the project in place and honour `APP_DIR`. A script that builds on the reference must locate it via `REF="$HERE/reference.sh"; [ -f "$REF" ] || REF="$HERE/../../solution/solve.sh"` (see decisions: self-recursion under Harbor). Optional `environment/setup_store.sh` registers stack components at image build and is also run by `grade_local.sh`.
