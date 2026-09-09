@@ -31,6 +31,9 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - `tasks/<id>/` — Harbor tasks: `instruction.md`, `task.toml`, `environment/Dockerfile`, `solution/solve.sh` + `solution/alternatives/*.sh`, `tests/test.sh` + `tests/test_*.py` + `tests/fixtures/` + `tests/shortcuts/*.sh`. Solutions and shortcuts are bash scripts that patch the project in place and honour `APP_DIR`.
 - `scripts/sync_project.sh <project> <task>` — copies a shared project into the task's `environment/` (Harbor builds from that dir alone). Run it after editing anything under `shared/projects/`; never edit the copy.
 - `scripts/verify_task.py <task>` — the four verifier checks through Harbor (oracle ×5, nop, every shortcut, every alternative). Slow (~1 min per run); use `grade_local.sh` while iterating and this before calling a task done.
+- `scripts/run_baselines.py <task> --agent harness:model --condition bare|skill -k 3 --env-file .env` — harness × condition matrix; writes `results/<task>-baseline.jsonl`.
+- `scripts/analyse_trajectories.py jobs/<job>…` — per-trial: reward, infra_error, docs read, skill loaded, MCP calls, pipeline runs. v0; the docs/skill detection is by string markers in tool-call arguments.
+- `results/` — committed summaries only (jsonl/md). Raw `jobs/` is gitignored.
 - `scripts/grade_local.sh <task> [patch.sh]` — runs a task's grader against a fresh copy of its project in a fresh ZenML store, no Docker. Use it to iterate on graders and to run the four checks before touching Harbor. `KEEP=1` keeps the temp dir, `VERBOSE=1` prints pytest failures.
 - `.venv/` — local dev environment: `uv venv --python 3.14 .venv && uv pip install --python .venv/bin/python "zenml[local]==0.96.4" pandas scikit-learn pytest`. Gitignored.
 
@@ -40,6 +43,7 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - Before writing any grader assertion, run the reference solution by hand and inspect the ZenML store with `Client()` so assertions reflect observed state, not assumed API behaviour.
 - Never grep an agent's source for the "right" line; grade what the ZenML store recorded.
 - `docker build -t zenml-bench/base:0.96.4 shared/base` builds the base image every task `FROM`s. Rebuild after editing it.
+- API keys live in `.env` at the repo root (gitignored): `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`. Harbor does not read it by itself; pass `--env-file .env` to `harbor run`. Never print or commit key values.
 - Network: `no-network`/`allowlist` cannot run on Docker Desktop on this Mac (see decisions); tasks say `public` for now.
 - Set `ZENML_CONFIG_PATH` to a fresh directory for experiments so runs never touch the user's real ZenML config. `ZENML_ANALYTICS_OPT_IN=false`.
 - Targeted `git add`; commit at natural pause points; backticks around identifiers in commit subjects. Never commit `jobs/`, raw trajectories, API keys, or anything under `design/`.
