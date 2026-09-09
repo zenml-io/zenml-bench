@@ -6,4 +6,4 @@ Configure the pipeline for `k8s-stack` so that, when it is run there:
 2. the other steps and the orchestrator pod keep the defaults (no GPU, no node selector, default service account);
 3. `python run.py` still completes on the current (local) stack, which must stay the active stack.
 
-Keep the entrypoint, `pipeline.py` exposing `training_pipeline`, and the `config.yaml` mechanism. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
+Keep the entrypoint, `pipeline.py` exposing `training_pipeline`, and the `config.yaml` mechanism. You can run the pipeline locally as many times as you like, but leave no other pipelines registered in ZenML when you are done. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.

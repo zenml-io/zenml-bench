@@ -7,4 +7,4 @@ Update the project so it runs on the installed ZenML with the same behaviour:
 3. The run uses the same parameter values as before (`test_size=0.25`, `seed=0`, `C=0.5`) and they are recorded on the run so they can be audited later.
 4. The model, the split, and the score are computed the same way, so the score on the current data is unchanged.
 
-Keep using ZenML for the pipeline (do not replace it with a plain script). ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
+Keep using ZenML for the pipeline (do not replace it with a plain script). You can run the pipeline as many times as you like, but leave no other pipelines registered in ZenML when you are done (running a step on its own registers a pipeline named after the step). ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
