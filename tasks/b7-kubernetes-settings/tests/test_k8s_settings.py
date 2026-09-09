@@ -24,7 +24,7 @@ from zenml.stack import Stack
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/k8s_training"))
 STACK, ORCHESTRATOR, PIPELINE = "k8s-stack", "k8s", "training_pipeline"
 STEPS = {"load_data", "split", "train", "evaluate"}
-EIGHT_GI = {"8Gi", "8G", "8GB", "8gb", "8192Mi", "8192M", "8192MB", 8589934592, "8589934592"}
+EIGHT_GI = {"8Gi", "8GiB", "8G", "8GB", "8gb", "8192Mi", "8192MiB", "8192M", "8192MB", 8589934592, "8589934592"}
 ONE_GPU = {"1", 1, 1.0}
 
 
@@ -89,11 +89,22 @@ def test_local_run_still_completes(local_run):
     assert Client().active_stack_model.name == "default"
 
 
+def step_service_account(settings: dict[str, Any]) -> str | None:
+    """The service account the Kubernetes orchestrator would give this step's pod.
+
+    ZenML resolves it as `step_pod_service_account_name or service_account_name` on the orchestrator settings
+    (kubernetes_orchestrator_entrypoint.py). `KubernetesPodSettings` has NO service_account_name field: settings
+    accept unknown keys silently, so `pod_settings.service_account_name` is a dead field and is NOT accepted.
+    """
+    ks = k8s_settings(settings).model_dump()
+    return ks.get("step_pod_service_account_name") or ks.get("service_account_name")
+
+
 def test_train_step_pod(deployment):
     train = deployment.step_configurations["train"].config
     pod = k8s_settings(train.settings).model_dump().get("pod_settings") or {}
     assert pod.get("node_selectors") == {"gpu": "true"}, f"node_selectors were {pod.get('node_selectors')}"
-    assert pod.get("service_account_name") == "pipeline-runner", f"service account was {pod.get('service_account_name')}"
+    assert step_service_account(train.settings) == "pipeline-runner", f"service account was {step_service_account(train.settings)}"
     assert has_gpu_and_memory(train), f"train GPU/memory not configured: resources={train.resource_settings} pod={pod}"
 
 
@@ -103,14 +114,15 @@ def test_other_steps_keep_defaults(deployment):
             continue
         pod = k8s_settings(step.config.settings).model_dump().get("pod_settings") or {}
         assert not pod.get("node_selectors"), f"{name} has node selectors {pod.get('node_selectors')}"
-        assert not pod.get("service_account_name"), f"{name} has a service account"
+        assert not step_service_account(step.config.settings), f"{name} has a service account"
         assert not has_any_gpu(step.config), f"{name} requests a GPU"
 
 
 def test_orchestrator_pod_keeps_defaults(deployment):
-    orch = k8s_settings(deployment.pipeline_configuration.settings).model_dump().get("orchestrator_pod_settings") or {}
+    ks = k8s_settings(deployment.pipeline_configuration.settings).model_dump()
+    orch = ks.get("orchestrator_pod_settings") or {}
     assert not orch.get("node_selectors"), f"orchestrator pod has node selectors {orch.get('node_selectors')}"
-    assert not orch.get("service_account_name")
+    assert not orch.get("service_account_name") and not ks.get("service_account_name"), "orchestrator pod service account changed"
     assert "nvidia.com/gpu" not in pod_resources(orch)
 
 

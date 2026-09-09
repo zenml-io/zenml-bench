@@ -12,9 +12,9 @@ from zenml.integrations.kubernetes.flavors import KubernetesOrchestratorSettings
 from zenml.integrations.kubernetes.pod_settings import KubernetesPodSettings
 
 TRAIN_K8S = KubernetesOrchestratorSettings(
+    step_pod_service_account_name="pipeline-runner",
     pod_settings=KubernetesPodSettings(
         node_selectors={"gpu": "true"},
-        service_account_name="pipeline-runner",
         resources={"requests": {"nvidia.com/gpu": "1", "memory": "8Gi"}, "limits": {"nvidia.com/gpu": "1", "memory": "8Gi"}},
     )
 )""")

@@ -10,7 +10,7 @@ steps:
         pod_settings:
           node_selectors:
             gpu: "true"
-          service_account_name: pipeline-runner
+        step_pod_service_account_name: pipeline-runner
       resources:
         gpu_count: 1
         memory: 8GB  # ResourceSettings wants GB; the pod spec form would be 8Gi
