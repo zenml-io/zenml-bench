@@ -43,6 +43,8 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 | `b7-kubernetes-settings` | Kubernetes settings | C | configure one step's pod (GPU, memory, node selector, service account) for a registered Kubernetes stack, graded by dry-run compile; no cluster |
 | `b10-why-did-it-fail` | why did it fail? | A | a scheduled run failed among several distractor failures produced by real runs at image build; find the run, read the failed step's `exception_info`, fix the actual cause (thousands separators in one day's export), graded on hidden exports |
 | `r1-improve-within-budget` | improve within a budget | A | research loop: at most 12 runs of the `research` pipeline, lower validation log loss, promote the best model version to `production`; graded by re-scoring the promoted, run-backed model artifact on hidden data (`gap_closed`, budget and evidence rules) |
+| `r2-screen-then-confirm` | screen, then confirm | A | as R1, but the promotion counts only if the production version is backed by three completed runs on distinct seeds whose mean recorded loss beats a stated threshold; single-seed promotion scores 0 |
+| `r1-bare-improve-within-budget` | improve within a budget (no framework) | A | the same problem in a `prepare.py` / `train.py` / `results.tsv` repo with no ZenML; promotion is a file copy tied to a results row by hash; the with/without-ZenML comparison |
 
 Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configuration without a cluster; D = real Kubernetes execution (not in scope).
 

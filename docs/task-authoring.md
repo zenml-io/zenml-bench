@@ -43,6 +43,7 @@ tasks/<id>/
 - **Unseen data defeats hardcoding.** At least one fixture the agent could not have seen, with an expected value computed by the reference.
 - **Collateral checks.** Pipeline name unchanged, no extra pipelines registered, active stack unchanged, other steps' settings unchanged.
 - **Kubernetes-style settings never reach the run record on a local stack.** Register a clusterless Kubernetes stack in the image and grade by dry-run compile (B7's grader shows how); read compiled settings under `orchestrator:<component-name>`.
+- **Research tasks: a link is not evidence.** `link_artifact_version_to_model_version` attaches any artifact to any model version, and a cached repeat run re-links an old artifact. Grade the producer chain: production version → linked run that is `COMPLETED` and of the right pipeline → its `train` step → an output whose `producer_step_run_id` is that step. Score only the newest artifact that survives the chain, with the grader's own metric on hidden data (R1's `tests/verify.py`).
 - **Scripts that build on the reference** must locate it via `REF="$HERE/reference.sh"; [ -f "$REF" ] || REF="$HERE/../../solution/solve.sh"`. Under Harbor the script *is* `/solution/solve.sh`; a relative call recurses until the container dies.
 
 ## Difficulty
