@@ -18,4 +18,4 @@ First non-saturated cell in the benchmark. B3 separates models at this tier even
 | B5 | 3/3 | 3/3 | every cheap trial made the type picklable (ZenML's cloudpickle fallback, `used_custom_materializer=0`); every frontier trial wrote a ZenML materializer |
 | B7 | **0/3** | 2/3 | haiku: two trials set no node selector; one wrote `node_selector` (Kubernetes spelling) plus the dead `pod_settings.service_account_name`, and the compile rejected it |
 
-B9 cheap-model cell is being re-run: the first run's zeros were all the "no stray pipelines" collateral check, under an instruction that did not yet state it.
+| B9 | 3/3 | 3/3 | re-run after the instruction gained the "leave no other pipelines registered" rule; the first run scored haiku 1/3 and mini 2/3 purely on that collateral check (a step run on its own registers a one-step pipeline) |
