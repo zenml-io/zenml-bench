@@ -22,3 +22,7 @@ Follow-up on the Claude Code skill result (Alex, 2026-09-09): Claude Code discov
 - **How they knew:** neither `llms-full.txt` nor the `pipeline-authoring` skill mentions step-pod service accounts. Every trajectory shows the agent opening `zenml/integrations/kubernetes/...` under site-packages and reading `service_account_name=settings.step_pod_service_account_name or settings.service_account_name`. Both harnesses treat the installed package as documentation of last resort. Docs gap worth filling: the Kubernetes orchestrator page should list `step_pod_service_account_name` / `service_account_name` and say `pod_settings` does not carry one.
 - The 3 Claude Code + skill trials passed the old grader because they set both fields.
 - Baseline is being re-run with the corrected grader; see `results/level2-b7.md` when it lands.
+
+## 2026-09-09 — first B5 baseline (custom-materializer): grader bug, third of the shared-store family
+
+9/9 trials wrote a custom materializer (8) or made the type picklable (1) and produced correct scores, then scored 0 because the grader asserted the named artifact was *produced by* the graded run. The agents had run the fixed pipeline; the grader's run served `train` from cache, so the artifact's producer was their run. Fixed (assert the graded run's `train` output is the artifact) and `solve_then_run_twice.sh` added, which now exists for every task. One Claude Code trial also left a helper pipeline `check` registered; the instructions now state "leave no other pipelines registered". Matrix re-run pending.
