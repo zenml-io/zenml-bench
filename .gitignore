@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ZenML local init dirs (created by `zenml init` at image build / spike time)
+.zen/
