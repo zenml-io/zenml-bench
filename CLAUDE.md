@@ -26,8 +26,11 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 ## Layout (grows as levels land; see brief section 9)
 
 - `docs/` — brief, decisions, task-authoring guide, findings.
-- `shared/projects/` — working example projects that tasks are generated from. `nightly/` is the B3 stale-cache project.
-- `.venv/` — local dev environment: `uv venv --python 3.14 .venv && uv pip install --python .venv/bin/python "zenml[local]==0.96.4" pandas scikit-learn`. Gitignored.
+- `shared/base/Dockerfile` — base image; the ZenML pin lives here (`ARG ZENML_PIN`).
+- `shared/projects/` — working example projects that tasks are generated from. `nightly/` is the B3 stale-cache project (`make_data.py` regenerates `fixtures/`).
+- `tasks/<id>/` — Harbor tasks: `instruction.md`, `task.toml`, `environment/Dockerfile`, `solution/solve.sh` + `solution/alternatives/*.sh`, `tests/test.sh` + `tests/test_*.py` + `tests/fixtures/` + `tests/shortcuts/*.sh`. Solutions and shortcuts are bash scripts that patch the project in place and honour `APP_DIR`.
+- `scripts/grade_local.sh <task> [patch.sh]` — runs a task's grader against a fresh copy of its project in a fresh ZenML store, no Docker. Use it to iterate on graders and to run the four checks before touching Harbor. `KEEP=1` keeps the temp dir, `VERBOSE=1` prints pytest failures.
+- `.venv/` — local dev environment: `uv venv --python 3.14 .venv && uv pip install --python .venv/bin/python "zenml[local]==0.96.4" pandas scikit-learn pytest`. Gitignored.
 
 ## Working conventions
 

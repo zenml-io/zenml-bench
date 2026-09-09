@@ -29,3 +29,15 @@ Spike run locally on the `shared/projects/nightly` project, sequence of datasets
 Consequences for the task: the grader's expected statuses are exactly the pattern above; `solution/solve.sh` can be fix 1 and `solution/alternatives/` gets fixes 2 and 3; `disable_train_cache.sh` and `disable_all_caching.sh` shortcuts will fail the "run 2 / run 4 cached" checks; `hardcode_score.sh` will fail the dataset-c check. Fixture scores at this pin: a=0.9111, b=0.7611, c=0.7778 (accuracy, `LogisticRegression(max_iter=1000)`, 30% test split, `random_state=0`).
 
 Open: whether `train` being cached in run 2 relies on the pandas materializer's content hash or on the same artifact ID (the `load_data` output *was* the same artifact in run 2 because `load_data` was cached, so both would give the same answer here). Not load-bearing for B3 but worth knowing for B4 (nondeterministic step).
+
+## 2026-09-09 — which artifact types hash by content (resolves the "open" note above)
+
+`compute_content_hash` is implemented by the built-in materializers (str/int/float/bool/bytes/list/dict…), cloudpickle, dataclass, pydantic, uuid, structured-string. The **pandas integration materializer does not implement it**, so a DataFrame input falls back to its artifact ID in the cache key. Observed consequence: `enable_cache=False` on `load_data` alone makes `train` rerun every time (new DataFrame artifact each run), so it is **not** a valid B3 fix; it is now the `disable_load_cache_only.sh` shortcut. A fitted sklearn model *did* hash by content (`evaluate` stayed cached after `train` reran with identical data), so the model is going through a content-hashing materializer.
+
+## 2026-09-09 — B3 grader design
+
+- Cache-hit assertions are on `train` only (the step the instruction names as expensive), not on `load_data`. Principle: outcome not method; a fix that re-reads a 92 KB CSV every run but reuses training is a working nightly pipeline. In practice this admits no extra solution at this pin (see above), but the grader should not depend on that.
+- The grader runs the agent's entrypoint itself (`python run.py`, from `/app/nightly`) five times against its own fixtures a, a, b, b, c and reads the runs it created. Tampering with the store beforehand cannot help, so B3 grades in the same container; no separate verifier box needed.
+- Entrypoint is `python run.py`, not `uv run python run.py` as the brief drafted: the image installs into system Python and `uv` would be one more moving part with no benefit.
+- Local four-checks result (no Docker): oracle 1, noop 0, `file_dependencies.sh` 1, `cache_func.sh` 1, all four shortcuts 0. Run with `scripts/grade_local.sh tasks/b3-stale-cache [patch.sh]`.
+- Docs snapshot in the base image is `llms-full.txt` fetched at build time (latest, not version-pinned). Open: pin it to the 0.96.4 docs.
