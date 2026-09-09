@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b9-modernise-old-api"
+version = "0.1.0"
+description = "A training project written against ZenML 0.4x (BaseParameters, Output, pipeline-of-steps, post_execution) must run unchanged in behaviour on the pinned ZenML."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "easy-medium"
+zenml_version = "0.96.4"
+source = "design brief B9; the 'unlearn the old API' category (Supabase's biggest finding); real migration questions on Discord"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"

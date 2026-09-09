@@ -1,0 +1,5 @@
+# Run configuration for training_pipeline (applied by run.py).
+parameters:
+  test_size: 0.25
+  seed: 0
+  C: 0.5

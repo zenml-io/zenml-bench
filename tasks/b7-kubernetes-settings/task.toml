@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b7-kubernetes-settings"
+version = "0.1.0"
+description = "Configure the train step of a pipeline for the team's Kubernetes orchestrator (GPU, memory, node selector, service account) without running it there; the pipeline must still run locally."
+
+[metadata]
+family = "build-and-fix"
+tier = "C"
+difficulty_estimate = "medium"
+zenml_version = "0.96.4"
+source = "design brief B7 (tier C1: grade the compiled settings); Kubernetes orchestrator docs page"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
