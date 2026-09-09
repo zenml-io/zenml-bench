@@ -32,12 +32,18 @@ def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, na
         print(proc.stdout[-3000:], proc.stderr[-3000:], file=sys.stderr)
         raise SystemExit(f"harbor run failed for {name}")
     results = sorted(job.glob("*/result.json"))
-    return [float(json.loads(p.read_text())["verifier_result"]["rewards"]["reward"]) for p in results]
+    rewards = []
+    for p in results:
+        vr = json.loads(p.read_text()).get("verifier_result") or {}
+        r = (vr.get("rewards") or {}).get("reward")
+        rewards.append(float(r) if r is not None else float("nan"))  # nan = trial crashed (infra/agent exception)
+    return rewards
 
 
 def with_solution(task_dir: Path, script: Path, tmp: Path) -> Path:
     copy = tmp / task_dir.name
     shutil.copytree(task_dir, copy, ignore=shutil.ignore_patterns(".zen", "__pycache__"))
+    shutil.copy(task_dir / "solution" / "solve.sh", copy / "solution" / "reference.sh")  # so scripts that build on the reference can find it
     shutil.copy(script, copy / "solution" / "solve.sh")
     return copy
 

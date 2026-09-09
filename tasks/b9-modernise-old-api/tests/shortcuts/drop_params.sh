@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Shortcut: correct migration but the old parameter values are lost (defaults used). Must fail on the score and params checks.
 set -euo pipefail
-HERE="$(cd "$(dirname "$0")" && pwd)"; bash "$HERE/../../solution/solve.sh"
+HERE="$(cd "$(dirname "$0")" && pwd)"
+REF="$HERE/reference.sh"; [ -f "$REF" ] || REF="$HERE/../../solution/solve.sh"  # reference.sh exists when run via verify_task.py
+bash "$REF"
 cd "${APP_DIR:-/app/legacy_training}"
 python - <<'PY'
 from pathlib import Path
