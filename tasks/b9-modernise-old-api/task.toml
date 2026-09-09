@@ -8,7 +8,7 @@ description = "A training project written against ZenML 0.4x (BaseParameters, Ou
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "easy-medium"
+difficulty_estimate = "easy-medium"  # saturated: 12/12 on 2026-09-09
 zenml_version = "0.96.4"
 source = "design brief B9; the 'unlearn the old API' category (Supabase's biggest finding); real migration questions on Discord"
 conditions_supported = ["bare", "skill", "mcp"]
