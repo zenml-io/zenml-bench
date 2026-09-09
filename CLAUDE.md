@@ -37,6 +37,8 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - `docs/findings.md` — what baselines showed; each item should turn into a docs/skill/MCP/task fix and be re-run.
 - `results/` — committed summaries only (jsonl/md). Raw `jobs/` is gitignored.
 - `scripts/grade_local.sh <task> [patch.sh]` — runs a task's grader against a fresh copy of its project in a fresh ZenML store, no Docker. Use it to iterate on graders and to run the four checks before touching Harbor. `KEEP=1` keeps the temp dir, `VERBOSE=1` prints pytest failures.
+- `shared/projects/research/` — the research-loop project (R-series): read-only `prepare.py` (data, `subsample`, `evaluate`, `SCREENING_SEEDS`), pipeline `research` in `research.py` (`prepare_data` cached → `train(config, seed)` → `evaluate`), every run attached to model `research_model` version = config `name`. `make_data.py --fixtures-dir <task>/tests/fixtures` regenerates `data/*.npz`, the grader's `hidden.npz` and the `expected.json` anchors (excluded from sync). Noise measurements: `docs/research-noise.md`.
+- `tasks/r1-improve-within-budget/` — R1: ≤12 runs, promote the best version to `production`; `tests/verify.py` is the frozen evaluator (walks production version → completed linked run → `train` output artifact, scores it on hidden data, `gap_closed` against seed-0 anchors, writes `metrics.json`); `tests/test_r1.py` asserts on its facts. Reward 1 iff `gap_closed >= 0.5` and the evidence rules hold.
 - `.venv/` — local dev environment: `uv venv --python 3.14 .venv && uv pip install --python .venv/bin/python "zenml[local]==0.96.4" pandas scikit-learn pytest`. Gitignored.
 
 ## Working conventions

@@ -2,7 +2,7 @@
 
 A public benchmark of tasks in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to build, fix, configure and research with **real ZenML**, packaged in [Harbor](https://www.harborframework.com) task format so the same tasks run as an evaluation today and as a training environment (via verifiers / prime-rl) without rewriting them.
 
-Status: early. Four build-and-fix tasks, all baselined with Claude Code and Codex at frontier and cheap tiers with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
+Status: early. Build-and-fix tasks plus the first research-loop task (R1), all baselined with Claude Code and Codex at frontier and cheap tiers with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
 
 ## What a task looks like
 
@@ -42,6 +42,7 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 | `b5-custom-materializer` | custom materializer | A | a step returns a type with an unpicklable member; the instruction gives the symptom only; graded by loading the named artifact in a fresh process and scoring hidden data |
 | `b7-kubernetes-settings` | Kubernetes settings | C | configure one step's pod (GPU, memory, node selector, service account) for a registered Kubernetes stack, graded by dry-run compile; no cluster |
 | `b10-why-did-it-fail` | why did it fail? | A | a scheduled run failed among several distractor failures produced by real runs at image build; find the run, read the failed step's `exception_info`, fix the actual cause (thousands separators in one day's export), graded on hidden exports |
+| `r1-improve-within-budget` | improve within a budget | A | research loop: at most 12 runs of the `research` pipeline, lower validation log loss, promote the best model version to `production`; graded by re-scoring the promoted, run-backed model artifact on hidden data (`gap_closed`, budget and evidence rules) |
 
 Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configuration without a cluster; D = real Kubernetes execution (not in scope).
 
