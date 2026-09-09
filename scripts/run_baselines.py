@@ -39,13 +39,14 @@ def main() -> int:
     ap.add_argument("-k", type=int, default=3)
     ap.add_argument("--env-file", type=Path, default=Path(".env"))
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
+    ap.add_argument("--label", default="", help="suffix for job names and the results file, e.g. cheap")
     a = ap.parse_args()
     conditions = a.condition or ["bare"]
     jobs: list[tuple[str, str, str, Path]] = []
     for spec in a.agent:
         harness, _, model = spec.partition(":")
         for cond in conditions:
-            name = f"baseline-{a.task.name}-{harness}-{cond}"
+            name = f"baseline-{a.task.name}-{harness}-{cond}" + (f"-{a.label}" if a.label else "")
             cmd = ["harbor", "run", "-p", str(a.task), "--agent", harness, *(["-m", model] if model else []), "-k", str(a.k),
                    "-o", str(a.jobs_dir), "--job-name", name, "--env-file", str(a.env_file)]
             if cond == "skill":
@@ -59,15 +60,16 @@ def main() -> int:
                 print(f"harbor exited {proc.returncode} for {name}; continuing", file=sys.stderr)
             jobs.append((harness, model, cond, a.jobs_dir / name))
 
-    out = Path("results") / f"{a.task.name}-baseline.jsonl"
+    out = Path("results") / (f"{a.task.name}-baseline-{a.label}.jsonl" if a.label else f"{a.task.name}-baseline.jsonl")
     subprocess.run([sys.executable, "scripts/analyse_trajectories.py", *[str(j[3]) for j in jobs], "--jsonl", str(out)], check=False)
     print(f"\nrows written to {out}\n")
     import json
     table: dict[tuple[str, str], list[float]] = defaultdict(list)
     for line in out.read_text().splitlines():
         r = json.loads(line)
-        cond = r["job"].rsplit("-", 1)[1]
-        harness = r["job"].removeprefix(f"baseline-{a.task.name}-").removesuffix(f"-{cond}")
+        job = r["job"].removesuffix(f"-{a.label}") if a.label else r["job"]
+        cond = job.rsplit("-", 1)[1]
+        harness = job.removeprefix(f"baseline-{a.task.name}-").removesuffix(f"-{cond}")
         if r["reward"] is not None:
             table[(harness, cond)].append(float(r["reward"]))
     print(f"{'harness':<14}{'condition':<12}{'pass rate':<12}n")
