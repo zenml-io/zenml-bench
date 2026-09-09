@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 DOCS_MARKERS = ("/opt/zenml-docs", "llms-full.txt")
-SKILL_MARKERS = ("SKILL.md", "/skills/", ".claude/skills")
+SKILL_MARKERS = ("SKILL.md", "/harbor/skills", "/.agents/skills", ".claude/skills", "CLAUDE_CONFIG_DIR/skills")
 
 
 def blob(call: dict[str, Any]) -> str:
@@ -42,7 +42,7 @@ def summarise(trial: Path) -> dict[str, Any]:
             row["tool_calls"] += 1
             name, args = call.get("function_name", ""), blob(call)
             row["docs_read"] |= any(m in args for m in DOCS_MARKERS)
-            row["skill_loaded"] |= any(m in args for m in SKILL_MARKERS)
+            row["skill_loaded"] |= name == "Skill" or any(m in args for m in SKILL_MARKERS)
             row["mcp_calls"] += name.startswith("mcp") or "mcp__" in name
             row["pipeline_runs"] += "run.py" in args and ("python" in args or "uv run" in args)
     fm = t.get("final_metrics") or {}

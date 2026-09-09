@@ -66,7 +66,8 @@ def main() -> int:
     table: dict[tuple[str, str], list[float]] = defaultdict(list)
     for line in out.read_text().splitlines():
         r = json.loads(line)
-        harness, cond = r["job"].split("-")[-2:]
+        cond = r["job"].rsplit("-", 1)[1]
+        harness = r["job"].removeprefix(f"baseline-{a.task.name}-").removesuffix(f"-{cond}")
         if r["reward"] is not None:
             table[(harness, cond)].append(float(r["reward"]))
     print(f"{'harness':<14}{'condition':<12}{'pass rate':<12}n")
