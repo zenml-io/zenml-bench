@@ -222,3 +222,6 @@ __marimo__/
 
 # Harbor run output
 jobs/
+
+# pinned clone of zenml-io/skills used by run_baselines.py
+.skills-cache/

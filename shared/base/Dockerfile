@@ -10,6 +10,9 @@ ENV ZENML_PIN=${ZENML_PIN} \
     PIP_NO_CACHE_DIR=1
 RUN apt-get update && apt-get install -y --no-install-recommends bash curl git ca-certificates nodejs npm procps tmux ripgrep && rm -rf /var/lib/apt/lists/*
 RUN pip install "zenml[local]==${ZENML_PIN}" pandas scikit-learn pytest
+# Agent CLIs baked in: Harbor skips its own install when the binary is on PATH, and the container is
+# sealed during setup so a download would fail anyway. Bump these deliberately; record in decisions.md.
+RUN npm install -g @anthropic-ai/claude-code@latest @openai/codex@latest && claude --version && codex --version
 # Offline documentation snapshot. TODO(decisions): pin to the docs matching ZENML_PIN rather than "latest".
 ADD https://docs.zenml.io/llms-full.txt /opt/zenml-docs/llms-full.txt
 RUN chmod -R a+r /opt/zenml-docs
