@@ -21,7 +21,7 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 ## Pinned versions (single source of truth: `docs/decisions.md`)
 
 - ZenML `0.96.4` on Python `3.14`. The pin lives in exactly one place once `shared/base/Dockerfile` exists; read it from there everywhere else.
-- Harbor `0.22.0` (not yet installed locally).
+- Harbor `0.22.0`, installed with `uv tool install harbor==0.22.0`. Local task dirs run with `harbor run -p <dir> --agent oracle|nop|claude-code… -o jobs --job-name <name>`.
 
 ## Layout (grows as levels land; see brief section 9)
 
@@ -29,6 +29,8 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - `shared/base/Dockerfile` — base image; the ZenML pin lives here (`ARG ZENML_PIN`).
 - `shared/projects/` — working example projects that tasks are generated from. `nightly/` is the B3 stale-cache project (`make_data.py` regenerates `fixtures/`).
 - `tasks/<id>/` — Harbor tasks: `instruction.md`, `task.toml`, `environment/Dockerfile`, `solution/solve.sh` + `solution/alternatives/*.sh`, `tests/test.sh` + `tests/test_*.py` + `tests/fixtures/` + `tests/shortcuts/*.sh`. Solutions and shortcuts are bash scripts that patch the project in place and honour `APP_DIR`.
+- `scripts/sync_project.sh <project> <task>` — copies a shared project into the task's `environment/` (Harbor builds from that dir alone). Run it after editing anything under `shared/projects/`; never edit the copy.
+- `scripts/verify_task.py <task>` — the four verifier checks through Harbor (oracle ×5, nop, every shortcut, every alternative). Slow (~1 min per run); use `grade_local.sh` while iterating and this before calling a task done.
 - `scripts/grade_local.sh <task> [patch.sh]` — runs a task's grader against a fresh copy of its project in a fresh ZenML store, no Docker. Use it to iterate on graders and to run the four checks before touching Harbor. `KEEP=1` keeps the temp dir, `VERBOSE=1` prints pytest failures.
 - `.venv/` — local dev environment: `uv venv --python 3.14 .venv && uv pip install --python .venv/bin/python "zenml[local]==0.96.4" pandas scikit-learn pytest`. Gitignored.
 
@@ -37,6 +39,8 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - `uv run` / `uv pip`. PEP 723 metadata on standalone scripts. Type hints. Functional style.
 - Before writing any grader assertion, run the reference solution by hand and inspect the ZenML store with `Client()` so assertions reflect observed state, not assumed API behaviour.
 - Never grep an agent's source for the "right" line; grade what the ZenML store recorded.
+- `docker build -t zenml-bench/base:0.96.4 shared/base` builds the base image every task `FROM`s. Rebuild after editing it.
+- Network: `no-network`/`allowlist` cannot run on Docker Desktop on this Mac (see decisions); tasks say `public` for now.
 - Set `ZENML_CONFIG_PATH` to a fresh directory for experiments so runs never touch the user's real ZenML config. `ZENML_ANALYTICS_OPT_IN=false`.
 - Targeted `git add`; commit at natural pause points; backticks around identifiers in commit subjects. Never commit `jobs/`, raw trajectories, API keys, or anything under `design/`.
 - Markdown: one paragraph per line, soft-wrapped.

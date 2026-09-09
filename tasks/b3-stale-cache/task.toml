@@ -1,8 +1,11 @@
-# DRAFT — schema to be confirmed against Harbor 0.22 docs (see docs/decisions.md).
-version = "1.0"
+schema_version = "1.4"
+
+[task]
+name = "zenml/b3-stale-cache"
+version = "0.1.0"
+description = "A ZenML pipeline serves stale cached results after its input file is replaced at the same path. Fix caching without disabling it for the expensive step."
 
 [metadata]
-name = "b3-stale-cache"
 family = "build-and-fix"
 tier = "A"
 difficulty_estimate = "easy"
@@ -10,11 +13,13 @@ zenml_version = "0.96.4"
 source = "design brief appendix A; classic support question (path-string parameter defeats caching)"
 conditions_supported = ["bare", "skill", "mcp"]
 
-[environment]
-network_mode = "no-network"
-
 [agent]
-timeout_sec = 1800
+timeout_sec = 1800.0
 
 [verifier]
-timeout_sec = 900
+timeout_sec = 900.0
+
+[environment]
+# Design target is "no-network" with an agent-phase allowlist for the model API (brief §5.8).
+# Docker Desktop on macOS lacks CONFIG_NFT_FIB_INET, so Harbor rejects no-network locally; see docs/decisions.md.
+network_mode = "public"

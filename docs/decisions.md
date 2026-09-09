@@ -41,3 +41,19 @@ Open: whether `train` being cached in run 2 relies on the pandas materializer's 
 - Entrypoint is `python run.py`, not `uv run python run.py` as the brief drafted: the image installs into system Python and `uv` would be one more moving part with no benefit.
 - Local four-checks result (no Docker): oracle 1, noop 0, `file_dependencies.sh` 1, `cache_func.sh` 1, all four shortcuts 0. Run with `scripts/grade_local.sh tasks/b3-stale-cache [patch.sh]`.
 - Docs snapshot in the base image is `llms-full.txt` fetched at build time (latest, not version-pinned). Open: pin it to the 0.96.4 docs.
+
+## 2026-09-09 — Harbor 0.22.0: what the brief got wrong, and what we rely on
+
+Established by installing `harbor==0.22.0` (`uv tool install`) and running a hello task, then B3, with the `oracle` and `nop` agents. Corrections to brief §3.2:
+
+- Local task dirs run with `harbor run -p <dir>`; `-t` is a registry task name. Attempts: `-k`, concurrency: `-n`, output: `-o <dir> --job-name <name>`. Harbor refuses to reuse a job dir whose `lock.json` differs; delete it first.
+- The do-nothing agent is called `nop`.
+- Reward: the verifier reads `/logs/verifier/reward.json` first and falls back to `reward.txt`. Extra numeric keys in the JSON become metric columns in `result.json`. So research tasks can write `{"reward": 0|1, "gap_closed": x, ...}` exactly as the brief planned.
+- `tests/` is uploaded to `/tests` after the agent finishes and `test.sh` runs as the image's default user (root) from the image's `WORKDIR`. `/solution` exists only during oracle runs. In `[verifier] environment_mode = "separate"` Harbor does **not** upload tests; the verifier image must already contain `/tests/test.sh`.
+- `[[mcp_servers]]` is `[[environment.mcp_servers]]`. Timeouts are per section (`[agent].timeout_sec`, `[verifier].timeout_sec`). There is no task-level `skills/` convention: skills come from `harbor run --skill <dir|org/repo@ref>` or `[environment].skills_dir` inside the image. The "+ skill" condition is therefore a run-time flag, not a task variant.
+- **There is no Harbor LLM proxy.** API keys are passed into the container as env vars. Under `no-network` the agent cannot reach its model. The documented pattern is `[environment] network_mode = "no-network"` plus `[agent] network_mode = "allowlist"` / `allowed_hosts`, or `--allow-agent-host api.anthropic.com` at run time (agent phase only). Agent *installation* happens in the setup phase under the baseline policy, so the image must pre-install the agent or its dependencies.
+- **Blocker on this Mac:** Docker Desktop's VM kernel lacks `CONFIG_NFT_FIB_INET`, which Harbor's egress sidecar needs, so `no-network` and `allowlist` are rejected outright. Only `public` runs locally. Options: OrbStack/Colima as the Docker runtime on macOS, or run restricted-network tasks on Linux CI / Modal / Daytona. `task.toml` says `public` until this is decided.
+- Base image now pre-installs `nodejs npm procps` (claude-code, codex), `ripgrep` (codex), `tmux` (terminus-2) so agent setup does not need network.
+- Harbor builds the task image with `environment/` as the build context, so a task must be self-contained. `scripts/sync_project.sh <project> <task>` copies `shared/projects/<project>` into `environment/<project>`; the copy is committed (Harbor registry pulls task dirs) but `shared/projects/` stays the source of truth.
+- Job output: `jobs/<job>/<task>__<id>/{result.json, trial.log, agent/, verifier/}`; the reward is at `result.json` → `verifier_result.rewards.reward`. LLM agents write `agent/trajectory.json` in ATIF format (Harbor RFC 0001); `analyse_trajectories.py` parses that.
+- B3 through Harbor: oracle 1.0, nop 0.0 (matches `grade_local.sh`).

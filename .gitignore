@@ -219,3 +219,6 @@ __marimo__/
 
 # ZenML local init dirs (created by `zenml init` at image build / spike time)
 .zen/
+
+# Harbor run output
+jobs/
