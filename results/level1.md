@@ -9,7 +9,7 @@ Date: 2026-09-09. ZenML 0.96.4, Harbor 0.22.0, OrbStack, network sealed except t
 | codex | gpt-5.6-terra | bare | 3/3 | – | 3/3 | 288k | $0.20 |
 | codex | gpt-5.6-terra | + skill | 3/3 | 3/3 | 3/3 | 466k | $0.28 |
 
-Fix chosen (from the patches in the trajectories): Codex bare used the hash-as-step-input approach every time; Codex with the skill used `CachePolicy(cache_func=…)` or `file_dependencies` in 2/3, i.e. the skill moved it toward the built-in feature. Claude Code used `CachePolicy(file_dependencies=…)` in 4/6 regardless of condition.
+Fix chosen (from the patches in the trajectories): Codex bare used the hash-as-step-input approach every time; Codex with the skill used `CachePolicy(cache_func=…)` or `file_dependencies` in 2/3. (Correction: the skill contains no `CachePolicy` content, so this is not the skill's doing; the docs page is the likely source.) Claude Code used `CachePolicy(file_dependencies=…)` in 4/6 regardless of condition.
 
 ## Findings
 
