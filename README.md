@@ -41,6 +41,7 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 | `b9-modernise-old-api` | modernise old API | A | a 0.4x-era project (`BaseParameters`, `Output`, `post_execution`) must run on the pinned ZenML with identical behaviour |
 | `b5-custom-materializer` | custom materializer | A | a step returns a type with an unpicklable member; the instruction gives the symptom only; graded by loading the named artifact in a fresh process and scoring hidden data |
 | `b7-kubernetes-settings` | Kubernetes settings | C | configure one step's pod (GPU, memory, node selector, service account) for a registered Kubernetes stack, graded by dry-run compile; no cluster |
+| `b10-why-did-it-fail` | why did it fail? | A | a scheduled run failed among several distractor failures produced by real runs at image build; find the run, read the failed step's `exception_info`, fix the actual cause (thousands separators in one day's export), graded on hidden exports |
 
 Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configuration without a cluster; D = real Kubernetes execution (not in scope).
 

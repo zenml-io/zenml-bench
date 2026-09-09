@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b10-why-did-it-fail"
+version = "0.1.0"
+description = "This morning's scheduled daily_report run failed. Use the ZenML store to find which day it processed and why it failed, fix the actual cause, and produce that day's report. Several other failed runs are distractors."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B10; instruction gives the symptom only, never the date or the cause; history produced by real runs at image build (environment/setup_store.sh)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"

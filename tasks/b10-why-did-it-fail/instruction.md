@@ -1,0 +1,5 @@
+The project in `/app/daily_report` produces a daily sales summary with the ZenML pipeline `daily_report` (entrypoint: `python run.py --date YYYY-MM-DD`, run from `/app/daily_report`; it reads `data/<date>.csv` and writes `reports/<date>.json`). A cron job runs it every morning for the previous day; those runs are tagged `scheduled` and named `scheduled-<date>`. People also start it by hand now and then.
+
+This morning's scheduled run failed. Find out which day it was processing and why it failed, fix the code so that the report for that day completes with every row of the day's data counted, and run it: `python run.py --date <that day>`. The report must keep its current contents and format, and the pipeline must keep working for the other days.
+
+Rules: do not edit anything under `data/`; do not delete or modify the existing pipeline runs; leave no pipelines other than `daily_report` registered in ZenML when you are done. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
