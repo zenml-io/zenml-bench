@@ -8,7 +8,7 @@ description = "Among a week of daily_report runs (scheduled, manual, backfill; s
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 6/6 on 2026-09-09 (opus-5, terra, bare); see results/level2-b14.md for a harder variant
 zenml_version = "0.96.4"
 source = "design brief B14; history produced by real runs at image build (environment/setup_store.sh); distractors: a failed run whose summary artifact has the largest total, and a completed non-backfill run that beats every backfill day"
 conditions_supported = ["bare", "skill", "mcp"]
