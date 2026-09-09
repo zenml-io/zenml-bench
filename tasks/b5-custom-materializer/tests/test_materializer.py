@@ -57,8 +57,11 @@ def test_run_completed(run):
     assert "flag_rate" in run.steps["evaluate"].outputs
 
 
-def test_artifact_named_and_from_this_run(run, artifact):
-    assert artifact.producer_pipeline_run_id == run.id, "churn_scorer was not produced by the graded run"
+def test_artifact_is_this_runs_train_output(run, artifact):
+    """The named artifact must be what the graded run's `train` step produced. The step may be CACHED (the agent
+    ran the fixed pipeline before grading); then its output is the same artifact version, which is fine."""
+    outputs = [v for versions in run.steps["train"].outputs.values() for v in versions]
+    assert artifact.id in {v.id for v in outputs}, "churn_scorer is not the graded run's train output"
 
 
 def test_loads_and_scores_in_fresh_process(artifact):

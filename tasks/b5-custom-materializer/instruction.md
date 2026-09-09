@@ -12,4 +12,4 @@ Fix the project so that:
 2. the trained scorer is stored in ZenML under the artifact name `churn_scorer`, and `python serve.py <rows.csv>` works in a new process, producing the same scores the scorer gives inside the pipeline;
 3. the scorer keeps its behaviour: the same features, the same threshold, and the per-segment calibration from the lookup table.
 
-Do not change `serve.py` or the scoring logic. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
+Do not change `serve.py` or the scoring logic. You can run the pipeline as many times as you like, but leave no other pipelines registered in ZenML when you are done. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.

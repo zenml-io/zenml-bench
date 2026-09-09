@@ -8,4 +8,4 @@ Fix the project so that:
 2. when the file has not changed, an unchanged rerun still reuses cached results for the expensive `train` step;
 3. the entrypoint, the pipeline name `nightly_training`, and the step name `train` stay the same, and the evaluation score is still logged as the `score` output of the `evaluate` step.
 
-Do not disable caching for the whole pipeline. You can run the pipeline as many times as you like. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
+Do not disable caching for the whole pipeline. You can run the pipeline as many times as you like, but leave no other pipelines registered in ZenML when you are done. ZenML documentation is available offline at `/opt/zenml-docs/llms-full.txt`.
