@@ -26,3 +26,10 @@ Follow-up on the Claude Code skill result (Alex, 2026-09-09): Claude Code discov
 ## 2026-09-09 — first B5 baseline (custom-materializer): grader bug, third of the shared-store family
 
 9/9 trials wrote a custom materializer (8) or made the type picklable (1) and produced correct scores, then scored 0 because the grader asserted the named artifact was *produced by* the graded run. The agents had run the fixed pipeline; the grader's run served `train` from cache, so the artifact's producer was their run. Fixed (assert the graded run's `train` output is the artifact) and `solve_then_run_twice.sh` added, which now exists for every task. One Claude Code trial also left a helper pipeline `check` registered; the instructions now state "leave no other pipelines registered". Matrix re-run pending.
+
+## 2026-09-09 — fixes shipped upstream from the first findings
+
+- zenml-io/zenml#5266 "Document `step_pod_service_account_name` for Kubernetes step pods" (docs; states the fallback order and that `pod_settings` carries no service account). https://github.com/zenml-io/zenml/pull/5266
+- zenml-io/skills#10 "Add caching and settings triggers to `pipeline-authoring` skill description" (description names caching, stale cache results, resource/orchestrator settings, materializers for custom types; plugin.json bumped to 1.0.3). https://github.com/zenml-io/skills/pull/10
+
+Both requested review from bcdurak. To measure: once merged, rebuild the base image (docs snapshot), bump `SKILLS_SHA` in `run_baselines.py`, re-run B3 and B7 with Claude Code + skill and compare skill-read rate and tokens against `results/level1.md` / `level2-b7.md`.
