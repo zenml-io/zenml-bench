@@ -8,7 +8,7 @@ description = "Configure the train step of a pipeline for the team's Kubernetes 
 [metadata]
 family = "build-and-fix"
 tier = "C"
-difficulty_estimate = "medium"
+difficulty_estimate = "medium"  # 12/12 on 2026-09-09 but 2-3x the tokens of B3/B9; agents read ZenML source
 zenml_version = "0.96.4"
 source = "design brief B7 (tier C1: grade the compiled settings); Kubernetes orchestrator docs page"
 conditions_supported = ["bare", "skill", "mcp"]
