@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b5-custom-materializer"
+version = "0.1.0"
+description = "A training step returns a type ZenML cannot persist; the nightly run fails and the serving script cannot load the model. Make the artifact persist and load in a fresh process."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "medium"  # saturated: 12/12 on 2026-09-09
+zenml_version = "0.96.4"
+source = "design brief B5; recurring Discord question (custom types, unpicklable members); instruction reveals the symptom only"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"

@@ -2,7 +2,7 @@
 
 A public benchmark of tasks in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to build, fix, configure and research with **real ZenML**, packaged in [Harbor](https://www.harborframework.com) task format so the same tasks run as an evaluation today and as a training environment (via verifiers / prime-rl) without rewriting them.
 
-Status: early. Three build-and-fix tasks, each baselined with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
+Status: early. Four build-and-fix tasks, three baselined with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
 
 ## What a task looks like
 
@@ -39,6 +39,7 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 |---|---|---|---|
 | `b3-stale-cache` | stale cache | A | ZenML caches on a path string; make changed data invalidate the right steps without disabling caching |
 | `b9-modernise-old-api` | modernise old API | A | a 0.4x-era project (`BaseParameters`, `Output`, `post_execution`) must run on the pinned ZenML with identical behaviour |
+| `b5-custom-materializer` | custom materializer | A | a step returns a type with an unpicklable member; the instruction gives the symptom only; graded by loading the named artifact in a fresh process and scoring hidden data |
 | `b7-kubernetes-settings` | Kubernetes settings | C | configure one step's pod (GPU, memory, node selector, service account) for a registered Kubernetes stack, graded by dry-run compile; no cluster |
 
 Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configuration without a cluster; D = real Kubernetes execution (not in scope).
