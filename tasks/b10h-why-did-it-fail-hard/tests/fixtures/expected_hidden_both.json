@@ -1,0 +1,26 @@
+{
+ "rows": 47,
+ "total": 25518.71,
+ "regions": {
+  "east": {
+   "count": 13,
+   "total": 6823.99,
+   "mean": 524.92
+  },
+  "north": {
+   "count": 14,
+   "total": 8320.49,
+   "mean": 594.32
+  },
+  "south": {
+   "count": 14,
+   "total": 8652.27,
+   "mean": 618.02
+  },
+  "west": {
+   "count": 6,
+   "total": 1721.96,
+   "mean": 286.99
+  }
+ }
+}

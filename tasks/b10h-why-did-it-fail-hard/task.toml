@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b10h-why-did-it-fail-hard"
+version = "0.1.0"
+description = "This morning's scheduled daily_report run failed and its export has been quarantined off the box. From the ZenML store alone, work out which run the cron job's was, why it failed, and which earlier scheduled failure this week was also a code fault; fix both so the job is reliable again, graded on the restored export and hidden ones."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "unknown"  # baselines pending; B10 (the easy variant) was 18/18
+zenml_version = "0.96.4"
+source = "harder variant of B10 (design brief B10 + results/level2-b10.md findings): the instruction no longer says how scheduled runs are named or tagged, the failed days' exports are gone so the recorded traceback / step output is the only evidence, and a second real fault on another day means fixing this morning's cause alone scores 0; history produced by real runs at image build (environment/setup_store.sh)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
