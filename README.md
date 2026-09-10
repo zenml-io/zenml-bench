@@ -80,7 +80,7 @@ Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configu
 | `b6-model-promotion` | A | 3/3 | 3/3 | – | – | $0.25 | saturated |
 | `b7-kubernetes-settings` | C | 3/3 | 3/3 | 0/3 | 2/3 | $0.40 | headroom (gpt-5.4-mini) |
 | `b9-modernise-old-api` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.40 | saturated |
-| `r1-bare-clock-improve-within-budget` | A | – | – | – | – | – | unmeasured |
+| `r1-bare-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | $0.41 | saturated |
 | `r1-bare-improve-within-budget` | A | 1/6 | 3/3 | – | – | $1.22 | mixed |
 | `r1-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | $0.78 | saturated |
 | `r1-improve-within-budget` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.33 | saturated |

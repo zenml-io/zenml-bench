@@ -55,7 +55,10 @@ def table() -> str:
     tasks = sorted(p.parent.name for p in Path("tasks").glob("*/task.toml"))
     by_task: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
-        by_task[r["trial"].split("__")[0]].append(r)
+        # Harbor truncates long task names in trial ids (r1-bare-clock-improve-within-bud__xxx), so match by prefix.
+        prefix = r["trial"].split("__")[0]
+        matches = [t for t in tasks if t.startswith(prefix)]
+        by_task[min(matches, key=len) if matches else prefix].append(r)
     models = sorted({r["model"] for r in rows}, key=lambda m: (ORDER.index(m) if m in ORDER else 99, m))
     head = "| task | tier | " + " | ".join(short(m) for m in models) + " | median cost | band |"
     out = [head, "|" + "---|" * (len(models) + 4)]
