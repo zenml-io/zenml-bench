@@ -9,6 +9,12 @@
 Conditions: bare (nothing extra), skill (`--skill <SKILL_SOURCE>`), mcp (`--mcp-config shared/mcp/zenml.json`: the ZenML
 MCP server baked into the base image, talking to the container's local store over stdio; see docs/decisions.md 2026-09-10).
 Writes results/<task>-baseline.jsonl via analyse_trajectories.py and prints a pass-rate table.
+
+Open models through OpenRouter run on Harbor's own Terminus 2 harness (the model is called from the host, so the task's
+network policy does not apply; `OPENROUTER_API_KEY` in .env):
+
+    uv run scripts/run_baselines.py tasks/b4-nondeterministic-step --agent terminus-2:openrouter/qwen/qwen3.5-9b \
+        -k 5 -n 2 --job-prefix small --name-with-model --ak max_turns=40 --ak record_terminal_session=false --env-file .env
 """
 import argparse
 import subprocess
