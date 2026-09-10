@@ -19,6 +19,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/sampling"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 PIPELINE, STEPS = "qa_sampling", ["load_events", "sample_events", "review_report"]
@@ -84,6 +86,12 @@ def test_report_matches_its_own_run(runs):
         assert sorted(rep["event_ids"]) == sample_ids(r), "review_report does not describe the sample drawn in the same run"
         df = r.steps["sample_events"].outputs["review_sample"][0].load()
         assert rep["total_amount"] == pytest.approx(round(float(df["amount"].sum()), 2), abs=1e-2)
+
+
+def test_runs_are_genuine(runs):
+    """Defeats tests/shortcuts/tamper_store.sh (status flipped to "cached" in SQLite after a real execution)."""
+    for r in runs:
+        assert_genuine_run(r)
 
 
 def test_collateral():

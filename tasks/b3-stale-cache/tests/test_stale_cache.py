@@ -15,6 +15,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/nightly"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 PIPELINE = "nightly_training"
@@ -75,6 +77,13 @@ def test_train_reruns_when_data_changes(runs):
 def test_train_is_cached_on_unchanged_rerun(runs):
     assert status(runs[1], "train") == ExecutionStatus.CACHED  # a again
     assert status(runs[3], "train") == ExecutionStatus.CACHED  # b again
+
+
+def test_runs_are_genuine(runs):
+    """The store is writable by the agent (tests/shortcuts/tamper_store.sh flips `train` to "cached" in SQLite after a real
+    execution). A real cache hit reuses the original step's artifact versions and records original_step_run_id."""
+    for r in runs:
+        assert_genuine_run(r)
 
 
 def test_collateral(runs):
