@@ -22,7 +22,7 @@ Monotonicity (R1, one store, four fake promotions): baseline → `gap_closed` 0.
 | R1 | codex | gpt-5.4-mini | 3/3 | 0.460 | two single-seed promotions |
 | R2 | claude-code | claude-opus-5 | 1/3 concurrent, 2/2 sequential | 0.419 | concurrent failures were timeouts |
 | R2 | codex | gpt-5.6-terra | 3/3 | 0.426 | all confirmed on 3–4 seeds |
-| R1-bare | claude-code | claude-opus-5 | 0/3 concurrent, BARERERUN sequential | – | every failure a 40-minute timeout with nothing promoted |
+| R1-bare | claude-code | claude-opus-5 | 0/3 concurrent, 1/3 sequential | 0.333 (the one finish) | every failure a 40-minute timeout with nothing promoted |
 | R1-bare | codex | gpt-5.6-terra | 3/3 | 0.450 | used all 12 rows every time |
 
 ## Per trial
@@ -65,7 +65,8 @@ Monotonicity (R1, one store, four fake promotions): baseline → `gap_closed` 0.
 | claude-code | opus-5 (3 concurrent) | kPr7A9W | 0 | 0.00 | – | 0 | 0 | 0 | 8 | $1.53 |
 | claude-code | opus-5 (3 concurrent) | vhrgb3o | 0 | 0.00 | – | 0 | 0 | 0 | 5 | $1.22 |
 | claude-code | opus-5 (sequential) | t8vawko | 0 | 0.00 | – | 0 | 0 | 0 | 10 | $0.76 |
-BARERERUNROWS
+| claude-code | opus-5 (sequential) | MFtgVMN | 0 | 0.00 | – | 0 | 0 | 0 | 35 | $1.48 |
+| claude-code | opus-5 (sequential) | uj6e8Zm | 1 | 1.00 | 0.333 | 5 | 11 | 3 | 26 | $1.95 |
 | codex | terra | 2DtWBA3 | 1 | 1.00 | 0.421 | 3 | 12 | 12 | 5 | $0.28 |
 | codex | terra | rjScs4c | 1 | 1.00 | 0.452 | 5 | 12 | 21 | 4 | $0.24 |
 | codex | terra | vxfeLXH | 1 | 1.00 | 0.450 | 5 | 12 | 4 | 3 | $0.35 |
@@ -75,18 +76,18 @@ BARERERUNROWS
 | harness | variant | finished | median hidden | median runs/rows | evidence-backed promotion (≥3 seeds) |
 |---|---|---|---|---|---|
 | claude-code opus-5 | ZenML (R1) | 3/3 | 0.244 | 6 | 3/3 |
-| claude-code opus-5 | bare | BAREFIN | BAREMED | BARERUNS | BAREEV |
+| claude-code opus-5 | bare | 1/6 (1/3 sequential) | 0.333 (n=1) | 11 (n=1) | 1/1 |
 | codex terra | ZenML (R1) | 3/3 | 0.387 | 5 | 2/3 |
 | codex terra | bare | 3/3 | 0.450 | 12 | 3/3 |
 
-Read this table as a pilot, not a result: three trials per cell, and the budget does not bind on compute (see findings). The one difference that survived the re-run is that opus never finished the bare task (BARESUMMARY), while it finished the ZenML variant 3/3 in 25–35 minutes; in every bare trajectory it was still sweeping when the clock ran out and had not written `best_model.pkl`. Whether the pipeline's explicit "one run = one recorded experiment" framing is what makes opus converge is the question to test next, with k≥5 and a compute-binding budget.
+Read this table as a pilot, not a result: three trials per cell, and the budget does not bind on compute (see findings). The one difference that survived the re-run is that opus never finished the bare task (1/6 overall, 1/3 sequential), while it finished the ZenML variant 3/3 in 25–35 minutes; in every bare trajectory it was still sweeping when the clock ran out and had not written `best_model.pkl`. Whether the pipeline's explicit "one run = one recorded experiment" framing is what makes opus converge is the question to test next, with k≥5 and a compute-binding budget.
 
 ## Findings
 
 1. **Pass/fail is saturated at the frontier; the hidden metric is the signal.** Every finished frontier trial clipped `gap_closed` at 1.0 because every one beat our reference (a regularised gradient-boosting model, hidden 0.458). Opus reached 0.16–0.25 by recognising the data as `make_classification` output (8 noise columns, a rank-8 informative subspace, Gaussian blobs per class) and fitting per-class Gaussian mixtures; Codex reached 0.33–0.45 with feature selection, PCA whitening and RBF-SVM/boosting ensembles. Cheap models (haiku 0.46–0.52, gpt-5.4-mini 0.46) stayed near the reference and are the only trials where `gap_closed` is informative (0.71–0.99).
 2. **The 12-run budget did not limit search.** Every trial screened in plain scripts that call `prepare.subsample` and `prepare.evaluate` directly (3–47 such scripts per trial), then spent pipeline runs to record the winner. Haiku is the exception: it searched inside the loop and used 10–11 runs.
 3. **Evidence rules work when stated.** R1 allowed single-seed promotion and two trials did it (one terra trial, two gpt-5.4-mini trials); R2 required three seeds and every finished trial complied, reading per-run `val_log_loss` back from the store to compute the mean.
-4. **Concurrency on one machine is a confound for opus.** Six opus agents at once → 5/6 timeouts (their own sweeps ran with all cores and fought each other). Sequential re-runs of R2 passed 2/2. Sequential re-runs of R1-bare still timed out (BARESUMMARY): the behaviour underneath is "search until satisfied, promote at the end", with no interim promotion.
+4. **Concurrency on one machine is a confound for opus.** Six opus agents at once → 5/6 timeouts (their own sweeps ran with all cores and fought each other). Sequential re-runs of R2 passed 2/2. Sequential re-runs of R1-bare still timed out 2/3: the behaviour underneath is "search until satisfied, record at the end". One timed-out trial's last message, at minute 38, was "Converged at ~0.194. Let me settle the final ensemble size offline, then commit to official runs"; the one that finished spent its first official run at minute 29. Nothing in the bare loop nudges the agent to record early; in the ZenML variant the same model finished 3/3.
 5. **Nobody opened `/opt/zenml-docs`.** The project README carried enough ZenML for every trial; two opus trials also handled the custom-class pickling trap (`cloudpickle.register_pickle_by_value`) unprompted.
 
 Loophole check (training on the full set instead of `prepare.subsample`): inconclusive from the trajectories alone. Agents edit `research.py` with partial edits, so an automatic scan of the last write finds the `subsample` line in 8 trials and nothing decisive in the rest. Final messages of 6 frontier trials state explicitly that `train` still draws from `prepare.subsample`; none claims otherwise; and no finished trial's hidden loss is below what the full-set reference reaches (0.371) except opus's mixture models, whose own screening numbers (val 0.26–0.18 on 1050-row slices) match their hidden scores, which full-set training would not. Task fix: record the training-row count as an *output artifact* of `train` (the grader can then read it from the store) rather than trusting the instruction.
