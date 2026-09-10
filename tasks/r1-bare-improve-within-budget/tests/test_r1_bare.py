@@ -25,6 +25,10 @@ def test_promotion_is_backed_by_a_row(facts):
     assert facts["backing_row"] is not None, "best_model.pkl is not byte-identical to any results.tsv row's model file"
 
 
+def test_backing_row_trained_on_its_seed_slice(facts):
+    assert facts["slice_violation"] is None, facts["slice_violation"]
+
+
 def test_promoted_model_loads_and_scores(facts):
     assert facts["load_error"] is None, facts["load_error"]
     assert facts["hidden_log_loss"] is not None

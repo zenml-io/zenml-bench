@@ -4,7 +4,9 @@
 
 One run = one experiment: load data -> subsample by seed -> fit -> validation log loss. Each run saves its fitted
 model to models/<name>-seed<seed>.pkl and appends one row to results.tsv (the lab notebook):
-name, seed, val_log_loss, model_path, config (JSON). To promote a model, copy its file to best_model.pkl.
+name, seed, val_log_loss, model_path, n_train_rows, train_rows_digest, config (JSON). The two row-count columns are the
+run's evidence of what it trained on (the seed's prepare.subsample slice); keep writing them. To promote a model, copy
+its file to best_model.pkl.
 """
 import argparse
 import json
@@ -23,7 +25,7 @@ from sklearn.tree import DecisionTreeClassifier
 import prepare
 
 RESULTS = Path("results.tsv")
-HEADER = "name\tseed\tval_log_loss\tmodel_path\tconfig\n"
+HEADER = "name\tseed\tval_log_loss\tmodel_path\tn_train_rows\ttrain_rows_digest\tconfig\n"
 
 
 def build_model(config: dict[str, Any], seed: int) -> BaseEstimator:
@@ -49,6 +51,7 @@ def main() -> None:
     name = config.get("name") or a.config.stem
     X_train, y_train, X_val, y_val = prepare.load_data()
     X, y = prepare.subsample(X_train, y_train, a.seed)
+    n_train_rows, train_rows_digest = len(X), prepare.digest(X, y)
     model = build_model(config, a.seed).fit(X, y)
     loss = prepare.evaluate(model, X_val, y_val)
     out = Path("models") / f"{name}-seed{a.seed}.pkl"
@@ -57,7 +60,7 @@ def main() -> None:
     if not RESULTS.exists():
         RESULTS.write_text(HEADER)
     with RESULTS.open("a") as f:
-        f.write(f"{name}\t{a.seed}\t{loss:.6f}\t{out}\t{json.dumps(config, sort_keys=True)}\n")
+        f.write(f"{name}\t{a.seed}\t{loss:.6f}\t{out}\t{n_train_rows}\t{train_rows_digest}\t{json.dumps(config, sort_keys=True)}\n")
     print(f"val_log_loss={loss:.4f} saved={out}")
 
 

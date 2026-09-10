@@ -4,8 +4,8 @@ Binary classification, 20 features, 3000 training rows, 1000 validation rows. Th
 
 Files:
 
-- `prepare.py` (read-only): data loading, `subsample(X, y, seed)`, `evaluate(model, X, y)`, `SCREENING_SEEDS`.
-- `research.py`: the ZenML pipeline `research` with steps `prepare_data` (cached), `train(config, seed)`, `evaluate`. `build_model` maps a config to a scikit-learn estimator. Edit freely.
+- `prepare.py` (read-only): data loading, `subsample(X, y, seed)`, `digest(X, y)`, `evaluate(model, X, y)`, `SCREENING_SEEDS`.
+- `research.py`: the ZenML pipeline `research` with steps `prepare_data` (cached), `train(config, seed)`, `evaluate`. `build_model` maps a config to a scikit-learn estimator. Edit freely, but keep `train`'s two bookkeeping outputs `n_train_rows` and `train_rows_digest`: they record which rows the run fitted on (the seed's `prepare.subsample` slice) and are read back from the store as evidence.
 - `configs/*.yaml`: one file per experiment config. `name` becomes the ZenML model version.
 
 ## One experiment
@@ -26,7 +26,8 @@ for mv in c.list_model_versions(model_name_or_id="research_model", hydrate=True)
     runs = mv.pipeline_runs.values()
     losses = [r.steps["evaluate"].outputs["val_log_loss"][0].load() for r in runs if "evaluate" in r.steps]
     seeds = [r.steps["train"].config.parameters["seed"] for r in runs]
-    print(mv.name, mv.stage, seeds, losses)
+    rows = [r.steps["train"].outputs["n_train_rows"][0].load() for r in runs if "train" in r.steps]
+    print(mv.name, mv.stage, seeds, losses, rows)
 ```
 
 `mv.run_metadata["val_log_loss"]` holds only the most recent run's value; per-run values live on each run's `evaluate` output. `mv.get_model_artifact("model")` returns the most recently produced model artifact of that version; `.load()` gives the fitted estimator.

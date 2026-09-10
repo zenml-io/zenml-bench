@@ -4,10 +4,10 @@ Binary classification, 20 features, 3000 training rows, 1000 validation rows. Th
 
 Files:
 
-- `prepare.py` (read-only): data loading, `subsample(X, y, seed)`, `evaluate(model, X, y)`, `SCREENING_SEEDS`.
+- `prepare.py` (read-only): data loading, `subsample(X, y, seed)`, `digest(X, y)`, `evaluate(model, X, y)`, `SCREENING_SEEDS`.
 - `train.py`: one experiment per invocation. `build_model` maps a config to a scikit-learn estimator. Edit freely.
 - `configs/*.yaml`: one file per experiment config; `name` labels the rows and model files.
-- `results.tsv`: the lab notebook. One row per run: `name, seed, val_log_loss, model_path, config`. Created on the first run.
+- `results.tsv`: the lab notebook. One row per run: `name, seed, val_log_loss, model_path, n_train_rows, train_rows_digest, config`. Created on the first run. `n_train_rows` and `train_rows_digest` record which rows the run fitted on (the seed's `prepare.subsample` slice); keep writing them, they are the run's evidence.
 - `models/<name>-seed<seed>.pkl`: the fitted model of each run (pickle).
 
 ## One experiment

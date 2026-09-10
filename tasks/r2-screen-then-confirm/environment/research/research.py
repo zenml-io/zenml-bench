@@ -52,9 +52,14 @@ def prepare_data() -> Tuple[
 @step
 def train(
     X_train: np.ndarray, y_train: np.ndarray, config: dict[str, Any], seed: int
-) -> Annotated[BaseEstimator, ArtifactConfig(name="model", artifact_type=ArtifactType.MODEL)]:
+) -> Tuple[
+    Annotated[BaseEstimator, ArtifactConfig(name="model", artifact_type=ArtifactType.MODEL)],
+    Annotated[int, "n_train_rows"], Annotated[str, "train_rows_digest"],
+]:
     X, y = prepare.subsample(X_train, y_train, seed)
-    return build_model(config, seed).fit(X, y)
+    # The two extra outputs are the run's evidence of what it trained on; keep them (see README).
+    n_train_rows, train_rows_digest = len(X), prepare.digest(X, y)
+    return build_model(config, seed).fit(X, y), n_train_rows, train_rows_digest
 
 
 @step
@@ -68,7 +73,8 @@ def evaluate(model: BaseEstimator, X_val: np.ndarray, y_val: np.ndarray) -> Anno
 @pipeline
 def research(config: dict[str, Any], seed: int) -> None:
     X_train, y_train, X_val, y_val = prepare_data()
-    evaluate(train(X_train, y_train, config, seed), X_val, y_val)
+    model, _, _ = train(X_train, y_train, config, seed)
+    evaluate(model, X_val, y_val)
 
 
 def main() -> None:

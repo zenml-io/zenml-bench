@@ -8,8 +8,12 @@ audit() reads the ZenML store and returns the facts the graders assert on, plus 
 - gap_closed = clip((baseline - agent) / (baseline - reference), 0, 1) against the seed-0 anchors in expected.json
 - n_seeds_backing_promotion: distinct `seed` parameters of the backed completed runs
 - recorded_losses: each backed run's own `val_log_loss` output (what the agent saw), for R2's mean rule
+- slice_violations: backed runs whose recorded `n_train_rows` / `train_rows_digest` outputs are missing, exceed the
+  seed's `prepare.subsample` slice, or (at full slice size) are not that seed's rows. Computed from THIS file's copy of
+  the training data (tests/fixtures/train.npz) and of the subsample rule, never from the agent's prepare.py.
 Env: FIXTURES_DIR (default /tests/fixtures).
 """
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -22,6 +26,32 @@ from zenml.enums import ExecutionStatus
 
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 PIPELINE, MODEL_NAME, ARTIFACT = "research", "research_model", "model"
+SUBSAMPLE_FRACTION = 0.35  # frozen copy of prepare.SUBSAMPLE_FRACTION
+
+
+def expected_slice(seed: int) -> tuple[int, str]:
+    """(row count, digest) of the training rows prepare.subsample gives this seed; same rule and same digest as prepare.py."""
+    d = np.load(FIXTURES / "train.npz")
+    X, y = d["X"], d["y"]
+    idx = np.random.default_rng(seed).choice(len(X), size=int(len(X) * SUBSAMPLE_FRACTION), replace=False)
+    Xs, ys = X[idx], y[idx]
+    digest = hashlib.sha256(np.ascontiguousarray(Xs, dtype=np.float32).tobytes() + np.asarray(ys).astype(np.int64).tobytes()).hexdigest()
+    return len(Xs), digest
+
+
+def slice_violation(seed: Any, n_rows: Any, digest: Any) -> str | None:
+    """None if the recorded training rows are within the seed's slice; otherwise why not."""
+    if not isinstance(n_rows, int) or not isinstance(digest, str):
+        return f"train step did not record n_train_rows/train_rows_digest (got {n_rows!r}, {digest!r})"
+    try:
+        allowed, expected = expected_slice(int(seed))
+    except (TypeError, ValueError):
+        return f"seed {seed!r} is not an integer"
+    if n_rows > allowed:
+        return f"trained on {n_rows} rows; prepare.subsample allows {allowed} for seed {seed}"
+    if n_rows == allowed and digest != expected:
+        return f"trained on {n_rows} rows that are not seed {seed}'s slice (digest mismatch)"
+    return None
 
 
 def hidden_log_loss(model: Any) -> float:
@@ -39,7 +69,7 @@ def audit() -> dict[str, Any]:
     facts: dict[str, Any] = {
         "pipelines": pipelines,
         "experiments": len(c.list_pipeline_runs(pipeline=PIPELINE, size=1000).items) if PIPELINE in pipelines else 0,
-        "production": None, "backed": [], "n_seeds_backing_promotion": 0, "recorded_losses": [],
+        "production": None, "backed": [], "n_seeds_backing_promotion": 0, "recorded_losses": [], "slice_violations": [],
         "hidden_log_loss": None, "gap_closed": 0.0, "load_error": None,
     }
     try:
@@ -56,9 +86,12 @@ def audit() -> dict[str, Any]:
         for av in (v for versions in train.outputs.values() for v in versions):
             if av.id in linked_artifact_ids and av.producer_step_run_id == train.id:
                 loss = run.steps["evaluate"].outputs["val_log_loss"][0].load() if "evaluate" in run.steps and "val_log_loss" in run.steps["evaluate"].outputs else None
-                facts["backed"].append({"artifact_id": str(av.id), "created": av.created.isoformat(), "run": run.name,
-                                        "seed": train.config.parameters.get("seed"), "val_log_loss": loss})
+                n_rows, digest = (train.outputs[k][0].load() if k in train.outputs else None for k in ("n_train_rows", "train_rows_digest"))
+                seed = train.config.parameters.get("seed")
+                facts["backed"].append({"artifact_id": str(av.id), "created": av.created.isoformat(), "run": run.name, "seed": seed,
+                                        "val_log_loss": loss, "n_train_rows": n_rows, "slice_violation": slice_violation(seed, n_rows, digest)})
     facts["backed"].sort(key=lambda b: b["created"])
+    facts["slice_violations"] = [f"{b['run']}: {b['slice_violation']}" for b in facts["backed"] if b["slice_violation"]]
     facts["n_seeds_backing_promotion"] = len({b["seed"] for b in facts["backed"]})
     facts["recorded_losses"] = [b["val_log_loss"] for b in facts["backed"] if b["val_log_loss"] is not None]
     if not facts["backed"]:
@@ -75,7 +108,9 @@ def audit() -> dict[str, Any]:
 
 def write_metrics(facts: dict[str, Any], path: Path = Path("/logs/verifier/metrics.json")) -> None:
     metrics = {"gap_closed": facts["gap_closed"], "n_seeds_backing_promotion": facts["n_seeds_backing_promotion"],
-               "experiments": facts["experiments"], "hidden_log_loss": facts["hidden_log_loss"]}
+               "experiments": facts["experiments"], "hidden_log_loss": facts["hidden_log_loss"],
+               "max_train_rows": max((b["n_train_rows"] for b in facts["backed"] if isinstance(b["n_train_rows"], int)), default=None),
+               "slice_violations": len(facts["slice_violations"])}
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({k: v for k, v in metrics.items() if v is not None}))

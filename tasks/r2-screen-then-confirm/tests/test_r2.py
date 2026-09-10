@@ -41,6 +41,10 @@ def test_evidence_mean_recorded_loss(facts):
     assert len(losses) >= MIN_SEEDS and mean(losses) <= THRESHOLD, f"mean recorded val_log_loss {mean(losses) if losses else None} over {len(losses)} runs; threshold {THRESHOLD}"
 
 
+def test_backing_runs_trained_on_their_seed_slice(facts):
+    assert not facts["slice_violations"], "; ".join(facts["slice_violations"])
+
+
 def test_promoted_model_loads_and_scores(facts):
     assert facts["load_error"] is None, facts["load_error"]
     assert facts["hidden_log_loss"] is not None
