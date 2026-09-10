@@ -6,7 +6,8 @@
     uv run scripts/analyse_trajectories.py jobs/<job> [jobs/<job2> ...] [--jsonl out.jsonl]
 
 Per trial: reward, infra_error, steps, tool calls, whether the offline docs were read, whether a
-skill file was read, MCP calls, entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs). Trajectories are ATIF (`agent/trajectory.json`).
+skill file was read, MCP calls (`mcp_calls` total, `mcp_tools` per tool name, `mcp_exception_info` when an MCP result carried a
+step's `exception_info` traceback), entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs). Trajectories are ATIF (`agent/trajectory.json`).
 """
 import argparse
 import json
@@ -15,11 +16,29 @@ from typing import Any
 
 DOCS_MARKERS = ("/opt/zenml-docs", "llms-full.txt")
 ENTRYPOINTS = ("run.py", "research.py", "train.py")  # project entrypoints: nightly/k8s/legacy/churn, research, research_bare
+EXC_MARKER = '"exception_info": {'  # a non-null ExceptionInfo in a serialised StepRunResponse
 SKILL_MARKERS = ("SKILL.md", "/harbor/skills", "/.agents/skills", ".claude/skills", "CLAUDE_CONFIG_DIR/skills")
 
 
 def blob(call: dict[str, Any]) -> str:
     return json.dumps(call.get("arguments", {}), ensure_ascii=False)
+
+
+def mcp_tool_name(function_name: str) -> str | None:
+    """Claude Code names MCP tools `mcp__<server>__<tool>`; Codex reports them under the tool's own name with the
+    server prefix on some versions. Return the bare tool name or None for a non-MCP call."""
+    if function_name.startswith("mcp__"):
+        return function_name.split("__", 2)[-1]
+    if function_name.startswith("mcp_") or "__zenml__" in function_name:
+        return function_name.rsplit("__", 1)[-1]
+    return None
+
+
+def observations(step: dict[str, Any], call: dict[str, Any]) -> list[dict[str, Any]]:
+    """The tool results in this step that answer `call` (matched by id when present, else all of them)."""
+    results = (step.get("observation") or {}).get("results") or []
+    mine = [r for r in results if r.get("source_call_id") == call.get("tool_call_id")]
+    return mine or results
 
 
 def summarise(trial: Path) -> dict[str, Any]:
@@ -31,7 +50,8 @@ def summarise(trial: Path) -> dict[str, Any]:
         "model": (result.get("agent_info") or {}).get("model_name") or result.get("model_name"),
         "reward": rewards.get("reward"),
         "infra_error": bool(result.get("exception_info")) and rewards.get("reward") is None,
-        "steps": 0, "tool_calls": 0, "docs_read": False, "skill_loaded": False, "mcp_calls": 0, "pipeline_runs": 0,
+        "steps": 0, "tool_calls": 0, "docs_read": False, "skill_loaded": False, "mcp_calls": 0, "mcp_tools": {},
+        "mcp_exception_info": False, "pipeline_runs": 0,
     }
     traj = trial / "agent" / "trajectory.json"
     if not traj.exists():
@@ -44,7 +64,10 @@ def summarise(trial: Path) -> dict[str, Any]:
             name, args = call.get("function_name", ""), blob(call)
             row["docs_read"] |= any(m in args for m in DOCS_MARKERS)
             row["skill_loaded"] |= name == "Skill" or any(m in args for m in SKILL_MARKERS)
-            row["mcp_calls"] += name.startswith("mcp") or "mcp__" in name
+            if tool := mcp_tool_name(name):
+                row["mcp_calls"] += 1
+                row["mcp_tools"][tool] = row["mcp_tools"].get(tool, 0) + 1
+                row["mcp_exception_info"] |= any(EXC_MARKER in r.get("content", "") for r in observations(step, call))
             row["pipeline_runs"] += any(e in args for e in ENTRYPOINTS) and ("python" in args or "uv run" in args)
     fm = t.get("final_metrics") or {}
     row["total_tokens"] = (fm.get("total_prompt_tokens") or 0) + (fm.get("total_completion_tokens") or 0) or None
@@ -58,7 +81,7 @@ def main() -> None:
     ap.add_argument("--jsonl", type=Path)
     a = ap.parse_args()
     rows = [summarise(t) | {"job": job.name} for job in a.jobs for t in sorted(job.iterdir()) if (t / "result.json").exists()]
-    cols = ["job", "trial", "reward", "infra_error", "steps", "tool_calls", "docs_read", "skill_loaded", "mcp_calls", "pipeline_runs"]
+    cols = ["job", "trial", "reward", "infra_error", "steps", "tool_calls", "docs_read", "skill_loaded", "mcp_calls", "mcp_exception_info", "pipeline_runs"]
     print(" | ".join(cols))
     for r in rows:
         print(" | ".join(str(r.get(c)) for c in cols))

@@ -29,6 +29,10 @@ uv run scripts/verify_task.py tasks/b3-stale-cache
 
 # harness × condition baseline matrix
 uv run scripts/run_baselines.py tasks/b3-stale-cache --agent codex:gpt-5.6-terra --agent claude-code:claude-opus-5 --condition bare --condition skill -k 3 --env-file .env
+
+# the "+ MCP" condition: the ZenML MCP server (baked into the base image) reading the container's local store
+uv run scripts/run_baselines.py tasks/b10-why-did-it-fail --agent claude-code:claude-opus-5 --condition mcp -k 3 -n 2 --env-file .env
+# or directly: harbor run ... --mcp-config shared/mcp/zenml.json
 ```
 
 For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grader in a throwaway ZenML store without containers, in seconds. See `docs/task-authoring.md`.
