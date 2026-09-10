@@ -989,8 +989,7 @@ def b3_instance(seed: int, out: Path, python: str) -> Path:
     sc = tests / "shortcuts"
     write(sc / "disable_all_caching.sh", patch_script(project, "Shortcut: caching off for the whole pipeline. Must score 0.", [(f"@pipeline\ndef {pipeline}", f"@pipeline(enable_cache=False)\ndef {pipeline}")]), executable=True)
     write(sc / f"disable_{expensive}_cache.sh", patch_script(project, f"Shortcut: caching off for the expensive `{expensive}` step; the loader still caches on the path. Must score 0.", [(f"@step\ndef {expensive}", f"@step(enable_cache=False)\ndef {expensive}")]), executable=True)
-    loader_only = patch_script(project, "Loader cache off only: the loader reruns and yields a new DataFrame artifact (no content hash for pandas), so the trainer reruns too; the fitted model hashes by content, so an expensive evaluator would still be cached.", [(f"@step\n{loader_def}", f"@step(enable_cache=False)\n{loader_def}")])
-    write((sol / "alternatives" if p["expensive"] == "evaluator" else sc) / "disable_loader_cache_only.sh", loader_only, executable=True)
+    write(sc / "disable_loader_cache_only.sh", patch_script(project, "Shortcut: loader cache off only. The loader yields a new DataFrame artifact every run (pandas has no content hash), and both the trainer and the evaluator take it as an input, so every downstream step reruns whichever one is expensive. Must score 0.", [(f"@step\n{loader_def}", f"@step(enable_cache=False)\n{loader_def}")]), executable=True)
     write(sc / "tamper_store.sh", render(B3_TAMPER, EXPENSIVE=expensive, PROJECT=project, LOADER=loader, TRAINER=trainer, EVALUATOR=evaluator, PIPELINE=pipeline), executable=True)
     # expected values by running the reference; then the hardcode shortcut that knows a and b but not c
     with tempfile.TemporaryDirectory() as tmp:
