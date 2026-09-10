@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b1-source-root-repair"
+version = "0.1.0"
+description = "A project with two entrypoints (one nested in a subdirectory) records its ZenML step sources against the wrong root and one entrypoint cannot import the shared code; fix the repository root so both run and record sources importable from the project root, without touching the neighbouring project."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "easy"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B1; ZenML's source root = repository root found from the CWD upward, else the main module's directory (docs/decisions.md 2026-09-10)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
