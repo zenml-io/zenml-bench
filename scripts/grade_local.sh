@@ -6,9 +6,13 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TASK="$1"; PATCH="${2:-}"
 PROJECT="$(for d in "$ROOT/$TASK"/environment/*/; do n="$(basename "$d")"; [ -d "$ROOT/shared/projects/$n" ] && echo "$n" && break; done)"  # the synced project dir (environment/ may hold other dirs, e.g. B14's backfill/)
+SRC="$ROOT/shared/projects/$PROJECT"
+if [ -z "$PROJECT" ]; then  # generated instances (tasks/generated/*) carry their project under environment/ only
+  PROJECT="$(for d in "$ROOT/$TASK"/environment/*/; do [ -f "$d/run.py" ] && basename "$d" && break; done)"; SRC="$ROOT/$TASK/environment/$PROJECT"
+fi
 WORK="$(mktemp -d)"; export APP_DIR="$WORK/app" FIXTURES_DIR="$ROOT/$TASK/tests/fixtures"
 export ZENML_CONFIG_PATH="$WORK/zenml" ZENML_ANALYTICS_OPT_IN=false ZENML_LOGGING_VERBOSITY=ERROR
-cp -r "$ROOT/shared/projects/$PROJECT" "$APP_DIR"; rm -rf "$APP_DIR/.zen" "$APP_DIR/fixtures"
+cp -r "$SRC" "$APP_DIR"; rm -rf "$APP_DIR/.zen" "$APP_DIR/fixtures"
 (cd "$APP_DIR" && "$ROOT/.venv/bin/zenml" init >/dev/null 2>&1)
 [ -f "$ROOT/$TASK/environment/setup_store.sh" ] && (cd "$APP_DIR" && PATH="$ROOT/.venv/bin:$PATH" bash "$ROOT/$TASK/environment/setup_store.sh" >/dev/null 2>&1)
 [ -n "$PATCH" ] && PATH="$ROOT/.venv/bin:$PATH" bash "$ROOT/$PATCH"

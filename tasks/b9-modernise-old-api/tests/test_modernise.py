@@ -18,6 +18,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/legacy_training"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 PIPELINE = "training_pipeline"
@@ -111,6 +113,13 @@ def test_score_on_unseen_data(run_c, expected):
     stored = float(run.steps["evaluate"].outputs["score"][0].load())
     assert stored == pytest.approx(expected["c"], abs=TOL)
     assert printed_score(stdout) == pytest.approx(stored, abs=TOL)
+
+
+def test_runs_are_genuine(run_a, run_c):
+    """The recorded parameters and outputs must come from ZenML's own execution (tests/shortcuts/tamper_store.sh rewrites
+    the recorded step configuration in SQLite after a run with the wrong parameters)."""
+    for run, _ in (run_a, run_c):
+        assert_genuine_run(run)
 
 
 def test_collateral():

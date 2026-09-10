@@ -29,6 +29,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/daily_report"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 SEED_RUNS = Path(os.environ.get("SEED_RUNS_PATH") or Path(os.environ.get("ZENML_CONFIG_PATH", "/var/lib/zenml-bench")) / "seed_runs.json")
@@ -76,6 +78,14 @@ def same_summary(actual: dict[str, Any] | None, expected: dict[str, Any]) -> boo
     return True
 
 
+def genuine(run: Any) -> bool:
+    try:
+        assert_genuine_run(run)
+        return True
+    except AssertionError:
+        return False
+
+
 def write_metrics(**kv: Any) -> None:
     try:
         p = Path("/logs/verifier/metrics.json"); p.parent.mkdir(parents=True, exist_ok=True)
@@ -104,8 +114,9 @@ def test_target_day_completed_with_every_row(runs_before, expected):
     """Check 1: a completed run processed 2026-09-09 and its summary matches the reference."""
     target = [r for r in runs_before if r.status == ExecutionStatus.COMPLETED and load_date(r) == TARGET_DATE]
     assert target, f"no completed {PIPELINE} run with date={TARGET_DATE}; runs: {[(r.name, str(r.status), load_date(r)) for r in runs_before]}"
-    summaries = [summary_of(r) for r in target]
-    assert any(same_summary(s, expected) for s in summaries), f"no completed {TARGET_DATE} run has the reference summary; got {summaries}"
+    good = [r for r in target if same_summary(summary_of(r), expected)]
+    assert good, f"no completed {TARGET_DATE} run has the reference summary; got {[summary_of(r) for r in target]}"
+    assert any(genuine(r) for r in good), f"the completed {TARGET_DATE} run(s) with the right summary were written by hand, not produced by ZenML (tests/shortcuts/tamper_store.sh)"
 
 
 @pytest.mark.parametrize("hidden_date", list(HIDDEN))
@@ -128,6 +139,7 @@ def test_hidden_export_in_fresh_process(hidden_date):
     hidden_expected = json.loads((FIXTURES / f"expected_{HIDDEN[hidden_date]}.json").read_text())
     got = summary_of(run)
     assert same_summary(got, hidden_expected), f"summary on the hidden export differs from the reference:\n got {got}\n exp {hidden_expected}"
+    assert_genuine_run(run)
     assert (APP_DIR / "reports" / f"{hidden_date}.json").exists(), "reports/<date>.json was not written"
 
 

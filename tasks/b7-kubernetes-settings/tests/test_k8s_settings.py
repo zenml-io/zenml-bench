@@ -18,6 +18,8 @@ from zenml.client import Client
 from zenml.config.compiler import Compiler
 from zenml.config.pipeline_run_configuration import PipelineRunConfiguration
 from zenml.enums import ExecutionStatus
+
+from store_integrity import assert_genuine_run
 from zenml.integrations.kubernetes.flavors import KubernetesOrchestratorSettings
 from zenml.stack import Stack
 
@@ -87,6 +89,7 @@ def test_local_run_still_completes(local_run):
     assert local_run.pipeline.name == PIPELINE
     assert set(local_run.steps) == STEPS
     assert Client().active_stack_model.name == "default"
+    assert_genuine_run(local_run)
 
 
 def step_service_account(settings: dict[str, Any]) -> str | None:

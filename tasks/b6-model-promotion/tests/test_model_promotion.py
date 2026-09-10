@@ -21,6 +21,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/model_promotion"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 MODEL, TRAIN_PIPE, INFER_PIPE = "demand_forecaster", "train_forecaster", "batch_forecast"
@@ -87,6 +89,7 @@ def test_agents_inference_run_used_production(production):
     assert linked, f"no completed batch_forecast run is linked to production version {production.number}"
     ok = [r for r in linked if run_predictions(r) == pytest.approx(predict_with(production, run_batch(r)), abs=1e-6)]
     assert ok, "a run is linked to the production version but its predictions were not made by that version's model (cached predict from an earlier version?)"
+    assert_genuine_run(ok[-1])  # tests/shortcuts/tamper_store.sh writes such a run by hand (manual artifacts, forged link)
 
 
 def test_hidden_batch_uses_production(production):
@@ -94,6 +97,7 @@ def test_hidden_batch_uses_production(production):
     assert run.status == ExecutionStatus.COMPLETED
     assert run.model_version and run.model_version.id == production.id, f"grader run linked to version {run.model_version.number if run.model_version else None}"
     assert run_predictions(run) == pytest.approx(predict_with(production, pd.read_csv(HIDDEN)), abs=1e-6), "predictions on the hidden batch are not the production model's"
+    assert_genuine_run(run)
 
 
 def test_next_run_follows_a_new_promotion(production):
@@ -104,6 +108,7 @@ def test_next_run_follows_a_new_promotion(production):
     assert run.status == ExecutionStatus.COMPLETED
     assert run.model_version and run.model_version.id == other.id, f"after promoting version {other.number}, the run is linked to {run.model_version.number if run.model_version else None}"
     assert run_predictions(run) == pytest.approx(predict_with(other, pd.read_csv(HIDDEN)), abs=1e-6), f"after promoting version {other.number} the predictions still come from another version (hardcoded version or cached predict)"
+    assert_genuine_run(run)
     try:
         Path("/logs/verifier").mkdir(parents=True, exist_ok=True)
         Path("/logs/verifier/metrics.json").write_text(json.dumps({"predict_cached_after_repromotion": int(run.steps["predict"].status == ExecutionStatus.CACHED)}))

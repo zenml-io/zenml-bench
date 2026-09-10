@@ -18,6 +18,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/churn_scoring"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 LOADER = Path(__file__).with_name("load_and_score.py")
@@ -73,6 +75,11 @@ def test_loads_and_scores_in_fresh_process(artifact):
     expected = json.loads((FIXTURES / "expected_hidden.json").read_text())
     assert out["type"].endswith("ChurnScorer"), f"loaded object is {out['type']}"
     assert out["scores"] == pytest.approx(expected, abs=TOL), "scores on hidden data differ from the reference scorer"
+
+
+def test_run_is_genuine(run):
+    """Defeats tests/shortcuts/tamper_store.sh: a hand-saved artifact named `churn_scorer` attached to `train` after the run."""
+    assert_genuine_run(run)
 
 
 def test_collateral():

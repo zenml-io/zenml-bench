@@ -21,6 +21,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app"))
 ANALYTICS, LEGACY = APP_DIR / "analytics", APP_DIR / "legacy_reports"
 ENTRYPOINTS = {"daily_analytics": (ANALYTICS, ["pipelines/daily.py"]), "backfill_analytics": (ANALYTICS / "jobs" / "backfill", ["run.py"])}
@@ -101,6 +103,12 @@ def test_neighbour_untouched(seed):
     r = run_entrypoint(LEGACY, ["report.py"])
     assert r.status == ExecutionStatus.COMPLETED and r.pipeline.name == "legacy_report"
     assert all(st.spec.source.import_path.startswith("report.") for st in r.steps.values()), "legacy_reports now resolves against a different root"
+
+
+def test_runs_are_genuine(runs):
+    """Defeats a forger that rewrites recorded step sources in SQLite after each run (tests/shortcuts/tamper_store.sh)."""
+    for r in runs.values():
+        assert_genuine_run(r)
 
 
 def test_collateral():

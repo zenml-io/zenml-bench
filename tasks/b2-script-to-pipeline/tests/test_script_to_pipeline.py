@@ -15,6 +15,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/credit_script"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 REFERENCE = Path(__file__).with_name("reference_train.py")
@@ -81,6 +83,13 @@ def test_accuracy_matches_the_script(runs):
         (_, av), = outputs_named(r, "accuracy")
         recorded, expected = float(av.load()), reference_accuracy(DATASETS[label])
         assert recorded == pytest.approx(expected, abs=TOL), f"{label}: recorded accuracy {recorded} != script's {expected}"
+
+
+def test_runs_are_genuine(runs):
+    """Defeats tests/shortcuts/tamper_store.sh: hand-saved `model`/`accuracy` artifacts attached to the step runs after the
+    fact (save_type manual) and a forged input row. Every graded output must be a real step output of its own step."""
+    for r in runs.values():
+        assert_genuine_run(r)
 
 
 def test_collateral():

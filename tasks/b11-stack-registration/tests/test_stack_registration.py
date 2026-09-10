@@ -19,6 +19,8 @@ import pytest
 from zenml.client import Client
 from zenml.config.global_config import GlobalConfiguration
 from zenml.enums import ExecutionStatus, StackComponentType
+from zenml.service_connectors.service_connector_registry import service_connector_registry
+from zenml.stack import Stack
 
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/stack_onboarding"))
 os.chdir(APP_DIR)  # Client() is a singleton that binds to the repository it finds at first use; the active stack is per-repository
@@ -105,6 +107,21 @@ def test_stack_composition_and_active():
         Path("/logs/verifier/metrics.json").write_text(json.dumps({"global_active_too": int(bool(global_active))}))
     except Exception:
         pass
+
+
+def test_records_instantiate_through_their_flavours(connector):
+    """The store is writable by the agent (tests/shortcuts/tamper_store.sh edits rows in SQLite). Whatever wrote the
+    rows, each component must instantiate through its flavour's config class and the connector through its connector
+    type with its secret present, as `python run.py` on `prod-k8s` would need. (`Stack.validate()` needs a live kube
+    context, so it is not called.)"""
+    stack = Stack.from_model(Client().get_stack(STACK, allow_name_prefix_match=False))
+    kinds = {t.value: type(c).__name__ for t, c in stack.components.items()}
+    assert kinds.get(AS.value) == "S3ArtifactStore", f"artifact store instantiates as {kinds.get(AS.value)}"
+    assert kinds.get(OR.value) == "KubernetesOrchestrator", f"orchestrator instantiates as {kinds.get(OR.value)}"
+    sc = service_connector_registry.instantiate_connector(model=connector)
+    assert sc.auth_method == "secret-key"
+    cfg = sc.config.model_dump()
+    assert cfg.get("aws_access_key_id") and cfg.get("aws_secret_access_key"), "connector instantiates without its secret"
 
 
 def test_default_stack_intact():
