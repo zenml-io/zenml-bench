@@ -225,3 +225,6 @@ jobs/
 
 # pinned clone of zenml-io/skills used by run_baselines.py
 .skills-cache/
+
+# regenerated training instances (scripts/generate_instances.py --out tasks/generated-train); the held-out set under tasks/generated/ is committed
+tasks/generated-train/
