@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b2-script-to-pipeline"
+version = "0.1.0"
+description = "Turn a plain training script (prepare, train, evaluate) into a named ZenML pipeline with typed steps whose model and metric are tracked artifacts, preserving the script's results on any dataset."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "easy"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B2; the tuple-return trap (B9) fires naturally when prepare() returns train_test_split(...) directly"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
