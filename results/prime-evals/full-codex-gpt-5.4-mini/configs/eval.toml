@@ -1,0 +1,18 @@
+# Full set: 18 tasks x 1 rollout, Codex harness on gpt-5.4-mini, local docker runtime, task-authored timeouts kept.
+model = "gpt-5.4-mini"
+num_rollouts = 1
+max_concurrent = 4
+push = false
+
+[client]
+base_url = "https://api.openai.com/v1"
+api_key_var = "OPENAI_API_KEY"
+
+[env.taskset]
+id = "zenml-bench"
+
+[env.agent.harness]
+id = "codex"
+
+[env.agent.runtime]
+type = "docker"

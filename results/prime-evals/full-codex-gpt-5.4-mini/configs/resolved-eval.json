@@ -1,0 +1,120 @@
+{
+  "env": {
+    "id": "",
+    "taskset": {
+      "id": "zenml-bench",
+      "task": {
+        "judges": [],
+        "stops": {},
+        "metrics": {},
+        "rewards": {}
+      },
+      "system_prompt": null,
+      "dataset": "zenml-bench@0.1.0",
+      "repo": "zenml-io/zenml-bench@v0.1",
+      "registry_path": "registry.json",
+      "registry_url": null,
+      "tasks": null,
+      "ignore_timeouts": false,
+      "timeout_multiplier": 1.0,
+      "resource_multiplier": 1.0,
+      "require_image": false,
+      "ignore_dockerfile": true,
+      "ignore_separate_verifier": false,
+      "image_template": "zenml-bench/{task}:0.1.0"
+    },
+    "timeout": {
+      "episode": null,
+      "finalize": null
+    },
+    "retries": {
+      "max_retries": 0,
+      "include": [],
+      "exclude": []
+    },
+    "max_concurrent_agents": 1,
+    "interception": {
+      "type": "elastic",
+      "multiplex": 32
+    },
+    "agent": {
+      "harness": {
+        "id": "codex",
+        "env": {},
+        "forward_env": [],
+        "tool_timeout": 600.0,
+        "disabled_tools": null,
+        "skills": [],
+        "version": "0.147.0",
+        "multi_agent": false
+      },
+      "runtime": {
+        "allow": [
+          "*"
+        ],
+        "block": [],
+        "type": "docker",
+        "image": "python:3.11-slim",
+        "workdir": "/app",
+        "cpu": null,
+        "memory": null,
+        "gpu": null,
+        "disk": null
+      },
+      "model": null,
+      "client": null,
+      "sampling": null,
+      "max_turns": null,
+      "max_input_tokens": null,
+      "max_output_tokens": null,
+      "max_total_tokens": null,
+      "timeout": {
+        "setup": null,
+        "rollout": null,
+        "finalize": null,
+        "scoring": null
+      },
+      "retries": {
+        "max_retries": 0,
+        "include": [],
+        "exclude": []
+      }
+    },
+    "verifier_runtime": null,
+    "verifier_retries": 2
+  },
+  "serve": {
+    "pool": {
+      "type": "elastic",
+      "max_workers": null,
+      "multiplex": 128
+    },
+    "address": null,
+    "max_concurrent": null
+  },
+  "run": {
+    "name": "full-codex-gpt-5.4-mini",
+    "dir": "full-codex-gpt-5.4-mini"
+  },
+  "model": "gpt-5.4-mini",
+  "client": {
+    "base_url": "https://api.openai.com/v1",
+    "api_key_var": "OPENAI_API_KEY",
+    "headers": {},
+    "type": "eval"
+  },
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "reasoning_effort": null,
+    "max_tokens": null
+  },
+  "num_tasks": null,
+  "num_rollouts": 1,
+  "shuffle": false,
+  "max_concurrent": 4,
+  "verbose": false,
+  "rich": null,
+  "push": false,
+  "output_dir": "/private/tmp/claude-501/-Users-strickvl-coding-zenml-repos-zenml-bench/f77d19e1-9c1c-4ef2-adc6-a4a8d2a12c79/scratchpad/prime/outputs"
+}

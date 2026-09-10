@@ -120,7 +120,12 @@ def traces_rows(run_dir: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
         ep = json.loads(line)
         for tr in ep.get("traces") or []:
             data = tr["task"]["data"]
+            # verifiers' trace.reward is the weighted sum of every named reward. A Harbor task that writes
+            # reward.json {"reward": x} lands under the key "reward"; one that writes reward.txt lands under the
+            # reward function's name ("solved"). Both count.
             rewards = {k: v.get("score") for k, v in (tr.get("rewards") or {}).items() if v}
+            total = sum((v.get("score") or 0.0) * (v.get("weight") if v.get("weight") is not None else 1.0)
+                        for v in (tr.get("rewards") or {}).values() if v)
             metrics = {k: v for k, v in (tr.get("metrics") or {}).items() if isinstance(v, (int, float))}
             timing = tr.get("timing") or {}
             errors = ep.get("errors") or tr.get("errors") or []
@@ -129,7 +134,8 @@ def traces_rows(run_dir: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
                 "task": data.get("name"),
                 "trial": tr.get("id"),
                 "job": run_dir.name,
-                "reward": float(rewards.get("reward") or 0.0),
+                "reward": float(total),
+                "rewards": rewards,
                 "metrics": metrics,
                 "is_completed": bool(tr.get("is_completed")),
                 "is_truncated": bool(tr.get("is_truncated")),
@@ -140,7 +146,11 @@ def traces_rows(run_dir: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
                               "seconds": ((timing.get("scoring") or {}).get("end") or 0) - (timing.get("start") or 0)},
                     "agent": timing.get("agent"), "setup": timing.get("setup"), "scoring": timing.get("scoring"),
                 },
-                "token_usage": tr.get("usage") or tr.get("extra_usage"),
+                "token_usage": {  # summed over the interception server's per-call usage records
+                    "input_tokens": sum((c.get("usage") or {}).get("prompt_tokens") or 0 for c in tr.get("calls") or []),
+                    "output_tokens": sum((c.get("usage") or {}).get("completion_tokens") or 0 for c in tr.get("calls") or []),
+                    "model_calls": len(tr.get("calls") or []),
+                },
                 "cost_usd": None,
                 "prompt": [{"role": "user", "content": data.get("prompt", "")}],
                 "completion": [],
