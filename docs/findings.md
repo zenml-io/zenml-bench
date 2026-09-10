@@ -81,3 +81,7 @@ See `results/level2-b11.md`. Every trial found `--no-verify` in `zenml service-c
 ## 2026-09-10 — B4 nondeterministic-step: saturated (6/6); the docs' first caching example is the whole task
 
 See `results/level2-b4.md`. Every trial diagnosed "the step never runs" rather than "the sampler is not random", grepped the docs for caching, put `enable_cache=False` on the sampler, and verified statuses across two runs. Nobody used `CachePolicy`. Trials take about 1.5 minutes. Harder variant for v0.2: "cached within a day, fresh across days", where blanket `enable_cache=False` fails one direction and the fix needs a cache function or a date parameter.
+
+## 2026-09-10 — B6 model-promotion: saturated (6/6); the cache-across-promotion trap is real, and the instruction gave it away
+
+See `results/level2-b6.md`. All six promoted the right version and switched inference to `ModelStages.PRODUCTION`; all six also disabled caching on `predict`, four after watching their own post-promotion test run serve the old predictions from cache (the run was linked to the new version, the predictions were the old version's). The instruction's "even with the same input batch" clause is what made this 6/6; the harder variant removes it. Docs item: the model-control-plane page should say the model version is not part of the step cache key and show the model-artifact-as-step-input pattern.

@@ -8,7 +8,7 @@ description = "Two versions of a forecasting model are registered with a validat
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 6/6 bare on 2026-09-10; the instruction's "same input batch" clause and a visible cached predict led all six to enable_cache=False
 zenml_version = "0.96.4"
 source = "design brief B6; the cache-across-promotion trap was found while spiking (docs/decisions.md 2026-09-10)"
 conditions_supported = ["bare", "skill", "mcp"]
