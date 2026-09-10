@@ -66,9 +66,16 @@ def main() -> int:
             jobs.append((harness, model, cond, a.jobs_dir / name))
 
     out = Path("results") / (f"{a.task.name}-baseline-{a.label}.jsonl" if a.label else f"{a.task.name}-baseline.jsonl")
-    subprocess.run([sys.executable, "scripts/analyse_trajectories.py", *[str(j[3]) for j in jobs], "--jsonl", str(out)], check=False)
-    print(f"\nrows written to {out}\n")
     import json
+    # Merge into the existing results file: keep rows from jobs not run this time (e.g. bare/skill when adding mcp).
+    fresh = Path(".") / f".{out.name}.tmp"
+    subprocess.run([sys.executable, "scripts/analyse_trajectories.py", *[str(j[3]) for j in jobs], "--jsonl", str(fresh)], check=False)
+    ran = {j[3].name for j in jobs}
+    kept = [l for l in out.read_text().splitlines() if l.strip() and json.loads(l)["job"] not in ran] if out.exists() else []
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("".join(l + "\n" for l in kept) + (fresh.read_text() if fresh.exists() else ""))
+    fresh.unlink(missing_ok=True)
+    print(f"\nrows written to {out} ({len(kept)} kept from earlier runs)\n")
     table: dict[tuple[str, str], list[float]] = defaultdict(list)
     for line in out.read_text().splitlines():
         r = json.loads(line)
