@@ -85,3 +85,7 @@ See `results/level2-b4.md`. Every trial diagnosed "the step never runs" rather t
 ## 2026-09-10 — B6 model-promotion: saturated (6/6); the cache-across-promotion trap is real, and the instruction gave it away
 
 See `results/level2-b6.md`. All six promoted the right version and switched inference to `ModelStages.PRODUCTION`; all six also disabled caching on `predict`, four after watching their own post-promotion test run serve the old predictions from cache (the run was linked to the new version, the predictions were the old version's). The instruction's "even with the same input batch" clause is what made this 6/6; the harder variant removes it. Docs item: the model-control-plane page should say the model version is not part of the step cache key and show the model-artifact-as-step-input pattern.
+
+## 2026-09-10 — B2 script-to-pipeline: saturated (6/6); Codex hit the tuple-unpack trap 3/3
+
+See `results/level2-b2.md`. Every trial produced a four-step pipeline with the model and accuracy as named artifacts and verified the numbers against the original script on its own. All three Codex trials returned `train_test_split(...)` directly from a `Tuple`-annotated step, got "Unable to unpack step artifact", and fixed it in one edit; Claude Code never did. Same docs item as B9: say that a tuple-annotated step must `return a, b, c, d` literally.

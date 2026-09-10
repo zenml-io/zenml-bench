@@ -8,7 +8,7 @@ description = "Turn a plain training script (prepare, train, evaluate) into a na
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "easy"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 6/6 bare on 2026-09-10; Codex hit the tuple-unpack trap 3/3 and recovered
 zenml_version = "0.96.4"
 source = "design brief B2; the tuple-return trap (B9) fires naturally when prepare() returns train_test_split(...) directly"
 conditions_supported = ["bare", "skill", "mcp"]
