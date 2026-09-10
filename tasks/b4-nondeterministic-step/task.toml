@@ -8,7 +8,7 @@ description = "A QA pipeline's random sampling step is served from the cache, so
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "easy"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 6/6 bare on 2026-09-10, all via enable_cache=False, ~1.5 min per trial
 zenml_version = "0.96.4"
 source = "design brief B4; CachePolicy(expires_after=0) no-op found while spiking (docs/decisions.md 2026-09-10)"
 conditions_supported = ["bare", "skill", "mcp"]
