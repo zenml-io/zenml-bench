@@ -2,7 +2,7 @@
 
 A public benchmark of tasks in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to build, fix, configure and research with **real ZenML**, packaged in [Harbor](https://www.harborframework.com) task format so the same tasks run as an evaluation today and as a training environment (via verifiers / prime-rl) without rewriting them.
 
-Status: early. Build-and-fix tasks plus the first research-loop task (R1), all baselined with Claude Code and Codex at frontier and cheap tiers with Claude Code and Codex (all saturated at 12/12; see `results/`). Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
+Status: early. Eighteen tasks (build-and-fix, research loops, and a no-framework comparison variant), each verified with the four checks and baselined with Claude Code and Codex at frontier and cheap tiers; per-task pass rates, cost and difficulty are in the generated [Results](#results) table. Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
 
 ## What a task looks like
 
@@ -61,6 +61,33 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 | `r1-bare-clock-improve-within-budget` | improve within a budget (no framework, 25-minute clock) | A | R1-bare with the same clock rule; the pair differs from R1-clock only in ZenML being present |
 
 Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configuration without a cluster; D = real Kubernetes execution (not in scope).
+
+## Results
+
+<!-- results:start -->
+| task | tier | opus-5 | gpt-5.6-terra | haiku-4.5 | gpt-5.4-mini | median cost | band |
+|---|---|---|---|---|---|---|---|
+| `b1-source-root-repair` | A | 3/3 | 3/3 | – | – | $0.50 | saturated |
+| `b10-why-did-it-fail` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.17 | saturated |
+| `b10h-why-did-it-fail-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.34 | headroom (haiku-4.5) |
+| `b11-stack-registration` | A/C | 3/3 | 3/3 | – | – | $0.39 | saturated |
+| `b14-artifact-retrieval` | A | 3/3 | 3/3 | – | – | $0.24 | saturated |
+| `b14h-artifact-retrieval-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.40 | headroom (haiku-4.5) |
+| `b2-script-to-pipeline` | A | 3/3 | 3/3 | – | – | $0.38 | saturated |
+| `b3-stale-cache` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.27 | headroom (haiku-4.5) |
+| `b4-nondeterministic-step` | A | 3/3 | 3/3 | – | – | $0.27 | saturated |
+| `b5-custom-materializer` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.20 | saturated |
+| `b6-model-promotion` | A | 3/3 | 3/3 | – | – | $0.25 | saturated |
+| `b7-kubernetes-settings` | C | 3/3 | 3/3 | 0/3 | 2/3 | $0.40 | headroom (gpt-5.4-mini) |
+| `b9-modernise-old-api` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.40 | saturated |
+| `r1-bare-clock-improve-within-budget` | A | – | – | – | – | – | unmeasured |
+| `r1-bare-improve-within-budget` | A | 1/6 | 3/3 | – | – | $1.22 | mixed |
+| `r1-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | $0.78 | saturated |
+| `r1-improve-within-budget` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.33 | saturated |
+| `r2-screen-then-confirm` | A | 3/5 | 3/3 | – | – | $1.02 | headroom (opus-5) |
+
+Bare condition only (no skill, no MCP), 164 trials, pass counts as passed/attempted per model. Three attempts per cell is a small sample: 3/3 against 2/3 is not a meaningful gap. Cost is the harness's own figure per trial at the prices of the run date, median over all bare trials of the task. Band: *saturated* = every model ≥ 80 %, *headroom* = a model sits in the 20–80 % band where a benchmark ranks agents and a trainer gets signal, *floor* = every model < 20 %. Per-condition tables, trajectories read by hand and what tripped each agent are in the `results/*.md` pages. Regenerate with `uv run scripts/results_table.py`.
+<!-- results:end -->
 
 ## License
 
