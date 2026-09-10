@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Loader cache off only: the loader reruns and yields a new DataFrame artifact (no content hash for pandas), so the trainer reruns too; the fitted model hashes by content, so an expensive evaluator would still be cached.
+# Shortcut: loader cache off only. The loader yields a new DataFrame artifact every run (pandas has no content hash), and both the trainer and the evaluator take it as an input, so every downstream step reruns whichever one is expensive. Must score 0.
 set -euo pipefail
 cd "${APP_DIR:-/app/training_job}"
 python - <<'PY'
