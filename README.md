@@ -42,6 +42,8 @@ uv run scripts/run_baselines.py tasks/b4-nondeterministic-step --agent terminus-
 
 For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grader in a throwaway ZenML store without containers, in seconds. See `docs/task-authoring.md`.
 
+The whole set can also be run straight from this repo without a Hub account: `harbor run --repo zenml-io/zenml-bench@v0.1 -d zenml-bench@0.1.0 -a <agent> -m <model>` (resolved from `registry.json`). Hub publishing, the Prime Intellect wrapper (`integrations/prime/`) and the release checklist are in `docs/publishing.md`.
+
 Two things every grader assumes: the agent could have forged the ZenML store (it is a writable SQLite file in the same container), so each task ships a `tests/shortcuts/tamper_store.sh` that must score 0 and every grader re-executes the agent's entrypoint on hidden inputs and checks that the runs it grades were produced by ZenML (`shared/checks/store_integrity.py`); and sixteen hand-written tasks are too few for training, so `scripts/generate_instances.py` turns a task family into as many instances as you want:
 
 ```bash
@@ -78,28 +80,28 @@ Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configu
 ## Results
 
 <!-- results:start -->
-| task | tier | opus-5 | gpt-5.6-terra | haiku-4.5 | gpt-5.4-mini | median cost | band |
-|---|---|---|---|---|---|---|---|
-| `b1-source-root-repair` | A | 3/3 | 3/3 | – | – | $0.50 | saturated |
-| `b10-why-did-it-fail` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.17 | saturated |
-| `b10h-why-did-it-fail-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.34 | headroom (haiku-4.5) |
-| `b11-stack-registration` | A/C | 3/3 | 3/3 | – | – | $0.39 | saturated |
-| `b14-artifact-retrieval` | A | 3/3 | 3/3 | – | – | $0.24 | saturated |
-| `b14h-artifact-retrieval-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.40 | headroom (haiku-4.5) |
-| `b2-script-to-pipeline` | A | 3/3 | 3/3 | – | – | $0.38 | saturated |
-| `b3-stale-cache` | A | 3/3 | 3/3 | 1/3 | 3/3 | $0.27 | headroom (haiku-4.5) |
-| `b4-nondeterministic-step` | A | 3/3 | 3/3 | – | – | $0.27 | saturated |
-| `b5-custom-materializer` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.20 | saturated |
-| `b6-model-promotion` | A | 3/3 | 3/3 | – | – | $0.25 | saturated |
-| `b7-kubernetes-settings` | C | 3/3 | 3/3 | 0/3 | 2/3 | $0.40 | headroom (gpt-5.4-mini) |
-| `b9-modernise-old-api` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.40 | saturated |
-| `r1-bare-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | $0.41 | saturated |
-| `r1-bare-improve-within-budget` | A | 1/6 | 3/3 | – | – | $1.22 | mixed |
-| `r1-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | $0.78 | saturated |
-| `r1-improve-within-budget` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.33 | saturated |
-| `r2-screen-then-confirm` | A | 3/5 | 3/3 | – | – | $1.02 | headroom (opus-5) |
+| task | tier | opus-5 | gpt-5.6-terra | haiku-4.5 | gpt-5.4-mini | qwen/qwen3.5-9b | median cost | band |
+|---|---|---|---|---|---|---|---|---|
+| `b1-source-root-repair` | A | 3/3 | 3/3 | – | – | – | $0.50 | saturated |
+| `b10-why-did-it-fail` | A | 3/3 | 3/3 | 3/3 | 3/3 | 3/5 | $0.12 | headroom (qwen/qwen3.5-9b) |
+| `b10h-why-did-it-fail-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | – | $0.34 | headroom (haiku-4.5) |
+| `b11-stack-registration` | A/C | 3/3 | 3/3 | – | – | – | $0.39 | saturated |
+| `b14-artifact-retrieval` | A | 3/3 | 3/3 | – | – | – | $0.24 | saturated |
+| `b14h-artifact-retrieval-hard` | A | 3/3 | 3/3 | 1/3 | 3/3 | – | $0.40 | headroom (haiku-4.5) |
+| `b2-script-to-pipeline` | A | 3/3 | 3/3 | – | – | – | $0.38 | saturated |
+| `b3-stale-cache` | A | 3/3 | 3/3 | 1/3 | 3/3 | 1/5 | $0.19 | headroom (haiku-4.5, qwen/qwen3.5-9b) |
+| `b4-nondeterministic-step` | A | 3/3 | 3/3 | – | – | 4/5 | $0.18 | headroom (qwen/qwen3.5-9b) |
+| `b5-custom-materializer` | A | 3/3 | 3/3 | 3/3 | 3/3 | – | $0.20 | saturated |
+| `b6-model-promotion` | A | 3/3 | 3/3 | – | – | – | $0.25 | saturated |
+| `b7-kubernetes-settings` | C | 3/3 | 3/3 | 0/3 | 2/3 | – | $0.40 | headroom (gpt-5.4-mini) |
+| `b9-modernise-old-api` | A | 3/3 | 3/3 | 3/3 | 3/3 | – | $0.40 | saturated |
+| `r1-bare-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | – | $0.41 | saturated |
+| `r1-bare-improve-within-budget` | A | 1/6 | 3/3 | – | – | – | $1.22 | mixed |
+| `r1-clock-improve-within-budget` | A | 5/5 | 5/5 | – | – | – | $0.78 | saturated |
+| `r1-improve-within-budget` | A | 3/3 | 3/3 | 3/3 | 3/3 | – | $0.33 | saturated |
+| `r2-screen-then-confirm` | A | 3/5 | 3/3 | – | – | – | $1.02 | headroom (opus-5) |
 
-Bare condition only (no skill, no MCP), 169 trials, pass counts as passed/attempted per model. Three attempts per cell is a small sample: 3/3 against 2/3 is not a meaningful gap. Cost is the harness's own figure per trial at the prices of the run date, median over all bare trials of the task. Band: *saturated* = every model ≥ 80 %, *headroom* = a model sits in the 20–80 % band where a benchmark ranks agents and a trainer gets signal, *floor* = every model < 20 %. Per-condition tables, trajectories read by hand and what tripped each agent are in the `results/*.md` pages. Regenerate with `uv run scripts/results_table.py`.
+Bare condition only (no skill, no MCP), 184 trials, pass counts as passed/attempted per model. Three attempts per cell is a small sample: 3/3 against 2/3 is not a meaningful gap. Cost is the harness's own figure per trial at the prices of the run date, median over all bare trials of the task. Band: *saturated* = every model ≥ 80 %, *headroom* = a model sits in the 20–80 % band where a benchmark ranks agents and a trainer gets signal, *floor* = every model < 20 %. Per-condition tables, trajectories read by hand and what tripped each agent are in the `results/*.md` pages. Regenerate with `uv run scripts/results_table.py`.
 <!-- results:end -->
 
 ## License

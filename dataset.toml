@@ -4,10 +4,12 @@
 
 [dataset]
 name = "zenml/zenml-bench"
-version = "1.0.0"
-description = ""
-authors = []
-keywords = []
+version = "0.1.0"
+description = "ZenML Bench v0.1: 18 Harbor tasks where coding agents build, fix, configure and research with real ZenML 0.96.4; graded on the state ZenML recorded. https://github.com/zenml-io/zenml-bench"
+keywords = [ "zenml", "mlops", "agents", "pipelines",]
+[[dataset.authors]]
+name = "Alex Strick van Linschoten"
+
 
 [[tasks]]
 name = "zenml/b1-source-root-repair"
