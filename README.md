@@ -33,6 +33,11 @@ uv run scripts/run_baselines.py tasks/b3-stale-cache --agent codex:gpt-5.6-terra
 # the "+ MCP" condition: the ZenML MCP server (baked into the base image) reading the container's local store
 uv run scripts/run_baselines.py tasks/b10-why-did-it-fail --agent claude-code:claude-opus-5 --condition mcp -k 3 -n 2 --env-file .env
 # or directly: harbor run ... --mcp-config shared/mcp/zenml.json
+
+# a small open model through OpenRouter on Harbor's Terminus 2 harness (OPENROUTER_API_KEY in .env; the model is
+# called from the host, so the task's network policy does not apply). --ak passes Terminus 2 constructor kwargs.
+uv run scripts/run_baselines.py tasks/b4-nondeterministic-step --agent terminus-2:openrouter/qwen/qwen3.5-9b -k 5 -n 2 \
+    --job-prefix small --name-with-model --ak max_turns=40 --ak record_terminal_session=false --env-file .env
 ```
 
 For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grader in a throwaway ZenML store without containers, in seconds. See `docs/task-authoring.md`.
