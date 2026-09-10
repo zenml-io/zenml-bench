@@ -3,7 +3,9 @@
 Facts (docs/decisions.md 2026-09-10): ZenML's source root is the repository (`.zen`) found from the CWD upward,
 else the main module's directory; a step's recorded source (`step.spec.source.import_path`) is relative to that
 root, so a stray repository in `jobs/backfill` records `run.load_history`, which `source_utils.load` cannot import
-from the project root. ZenML does not add the repository root to sys.path, so the import fix is the agent's.
+from the project root. ZenML does not add the repository root to sys.path, so the import fix is the agent's. Runs and pipelines are
+listed across ALL ZenML projects: an agent may isolate the analytics pipelines in their own project (first Codex
+baseline did `zenml project register analytics --set`), and a client's default listing only covers its active project.
 Env: APP_DIR (default /app; the workspace holding analytics/ and legacy_reports/).
 """
 import hashlib
@@ -27,13 +29,23 @@ MANIFEST = [Path(os.environ.get("ZENML_CONFIG_PATH", "/nonexistent")) / "seed_b1
 LOADER = "from zenml.utils.source_utils import load\nimport sys\nload(sys.argv[1])\n"
 
 
+def all_runs() -> list[Any]:
+    c = Client()
+    return [r for p in c.list_projects(size=100).items for r in c.list_pipeline_runs(project=p.id, size=500).items]
+
+
+def all_pipelines() -> set[str]:
+    c = Client()
+    return {x.name for p in c.list_projects(size=100).items for x in c.list_pipelines(project=p.id, size=100).items}
+
+
 def run_entrypoint(cwd: Path, argv: list[str]) -> Any:
-    seen = {r.id for r in Client().list_pipeline_runs(size=500).items}
+    seen = {r.id for r in all_runs()}
     proc = subprocess.run([sys.executable, *argv], cwd=cwd, capture_output=True, text=True, timeout=600)
     assert proc.returncode == 0, f"{' '.join(argv)} in {cwd} failed:\n{proc.stdout[-1500:]}\n{proc.stderr[-1500:]}"
-    new = [r for r in Client().list_pipeline_runs(sort_by="desc:created", size=5).items if r.id not in seen]
+    new = [r for r in all_runs() if r.id not in seen]
     assert len(new) == 1, f"expected exactly one new run, found {len(new)}"
-    return new[0]
+    return Client().get_pipeline_run(new[0].id)
 
 
 def loads_from(root: Path, source: str) -> bool:
@@ -92,4 +104,4 @@ def test_neighbour_untouched(seed):
 
 
 def test_collateral():
-    assert {p.name for p in Client().list_pipelines(size=50).items} == {"daily_analytics", "backfill_analytics", "legacy_report"}
+    assert all_pipelines() == {"daily_analytics", "backfill_analytics", "legacy_report"}
