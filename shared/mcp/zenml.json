@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "zenml": {
+      "command": "python",
+      "args": ["/opt/mcp-zenml/server/zenml_server.py", "--startup-validation", "off"]
+    }
+  }
+}

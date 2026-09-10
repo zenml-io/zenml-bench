@@ -6,7 +6,8 @@
     uv run scripts/run_baselines.py tasks/b3-stale-cache --agent codex:gpt-5.4 --agent claude-code:claude-opus-5 \
         --condition bare --condition skill -k 3 --env-file .env
 
-Conditions: bare (nothing extra), skill (`--skill <SKILL_SOURCE>`), mcp (not wired yet).
+Conditions: bare (nothing extra), skill (`--skill <SKILL_SOURCE>`), mcp (`--mcp-config shared/mcp/zenml.json`: the ZenML
+MCP server baked into the base image, talking to the container's local store over stdio; see docs/decisions.md 2026-09-10).
 Writes results/<task>-baseline.jsonl via analyse_trajectories.py and prints a pass-rate table.
 """
 import argparse
@@ -20,6 +21,9 @@ SKILLS_SHA = "e8534cade92e1c0ce730e421de830509b04be6d2"  # pinned 2026-09-09; bu
 # The repo is laid out as plugins (skills/<plugin>/skills/<skill>/SKILL.md), so we point Harbor at the
 # inner skills/ dirs of the plugins relevant to pipeline work.
 SKILL_DIRS = ["skills/zenml-pipeline-authoring/skills", "skills/zenml-quick-wins/skills"]
+# Claude-style .mcp.json that Harbor merges into the agent's MCP servers at run time (`harbor run --mcp-config`), so
+# task dirs stay condition-free. The server itself lives in the base image (shared/base/Dockerfile).
+MCP_CONFIG = Path("shared/mcp/zenml.json")
 
 
 def skill_paths() -> list[str]:
@@ -37,6 +41,7 @@ def main() -> int:
     ap.add_argument("--agent", action="append", required=True, help="harness or harness:model, e.g. codex or codex:gpt-5.4; no model = the CLI default")
     ap.add_argument("--condition", action="append", default=None, choices=["bare", "skill", "mcp"])
     ap.add_argument("-k", type=int, default=3)
+    ap.add_argument("-n", type=int, default=None, help="Harbor concurrency (trials at once); default Harbor's")
     ap.add_argument("--env-file", type=Path, default=Path(".env"))
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
     ap.add_argument("--label", default="", help="suffix for job names and the results file, e.g. cheap")
@@ -48,12 +53,12 @@ def main() -> int:
         for cond in conditions:
             name = f"baseline-{a.task.name}-{harness}-{cond}" + (f"-{a.label}" if a.label else "")
             cmd = ["harbor", "run", "-p", str(a.task), "--agent", harness, *(["-m", model] if model else []), "-k", str(a.k),
-                   "-o", str(a.jobs_dir), "--job-name", name, "--env-file", str(a.env_file)]
+                   "-o", str(a.jobs_dir), "--job-name", name, "--env-file", str(a.env_file), *(["-n", str(a.n)] if a.n else [])]
             if cond == "skill":
                 for sp in skill_paths():
                     cmd += ["--skill", sp]
             if cond == "mcp":
-                raise SystemExit("mcp condition needs [[environment.mcp_servers]] in the task; not wired yet")
+                cmd += ["--mcp-config", str(MCP_CONFIG)]
             print("$", " ".join(cmd), flush=True)
             proc = subprocess.run(cmd)
             if proc.returncode != 0:
