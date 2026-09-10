@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b11-stack-registration"
+version = "0.1.0"
+description = "Register a production stack (S3 artifact store behind a placeholder AWS service connector, Kubernetes orchestrator, container registry) in a machine with no cloud access, make it the project's active stack, and leave the default stack intact."
+
+[metadata]
+family = "build-and-fix"
+tier = "A/C"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B11; the connector/link verification trap and the per-repository active stack were found while spiking (docs/decisions.md 2026-09-10)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
