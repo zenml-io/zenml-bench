@@ -26,6 +26,12 @@ SKILL_DIRS = ["skills/zenml-pipeline-authoring/skills", "skills/zenml-quick-wins
 MCP_CONFIG = Path("shared/mcp/zenml.json")
 
 
+def model_slug(model: str) -> str:
+    """`openrouter/qwen/qwen3.5-9b` -> `qwen3.5-9b`: the last path segment, anything not [A-Za-z0-9.] becomes `-`."""
+    import re
+    return re.sub(r"[^A-Za-z0-9.]+", "-", model.rsplit("/", 1)[-1]).strip("-")
+
+
 def skill_paths() -> list[str]:
     """Clone zenml-io/skills at the pinned SHA into .skills-cache/ (gitignored) and return the skill dirs."""
     cache = Path(".skills-cache") / f"zenml-io-skills-{SKILLS_SHA[:12]}"
@@ -46,15 +52,22 @@ def main() -> int:
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
     ap.add_argument("--label", default="", help="suffix for job names and the results file, e.g. cheap")
     ap.add_argument("--job-prefix", default="baseline", help="first token of job names and the results file (baseline-…); e.g. cmp for the comparison runs")
+    ap.add_argument("--ak", action="append", default=[], help="agent kwarg passed through to `harbor run --ak key=value` (repeatable), e.g. --ak max_turns=50")
+    ap.add_argument("--name-with-model", action="store_true",
+                    help="put a slug of the model (its last path segment) into job names, so one harness can run several models in one results file")
     a = ap.parse_args()
     conditions = a.condition or ["bare"]
     jobs: list[tuple[str, str, str, Path]] = []
     for spec in a.agent:
+        # First colon only: the model may itself contain slashes and colons (openrouter/qwen/qwen3.5-9b, qwen3.5-9b:batch).
         harness, _, model = spec.partition(":")
+        harness_label = f"{harness}-{model_slug(model)}" if a.name_with_model and model else harness
         for cond in conditions:
-            name = f"{a.job_prefix}-{a.task.name}-{harness}-{cond}" + (f"-{a.label}" if a.label else "")
+            name = f"{a.job_prefix}-{a.task.name}-{harness_label}-{cond}" + (f"-{a.label}" if a.label else "")
             cmd = ["harbor", "run", "-p", str(a.task), "--agent", harness, *(["-m", model] if model else []), "-k", str(a.k),
                    "-o", str(a.jobs_dir), "--job-name", name, "--env-file", str(a.env_file), *(["-n", str(a.n)] if a.n else [])]
+            for kw in a.ak:
+                cmd += ["--ak", kw]
             if cond == "skill":
                 for sp in skill_paths():
                     cmd += ["--skill", sp]
