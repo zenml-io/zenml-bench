@@ -8,6 +8,11 @@
 Per trial: reward, infra_error, steps, tool calls, whether the offline docs were read, whether a
 skill file was read, MCP calls (`mcp_calls` total, `mcp_tools` per tool name, `mcp_exception_info` when an MCP result carried a
 step's `exception_info` traceback), entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs), off-loop scripts (`scripts`: tool calls that run Python without an entrypoint), `agent_minutes` (agent-phase wall clock from result.json) and `first_run_s` (seconds from the agent's start to its first entrypoint call). Trajectories are ATIF (`agent/trajectory.json`).
+
+Terminus 2 rows (harness the RL notes train through; `docs/decisions.md` 2026-09-10) also carry `turns` (model calls), `parse_errors`
+(responses Terminus could not parse into commands), `task_complete` (the agent said it was done), `summarizations` (context
+compactions Terminus ran because the model's window filled), `cmd_timeouts` (commands still running when their wait expired),
+`timed_out` (Harbor killed the agent at `[agent] timeout_sec`) and, for reward 0, `failure_class` (see `classify`).
 """
 from datetime import datetime
 import argparse
@@ -62,12 +67,23 @@ def summarise(trial: Path) -> dict[str, Any]:
     row: dict[str, Any] = {
         "trial": trial.name,
         "agent": (result.get("agent_info") or {}).get("name") or result.get("agent_name"),
-        "model": (result.get("agent_info") or {}).get("model_name") or result.get("model_name"),
+        # Harbor 0.22 records the model under config.agent.model_name (and agent_info.model_info.name); agent_info.model_name is never set.
+        "model": ((result.get("config") or {}).get("agent") or {}).get("model_name")
+        or ((result.get("agent_info") or {}).get("model_info") or {}).get("name"),
         "reward": rewards.get("reward"),
         "infra_error": bool(result.get("exception_info")) and rewards.get("reward") is None,
         "steps": 0, "tool_calls": 0, "docs_read": False, "skill_loaded": False, "mcp_calls": 0, "mcp_tools": {},
         "mcp_exception_info": False, "pipeline_runs": 0, "scripts": 0, "agent_minutes": None, "first_run_s": None,
+        "turns": 0, "parse_errors": 0, "task_complete": False, "summarizations": 0, "cmd_timeouts": 0, "timed_out": False,
+        "max_turns": None,
     }
+    exc = result.get("exception_info") or {}
+    row["timed_out"] = "Timeout" in (exc.get("exception_type") or "")
+    row["summarizations"] = ((result.get("agent_result") or {}).get("metadata") or {}).get("summarization_count") or 0
+    try:  # the cap we ran with, if any (`--ak max_turns=N` lands in the trial config)
+        row["max_turns"] = (json.loads((trial / "config.json").read_text()).get("agent") or {}).get("kwargs", {}).get("max_turns")
+    except (OSError, ValueError):
+        pass
     ae = result.get("agent_execution") or {}
     started = parse_ts(ae.get("started_at"))
     if started and (finished := parse_ts(ae.get("finished_at"))):
@@ -78,9 +94,14 @@ def summarise(trial: Path) -> dict[str, Any]:
     t = json.loads(traj.read_text())
     for step in t.get("steps", []):
         row["steps"] += 1
+        row["turns"] += step.get("source") == "agent"
+        obs_text = " ".join(r.get("content") or "" for r in (step.get("observation") or {}).get("results") or [])
+        row["parse_errors"] += obs_text.startswith("Previous response had parsing errors")
+        row["cmd_timeouts"] += "timed out after" in obs_text
         for call in step.get("tool_calls") or []:
             row["tool_calls"] += 1
             name, args = call.get("function_name", ""), blob(call)
+            row["task_complete"] |= name == "mark_task_complete"
             row["docs_read"] |= any(m in args for m in DOCS_MARKERS)
             row["skill_loaded"] |= name == "Skill" or any(m in args for m in SKILL_MARKERS)
             if tool := mcp_tool_name(name):
@@ -96,7 +117,25 @@ def summarise(trial: Path) -> dict[str, Any]:
     fm = t.get("final_metrics") or {}
     row["total_tokens"] = (fm.get("total_prompt_tokens") or 0) + (fm.get("total_completion_tokens") or 0) or None
     row["cost_usd"] = fm.get("total_cost_usd")
+    if not row["reward"]:
+        row["failure_class"] = classify(row)
     return row
+
+
+def classify(row: dict[str, Any]) -> str:
+    """One label per failed trial, first match wins. Order matters: a trial that both overflowed and never ran the
+    pipeline is an overflow, because that is what stopped it."""
+    if row["infra_error"]:
+        return "infra_error"
+    if row["timed_out"]:
+        return "timeout"
+    if row["summarizations"]:
+        return "context_overflow"
+    if row["max_turns"] and row["turns"] >= row["max_turns"] and not row["task_complete"]:
+        return "max_turns"
+    if row["pipeline_runs"] == 0:
+        return "format" if row["parse_errors"] >= 3 else "never_ran_pipeline"
+    return "wrong_fix" if row["task_complete"] else "gave_up"
 
 
 def main() -> None:
@@ -106,6 +145,8 @@ def main() -> None:
     a = ap.parse_args()
     rows = [summarise(t) | {"job": job.name} for job in a.jobs for t in sorted(job.iterdir()) if (t / "result.json").exists()]
     cols = ["job", "trial", "reward", "infra_error", "steps", "tool_calls", "docs_read", "skill_loaded", "mcp_calls", "mcp_exception_info", "pipeline_runs", "scripts", "agent_minutes", "first_run_s"]
+    if any(r["turns"] for r in rows):
+        cols += ["turns", "parse_errors", "task_complete", "summarizations", "cmd_timeouts", "timed_out", "failure_class"]
     print(" | ".join(cols))
     for r in rows:
         print(" | ".join(str(r.get(c)) for c in cols))
