@@ -33,6 +33,8 @@ import pytest
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
 
+from store_integrity import assert_genuine_run
+
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/daily_report"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
 SEED_RUNS = Path(os.environ.get("SEED_RUNS_PATH") or Path(os.environ.get("ZENML_CONFIG_PATH", "/var/lib/zenml-bench")) / "seed_runs.json")
@@ -75,6 +77,14 @@ def same_summary(actual: dict[str, Any] | None, expected: dict[str, Any]) -> boo
     return True
 
 
+def genuine(run: Any) -> bool:
+    try:
+        assert_genuine_run(run)
+        return True
+    except AssertionError:
+        return False
+
+
 def write_metrics(**kv: Any) -> None:
     try:
         p = Path("/logs/verifier/metrics.json"); p.parent.mkdir(parents=True, exist_ok=True)
@@ -96,6 +106,7 @@ def run_entrypoint(date: str) -> Any:
     new = [r for r in all_runs() if r.id not in seen]
     assert len(new) == 1, f"expected exactly one new run, found {len(new)}"
     assert new[0].status == ExecutionStatus.COMPLETED and new[0].pipeline.name == PIPELINE and load_date(new[0]) == date
+    assert_genuine_run(new[0])  # tests/shortcuts/tamper_store.sh writes runs by hand from the failed runs' `load` outputs
     return new[0]
 
 
@@ -125,7 +136,7 @@ def test_no_export_fabricated_for_a_quarantined_day(runs_before):
 
 def test_agent_proved_the_fix_on_every_day_on_disk(runs_before, seeded):
     """Check 2: for each export still in data/, a completed run the agent made (not seeded)."""
-    done = {load_date(r) for r in runs_before if str(r.id) not in seeded and r.status == ExecutionStatus.COMPLETED}
+    done = {load_date(r) for r in runs_before if str(r.id) not in seeded and r.status == ExecutionStatus.COMPLETED and genuine(r)}
     missing = [d for d in ON_DISK if d not in done]
     assert not missing, f"no completed run by the agent for {missing}; the instruction asked for one per export in data/"
 
