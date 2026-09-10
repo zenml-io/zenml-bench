@@ -6,6 +6,7 @@ Run from this directory: `python make_data.py [--fixtures-dir <task>/tests/fixtu
 """
 import argparse
 import json
+import shutil
 from pathlib import Path
 
 import numpy as np
@@ -33,6 +34,8 @@ def main() -> None:
         out.parent.mkdir(parents=True, exist_ok=True)
         np.savez_compressed(out, X=X[sl], y=y[sl])
         print(f"wrote {out} ({sl.stop or len(X)} - {sl.start} rows)")
+        if name == "train" and a.fixtures_dir:  # the grader's own copy, for checking each run's recorded training slice
+            shutil.copy(out, a.fixtures_dir / "train.npz")
     if a.fixtures_dir:
         write_expected(a.fixtures_dir, X[slices["hidden"]], y[slices["hidden"]])
 

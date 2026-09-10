@@ -1,0 +1,26 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/r1-clock-improve-within-budget"
+version = "0.1.0"
+description = "Wall-clock variant of r1-improve-within-budget for the with/without-ZenML comparison: identical project, data, budget and grader; the agent is told it has 25 minutes and 2 CPUs, and the harness enforces both."
+
+[metadata]
+family = "research"
+tier = "A"
+difficulty_estimate = "unknown"  # set after the 2026-09-10 comparison run (results/level3-comparison.md)
+zenml_version = "0.96.4"
+source = "comparison variant of r1-improve-within-budget (2026-09-10): stated 25-minute wall clock, 2 CPUs; see docs/decisions.md"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1500.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
+cpus = 2

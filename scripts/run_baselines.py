@@ -45,13 +45,14 @@ def main() -> int:
     ap.add_argument("--env-file", type=Path, default=Path(".env"))
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
     ap.add_argument("--label", default="", help="suffix for job names and the results file, e.g. cheap")
+    ap.add_argument("--job-prefix", default="baseline", help="first token of job names and the results file (baseline-…); e.g. cmp for the comparison runs")
     a = ap.parse_args()
     conditions = a.condition or ["bare"]
     jobs: list[tuple[str, str, str, Path]] = []
     for spec in a.agent:
         harness, _, model = spec.partition(":")
         for cond in conditions:
-            name = f"baseline-{a.task.name}-{harness}-{cond}" + (f"-{a.label}" if a.label else "")
+            name = f"{a.job_prefix}-{a.task.name}-{harness}-{cond}" + (f"-{a.label}" if a.label else "")
             cmd = ["harbor", "run", "-p", str(a.task), "--agent", harness, *(["-m", model] if model else []), "-k", str(a.k),
                    "-o", str(a.jobs_dir), "--job-name", name, "--env-file", str(a.env_file), *(["-n", str(a.n)] if a.n else [])]
             if cond == "skill":
@@ -65,7 +66,7 @@ def main() -> int:
                 print(f"harbor exited {proc.returncode} for {name}; continuing", file=sys.stderr)
             jobs.append((harness, model, cond, a.jobs_dir / name))
 
-    out = Path("results") / (f"{a.task.name}-baseline-{a.label}.jsonl" if a.label else f"{a.task.name}-baseline.jsonl")
+    out = Path("results") / (f"{a.task.name}-{a.job_prefix}-{a.label}.jsonl" if a.label else f"{a.task.name}-{a.job_prefix}.jsonl")
     import json
     # Merge into the existing results file: keep rows from jobs not run this time (e.g. bare/skill when adding mcp).
     fresh = Path(".") / f".{out.name}.tmp"
@@ -81,7 +82,7 @@ def main() -> int:
         r = json.loads(line)
         job = r["job"].removesuffix(f"-{a.label}") if a.label else r["job"]
         cond = job.rsplit("-", 1)[1]
-        harness = job.removeprefix(f"baseline-{a.task.name}-").removesuffix(f"-{cond}")
+        harness = job.removeprefix(f"{a.job_prefix}-{a.task.name}-").removesuffix(f"-{cond}")
         if r["reward"] is not None:
             table[(harness, cond)].append(float(r["reward"]))
     print(f"{'harness':<14}{'condition':<12}{'pass rate':<12}n")

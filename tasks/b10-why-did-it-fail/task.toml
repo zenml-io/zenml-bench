@@ -3,7 +3,7 @@ schema_version = "1.4"
 [task]
 name = "zenml/b10-why-did-it-fail"
 version = "0.1.0"
-description = "This morning's scheduled daily_report run failed. Use the ZenML store to find which day it processed and why it failed, fix the actual cause, and produce that day's report. Several other failed runs are distractors."
+description = "The most recent scheduled daily_report run failed. Use the ZenML store to find which day it processed and why it failed, fix the actual cause, and produce that day's report. Several other failed runs are distractors."
 
 [metadata]
 family = "build-and-fix"

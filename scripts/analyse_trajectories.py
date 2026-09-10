@@ -7,8 +7,9 @@
 
 Per trial: reward, infra_error, steps, tool calls, whether the offline docs were read, whether a
 skill file was read, MCP calls (`mcp_calls` total, `mcp_tools` per tool name, `mcp_exception_info` when an MCP result carried a
-step's `exception_info` traceback), entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs). Trajectories are ATIF (`agent/trajectory.json`).
+step's `exception_info` traceback), entrypoint invocations (`pipeline_runs`: counts tool calls that invoke a project entrypoint, incl. the agent's own test runs), off-loop scripts (`scripts`: tool calls that run Python without an entrypoint), `agent_minutes` (agent-phase wall clock from result.json) and `first_run_s` (seconds from the agent's start to its first entrypoint call). Trajectories are ATIF (`agent/trajectory.json`).
 """
+from datetime import datetime
 import argparse
 import json
 from pathlib import Path
@@ -18,6 +19,10 @@ DOCS_MARKERS = ("/opt/zenml-docs", "llms-full.txt")
 ENTRYPOINTS = ("run.py", "research.py", "train.py")  # project entrypoints: nightly/k8s/legacy/churn, research, research_bare
 EXC_MARKER = '"exception_info": {'  # a non-null ExceptionInfo in a serialised StepRunResponse
 SKILL_MARKERS = ("SKILL.md", "/harbor/skills", "/.agents/skills", ".claude/skills", "CLAUDE_CONFIG_DIR/skills")
+
+
+def parse_ts(s: str | None) -> datetime | None:
+    return datetime.fromisoformat(s.replace("Z", "+00:00")) if s else None
 
 
 def blob(call: dict[str, Any]) -> str:
@@ -61,8 +66,12 @@ def summarise(trial: Path) -> dict[str, Any]:
         "reward": rewards.get("reward"),
         "infra_error": bool(result.get("exception_info")) and rewards.get("reward") is None,
         "steps": 0, "tool_calls": 0, "docs_read": False, "skill_loaded": False, "mcp_calls": 0, "mcp_tools": {},
-        "mcp_exception_info": False, "pipeline_runs": 0,
+        "mcp_exception_info": False, "pipeline_runs": 0, "scripts": 0, "agent_minutes": None, "first_run_s": None,
     }
+    ae = result.get("agent_execution") or {}
+    started = parse_ts(ae.get("started_at"))
+    if started and (finished := parse_ts(ae.get("finished_at"))):
+        row["agent_minutes"] = round((finished - started).total_seconds() / 60, 1)
     traj = trial / "agent" / "trajectory.json"
     if not traj.exists():
         return row
@@ -78,7 +87,12 @@ def summarise(trial: Path) -> dict[str, Any]:
                 row["mcp_calls"] += 1
                 row["mcp_tools"][tool] = row["mcp_tools"].get(tool, 0) + 1
                 row["mcp_exception_info"] |= any(EXC_MARKER in r.get("content", "") for r in observations(step, call))
-            row["pipeline_runs"] += any(e in args for e in ENTRYPOINTS) and ("python" in args or "uv run" in args)
+            runs_python = "python" in args or "uv run" in args
+            is_run = any(e in args for e in ENTRYPOINTS) and runs_python
+            row["pipeline_runs"] += is_run
+            row["scripts"] += runs_python and not is_run
+            if is_run and row["first_run_s"] is None and started and (ts := parse_ts(step.get("timestamp"))):
+                row["first_run_s"] = round((ts - started).total_seconds())
     fm = t.get("final_metrics") or {}
     row["total_tokens"] = (fm.get("total_prompt_tokens") or 0) + (fm.get("total_completion_tokens") or 0) or None
     row["cost_usd"] = fm.get("total_cost_usd")
@@ -91,7 +105,7 @@ def main() -> None:
     ap.add_argument("--jsonl", type=Path)
     a = ap.parse_args()
     rows = [summarise(t) | {"job": job.name} for job in a.jobs for t in sorted(job.iterdir()) if (t / "result.json").exists()]
-    cols = ["job", "trial", "reward", "infra_error", "steps", "tool_calls", "docs_read", "skill_loaded", "mcp_calls", "mcp_exception_info", "pipeline_runs"]
+    cols = ["job", "trial", "reward", "infra_error", "steps", "tool_calls", "docs_read", "skill_loaded", "mcp_calls", "mcp_exception_info", "pipeline_runs", "scripts", "agent_minutes", "first_run_s"]
     print(" | ".join(cols))
     for r in rows:
         print(" | ".join(str(r.get(c)) for c in cols))
