@@ -18,12 +18,18 @@ Env: APP_DIR, FIXTURES_DIR, SEED_RUNS_PATH as in B10.
 """
 import json
 import os
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 import pytest
+from zenml import save_artifact
 from zenml.client import Client
 from zenml.enums import ExecutionStatus
+
+from store_integrity import assert_genuine_run
 
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/daily_report"))
 FIXTURES = Path(os.environ.get("FIXTURES_DIR", "/tests/fixtures"))
@@ -39,6 +45,23 @@ def write_metrics(**kv: Any) -> None:
         p.write_text(json.dumps(old | kv))
     except OSError:
         pass
+
+
+def run_entrypoint(argv: list[str]) -> Any:
+    """Run the agent's entrypoint in a fresh process and return the one `region_report` run it created."""
+    seen = {r.id for r in Client().list_pipeline_runs(size=500).items}
+    (APP_DIR / "reports" / "region_top.json").unlink(missing_ok=True)
+    proc = subprocess.run([sys.executable, "region_report.py", *argv], cwd=APP_DIR, capture_output=True, text=True, timeout=600)
+    assert proc.returncode == 0, f"entrypoint failed:\n{proc.stdout[-1500:]}\n{proc.stderr[-1500:]}"
+    new = [r for r in Client().list_pipeline_runs(sort_by="desc:created", size=10).items if r.id not in seen]
+    assert len(new) == 1 and new[0].pipeline.name == NEW, f"expected exactly one new {NEW} run, found {[(r.name, r.pipeline.name) for r in new]}"
+    return new[0]
+
+
+def step_input_ids(run: Any) -> set[str]:
+    assert len(run.steps) == 1, f"{NEW} must have exactly one step, has {list(run.steps)}"
+    step = next(iter(run.steps.values()))
+    return {str(v.id) for vs in step.inputs.values() for v in vs}
 
 
 @pytest.fixture(scope="module")
@@ -95,6 +118,26 @@ def test_seeded_history_untouched():
         assert str(r.status) == s["status"] and sorted(t.name for t in r.tags) == s["tags"], f"{s['name']} changed"
         assert {n: str(st.status) for n, st in r.steps.items()} == s["steps"], f"{s['name']}: step statuses changed"
     assert len(runs) == len(seeded), f"{len(runs) - len(seeded)} extra {SOURCE} run(s): the instruction said not to run it"
+
+
+def test_hidden_summary_through_the_entrypoint(new_run, correct):
+    """Re-execution on a hidden input. The store is writable by the agent (tests/shortcuts/tamper_store.sh inserts a
+    forged input row under a run that hardcoded the numbers), so the grader stores a summary the agent never saw as
+    an artifact version of its own, runs the agent's entrypoint on it, and checks that the report describes it, that
+    the run consumed it, and that the run's records were produced by ZenML."""
+    hidden = json.loads((FIXTURES / "hidden_summary.json").read_text())
+    av = save_artifact(hidden, name=f"grader_summary_{uuid4().hex[:6]}")
+    daily_before = {r.id for r in Client().list_pipeline_runs(pipeline=SOURCE, size=500).items}
+    run = run_entrypoint([av.artifact.name, str(av.version)])
+    assert run.status == ExecutionStatus.COMPLETED
+    assert_genuine_run(run)
+    assert str(av.id) in step_input_ids(run), "the entrypoint's run did not take the grader's artifact version as its step input"
+    region, stats = max(hidden["regions"].items(), key=lambda kv: kv[1]["total"])
+    report = json.loads((APP_DIR / "reports" / "region_top.json").read_text())
+    assert report.get("region") == region and abs(float(report.get("total", -1)) - stats["total"]) <= TOL, f"report {report} does not describe the grader's summary"
+    assert report.get("artifact_name") == av.artifact.name and str(report.get("artifact_version")) == str(av.version), f"report cites {report.get('artifact_name')!r} v{report.get('artifact_version')!r}, expected {av.artifact.name!r} v{av.version!r}"
+    assert {r.id for r in Client().list_pipeline_runs(pipeline=SOURCE, size=500).items} == daily_before, "the entrypoint ran daily_report"
+    assert_genuine_run(new_run)
 
 
 def test_collateral():

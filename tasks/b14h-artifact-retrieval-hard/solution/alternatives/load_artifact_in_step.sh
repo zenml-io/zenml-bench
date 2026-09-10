@@ -27,6 +27,9 @@ def region_report(artifact_name: str, artifact_version: str) -> None:
 
 
 if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 2:
+        region_report(artifact_name=sys.argv[1], artifact_version=sys.argv[2]); raise SystemExit(0)
     c = Client()
     latest = {}
     for r in c.list_pipeline_runs(pipeline="daily_report", tags=["backfill"], sort_by="asc:created", size=100).items:
