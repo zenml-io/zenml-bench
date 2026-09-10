@@ -1,0 +1,30 @@
+{
+ "rows": 55,
+ "total": 26345.66,
+ "regions": {
+  "central": {
+   "count": 12,
+   "total": 5970.02,
+   "mean": 497.5
+  },
+  "coastal": {
+   "count": 9,
+   "total": 3749.79,
+   "mean": 416.64
+  },
+  "highlands": {
+   "count": 13,
+   "total": 5998.65,
+   "mean": 461.43
+  },
+  "islands": {
+   "count": 21,
+   "total": 10627.2,
+   "mean": 506.06
+  }
+ },
+ "span": [
+  "2026-08-09 08:00:01",
+  "2026-08-09 19:37:12"
+ ]
+}

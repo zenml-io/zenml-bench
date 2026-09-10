@@ -931,6 +931,21 @@ def b3_fixture(p: dict[str, Any], k: int, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True); df.to_csv(path, index=False)
 
 
+def b3_scores(p: dict[str, Any], fixtures: Path) -> dict[str, float]:
+    """Scores the generated project would print for each fixture (same model and split as run.py), computed in-process."""
+    import pandas as pd
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import train_test_split
+    out = {}
+    for name in "abc":
+        df = pd.read_csv(fixtures / f"{name}.csv")
+        x, y = df.drop(columns=p["label"]), df[p["label"]]
+        model = LogisticRegression(max_iter=1000).fit(x, y)
+        _, x_test, _, y_test = train_test_split(x, y, test_size=p["test_size"], random_state=p["split_seed"])
+        out[name] = float(model.score(x_test, y_test))
+    return out
+
+
 def b3_instance(seed: int, out: Path, python: str) -> Path:
     p = b3_params(seed)
     project, pipeline, loader, trainer, evaluator, score, data = p["project"], p["pipeline"], p["loader"], p["trainer"], p["evaluator"], p["score"], p["data"]
@@ -941,8 +956,14 @@ def b3_instance(seed: int, out: Path, python: str) -> Path:
         shutil.rmtree(task)
     env_dir, sol, tests = task / "environment", task / "solution", task / "tests"
     write(env_dir / project / "run.py", b3_run_py(p))
-    for k, name in enumerate("abc"):
-        b3_fixture(p, k, tests / "fixtures" / f"{name}.csv")
+    for attempt in range(20):  # the three fixtures must score distinctly (a repeated score would hide a stale cache); redraw data seeds until they do
+        for k, name in enumerate("abc"):
+            b3_fixture(p, k, tests / "fixtures" / f"{name}.csv")
+        if len({round(v, 3) for v in b3_scores(p, tests / "fixtures").values()}) == 3:
+            break
+        p["data_seeds"] = [d + 7919 * (attempt + 1) for d in p["data_seeds"]]
+    else:
+        raise SystemExit(f"seed {seed}: no distinct fixture scores after 20 redraws")
     (env_dir / project / data).parent.mkdir(parents=True, exist_ok=True)
     shutil.copy(tests / "fixtures" / "a.csv", env_dir / project / data)
     write(env_dir / "Dockerfile", render(B3_DOCKERFILE, SEED=seed, PROJECT=project))

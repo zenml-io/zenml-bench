@@ -1,0 +1,30 @@
+{
+ "rows": 37,
+ "total": 17975.41,
+ "regions": {
+  "online": {
+   "count": 14,
+   "total": 7028.54,
+   "mean": 502.04
+  },
+  "partner": {
+   "count": 13,
+   "total": 7443.6,
+   "mean": 572.58
+  },
+  "retail": {
+   "count": 1,
+   "total": 667.66,
+   "mean": 667.66
+  },
+  "wholesale": {
+   "count": 9,
+   "total": 2835.61,
+   "mean": 315.07
+  }
+ },
+ "span": [
+  "2026-05-13 08:02:25",
+  "2026-05-13 19:51:47"
+ ]
+}
