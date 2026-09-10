@@ -12,6 +12,8 @@ Why a frozen version and a growing pool are two different things: a benchmark is
 
 ## Going public
 
+Done 2026-09-10: GitHub repo public; all 18 tasks and the dataset flipped with `harbor task visibility zenml/<name> --public` and `harbor dataset visibility zenml/zenml-bench --public` (no version bump needed); wrapper 0.1.1 pushed with `prime env push --visibility PUBLIC`. Run from anywhere: `harbor run -d zenml/zenml-bench@v0.1 -a <agent> -m <model>`; `prime env install zenml/zenml-bench` (task images built locally with `scripts/build_task_images.sh`; hosted Prime sandboxes need them in a registry, not done).
+
 Order: (1) make the GitHub repo public (the Prime environment and the `--repo` route point at it, and the base image is only buildable from it); (2) Harbor Hub: `harbor publish --public` only sets visibility for *new* packages, existing ones keep theirs, so flip the 18 tasks and the dataset in the Hub UI (or bump the version and re-publish with `--public`); (3) Prime: `prime env push --visibility PUBLIC` on the next push, or the Hub UI; (4) uploaded jobs: `harbor upload <job> --public` on a re-upload updates visibility. Before each step run `scripts/check_public.sh [jobs/<job> ...]`. Known trade-off of public tasks: solutions and tests are part of the package (Harbor's norm, as with Terminal-Bench), so future models may have seen them; held-out generated instances are the answer to that.
 
 ## Release checklist
