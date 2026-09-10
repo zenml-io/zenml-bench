@@ -91,4 +91,4 @@ Bare condition only (no skill, no MCP), 164 trials, pass counts as passed/attemp
 
 ## License
 
-Apache-2.0.
+MIT.
