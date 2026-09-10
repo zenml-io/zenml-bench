@@ -3,7 +3,7 @@
 # ///
 """The four verifier checks for one task, run through Harbor (brief §7.4).
 
-    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs]
+    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs] [-n 2]
 
 1. oracle (solution/solve.sh) scores 1.0 on every attempt
 2. the `nop` agent (does nothing) scores 0
@@ -23,10 +23,10 @@ import tempfile
 from pathlib import Path
 
 
-def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, name: str) -> list[float]:
+def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, name: str, n_concurrent: int | None = None) -> list[float]:
     job = jobs_dir / name
     shutil.rmtree(job, ignore_errors=True)
-    cmd = ["harbor", "run", "-p", str(task_dir), "--agent", agent, "-k", str(attempts), "-o", str(jobs_dir), "--job-name", name]
+    cmd = ["harbor", "run", "-p", str(task_dir), "--agent", agent, "-k", str(attempts), "-o", str(jobs_dir), "--job-name", name, *(["-n", str(n_concurrent)] if n_concurrent else [])]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         print(proc.stdout[-3000:], proc.stderr[-3000:], file=sys.stderr)
@@ -52,12 +52,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("task", type=Path)
     ap.add_argument("--oracle-attempts", type=int, default=5)
+    ap.add_argument("-n", type=int, default=None, help="Harbor concurrency (trials at once); default Harbor's (4)")
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
     a = ap.parse_args()
     task, prefix = a.task.resolve(), f"verify-{a.task.name}"
     checks: list[tuple[str, list[float], float]] = []  # (label, rewards, expected)
 
-    checks.append(("oracle", harbor_rewards(task, "oracle", a.oracle_attempts, a.jobs_dir, f"{prefix}-oracle"), 1.0))
+    checks.append(("oracle", harbor_rewards(task, "oracle", a.oracle_attempts, a.jobs_dir, f"{prefix}-oracle", a.n), 1.0))
     checks.append(("nop", harbor_rewards(task, "nop", 1, a.jobs_dir, f"{prefix}-nop"), 0.0))
     with tempfile.TemporaryDirectory() as tmp_s:
         for kind, expected in (("tests/shortcuts", 0.0), ("solution/alternatives", 1.0)):
