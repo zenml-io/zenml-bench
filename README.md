@@ -86,7 +86,7 @@ Tiers: A = local store, no server; B = real ZenML server; C = Kubernetes configu
 | `r1-improve-within-budget` | A | 3/3 | 3/3 | 3/3 | 3/3 | $0.33 | saturated |
 | `r2-screen-then-confirm` | A | 3/5 | 3/3 | – | – | $1.02 | headroom (opus-5) |
 
-Bare condition only (no skill, no MCP), 164 trials, pass counts as passed/attempted per model. Three attempts per cell is a small sample: 3/3 against 2/3 is not a meaningful gap. Cost is the harness's own figure per trial at the prices of the run date, median over all bare trials of the task. Band: *saturated* = every model ≥ 80 %, *headroom* = a model sits in the 20–80 % band where a benchmark ranks agents and a trainer gets signal, *floor* = every model < 20 %. Per-condition tables, trajectories read by hand and what tripped each agent are in the `results/*.md` pages. Regenerate with `uv run scripts/results_table.py`.
+Bare condition only (no skill, no MCP), 169 trials, pass counts as passed/attempted per model. Three attempts per cell is a small sample: 3/3 against 2/3 is not a meaningful gap. Cost is the harness's own figure per trial at the prices of the run date, median over all bare trials of the task. Band: *saturated* = every model ≥ 80 %, *headroom* = a model sits in the 20–80 % band where a benchmark ranks agents and a trainer gets signal, *floor* = every model < 20 %. Per-condition tables, trajectories read by hand and what tripped each agent are in the `results/*.md` pages. Regenerate with `uv run scripts/results_table.py`.
 <!-- results:end -->
 
 ## License
