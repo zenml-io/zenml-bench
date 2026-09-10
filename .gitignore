@@ -231,3 +231,7 @@ tasks/generated-train/
 
 # Prime CLI push metadata (written by `prime env push`)
 integrations/prime/**/.prime/
+
+# experiments: arm definitions and analysis are tracked; runs and raw outputs are not (see docs/future-experiments.md)
+experiments/**/jobs/
+experiments/**/outputs/

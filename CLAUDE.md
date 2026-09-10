@@ -25,7 +25,8 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 
 ## Layout (grows as levels land; see brief section 9)
 
-- `docs/` — brief, `decisions.md`, `task-authoring.md` (read before writing a task), `findings.md`. `publishing.md` (Hub org/visibility decisions, `registry.json`/`dataset.toml`, Prime wrapper, release checklist).
+- `docs/` — brief, `decisions.md`, `task-authoring.md` (read before writing a task), `findings.md`. `future-experiments.md` lists experiments that are not part of the benchmark (framework comparison, replications, registry images, training); add new ideas there rather than in chat.
+- `experiments/<name>/` — code for those experiments (tracked); their `jobs/` and `outputs/` are gitignored; their results stay out of `results/`, the README table and the Hubs. `publishing.md` (Hub org/visibility decisions, `registry.json`/`dataset.toml`, Prime wrapper, release checklist).
 - `registry.json` (Harbor legacy registry: run the set via `--repo zenml-io/zenml-bench`) and `dataset.toml` (Hub manifest; `harbor sync` after any task change) at the root; `integrations/prime/zenml_bench/` is the verifiers v1 taskset for the Prime Intellect Environments Hub (run with verifiers' `eval`, not `vf-eval`; every task maps to a prebuilt `zenml-bench/<task>:0.1.0` image). Task ids are `zenml/<name>`; published versions are frozen, so bump `[task].version` and re-sync before any re-publish.
 - `shared/base/Dockerfile` — base image; the ZenML pin lives here (`ARG ZENML_PIN`), and so does the `mcp-zenml` pin (`ARG MCP_ZENML_SHA`, `mcp[cli]==1.26.0`: the server needs `mcp<2`).
 - `shared/mcp/zenml.json` — Claude-style `.mcp.json` for the `mcp` condition (`command: python /opt/mcp-zenml/server/zenml_server.py --startup-validation off`).
