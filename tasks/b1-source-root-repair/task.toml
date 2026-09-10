@@ -8,7 +8,7 @@ description = "A project with two entrypoints (one nested in a subdirectory) rec
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "easy"  # update after baselines
+difficulty_estimate = "easy"  # 6/6 bare on 2026-09-10 after a grader fix (first Codex run put analytics in its own ZenML project; the grader now lists across projects)
 zenml_version = "0.96.4"
 source = "design brief B1; ZenML's source root = repository root found from the CWD upward, else the main module's directory (docs/decisions.md 2026-09-10)"
 conditions_supported = ["bare", "skill", "mcp"]
