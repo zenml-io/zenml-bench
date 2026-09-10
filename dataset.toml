@@ -1,0 +1,83 @@
+# Dataset manifest for zenml/zenml-bench
+# Add tasks using: harbor add <org>/<name>
+# Publish using: harbor publish
+
+[dataset]
+name = "zenml/zenml-bench"
+version = "1.0.0"
+description = ""
+authors = []
+keywords = []
+
+[[tasks]]
+name = "zenml/b1-source-root-repair"
+digest = "sha256:841e383aecb1aebea0b2f7e51e12caf1d780d7f6fbc5574065cea4dc17943423"
+
+[[tasks]]
+name = "zenml/b10-why-did-it-fail"
+digest = "sha256:e71646e28c436727263f33ab82e402292881ecf855b727c1ff626ce2f7391474"
+
+[[tasks]]
+name = "zenml/b10h-why-did-it-fail-hard"
+digest = "sha256:779022edfd54c01b458013ad83ff7eb11dd4d7c6e49ea6cb1ad7a00352daf1de"
+
+[[tasks]]
+name = "zenml/b11-stack-registration"
+digest = "sha256:e2fe0066a9af1b069b4e20495615f07e02abd620e7b755d4d0239212cddad3a8"
+
+[[tasks]]
+name = "zenml/b14-artifact-retrieval"
+digest = "sha256:21d0d6f70e21fcddfd58e1eef07fadf267f09bbce3dc456bd6d946f468235dc8"
+
+[[tasks]]
+name = "zenml/b14h-artifact-retrieval-hard"
+digest = "sha256:faa678c849073b02ef7ae19839832bca0e48222b163eb66610a2036d79890fe0"
+
+[[tasks]]
+name = "zenml/b2-script-to-pipeline"
+digest = "sha256:ba55cf990bceb04e6bc5cd97f3618763de74bc7fa9b90096be2f00da6dd8d70f"
+
+[[tasks]]
+name = "zenml/b3-stale-cache"
+digest = "sha256:876b7a2f9c7bbc24ddb04a962c6825c0083f377ce2e2ef0c0ed363c4b8e62869"
+
+[[tasks]]
+name = "zenml/b4-nondeterministic-step"
+digest = "sha256:dfe6210134d52d4730f6b8d165abf568c322953c0697eda466ed1ff845ab678e"
+
+[[tasks]]
+name = "zenml/b5-custom-materializer"
+digest = "sha256:6bb1a2e473abd6614540e2dd645d0689a2962923d6c9ef40b051b0bcc285e8e1"
+
+[[tasks]]
+name = "zenml/b6-model-promotion"
+digest = "sha256:424ceee0ea4a08a006ce0a667d4872ec466df4352daa10c889119ea6b8a8cadd"
+
+[[tasks]]
+name = "zenml/b7-kubernetes-settings"
+digest = "sha256:42f6dfbb890474c932eb2dab178ca7a46042b3662d72efa53a5a5a06712a70a2"
+
+[[tasks]]
+name = "zenml/b9-modernise-old-api"
+digest = "sha256:fc6689f485db628472f6593605893528119d00863bb28ec9114d7b2a27227b5d"
+
+[[tasks]]
+name = "zenml/r1-bare-clock-improve-within-budget"
+digest = "sha256:4d21865c44895523c2f657d7bf4575754bffb2340fdc1b5042b415e818d3d3c1"
+
+[[tasks]]
+name = "zenml/r1-bare-improve-within-budget"
+digest = "sha256:3137b1a5fc66407420a720039987329c0e6377a32f7c27042bb8931ebb70cb36"
+
+[[tasks]]
+name = "zenml/r1-clock-improve-within-budget"
+digest = "sha256:24c740942c44a4143845c5c53c29bf54852a9dc067a107fd4b45fe933a7c9ce7"
+
+[[tasks]]
+name = "zenml/r1-improve-within-budget"
+digest = "sha256:ca29d67d66930c21ea6da7dced3f8b7da3cae1e7cb372005992d4e0265c8b78a"
+
+[[tasks]]
+name = "zenml/r2-screen-then-confirm"
+digest = "sha256:4d7e8514de849ea4a8d61e1663dd1bd4732b843f95517291e08222620c297e49"
+

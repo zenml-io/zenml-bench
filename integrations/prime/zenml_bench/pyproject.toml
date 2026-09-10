@@ -1,0 +1,20 @@
+[project]
+name = "zenml-bench"
+description = "Coding agents build, fix, configure and research with real ZenML: 18 Harbor tasks graded on the state ZenML recorded, wrapped as a verifiers v1 taskset."
+tags = ["zenml", "mlops", "harbor", "agentic", "terminal", "train", "eval"]
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "verifiers[harbor]>=0.3.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["zenml_bench.py", "pyproject.toml"]
+
+[tool.verifiers.eval]
+num_examples = 18
+rollouts_per_example = 3

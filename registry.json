@@ -1,0 +1,81 @@
+[
+  {
+    "name": "zenml-bench",
+    "version": "0.1.0",
+    "description": "ZenML Bench v0.1: 18 Harbor tasks where coding agents build, fix, configure and research with real ZenML 0.96.4. Every task passed the four verifier checks (oracle 5/5, nop 0, shortcuts 0, alternatives 1). https://github.com/strickvl/zenml-bench",
+    "tasks": [
+      {
+        "name": "b1-source-root-repair",
+        "path": "tasks/b1-source-root-repair"
+      },
+      {
+        "name": "b10-why-did-it-fail",
+        "path": "tasks/b10-why-did-it-fail"
+      },
+      {
+        "name": "b10h-why-did-it-fail-hard",
+        "path": "tasks/b10h-why-did-it-fail-hard"
+      },
+      {
+        "name": "b11-stack-registration",
+        "path": "tasks/b11-stack-registration"
+      },
+      {
+        "name": "b14-artifact-retrieval",
+        "path": "tasks/b14-artifact-retrieval"
+      },
+      {
+        "name": "b14h-artifact-retrieval-hard",
+        "path": "tasks/b14h-artifact-retrieval-hard"
+      },
+      {
+        "name": "b2-script-to-pipeline",
+        "path": "tasks/b2-script-to-pipeline"
+      },
+      {
+        "name": "b3-stale-cache",
+        "path": "tasks/b3-stale-cache"
+      },
+      {
+        "name": "b4-nondeterministic-step",
+        "path": "tasks/b4-nondeterministic-step"
+      },
+      {
+        "name": "b5-custom-materializer",
+        "path": "tasks/b5-custom-materializer"
+      },
+      {
+        "name": "b6-model-promotion",
+        "path": "tasks/b6-model-promotion"
+      },
+      {
+        "name": "b7-kubernetes-settings",
+        "path": "tasks/b7-kubernetes-settings"
+      },
+      {
+        "name": "b9-modernise-old-api",
+        "path": "tasks/b9-modernise-old-api"
+      },
+      {
+        "name": "r1-bare-clock-improve-within-budget",
+        "path": "tasks/r1-bare-clock-improve-within-budget"
+      },
+      {
+        "name": "r1-bare-improve-within-budget",
+        "path": "tasks/r1-bare-improve-within-budget"
+      },
+      {
+        "name": "r1-clock-improve-within-budget",
+        "path": "tasks/r1-clock-improve-within-budget"
+      },
+      {
+        "name": "r1-improve-within-budget",
+        "path": "tasks/r1-improve-within-budget"
+      },
+      {
+        "name": "r2-screen-then-confirm",
+        "path": "tasks/r2-screen-then-confirm"
+      }
+    ]
+  }
+]
