@@ -8,7 +8,7 @@ description = "Among weeks of daily_report runs, some backfill days were process
 [metadata]
 family = "build-and-fix"
 tier = "A"
-difficulty_estimate = "unknown"  # baselines pending; B14 (the easy variant) was 6/6
+difficulty_estimate = "medium"  # 2026-09-10: opus-5 3/3, gpt-5.6-terra 3/3, haiku-4.5 1/3, gpt-5.4-mini 3/3; see results/level2-b14h.md
 zenml_version = "0.96.4"
 source = "harder variant of B14 (design brief B14 + results/level2-b14.md findings): the criterion is stated in business terms with a supersession rule, three days were re-processed so the largest completed total belongs to a superseded run, and the report must cite the artifact by name and version; history produced by real runs at image build (environment/setup_store.sh)"
 conditions_supported = ["bare", "skill", "mcp"]
