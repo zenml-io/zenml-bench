@@ -1,0 +1,36 @@
+{
+  "env_id": "zenml/zenml-bench",
+  "env": "zenml/zenml-bench",
+  "model": "openrouter/qwen/qwen3.5-9b",
+  "harness": "terminus-2",
+  "framework": "verifiers",
+  "note": "run through Harbor 0.22.0 with the terminus-2 harness, converted by scripts/harbor_to_prime_eval.py; not a vf-eval run",
+  "source_jobs": [
+    "small-b10-why-did-it-fail-terminus-2-qwen3.5-9b-bare"
+  ],
+  "num_examples": 1,
+  "rollouts_per_example": 5,
+  "rollouts_per_example_by_task": {
+    "zenml/b10-why-did-it-fail": 5
+  },
+  "tasks": [
+    "zenml/b10-why-did-it-fail"
+  ],
+  "sampling_args": {},
+  "env_args": {},
+  "date": "2026-09-10 10:55:22",
+  "time": 3629.138290643692,
+  "avg_reward": 0.6,
+  "avg_metrics": {
+    "agent_failed_runs": 0.6,
+    "agent_runs": 3.0,
+    "agent_runs_for_target": 1.0,
+    "seeded_runs_seen": 6.0
+  },
+  "avg_error": 0.0,
+  "pass_at_k": {
+    "zenml/b10-why-did-it-fail": 1.0
+  },
+  "transcripts_included": true,
+  "total_cost_usd": 0.21487643999999997
+}

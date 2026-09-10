@@ -2,7 +2,7 @@
 name = "zenml-bench"
 description = "Coding agents build, fix, configure and research with real ZenML: 18 Harbor tasks graded on the state ZenML recorded, wrapped as a verifiers v1 taskset."
 tags = ["zenml", "mlops", "harbor", "agentic", "terminal", "train", "eval"]
-version = "0.1.0"
+version = "0.1.1"
 requires-python = ">=3.12"
 dependencies = [
     "verifiers[harbor]>=0.3.1",
