@@ -47,4 +47,29 @@ if __name__ == "__main__":
     # B14's hand-run backfill of late August (no separator amounts; that fault first appears on 2026-09-09)
     for date, seed, n in (("2026-08-24", 24, 30), ("2026-08-25", 25, 38), ("2026-08-26", 26, 60), ("2026-08-27", 27, 34)):
         write(HERE / "fixtures" / "backfill" / f"{date}.csv", day(date, seed, n, {}))
-    print("wrote data/2026-09-0{6,7,8,9}.csv, fixtures/hidden*.csv and fixtures/backfill/*.csv")
+    # B14H's backfill (fixtures/backfill_hard/): three days were processed twice because finance sent corrected
+    # exports (<date>.v2.csv). Totals are chosen so that every wrong rule picks a different run than the right one:
+    #   right rule (latest COMPLETED processing per day, then largest total)      -> 08-26 v2
+    #   largest total among completed backfill runs (ignores "superseded")        -> 08-27 v1
+    #   largest total among all summary artifacts (ignores run status)           -> 08-26 v1 (failed in write_report)
+    #   latest processing per day regardless of status, then largest total       -> 08-25 v2 (failed in write_report)
+    def find(date, n, lo, hi, start):
+        for seed in range(start, start + 500):
+            rows = day(date, seed, n, {})
+            total = sum(float(r["amount"]) for r in rows)
+            if lo <= total <= hi:
+                return rows, round(total, 2)
+        raise SystemExit(f"no seed for {date} in [{lo}, {hi}]")
+    hard = {
+        "2026-08-24.csv": find("2026-08-24", 26, 11500, 12500, 2400),
+        "2026-08-25.csv": find("2026-08-25", 34, 16000, 16250, 2500),      # completed
+        "2026-08-25.v2.csv": find("2026-08-25", 36, 16800, 17000, 2550),   # corrected export, run failed in write_report
+        "2026-08-26.csv": find("2026-08-26", 36, 17100, 17400, 2600),      # failed in write_report; largest summary of all
+        "2026-08-26.v2.csv": find("2026-08-26", 35, 16400, 16600, 2650),   # completed: the answer
+        "2026-08-27.csv": find("2026-08-27", 35, 16650, 16750, 2700),      # completed, then superseded by v2
+        "2026-08-27.v2.csv": find("2026-08-27", 31, 14800, 15200, 2750),   # completed
+    }
+    for name, (rows, total) in hard.items():
+        write(HERE / "fixtures" / "backfill_hard" / name, rows)
+        print(f"  backfill_hard/{name}: {len(rows)} rows, total {total}")
+    print("wrote data/2026-09-0{6,7,8,9}.csv, fixtures/hidden*.csv, fixtures/backfill/*.csv and fixtures/backfill_hard/*.csv")

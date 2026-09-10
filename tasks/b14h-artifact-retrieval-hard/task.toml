@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b14h-artifact-retrieval-hard"
+version = "0.1.0"
+description = "Among weeks of daily_report runs, some backfill days were processed twice with corrected exports and one re-processing failed. Work out which stored summary counts for finance's busiest backfilled day, build a one-step pipeline that consumes that artifact version, and cite its ZenML name and version in the report."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "unknown"  # baselines pending; B14 (the easy variant) was 6/6
+zenml_version = "0.96.4"
+source = "harder variant of B14 (design brief B14 + results/level2-b14.md findings): the criterion is stated in business terms with a supersession rule, three days were re-processed so the largest completed total belongs to a superseded run, and the report must cite the artifact by name and version; history produced by real runs at image build (environment/setup_store.sh)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
