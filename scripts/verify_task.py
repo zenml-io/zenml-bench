@@ -3,7 +3,7 @@
 # ///
 """The four verifier checks for one task, run through Harbor (brief §7.4).
 
-    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs] [-n 2]
+    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs] [-n 2] [--job-prefix verify]
 
 1. oracle (solution/solve.sh) scores 1.0 on every attempt
 2. the `nop` agent (does nothing) scores 0
@@ -54,8 +54,9 @@ def main() -> int:
     ap.add_argument("--oracle-attempts", type=int, default=5)
     ap.add_argument("-n", type=int, default=None, help="Harbor concurrency (trials at once); default Harbor's (4)")
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
+    ap.add_argument("--job-prefix", default="verify", help="Harbor job names are <prefix>-<task>-<check>")
     a = ap.parse_args()
-    task, prefix = a.task.resolve(), f"verify-{a.task.name}"
+    task, prefix = a.task.resolve(), f"{a.job_prefix}-{a.task.name}"
     checks: list[tuple[str, list[float], float]] = []  # (label, rewards, expected)
 
     checks.append(("oracle", harbor_rewards(task, "oracle", a.oracle_attempts, a.jobs_dir, f"{prefix}-oracle", a.n), 1.0))
