@@ -24,14 +24,24 @@ def blob(call: dict[str, Any]) -> str:
     return json.dumps(call.get("arguments", {}), ensure_ascii=False)
 
 
+# Tool names of the pinned zenml-io/mcp-zenml server (`tools/list`; see shared/base/Dockerfile for the SHA). Needed
+# because Codex's rollout records an MCP call as `function_call` name=<tool>, namespace="mcp__zenml", and Harbor's
+# ATIF conversion keeps only the name; Claude Code records `mcp__zenml__<tool>`.
+ZENML_MCP_TOOLS = frozenset("""diagnose_zenml_setup get_step_logs list_users get_user get_active_user get_active_project
+get_project list_projects get_stack easter_egg list_stacks list_pipelines get_pipeline_details get_service list_services
+get_stack_component list_stack_components get_flavor list_flavors trigger_pipeline get_run_template list_run_templates
+get_snapshot list_snapshots get_deployment list_deployments get_deployment_logs get_schedule list_schedules
+get_pipeline_run list_pipeline_runs get_run_step list_run_steps list_artifacts get_artifact_version
+list_artifact_versions list_secrets get_service_connector list_service_connectors get_model list_models
+get_model_version list_model_versions get_step_code get_tag list_tags get_build list_builds
+open_pipeline_run_dashboard open_run_activity_chart""".split())
+
+
 def mcp_tool_name(function_name: str) -> str | None:
-    """Claude Code names MCP tools `mcp__<server>__<tool>`; Codex reports them under the tool's own name with the
-    server prefix on some versions. Return the bare tool name or None for a non-MCP call."""
+    """Return the bare MCP tool name for an MCP call, else None (see ZENML_MCP_TOOLS for why both forms)."""
     if function_name.startswith("mcp__"):
         return function_name.split("__", 2)[-1]
-    if function_name.startswith("mcp_") or "__zenml__" in function_name:
-        return function_name.rsplit("__", 1)[-1]
-    return None
+    return function_name if function_name in ZENML_MCP_TOOLS else None
 
 
 def observations(step: dict[str, Any], call: dict[str, Any]) -> list[dict[str, Any]]:
