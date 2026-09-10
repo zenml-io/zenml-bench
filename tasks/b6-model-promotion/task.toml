@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b6-model-promotion"
+version = "0.1.0"
+description = "Two versions of a forecasting model are registered with a validation metric; promote the better one to production and make the batch inference pipeline follow the production stage rather than the latest version, including on reruns with the same input."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "medium"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B6; the cache-across-promotion trap was found while spiking (docs/decisions.md 2026-09-10)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
