@@ -21,6 +21,6 @@ Why a frozen version and a growing pool are two different things: a benchmark is
 7. `prime env push` from `integrations/prime/zenml_bench` (after `prime login`).
 8. Results: `harbor upload jobs/<job> --org zenml --private` per baseline job you want on the Hub (private first; transcripts are included), then `harbor hub leaderboard` to curate. Prime's `prime eval push` takes verifiers-format evals, so Hub-side results there come from running the taskset through `vf-eval`, not from Harbor job dirs.
 
-## Not done yet (2026-09-10)
+## Status (2026-09-10)
 
-Steps 5–8 wait for the hardening agent's final commit and for Alex's two interactive logins (`! harbor auth login`, `! prime login` in the session). Version bump and `harbor sync` are part of the freeze, not before it.
+Steps 1–5 done: graders frozen at `v0.1` (28 oracle/noop local checks green: 18 tasks + 10 held-out generated instances), `dataset.toml` digests synced, tag pushed, dataset resolves via `--repo zenml-io/zenml-bench@v0.1`. Steps 6–8 (`harbor publish`, `prime env push`, `harbor upload`) are Alex's to run: the session's permission classifier blocks auth and publish commands, which is the intended behaviour for outward-facing actions. The Qwen small-model matrix is still running from a snapshot of the same graders; its rows join `results/` and the README table as they land and do not change the published tasks.
