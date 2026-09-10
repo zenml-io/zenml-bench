@@ -57,7 +57,8 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - Before writing any grader assertion, run the reference solution by hand and inspect the ZenML store with `Client()` so assertions reflect observed state, not assumed API behaviour.
 - Never grep an agent's source for the "right" line; grade what the ZenML store recorded.
 - `docker build -t zenml-bench/base:0.96.4 shared/base` builds the base image every task `FROM`s. Rebuild after editing it.
-- API keys live in `.env` at the repo root (gitignored): `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`. Harbor does not read it by itself; pass `--env-file .env` to `harbor run`. Never print or commit key values.
+- API keys live in `.env` at the repo root (gitignored): `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`. `OPENROUTER_API_KEY` for the Qwen baselines via `terminus-2`.
+- **Model budget (Alex, 2026-09-10): no more Anthropic-model trials.** Baselines and experiments use Codex (`gpt-5.6-terra`, `gpt-5.4-mini`) and OpenRouter Qwen models only. The existing Claude rows in `results/` stay as the record; do not add new ones. Harbor does not read it by itself; pass `--env-file .env` to `harbor run`. Never print or commit key values.
 - Docker runtime: OrbStack (`docker context use orbstack`) is required for `no-network`/`allowlist`; Docker Desktop (`docker context use desktop-linux`) rejects them. Images are per-runtime; rebuild the base image after switching. Check `docker context ls` first if Harbor complains about network mode.
 - Agent CLIs (claude-code, codex) are baked into the base image so setup needs no network. Harbor needs `-m <model>` for codex.
 - Set `ZENML_CONFIG_PATH` to a fresh directory for experiments so runs never touch the user's real ZenML config. `ZENML_ANALYTICS_OPT_IN=false`.
