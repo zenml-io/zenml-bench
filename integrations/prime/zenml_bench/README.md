@@ -6,7 +6,7 @@
 - **Tags**: zenml, mlops, harbor, agentic, terminal, train, eval
 
 ### Datasets
-- **Primary dataset**: the 18 Harbor tasks in https://github.com/strickvl/zenml-bench (`tasks/`), listed in the repo's `registry.json`; Hub id `zenml/zenml-bench@0.1.0` once published.
+- **Primary dataset**: the 18 Harbor tasks in https://github.com/zenml-io/zenml-bench (`tasks/`), listed in the repo's `registry.json`; Hub id `zenml/zenml-bench@0.1.0` once published.
 - **Split sizes**: 18 eval tasks (v0.1). Generated training instances (`scripts/generate_instances.py`) are a separate, larger pool and are not in this taskset.
 
 ### Task
@@ -24,6 +24,6 @@ The taskset resolves the dataset from the repo's `registry.json` at tag `v0.1` (
 | arg | default | description |
 |---|---|---|
 | `dataset` | `zenml-bench@0.1.0` | Harbor dataset id (bare name with `repo`/`registry_path`; `org/name@ref` on the Hub) |
-| `repo` | `strickvl/zenml-bench@v0.1` | git registry to resolve from; set `None` once the Hub id is used |
+| `repo` | `zenml-io/zenml-bench@v0.1` | git registry to resolve from; set `None` once the Hub id is used |
 | `tasks` | all | subset of task names |
 | `timeout_multiplier` | 1.0 | scale agent/verifier timeouts |

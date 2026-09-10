@@ -1,6 +1,6 @@
 """zenml-bench as a verifiers v1 taskset (Prime Intellect Environments Hub).
 
-The tasks are the Harbor task directories in https://github.com/strickvl/zenml-bench; this module only tells
+The tasks are the Harbor task directories in https://github.com/zenml-io/zenml-bench; this module only tells
 verifiers where to find them. Rewards come from each task's own verifier (`/logs/verifier/reward.json`), so
 nothing is re-implemented here. See docs/publishing.md in that repo.
 
@@ -11,7 +11,7 @@ from pathlib import Path
 import verifiers.v1 as vf
 from verifiers.v1.tasksets.harbor import HarborConfig, HarborTask, HarborTaskset
 
-REPO = "strickvl/zenml-bench"
+REPO = "zenml-io/zenml-bench"
 
 
 class ZenmlBenchConfig(HarborConfig):

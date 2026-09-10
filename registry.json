@@ -2,7 +2,7 @@
   {
     "name": "zenml-bench",
     "version": "0.1.0",
-    "description": "ZenML Bench v0.1: 18 Harbor tasks where coding agents build, fix, configure and research with real ZenML 0.96.4. Every task passed the four verifier checks (oracle 5/5, nop 0, shortcuts 0, alternatives 1). https://github.com/strickvl/zenml-bench",
+    "description": "ZenML Bench v0.1: 18 Harbor tasks where coding agents build, fix, configure and research with real ZenML 0.96.4. Every task passed the four verifier checks (oracle 5/5, nop 0, shortcuts 0, alternatives 1). https://github.com/zenml-io/zenml-bench",
     "tasks": [
       {
         "name": "b1-source-root-repair",
