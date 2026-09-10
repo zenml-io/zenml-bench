@@ -1,0 +1,25 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/b4-nondeterministic-step"
+version = "0.1.0"
+description = "A QA pipeline's random sampling step is served from the cache, so reviewers get the same rows every day. Make the sample fresh on every run while the expensive loader upstream keeps caching."
+
+[metadata]
+family = "build-and-fix"
+tier = "A"
+difficulty_estimate = "easy"  # update after baselines
+zenml_version = "0.96.4"
+source = "design brief B4; CachePolicy(expires_after=0) no-op found while spiking (docs/decisions.md 2026-09-10)"
+conditions_supported = ["bare", "skill", "mcp"]
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "no-network"
