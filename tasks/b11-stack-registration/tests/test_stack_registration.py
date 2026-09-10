@@ -17,6 +17,7 @@ from typing import Any
 
 import pytest
 from zenml.client import Client
+from zenml.config.global_config import GlobalConfiguration
 from zenml.enums import ExecutionStatus, StackComponentType
 
 APP_DIR = Path(os.environ.get("APP_DIR", "/app/stack_onboarding"))
@@ -100,7 +101,7 @@ def test_stack_composition_and_active():
     assert active.name == STACK, f"active stack for {APP_DIR} is {active.name!r} (per-repository .zen/config.yaml, not the global one)"
     try:
         Path("/logs/verifier").mkdir(parents=True, exist_ok=True)
-        global_active = Client().global_config.active_stack_id == stack.id
+        global_active = GlobalConfiguration().active_stack_id == stack.id
         Path("/logs/verifier/metrics.json").write_text(json.dumps({"global_active_too": int(bool(global_active))}))
     except Exception:
         pass

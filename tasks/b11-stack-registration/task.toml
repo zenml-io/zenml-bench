@@ -8,7 +8,7 @@ description = "Register a production stack (S3 artifact store behind a placehold
 [metadata]
 family = "build-and-fix"
 tier = "A/C"
-difficulty_estimate = "medium"  # update after baselines
+difficulty_estimate = "easy"  # saturated: 6/6 bare on 2026-09-10; `--help` reveals --no-verify; every trial hit or pre-empted the register --connector trap
 zenml_version = "0.96.4"
 source = "design brief B11; the connector/link verification trap and the per-repository active stack were found while spiking (docs/decisions.md 2026-09-10)"
 conditions_supported = ["bare", "skill", "mcp"]
