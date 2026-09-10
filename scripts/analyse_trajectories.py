@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 DOCS_MARKERS = ("/opt/zenml-docs", "llms-full.txt")
-ENTRYPOINTS = ("run.py", "research.py", "train.py")  # project entrypoints: nightly/k8s/legacy/churn, research, research_bare
+ENTRYPOINTS = ("run.py", "research.py", "train.py", "inference.py", "pipelines/daily.py", "region_report.py", "report.py", "serve.py", "training.py")  # every `python <x>.py` named in tasks/*/instruction.md
 EXC_MARKER = '"exception_info": {'  # a non-null ExceptionInfo in a serialised StepRunResponse
 SKILL_MARKERS = ("SKILL.md", "/harbor/skills", "/.agents/skills", ".claude/skills", "CLAUDE_CONFIG_DIR/skills")
 
