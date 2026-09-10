@@ -80,7 +80,7 @@ Monotonicity (R1, one store, four fake promotions): baseline → `gap_closed` 0.
 | codex terra | ZenML (R1) | 3/3 | 0.387 | 5 | 2/3 |
 | codex terra | bare | 3/3 | 0.450 | 12 | 3/3 |
 
-Read this table as a pilot, not a result: three trials per cell, and the budget does not bind on compute (see findings). The one difference that survived the re-run is that opus never finished the bare task (1/6 overall, 1/3 sequential), while it finished the ZenML variant 3/3 in 25–35 minutes; in every bare trajectory it was still sweeping when the clock ran out and had not written `best_model.pkl`. Whether the pipeline's explicit "one run = one recorded experiment" framing is what makes opus converge is the question to test next, with k≥5 and a compute-binding budget.
+**Superseded on 2026-09-10 by `level3-comparison.md`** (stated 25-minute clock, k=5 per cell): the opus finishing gap below was the unstated timeout. Read this table as a pilot, not a result: three trials per cell, and the budget does not bind on compute (see findings). The one difference that survived the re-run is that opus never finished the bare task (1/6 overall, 1/3 sequential), while it finished the ZenML variant 3/3 in 25–35 minutes; in every bare trajectory it was still sweeping when the clock ran out and had not written `best_model.pkl`. Whether the pipeline's explicit "one run = one recorded experiment" framing is what makes opus converge is the question to test next, with k≥5 and a compute-binding budget.
 
 ## Findings
 

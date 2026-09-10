@@ -8,7 +8,7 @@ description = "Wall-clock variant of r1-improve-within-budget for the with/witho
 [metadata]
 family = "research"
 tier = "A"
-difficulty_estimate = "unknown"  # set after the 2026-09-10 comparison run (results/level3-comparison.md)
+difficulty_estimate = "easy"  # 2026-09-10: 5/5 opus-5 and 5/5 terra with the clock stated; hidden_log_loss is the signal (results/level3-comparison.md)
 zenml_version = "0.96.4"
 source = "comparison variant of r1-improve-within-budget (2026-09-10): stated 25-minute wall clock, 2 CPUs; see docs/decisions.md"
 conditions_supported = ["bare", "skill", "mcp"]
