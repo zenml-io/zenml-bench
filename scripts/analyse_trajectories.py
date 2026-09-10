@@ -12,7 +12,7 @@ step's `exception_info` traceback), entrypoint invocations (`pipeline_runs`: cou
 Terminus 2 rows (harness the RL notes train through; `docs/decisions.md` 2026-09-10) also carry `turns` (model calls), `parse_errors`
 (responses Terminus could not parse into commands), `task_complete` (the agent said it was done), `summarizations` (context
 compactions Terminus ran because the model's window filled), `cmd_timeouts` (commands still running when their wait expired),
-`timed_out` (Harbor killed the agent at `[agent] timeout_sec`) and, for reward 0, `failure_class` (see `classify`).
+`timed_out` (Harbor killed the agent at `[agent] timeout_sec`), `max_prompt_tokens` (largest single prompt, i.e. the context window a trainer would need) and, for reward 0, `failure_class` (see `classify`).
 """
 from datetime import datetime
 import argparse
@@ -75,7 +75,7 @@ def summarise(trial: Path) -> dict[str, Any]:
         "steps": 0, "tool_calls": 0, "docs_read": False, "skill_loaded": False, "mcp_calls": 0, "mcp_tools": {},
         "mcp_exception_info": False, "pipeline_runs": 0, "scripts": 0, "agent_minutes": None, "first_run_s": None,
         "turns": 0, "parse_errors": 0, "task_complete": False, "summarizations": 0, "cmd_timeouts": 0, "timed_out": False,
-        "max_turns": None,
+        "max_turns": None, "max_prompt_tokens": 0,  # largest single prompt: the window a trainer would need
     }
     exc = result.get("exception_info") or {}
     row["timed_out"] = "Timeout" in (exc.get("exception_type") or "")
@@ -95,6 +95,7 @@ def summarise(trial: Path) -> dict[str, Any]:
     for step in t.get("steps", []):
         row["steps"] += 1
         row["turns"] += step.get("source") == "agent"
+        row["max_prompt_tokens"] = max(row["max_prompt_tokens"], (step.get("metrics") or {}).get("prompt_tokens") or 0)
         obs_text = " ".join(r.get("content") or "" for r in (step.get("observation") or {}).get("results") or [])
         row["parse_errors"] += obs_text.startswith("Previous response had parsing errors")
         row["cmd_timeouts"] += "timed out after" in obs_text
