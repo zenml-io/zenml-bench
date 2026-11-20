@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import time
+import urllib.request
 from pathlib import Path
 from typing import Any
 
@@ -61,8 +62,30 @@ def main() -> None:
     kitaru("evaluator", "version", "register", "refund-issued-once", "--script", "/app/evaluators/refund_issued_once.py", "--entrypoint", "evaluate")
     kitaru("evaluator", "register", "polite-closing", "--script", "/app/evaluators/polite_closing.py", "--entrypoint", "evaluate",
            "--description", "Passes when the reply ends with a closing courtesy.")
+    # The reviewed cohort: 40 conversations the shop's reviewers read, each with a verdict stored as a
+    # manual evaluation named `human_review` (so it has no evaluator version and no task).
+    reviewed = json.loads((WORLD / "reviewed.json").read_text())
+    ids: dict[str, str] = {}
+    cursor = None
+    while True:
+        page = kitaru("session", "list", "--tag", "history", "--size", "1000", *(["--cursor", cursor] if cursor else []))
+        ids.update({s["external_id"]: s["id"] for s in page["items"]})
+        cursor = (page.get("page") or {}).get("next_cursor")
+        if not cursor:
+            break
+    Path("/tmp/reviewed.txt").write_text("".join(ids[r["external_id"]] + "\n" for r in reviewed))
+    kitaru("cohort", "create", "reviewed-july", "--agent", "returns-agent", "--sessions-file", "/tmp/reviewed.txt",
+           "--description", "Conversations the support leads reviewed by hand in July.")
+    for r in reviewed:
+        body = json.dumps({"evaluations": [{"name": "human_review", "score": r["passed"], "passed": r["passed"], "explanation": r["explanation"]}]}).encode()
+        request = urllib.request.Request(f"http://127.0.0.1:8000/api/v1/sessions/{ids[r['external_id']]}/evaluations", data=body,
+                                         headers={"Content-Type": "application/json", "Authorization": "Bearer bench"})
+        urllib.request.urlopen(request, timeout=30).read()
+    stored = [e for e in kitaru("evaluation", "list", "--size", "1000")["items"] if e["name"] == "human_review"]
+    if len(stored) != len(reviewed) or len(ids) != plan["sessions"]:
+        sys.exit(f"{len(stored)} review verdicts stored for {len(reviewed)} reviewed conversations; {len(ids)} sessions listed")
     first, last = (kitaru("session", "list", "--size", "1", "--sort", order)["items"][0] for order in ("created:asc", "created:desc"))
-    print(json.dumps({"created": created, "first": [first["number"], first["started_at"]], "last": [last["number"], last["started_at"]]}))
+    print(json.dumps({"created": created, "reviewed": len(stored), "first": [first["number"], first["started_at"]], "last": [last["number"], last["started_at"]]}))
 
 
 if __name__ == "__main__":

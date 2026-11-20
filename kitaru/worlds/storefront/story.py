@@ -24,6 +24,12 @@ Planted so far (more are added as tasks need them; each one is listed in ground_
   metadata says `end_reason: idle_timeout`. Nothing is wrong with these.
 - `curt_reply`: about 1 conversation in 150 ended normally with a terse reply and no closing courtesy.
   These are the ones a politeness check should catch.
+- `late_refund`: about 1 refund in 50 was issued although the order was delivered more than 30 days
+  earlier, against the shop's policy. About 1 in 30 is a near-miss at 28 to 30 days, which is allowed.
+- `double_refund`: about 1 refund in 100 was issued twice in the same conversation.
+
+Attributes added after the first tasks shipped are drawn from a second random stream seeded by the
+session's own id (`extras`), so adding one does not reshuffle every existing conversation.
 """
 import argparse
 import json
@@ -87,6 +93,12 @@ class Case:
     lookups: int = 1  # calls to lookup_order; all but the last time out
     closing: str | None = ""  # the courtesy that ends the reply; None = a curt reply with none
     variant: int = 0  # idle: 0 asks a question, 1 makes a request. curt: 0 a short statement, 1 a question, 2 a long statement.
+    days_since_delivery: int | None = None  # None = drawn when the session is written (1 to 27, or 44 for a declined return)
+    double_refund: bool = False
+
+    @property
+    def late_refund(self) -> bool:
+        return self.refund is not None and (self.days_since_delivery or 0) > 30
 
     @property
     def idle(self) -> bool:
@@ -130,6 +142,11 @@ def draw_case(rng: random.Random, external_id: str, started: datetime, version: 
         case.closing, case.variant = None, rng.choices([0, 1, 2], [50, 25, 25])[0]
     if case.closing is not None:
         case.closing = None if case.idle else rng.choice(CLOSINGS)
+    extras = random.Random(f"{external_id}/extras")
+    if case.refund is not None:
+        roll = extras.random()
+        case.days_since_delivery = extras.randint(31, 60) if roll < 0.02 else extras.randint(28, 30) if roll < 0.05 else None
+        case.double_refund = extras.random() < 0.01
     return case
 
 
@@ -179,7 +196,7 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
         begin, clock = clock, clock + timedelta(seconds=seconds)
         return begin.isoformat().replace("+00:00", "Z"), clock.isoformat().replace("+00:00", "Z")
 
-    def model_call(output: dict[str, Any]) -> None:
+    def model_call(output: dict[str, Any], rng: random.Random = rng) -> None:
         begin, end = tick(rng.uniform(0.6, 2.4))
         tokens_in, tokens_out = 180 + 45 * len(history) + rng.randrange(40), 20 + len(json.dumps(output)) // 4
         nodes.append({"index": len(nodes), "parent_index": 0, "links": [], "external_id": f"{c.external_id}-n{len(nodes)}", "trace_id": c.external_id,
@@ -191,8 +208,8 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
                       "cost": f"{(tokens_in * 0.25 + tokens_out * 2.0) / 1_000_000:.6f}", "attributes": {}, "metadata": {}})
         history.append(output)
 
-    def tool_call(name: str, args: dict[str, Any], result: dict[str, Any], error: str | None = None) -> None:
-        model_call({"role": "assistant", "content": None, "tool_calls": [{"name": name, "arguments": args}]})
+    def tool_call(name: str, args: dict[str, Any], result: dict[str, Any], error: str | None = None, rng: random.Random = rng) -> None:
+        model_call({"role": "assistant", "content": None, "tool_calls": [{"name": name, "arguments": args}]}, rng)
         begin, end = tick(rng.uniform(4.0, 6.0) if error else rng.uniform(0.1, 0.7))
         nodes.append({"index": len(nodes), "parent_index": 0, "links": [], "external_id": f"{c.external_id}-n{len(nodes)}", "trace_id": c.external_id,
                       "node_type": "tool_call", "name": name, "tool_name": name, "status": "failed" if error else "completed", "error": error,
@@ -202,12 +219,18 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
     nodes.append({})  # the root span is filled in last, once the end time is known
     for _ in range(c.lookups - 1):
         tool_call("lookup_order", {"order_id": c.order_id}, {"error": "order service timed out", "retryable": True}, error="order service timed out")
+    drawn_days = 44 if c.kind == "denied" else rng.randrange(1, 28)  # drawn exactly when it always was, so a planted value does not shift the stream
     tool_call("lookup_order", {"order_id": c.order_id},
               {"order_id": c.order_id, "customer": c.name, "items": [c.item], "total": str(c.total), "currency": c.currency,
-               "days_since_delivery": 44 if c.kind == "denied" else rng.randrange(1, 28), "status": "delivered" if c.kind != "status" else "in_transit"})
+               "days_since_delivery": c.days_since_delivery or drawn_days,
+               "status": "delivered" if c.kind != "status" else "in_transit"})
     if c.kind == "refund":
         tool_call("issue_refund", {"order_id": c.order_id, "amount": str(c.refund), "currency": c.currency, "method": c.method},
                   {"refund_id": f"rf_{rng.randrange(16**8):08x}", "status": "issued", "amount": str(c.refund), "currency": c.currency})
+        if c.double_refund:
+            twin = random.Random(f"{c.external_id}/twin")  # its own stream, so the rest of the session is unchanged
+            tool_call("issue_refund", {"order_id": c.order_id, "amount": str(c.refund), "currency": c.currency, "method": c.method},
+                      {"refund_id": f"rf_{twin.randrange(16**8):08x}", "status": "issued", "amount": str(c.refund), "currency": c.currency}, rng=twin)
     model_call({"role": "assistant", "content": reply})
     if c.idle:
         clock += timedelta(minutes=30)  # the session stays open until the idle limit closes it
@@ -257,6 +280,92 @@ def build_hidden_c3(seed: int, n: int) -> list[tuple[Case, dict[str, Any]]]:
             kept += 1
     out.sort(key=lambda pair: pair[0].started)
     return out
+
+
+def review(c: Case) -> tuple[bool, str]:
+    """What the shop's human reviewers say about a conversation. They fail two things: a refund issued
+    more than 30 days after delivery, and a reply that tells the customer the wrong refund amount."""
+    if c.late_refund:
+        return False, f"Refunded although the order was delivered {c.days_since_delivery} days ago; the return window is 30 days."
+    if c.affected:
+        assert c.quoted is not None and c.refund is not None
+        return False, f"The reply tells the customer {money(c.quoted, c.currency, c.locale)}; the refund was {money(c.refund, c.currency, c.locale)}."
+    return True, "Handled correctly."
+
+
+def reviewable(c: Case) -> bool:
+    """Conversations the reviewers' two rules judge without argument: nothing curt, nothing refunded twice."""
+    return not c.curt and not c.double_refund
+
+
+def pick_reviewed(pairs: list[tuple[Case, dict[str, Any]]], seed: int) -> list[Case]:
+    """The 40 conversations the reviewers read: 7 late refunds, 7 wrong amounts, 4 refunds at 28 to 30
+    days (allowed), 3 declined returns, 19 ordinary ones. All from the last five weeks."""
+    rng = random.Random(seed)
+    recent = [c for c, _ in pairs if c.started >= START + timedelta(days=25) and reviewable(c)]
+    def take(n: int, wanted: Callable[[Case], bool]) -> list[Case]:
+        return rng.sample([c for c in recent if wanted(c)], n)
+    chosen = (take(7, lambda c: c.late_refund and not c.affected) + take(7, lambda c: c.affected and not c.late_refund)
+              + take(4, lambda c: c.refund is not None and c.days_since_delivery in (28, 29, 30) and not c.affected) + take(3, lambda c: c.kind == "denied"))
+    taken = {c.external_id for c in chosen}
+    chosen += rng.sample([c for c in recent if c.external_id not in taken and review(c)[0]], 19)
+    return sorted(chosen, key=lambda c: c.started)
+
+
+def fill_buckets(seed: int, buckets: list[tuple[int, Callable[[Case], bool]]], shape: Callable[[int, int, Case], None] | None = None) -> list[tuple[Case, dict[str, Any]]]:
+    """Draw fresh conversations until every bucket has its count. `shape(bucket, index, case)` may adjust a kept case."""
+    rng = random.Random(seed)
+    day0 = START + timedelta(days=DAYS + 3)
+    out: list[tuple[Case, dict[str, Any]]] = []
+    for bucket, (count, wanted) in enumerate(buckets):
+        kept = 0
+        while kept < count:
+            case = draw_case(rng, f"hx-{rng.randrange(16**10):010x}", day0 + timedelta(seconds=rng.uniform(0, 5 * 86400)),
+                             rng.choice(["1.4.0", "1.4.1", "1.5.0"]), lambda c, r: False)
+            case.days_since_delivery, case.double_refund = None, False  # the builder decides these, not chance
+            if not wanted(case):
+                continue
+            if shape:
+                shape(bucket, kept, case)
+            out.append((case, to_record(case, rng)))
+            kept += 1
+    out.sort(key=lambda pair: pair[0].started)
+    return out
+
+
+def build_hidden_c5(seed: int, n: int) -> list[tuple[Case, dict[str, Any]]]:
+    """Hidden sessions for "agree with the reviewers". Shares of `n`: a sixth late refunds (31 to 60
+    days), a sixth wrong euro amounts, a tenth refunds at exactly 28 to 30 days (fine), a twelfth
+    declined returns at 44 days (fine: nothing was refunded), the rest ordinary."""
+    refund = lambda c: c.refund is not None and reviewable(c)
+    def shape(bucket: int, i: int, c: Case) -> None:
+        if bucket == 0:
+            c.days_since_delivery = 31 + (i * 7) % 30
+        elif bucket == 1:
+            c.quoted = c.refund * 100 if c.refund is not None else None
+        elif bucket == 2:
+            c.days_since_delivery = 29 if i % 4 == 0 else 30  # mostly exactly 30: allowed, and where "30 or more" goes wrong
+    return fill_buckets(seed, [(n // 6, refund), (n // 6, lambda c: refund(c) and c.currency == "EUR" and c.reply_style != 3), (n // 10, refund),
+                               (n // 12, lambda c: c.kind == "denied" and reviewable(c)), (n - 2 * (n // 6) - n // 10 - n // 12, reviewable)], shape)
+
+
+C6_COHORTS = {"a": (130, 0), "b": (130, 39), "c": (130, 10), "d": (130, 16)}  # name: (conversations, of which refunded twice)
+
+
+def build_hidden_c6(seed: int) -> tuple[list[tuple[Case, dict[str, Any]]], dict[str, str]]:
+    """Hidden sessions for "check before merge": four groups of 130 the grader turns into cohorts.
+    With a bar of 90% passing `refund-issued-once`: group a passes at 100%, b fails at 70%, c passes
+    at 92.3% and d fails at 87.7%. The last two sit either side of the bar, so "fail if anything
+    fails" and "pass unless most fail" both get one of them wrong. 130 is above Kitaru's limit of 100
+    conversations per evaluation request."""
+    pairs, group_of = [], {}
+    for offset, (name, (size, doubles)) in enumerate(C6_COHORTS.items()):
+        def shape(bucket: int, i: int, c: Case) -> None:
+            c.double_refund = bucket == 0
+        part = fill_buckets(seed + offset, [(doubles, lambda c: c.refund is not None and not c.curt), (size - doubles, lambda c: not c.curt)], shape)
+        pairs += part
+        group_of.update({c.external_id: name for c, _ in part})
+    return pairs, group_of
 
 
 def build_hidden(seed: int, n: int) -> list[tuple[Case, dict[str, Any]]]:
@@ -310,7 +419,7 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20260730)
     ap.add_argument("--per-day", type=int, default=50)
     ap.add_argument("--n", type=int, default=120)
-    ap.add_argument("--task", choices=["c2", "c3"], default="c2", help="which grader the hidden sessions are for")
+    ap.add_argument("--task", choices=["c2", "c3", "c5", "c6"], default="c2", help="which grader the hidden sessions are for")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     if a.mode == "history":
@@ -321,10 +430,27 @@ def main() -> None:
         truth = {"snapshot_date": "2026-07-30", "sessions": len(pairs), "by_version": {v: sum(c.version == v for c, _ in pairs) for v, _ in VERSIONS},
                  "planted": {"euro_confirmation_x100": affected, "repeated_lookups": sorted(c.external_id for c, _ in pairs if c.lookups > 3),
                              "idle_timeout": sorted(c.external_id for c, _ in pairs if c.idle), "curt_reply": sorted(c.external_id for c, _ in pairs if c.curt)},
-                 "per_session": {c.external_id: {"started_at": r["started_at"], "release": c.version, "lookups": c.lookups, "idle": c.idle, "curt": c.curt}
+                 "per_session": {c.external_id: {"started_at": r["started_at"], "release": c.version, "lookups": c.lookups, "idle": c.idle, "curt": c.curt,
+                                                 "late_refund": c.late_refund, "double_refund": c.double_refund, "wrong_amount": c.affected}
                                  for c, r in pairs}}
+        truth["planted"] |= {"late_refund": sorted(c.external_id for c, _ in pairs if c.late_refund), "double_refund": sorted(c.external_id for c, _ in pairs if c.double_refund)}
+        reviewed = [{"external_id": c.external_id, "passed": review(c)[0], "explanation": review(c)[1]} for c in pick_reviewed(pairs, a.seed)]
+        truth["reviewed"] = {r["external_id"]: r["passed"] for r in reviewed}
+        (a.out / "reviewed.json").write_text(json.dumps(reviewed, indent=1))
         (a.out / "ground_truth.json").write_text(json.dumps(truth, indent=1))
         print(json.dumps({"sessions": len(pairs), "by_version": truth["by_version"], **{k: len(v) for k, v in truth["planted"].items()}}))
+    elif a.task == "c5":
+        pairs = build_hidden_c5(a.seed, a.n)
+        write_jsonl(a.out / "hidden.jsonl", [r for _, r in pairs])
+        labels = {c.external_id: {"should_fail": not review(c)[0], "late_refund": c.late_refund, "wrong_amount": c.affected, "days": c.days_since_delivery, "kind": c.kind} for c, _ in pairs}
+        (a.out / "hidden_labels.json").write_text(json.dumps(labels, indent=1))
+        print(json.dumps({"sessions": len(pairs), "should_fail": sum(v["should_fail"] for v in labels.values()), "late": sum(c.late_refund for c, _ in pairs), "wrong_amount": sum(c.affected for c, _ in pairs)}))
+    elif a.task == "c6":
+        pairs, group_of = build_hidden_c6(a.seed)
+        write_jsonl(a.out / "hidden.jsonl", [r for _, r in pairs])
+        labels = {c.external_id: {"group": group_of[c.external_id], "double_refund": c.double_refund} for c, _ in pairs}
+        (a.out / "hidden_labels.json").write_text(json.dumps(labels, indent=1))
+        print(json.dumps({"sessions": len(pairs), "groups": {g: [sum(v["group"] == g for v in labels.values()), sum(v["group"] == g and v["double_refund"] for v in labels.values())] for g in C6_COHORTS}}))
     elif a.task == "c3":
         pairs = build_hidden_c3(a.seed, a.n)
         write_jsonl(a.out / "hidden.jsonl", [r for _, r in pairs])

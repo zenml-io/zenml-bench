@@ -24,6 +24,7 @@ if [ -d "$ROOT/worlds/$WORLD/old" ]; then cp -R "$ROOT/worlds/$WORLD/old" "$ENV/
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 python3 "$ROOT/worlds/$WORLD/story.py" history --out "$TMP" > /dev/null
 mkdir -p "$TASK/tests/fixtures"
+if [ -f "$TMP/reviewed.json" ]; then cp "$TMP/reviewed.json" "$ENV/world/reviewed.json"; fi   # verdicts the agent can see in Kitaru anyway
 cp "$TMP/ground_truth.json" "$TASK/tests/fixtures/ground_truth.json"   # the answer key goes to tests/ only, never into the image
 python3 - "$TMP" "$ENV/world" <<'PY'
 import gzip, json, pathlib, sys

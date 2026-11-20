@@ -25,3 +25,11 @@ A session's `metadata` says how the conversation ended: `end_reason` is `resolve
 
 - `refund_issued_once.py` is registered in Kitaru as `refund-issued-once`. Version 2 is the current source; version 1 counted rejected refund calls too.
 - `polite_closing.py` is registered as `polite-closing`: the team expects every finished conversation to end with one of three closing courtesies.
+
+`checks.txt` lists the evaluators the team treats as its release checks, one `name@version` per line.
+
+## Human review
+
+The support leads read 40 conversations by hand in July. Those conversations are the Kitaru cohort `reviewed-july`. Each carries the reviewer's verdict as an evaluation named `human_review` (`passed` true or false) with the reviewer's reason in `explanation`.
+
+The shop's return window is 30 days from delivery: a return requested on day 30 is inside it, day 31 is not.
