@@ -8,6 +8,8 @@ A grader runs as root in the verifier phase, after the agent has finished. Rules
 - Run the agent's registered work again, on inputs the agent never saw, through a worker the grader
   starts itself as user `grader`. The worker the agent had access to is stopped first: it ran as the
   agent's user, so the agent could have replaced it with anything.
+- Before running any of the agent's code, lock the grader's files (`lock_grader_files`). Code the agent
+  registered runs during grading, on the same disk as the answer key.
 """
 import json
 import subprocess
@@ -44,10 +46,23 @@ def list_all(*args: str) -> list[dict[str, Any]]:
             return items
 
 
+GRADER_ONLY = ["/tests", "/solution", "/logs"]
+
+
+def lock_grader_files() -> None:
+    """Make the grader's own files readable by root only. The grader is about to run code the agent
+    registered (an evaluator, an importer) as user `grader`, and the answer key sits in /tests at that
+    moment: an evaluator that opened /tests/fixtures/hidden_labels.json scored a perfect 1 before
+    this existed (shortcut `read_grader_labels.sh`)."""
+    for path in GRADER_ONLY:
+        subprocess.run(["chmod", "-R", "go-rwx", path], capture_output=True)
+
+
 def start_grader_worker(name: str | None = None, concurrency: int = 4) -> str:
     """Stop every process the agent's user owns (its worker included), make sure Postgres and the server
     are up, and start a fresh worker as user `grader`. Returns the worker's name once it is live."""
     name = name or f"grader-{uuid.uuid4().hex[:8]}"
+    lock_grader_files()
     subprocess.run(["/opt/kitaru-bench/stop.sh", "--workers"], capture_output=True)
     subprocess.run(["pkill", "-KILL", "-u", "agent"], capture_output=True)
     for _ in range(40):

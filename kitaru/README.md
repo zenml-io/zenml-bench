@@ -27,6 +27,7 @@ MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py $T --env modal -n 4 --job-pr
 - `[environment.healthcheck] command = "/opt/kitaru-bench/start.sh"` starts everything; the image starts nothing by itself.
 - `[environment] network_mode = "allowlist"`, not `"no-network"` (Modal cannot add a host list to a sandbox created without one).
 - The grader stops the agent's processes, starts its own worker as user `grader`, and runs the agent's registered work on inputs the agent never saw.
+- Code the agent registered (an evaluator, an importer) runs *during grading*, on the same disk as the answer key. `start_grader_worker()` first makes `/tests`, `/solution` and `/logs` readable by root only. Every task that runs agent code while grading ships a `read_grader_labels.sh` shortcut that tries to open the answer key and must score 0.
 - A Dockerfile `RUN` line must not contain the text `uvicorn kitaru.server` or `kitaru worker start`: `start.sh` looks for those with `pgrep -f` and would find the build shell itself.
 - The answer key never enters the image: `story.py` stays out, and only counts (`plan.json`) go in.
 

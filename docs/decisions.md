@@ -477,3 +477,17 @@ Alex: telemetry must be off for the Kitaru work and for the ZenML tasks.
 - Speed: macOS `grep -F` with 70 strings over 4 GB had not finished after 17 minutes; `rg` does it in seconds. The whole scan takes about 40 seconds.
 
 **Not done until the image is public:** tasks still build everything from their own Dockerfile. Modal cannot pull a private GHCR image without a stored credential, and outside users could not pull it at all. After Alex flips the package to public, `sync_env.sh` writes `FROM ghcr.io/zenml-io/kitaru-bench-base:0.27.7-1` in place of the base section, and C2 is re-verified on Modal.
+
+## 2026-11-20 — C2's grader had a hole: the agent's evaluator could read the answer key. Plus: what the API refuses.
+
+**The hole.** The grader runs the evaluator the agent registered, through the grader's worker, as user `grader`. Harbor has by then copied `tests/` to `/tests`, and `hidden_labels.json` was readable by every user. A shortcut whose evaluator globs `/tests/**/*.json` for a file shaped like an answer key and answers from it scored reward 1, precision 1.00, recall 1.00. The earlier five shortcuts all attacked during the agent's turn; this one attacks during grading, with code the grader itself runs.
+
+**The fix.** `kitaru_checks.lock_grader_files()` runs `chmod -R go-rwx` on `/tests`, `/solution` and `/logs` before the grader's worker starts; `start_grader_worker()` calls it first. The shortcut `tests/shortcuts/read_grader_labels.sh` is kept: it now scores 0 (its evaluator finds 0 answer-key entries), and every later task that runs agent code during grading gets the same shortcut. Rule for `kitaru/README.md`: code the agent registered runs during grading on the same disk as the answer key.
+
+**What the Kitaru API refused when asked as the agent** (authentication off, so every request is the admin):
+- A new version of a built-in importer or evaluator: `403: Default plugin 'kitaru/kitaru-jsonl' is read-only`. So the grader's `kitaru/kitaru-jsonl@latest` cannot be swapped for the agent's code. (The CLI reports "Created the importer parent but did not complete registration" on that path, which reads like a half-finished write; not investigated.)
+- `evaluator_version_id` and `task_id` on a manual evaluation, `import_id` and `task_id` on a created session: rejected as unknown fields. Those fields are set by the server only, so over HTTP the proposal's "fields an agent cannot fake" table holds.
+- There is no `kitaru session delete` and no `kitaru importer delete`; `kitaru agent delete` exists (a soft delete), which is why the grader checks the agent still has its three versions.
+- On disk, as `agent`: no write access to `/opt/kitaru-wheels`, `/etc/uv/uv.toml`, `/home/grader`, Kitaru's installed package or `/usr/local/bin`.
+
+**Still possible, and accepted:** the agent can register a worker of its own through the API (the grader kills every process of user `agent` before grading), and code it registers can call the API as admin while the grader runs it. In C2 that buys nothing, because the labels are not in Kitaru. A task whose right answer is the same for every hidden input would be exposed to it; such a task must not let agent code run during grading.
