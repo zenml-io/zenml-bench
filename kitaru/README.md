@@ -50,3 +50,9 @@ for P in linux/amd64 linux/arm64; do docker pull --platform $P ghcr.io/zenml-io/
 A new package on GHCR is private. Making it public is Alex's step, in the package's settings page on GitHub, after the scans above are clean. A published tag is never overwritten: a change to `base/` gets a new revision number.
 
 `scan_image.py` searches every layer (a file deleted by a later build step is still in the earlier layer), the build history and the image configuration. It blocks on: any secret value held on this machine (the `.env` files given, secret-looking shell variables, the credential files of `gh`, Modal, Hugging Face, Prime, Codex, Docker and others), plain or base64; the home path, login name, git email or host name; credential-style files; and pattern-scanner hits outside third-party package folders. It needs `rg` and uses `trufflehog` when installed, with verification off so no candidate string is sent anywhere.
+
+## Before this work is merged or published
+
+Open items that must be settled first. Add to this list; do not let it go stale.
+
+- **Move the base image off Artifact Registry.** It is public in `zenml-core` for our own runs only. Downloads by anyone are billed to that project, which Alex does not want (2026-11-20). Docker Hub is the leading candidate: pulls of a public image cost the publisher nothing. To do: pick the Docker Hub organisation, push the scanned image there (same build, scan and pull-back-and-scan steps as above), change `base/IMAGE`, re-sync and re-check every task, then remove the `allUsers` binding on the Artifact Registry repository and delete the private GHCR copy.

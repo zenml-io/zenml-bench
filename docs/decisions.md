@@ -531,3 +531,7 @@ Making a GHCR package public needs an org-wide GitHub setting that ZenML keeps o
 Alex said to make it public. `gcloud artifacts repositories add-iam-policy-binding kitaru-bench --project zenml-core --location us --member allUsers --role roles/artifactregistry.reader`. Checked with no credentials: the manifest for `us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1` downloads, and its digest is `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`, the digest that passed the leak scan.
 
 `kitaru/base/IMAGE` holds the reference, pinned by digest. `sync_env.sh` now writes `FROM <that reference>` and no longer pastes `base/Dockerfile` into every task. A change to `base/` means: build, scan, push under a new revision, update `base/IMAGE`, re-sync and re-check every task. The GHCR copy stays private and unused.
+
+## 2026-11-20 — Artifact Registry is a stopgap for the base image
+
+Alex: fine to keep the image public there for our own runs now, but he does not want to pay for other people's downloads. Before any of this is merged or published the image moves somewhere pulls are free for the publisher, most likely Docker Hub. Tracked in `kitaru/README.md`, "Before this work is merged or published".
