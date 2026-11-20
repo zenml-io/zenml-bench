@@ -491,3 +491,5 @@ Alex: telemetry must be off for the Kitaru work and for the ZenML tasks.
 - On disk, as `agent`: no write access to `/opt/kitaru-wheels`, `/etc/uv/uv.toml`, `/home/grader`, Kitaru's installed package or `/usr/local/bin`.
 
 **Still possible, and accepted:** the agent can register a worker of its own through the API (the grader kills every process of user `agent` before grading), and code it registers can call the API as admin while the grader runs it. In C2 that buys nothing, because the labels are not in Kitaru. A task whose right answer is the same for every hidden input would be exposed to it; such a task must not let agent code run during grading.
+
+Confirmed on Modal the same day (`--job-prefix kverify2`, 34 minutes including a fresh image build): reference 5 of 5, `nop` 0, all six shortcuts 0 including `read_grader_labels.sh` (its evaluator ran on all 120 hidden sessions and failed none), the alternative 1. None of the 15 baseline trajectories touched the grader's files, so the baseline table stands.
