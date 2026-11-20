@@ -1,8 +1,48 @@
 # Kitaru tasks for zenml-bench — proposal
 
-Status: draft for Alex, 20 November 2026. Nothing here is built. Read `docs/2026-09-09-plan.md` first if the ZenML benchmark's rules are not fresh; this document only says what changes for Kitaru.
+Status: draft for Alex, 20 November 2026. Nothing here is built.
 
-Sources read: this repo (brief, `task-authoring.md`, `findings.md`, `publishing.md`, `decisions.md`), `kaizen/benchmarks/` (fixtures, 17 Kitaru tasks, the `building-harbor-benchmarks` skill, `results/`), and Kitaru at `0.27.7+dev` (commit `38bfb11`: CLI registry, `openapi/openapi.json`, worker, PydanticAI adapter, `docs/book/`). Anything marked **(spike)** was read from code but not run, and must be run before a task depends on it.
+## 0. Start here: handover to a new session
+
+This section is written for a coding agent that picks the work up with no memory of the session that wrote it. Everything it needs to continue is in this document.
+
+**What Alex asked for.** On 20 November 2026 Alex said, in short: we built a benchmark repo for ZenML and published it to the Harbor Hub and the Prime Intellect Environments Hub, and we were happy with that first set. Now do the same for Kitaru, probably in the same repo, possibly inspired by the benchmark scenario work inside the kaizen repo. Investigate, and propose how to build 20 to 40 tasks on a series of environments with different scenarios, that we can build, test and ship the way we did for ZenML.
+
+**The goal we are working toward.** A second public task set, working name `kitaru-bench`: Harbor-format tasks in which a coding agent (Codex, Claude Code, Terminus 2 and others) has to use real Kitaru at a pinned version. Each task has a hidden grader that reads what Kitaru recorded, and passes the same four checks as the ZenML tasks (the reference solution passes five times out of five; doing nothing scores 0; every named shortcut scores 0; a different valid solution passes). The set is baselined, then published to both Hubs like `zenml-bench` v0.1. It is useful for three things, in this order: a regression suite that turns "did our new Kitaru skill or MCP tool help agents?" into a number; a list of where agents trip on Kitaru, each item fixable in docs, CLI, skills or the MCP server; and a public leaderboard.
+
+**What has been done so far.** Reading and design only. The earlier session read three repositories and wrote this proposal. No task, image, script or grader exists, and nothing was run: no server was started, no package installed. Every claim about Kitaru comes from reading its source at commit `38bfb11` (version `0.27.7+dev`). Claims marked **(spike)** are the ones a design choice depends on and that must be run before anything is built on them. Claims marked **(verify)** are about Harbor or verifiers and may be out of date.
+
+**The state of the repository.** The earlier session ran in a cloud container that could read `zenml-io/zenml-bench` but was refused when it pushed (the Claude GitHub App was not installed on that repository). So its one commit never reached GitHub, and your checkout probably does not contain this file. Two things were in that commit:
+
+1. This document, at `docs/2026-11-20-kitaru-plan.md`.
+2. One sentence added to `CLAUDE.md`, in the `docs/` bullet of the Layout section, directly after "`findings.md`.": `` `2026-11-20-kitaru-plan.md` is a proposal (not yet built) for a second task set on Kitaru: container arrangement, worlds, a 32-task catalogue and the spikes to run first. ``
+
+Nothing was changed in the `kitaru` or `kaizen` repositories.
+
+**What to do next, in this order.**
+
+1. Save this document at the path above, add the `CLAUDE.md` sentence, and commit both on a branch (the earlier session used `claude/kitaru-benchmarks-repo-836l7f`; any branch is fine). Do not open a pull request unless Alex asks.
+2. Read `docs/2026-09-09-plan.md` (the ZenML brief) and `docs/task-authoring.md` if they are not fresh. This document only says what changes for Kitaru.
+3. Put the five decisions in section 12 to Alex, each laid out as concrete arrangements with what works and what breaks, using a question tool and not a free-text question. Each has a recommendation. Decisions 1 to 4 change what gets built; decision 5 only matters at publishing time.
+4. Run the six Level 0 spikes in section 11. Each ends with a dated entry in `docs/decisions.md` saying what was observed. Spike 1 (how Postgres, the Kitaru server and a worker get started inside one task container) and spike 3 (identical results from repeated replays with a scripted model) can each overturn part of this design, so do them first.
+5. Build Level 1: the base image, the `storefront` world, and task C2, end to end.
+
+**Rules that apply to this work.**
+
+- This repository's `CLAUDE.md` applies in full. In particular: explain each mechanism to Alex in plain language at the moment you find it, in a `★ Insight` box; and before a design choice with real trade-offs, lay out the options and ask.
+- Model budget: no new Anthropic-model trials. Baselines use Codex (`gpt-5.6-terra`, `gpt-5.4-mini`) and OpenRouter models.
+- Grade what Kitaru recorded, never the text the agent wrote. Before writing a grader assertion, run the reference solution by hand and read the stored state, so the assertion reflects what was observed.
+- "Kaizen" is an internal codename. It must not appear in any task, image tag, container path or public document. This file names it only because it is an internal proposal; remove those mentions before anything here is published.
+- Do not copy kaizen's fixtures, stories, answer keys or results into this repository. Reuse the method; write new stories (section 3 says why).
+- Never commit `jobs/`, raw trajectories, API keys, or anything under a `design/` folder.
+
+**Where the evidence is.** Three repositories. If your session has only this one, sections 3 to 6 carry the findings you need; ask Alex for the other two before relying on anything marked **(spike)**.
+
+- `zenml-io/zenml-bench` (this repo): the brief, `docs/task-authoring.md`, `docs/findings.md`, `docs/publishing.md`, `docs/decisions.md`.
+- `zenml-io/kaizen`, directory `benchmarks/` (private): 17 Kitaru tasks under `tasks/kitaru-*`, six Kitaru fixtures under `fixtures/kitaru_*`, `fixtures/Dockerfile.kitaru`, and the authoring skill at `.agents/skills/building-harbor-benchmarks/`. The most useful files are `references/kitaru-fixtures.md`, `references/fixture-design.md` and `references/footguns.md`, plus `results/*.md`.
+- `zenml-io/kitaru` (public): `src/kitaru/cli/command_registry.py` (the command tree), `openapi/openapi.json`, `src/kitaru/worker/process.py` (how a worker launches plugins), `plugins/packages/pydantic-ai/src/kitaru_pydantic_ai/capability.py` (recording and replay), `examples/python/pydantic_ai_ticket_resolver/scripts/run_ci_e2e.py` (starting a server without Docker), `devtools/agent.py` (a simulated agent that honors tool policies), and `docs/book/`.
+
+**What the earlier session could not check.** The public repository `zenml-io/agent-benchmarks`, which holds the `claims-over-time` benchmark, was outside its access and is unread (it bears on decision 2). The content of `zenml-io/kitaru-skills` is unread. Whether Kitaru `0.27.7` and the plugin versions named here are on PyPI was not checked. Whether the verifiers wrapper still rejects sidecar containers was not rechecked since September.
 
 ## 1. Summary
 
