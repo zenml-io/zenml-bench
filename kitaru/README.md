@@ -1,6 +1,6 @@
 # Kitaru tasks
 
-Harbor tasks in which a coding agent has to use real Kitaru at a pinned version. In progress: four tasks so far, all on the `storefront` world: `c1-rule-from-builtins`, `c2-finding-to-check`, `c3-evaluator-is-wrong`, `c4-backfill-one-release`. Decisions and what each spike showed are in `docs/decisions.md` (entries dated 2026-11-20).
+Harbor tasks in which a coding agent has to use real Kitaru at a pinned version. In progress: six tasks so far (the whole checks family), all on the `storefront` world: `c1-rule-from-builtins`, `c2-finding-to-check`, `c3-evaluator-is-wrong`, `c4-backfill-one-release`, `c5-agree-with-reviewers`, `c6-check-before-merge`. Decisions and what each spike showed are in `docs/decisions.md` (entries dated 2026-11-20).
 
 ## Layout
 
@@ -30,6 +30,8 @@ MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py $T --env modal -n 4 --job-pr
 - Code the agent registered (an evaluator, an importer) runs *during grading*, on the same disk as the answer key. `start_grader_worker()` first makes `/tests`, `/solution` and `/logs` readable by root only. Every task that runs agent code while grading ships a `read_grader_labels.sh` shortcut that tries to open the answer key and must score 0.
 - A Dockerfile `RUN` line must not contain the text `uvicorn kitaru.server` or `kitaru worker start`: `start.sh` looks for those with `pgrep -f` and would find the build shell itself.
 - The answer key never enters the image: `story.py` stays out, and only counts (`plan.json`) go in.
+- A world grows without reshuffling: new attributes are drawn from a second random stream seeded by the session's id, and existing draws stay where they were. After a world change, compare old and new histories session by session (decisions.md, C5 and C6 entry).
+- Generate task scripts with Python or `printf '%s\n'`, never zsh `echo "$VAR"`: it turns `\n` inside the variable into a line break.
 
 ## Publishing the base image
 
