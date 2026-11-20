@@ -114,3 +114,13 @@ Full tables and confounds in `results/level3-comparison.md`. What changed the pi
 - **Opus showed no metric difference but a behaviour difference:** in-loop search with 3–5 seeds in the bare variant, off-loop search with 1–2 seeds in the ZenML variant. With a pipeline in front of it, opus treats runs as bookkeeping; with a bare script, runs are the experiment. R2's three-seed rule is what turns that bookkeeping into evidence; R1 does not require it and neither variant produced it.
 - **Training-slice check from the store: 20/20 trials recorded 1050 rows, 0 violations.** The new `n_train_rows` / `train_rows_digest` outputs survived every agent's edits to `train` (all 20 kept the outputs; several re-implemented `build_model` wholesale around them), so the record-based rule costs the honest agent nothing and closes the loophole the pilot could only read trajectories for.
 - **Runner:** `run_baselines.py --job-prefix cmp`; `analyse_trajectories.py` now reports `scripts`, `agent_minutes`, `first_run_s`, which is where the behaviour difference above shows without reading trajectories.
+
+## 2026-11-20 — Kitaru C2 (finding to check), first baseline: sonnet-5.5 5/5, gpt-5.6-terra 4/5, gpt-5.4-mini 0/5
+
+Table and failure notes in `results/kitaru-level1.md`. What it points at:
+
+- **Nothing in the docs shows how to read a tool call's arguments in an evaluator.** `guides/write-an-evaluator.md` uses `n.node_type` and `n.tool_name` and stops; the small model then guessed `node.input`, `node.payload`, or matched text in `str(node.inputs)`. A sentence and one line of code (`n.inputs["amount"]`, `n.outputs`) in that guide, and the same in a skill, is the candidate fix. Re-run this cell after it lands.
+- **The small model registers and stops.** `kitaru evaluator test` exists, and `kitaru session evaluate <id> --evaluator … --wait` prints the verdict, yet 2 of 5 trials ran neither and none checked a known-affected session. An "after you register, run it on one session you know should fail" line in the guide or skill targets this directly.
+- **The planted near-miss does its job.** Two trials (one per Codex model) failed only on correct partial refunds whose order total is 100 times the refund. Keep it in every generated instance of this family.
+- **The agent's closing message is no evidence.** Every failed trial ended with "registered and working". The grader's re-run on unseen sessions is what found the six failures.
+- **Infrastructure:** Codex and Claude Code both ran as the non-root `agent` user in the sealed Modal sandbox with the CLIs baked into the image; no trial had an infrastructure exception.
