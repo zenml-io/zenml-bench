@@ -455,3 +455,13 @@ Modal's image builder left `/app` owned by root even though an earlier `RUN` had
 Corrections to earlier entries, from the issues filed on `zenml-io/kitaru` (#1545–#1552):
 - Spike 2 said uv `0.13.9` ignores `UV_NO_INDEX`. `UV_NO_INDEX` is not a uv setting in any version (#1545); Kitaru's CI recipe never did what it appeared to. The `/etc/uv/uv.toml` fix stands.
 - Spike 2's open analyzer question: `kitaru session import --wait` does not report whether the analyzers it was given ran, were skipped or failed (#1551).
+
+## 2026-11-20 — telemetry off, and a variable that was doing nothing
+
+Alex: telemetry must be off for the Kitaru work and for the ZenML tasks.
+
+**Found.** Every Kitaru image built today set `KITARU_ANALYTICS_OPT_IN=false`. That variable does not exist. Kitaru's client checks `KITARU_DISABLE_CLIENT_ANALYTICS` and `DO_NOT_TRACK` (`src/kitaru/client/config.py`), so client analytics were on. The server switch, `KITARU_SERVER_ANALYTICS_OPT_IN=false`, was correct throughout. Harbor reports each command and job to PostHog unless `HARBOR_TELEMETRY` is `off` (`harbor/telemetry.py`); it was not set for today's runs.
+
+**What was sent today.** Runs on Modal were sealed to three model hosts, so nothing from Kitaru's client left those sandboxes. The local Docker containers used to work out commands had open network, so their `kitaru` CLI calls could report usage events. The `harbor` CLI on the host reported its command and job events. No ZenML client ran outside an image that already had `ZENML_ANALYTICS_OPT_IN=false`.
+
+**Now.** `kitaru/base/Dockerfile` sets `KITARU_DISABLE_CLIENT_ANALYTICS=1`, `DO_NOT_TRACK=1`, and Claude Code's `DISABLE_TELEMETRY=1`, `DISABLE_ERROR_REPORTING=1`, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1`; the four spikes are corrected; `scripts/verify_task.py` and `scripts/run_baselines.py` default `HARBOR_TELEMETRY=off`; `CLAUDE.md` lists the host-side exports. Not verified: whether the Codex CLI has a telemetry switch (inside a task it can only reach the model hosts on the allowlist), and whether the `prime` and `modal` CLIs report usage.

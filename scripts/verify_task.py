@@ -17,12 +17,15 @@ solution/solve.sh and running Harbor's oracle agent, so all checks share one con
 Exit code 1 if any check fails.
 """
 import argparse
+import os
 import json
 import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+os.environ.setdefault("HARBOR_TELEMETRY", "off")  # Harbor reports each command and job to PostHog unless told not to
 
 
 def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, name: str, n_concurrent: int | None = None, env: str | None = None) -> list[float]:

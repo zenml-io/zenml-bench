@@ -8,7 +8,7 @@ RUN PGV=$(ls /usr/lib/postgresql) && pg_ctlcluster $PGV main start \
 COPY server.env /etc/kitaru-bench/server.env
 COPY start.sh /opt/kitaru-bench/start.sh
 RUN chmod 700 /opt/kitaru-bench/start.sh && chmod 600 /etc/kitaru-bench/server.env
-ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench KITARU_ANALYTICS_OPT_IN=false PYTHONPATH=/app
+ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench KITARU_DISABLE_CLIENT_ANALYTICS=1 DO_NOT_TRACK=1 PYTHONPATH=/app
 WORKDIR /app
 COPY spike_agent /app/spike_agent
 COPY refund_amount_evaluator.py run_spike4.py /app/

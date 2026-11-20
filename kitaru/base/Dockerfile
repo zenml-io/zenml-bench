@@ -30,5 +30,11 @@ RUN mkdir -p /opt/kitaru-docs && curl -fsSL "https://github.com/zenml-io/kitaru/
 RUN useradd -m -s /bin/bash agent && useradd -m -s /bin/bash grader && mkdir -p /app /etc/kitaru-bench /var/log/kitaru-bench && chown agent:agent /app
 COPY base/files/start.sh base/files/stop.sh /opt/kitaru-bench/
 RUN chmod 755 /opt/kitaru-bench/start.sh && chmod 700 /opt/kitaru-bench/stop.sh
-ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench KITARU_ANALYTICS_OPT_IN=false
+# Telemetry off, for everything that runs in the container. Kitaru's client reads
+# KITARU_DISABLE_CLIENT_ANALYTICS and DO_NOT_TRACK (src/kitaru/client/config.py); the server's switch,
+# KITARU_SERVER_ANALYTICS_OPT_IN=false, is set by start.sh. The DISABLE_* names are Claude Code's.
+# KITARU_API_KEY is a placeholder, not a secret: the server runs with authentication off.
+ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench \
+    KITARU_DISABLE_CLIENT_ANALYTICS=1 DO_NOT_TRACK=1 \
+    DISABLE_TELEMETRY=1 DISABLE_ERROR_REPORTING=1 CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 WORKDIR /app

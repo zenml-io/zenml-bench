@@ -17,6 +17,7 @@ network policy does not apply; `OPENROUTER_API_KEY` in .env):
         -k 5 -n 2 --job-prefix small --name-with-model --ak max_turns=40 --ak record_terminal_session=false --env-file .env
 """
 import argparse
+import os
 import subprocess
 import sys
 from collections import defaultdict
@@ -30,6 +31,8 @@ SKILL_DIRS = ["skills/zenml-pipeline-authoring/skills", "skills/zenml-quick-wins
 # Claude-style .mcp.json that Harbor merges into the agent's MCP servers at run time (`harbor run --mcp-config`), so
 # task dirs stay condition-free. The server itself lives in the base image (shared/base/Dockerfile).
 MCP_CONFIG = Path("shared/mcp/zenml.json")
+
+os.environ.setdefault("HARBOR_TELEMETRY", "off")  # Harbor reports each command and job to PostHog unless told not to
 
 
 def model_slug(model: str) -> str:

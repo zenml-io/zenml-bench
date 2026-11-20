@@ -17,7 +17,7 @@ RUN mkdir -p /etc/uv && printf 'no-index = true\nfind-links = ["/opt/kitaru-whee
 COPY server.env /etc/kitaru-bench/server.env
 COPY start.sh /opt/kitaru-bench/start.sh
 RUN chmod 700 /opt/kitaru-bench/start.sh && chmod 600 /etc/kitaru-bench/server.env
-ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench KITARU_ANALYTICS_OPT_IN=false PYTHONPATH=/app
+ENV KITARU_API_URL=http://127.0.0.1:8000 KITARU_API_KEY=bench KITARU_DISABLE_CLIENT_ANALYTICS=1 DO_NOT_TRACK=1 PYTHONPATH=/app
 WORKDIR /app
 COPY spike_agent /app/spike_agent
 COPY run_spike2.py /app/
