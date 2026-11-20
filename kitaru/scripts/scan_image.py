@@ -47,7 +47,7 @@ SECRET_NAME = re.compile(r"(KEY|TOKEN|SECRET|PASSWORD|PASSWD|CREDENTIAL)", re.I)
 VALUE = re.compile(r"[A-Za-z0-9_\-./+=:]{20,}")
 FORBIDDEN_FILE = re.compile(r"(^|/)(\.env(\..+)?|id_(rsa|ed25519|ecdsa)|.*\.pem|credentials(\.json)?|\.netrc|\.pypirc|\.npmrc|\.modal\.toml|auth\.json|server\.env|keys\.env|hosts\.yml)$")
 FORBIDDEN_OK = re.compile(r"(site-packages|dist-packages|node_modules|/usr/share|/usr/lib|/etc/ssl|/etc/ca-certificates|/usr/local/lib/python[\d.]+/(test|ensurepip|idlelib))")
-PACKAGE_DIR = re.compile(r"(site-packages|dist-packages|node_modules|/usr/share/|/usr/lib/|/var/lib/dpkg|/opt/kitaru-wheels|/opt/kitaru-docs)")
+PACKAGE_DIR = re.compile(r"(site-packages|dist-packages|node_modules|/usr/share/|/usr/lib/|/var/lib/dpkg|/opt/kitaru-wheels|/opt/kitaru-docs|/ensurepip/_bundled/)")
 
 
 def collect_secrets(extra_env_files: list[Path]) -> set[str]:
@@ -95,19 +95,27 @@ def unpack_layers(image: str, into: Path) -> list[Path]:
         with tarfile.open(raw / layer) as tar:
             members = [m for m in tar.getmembers() if m.isfile() or m.isdir()]  # no devices, no links out of the folder
             tar.extractall(target, members=members, filter="tar")
+        subprocess.run(["chmod", "-R", "u+rwX", str(target)], check=False)  # images hold files only root may read; unreadable means unscanned
         layers.append(target)
     return layers
 
 
 def grep_fixed(patterns: list[str], roots: list[Path]) -> list[str]:
-    """Files under `roots` containing any of the fixed strings. Uses grep for speed; patterns go through a private file."""
+    """Files under `roots` containing any of the fixed strings, binary files included. Uses ripgrep
+    (macOS grep takes over 15 minutes for 70 strings over 4 GB; ripgrep takes seconds). The strings go
+    through a private file so they never appear in a process list."""
     if not patterns:
         return []
+    if not shutil.which("rg"):
+        sys.exit("ripgrep (rg) is required for the exact-value search")
     with tempfile.NamedTemporaryFile("w", delete=False) as f:
         os.chmod(f.name, 0o600)
         f.write("\n".join(patterns) + "\n")
     try:
-        out = subprocess.run(["grep", "-rlaF", "-f", f.name, *map(str, roots)], capture_output=True, text=True)
+        out = subprocess.run(["rg", "--files-with-matches", "--text", "--fixed-strings", "--no-ignore", "--hidden",
+                              "--file", f.name, *map(str, roots)], capture_output=True, text=True)
+        if out.returncode not in (0, 1):  # 1 = no match; 2 = it could not read something, which would leave a gap
+            sys.exit(f"ripgrep could not search everything: {out.stderr[-600:]}")
         return [line for line in out.stdout.splitlines() if line]
     finally:
         os.unlink(f.name)

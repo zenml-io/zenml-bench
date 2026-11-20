@@ -10,10 +10,16 @@ ARG KITARU_DOCS_TAG=python/kitaru/v0.27.7
 ENV KITARU_PIN=${KITARU_PIN} PIP_NO_CACHE_DIR=1
 # nodejs/npm: claude-code + codex; tmux: terminus-2; ripgrep: codex; jq/git: what an agent reaches for.
 RUN apt-get update && apt-get install -y --no-install-recommends bash curl git ca-certificates procps util-linux jq \
-    postgresql nodejs npm tmux ripgrep && rm -rf /var/lib/apt/lists/*
+    postgresql nodejs npm tmux ripgrep && rm -rf /var/lib/apt/lists/* \
+    # Installing PostgreSQL makes Debian generate a private key for TLS. Postgres here only listens on
+    # 127.0.0.1, so TLS is switched off and the key is deleted in this same step: a key deleted in a
+    # later step would still sit in this layer of a public image.
+    && sed -i "s/^ssl = on/ssl = off/" /etc/postgresql/*/main/postgresql.conf \
+    && rm -f /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/certs/ssl-cert-snakeoil.pem
 RUN pip install "kitaru[cli,server,worker,mcp]==${KITARU_PIN}" "kitaru-pydantic-ai==${KITARU_PYDANTIC_AI_PIN}" "uv==${UV_PIN}" pytest
 # Agent CLIs baked in: Harbor skips its own install when the binary is on PATH, and the container is sealed.
-RUN npm install -g @anthropic-ai/claude-code@2.1.329 @openai/codex@0.171.0 && claude --version && codex --version
+RUN npm install -g @anthropic-ai/claude-code@2.1.329 @openai/codex@0.171.0 && claude --version && codex --version \
+    && npm cache clean --force && rm -rf /root/.npm
 # Built-in evaluators, importers and analyzers are pinned packages the worker installs when a job runs.
 # Their wheels live here, and /etc/uv/uv.toml points every uv call at this folder (decisions.md, spike 2).
 RUN pip download --only-binary=:all: -d /opt/kitaru-wheels "kitaru[cli,server,worker]==${KITARU_PIN}" \
