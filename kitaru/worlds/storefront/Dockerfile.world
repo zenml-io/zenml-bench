@@ -7,4 +7,4 @@ COPY --chown=agent:agent workspace/ /app/
 RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
     python /opt/world/load.py; /opt/kitaru-bench/stop.sh; \
     rm -rf /opt/world /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*; \
-    cd /app && runuser -u agent -- sh -c 'git init -q && git add -A && git -c user.name=larkspur -c user.email=dev@larkspur.example commit -q -m "Returns assistant workspace"'
+    chown -R agent:agent /app && cd /app && runuser -u agent -- sh -c 'git init -q && git add -A && git -c user.name=larkspur -c user.email=dev@larkspur.example commit -q -m "Returns assistant workspace"'
