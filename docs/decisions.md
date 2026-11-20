@@ -493,3 +493,26 @@ Alex: telemetry must be off for the Kitaru work and for the ZenML tasks.
 **Still possible, and accepted:** the agent can register a worker of its own through the API (the grader kills every process of user `agent` before grading), and code it registers can call the API as admin while the grader runs it. In C2 that buys nothing, because the labels are not in Kitaru. A task whose right answer is the same for every hidden input would be exposed to it; such a task must not let agent code run during grading.
 
 Confirmed on Modal the same day (`--job-prefix kverify2`, 34 minutes including a fresh image build): reference 5 of 5, `nop` 0, all six shortcuts 0 including `read_grader_labels.sh` (its evaluator ran on all 120 hidden sessions and failed none), the alternative 1. None of the 15 baseline trajectories touched the grader's files, so the baseline table stands.
+
+## 2026-11-20 — Kitaru Level 2, first three: C1, C3, C4 on `storefront`
+
+All four `storefront` tasks share one image (their `environment/` folders are byte-identical), so Modal builds it once.
+
+**New in the world** (`story.py`; 2,997 conversations): 131 with more than three `lookup_order` calls (the order service times out and the assistant retries; the failed calls are recorded as failed tool calls); 143 idle timeouts (the assistant asks for more detail, the customer never returns; `metadata.end_reason = idle_timeout`; 30% are phrased as a request, not a question); 19 curt replies in finished conversations (short statements, questions, and long statements). Every other finished reply now ends with one of three closing courtesies. Registered at build: `polite-closing` v1 (fails any reply without a closing, so it fails the idle timeouts too) and `refund-issued-once` v1 and v2. `sync_env.sh` now writes the world's full answer key to each task's `tests/fixtures/ground_truth.json` (tests only).
+
+**C1, a rule from the built-ins.** Check "no more than three `lookup_order` calls" on the week from 24 July (359 conversations, 22 rule-breakers) with a built-in evaluator. Graded from stored evaluations only: every conversation in the week has a built-in result whose `passed` matches the rule (latest result wins), and at most 50 older conversations carry built-in results. Reference: `kitaru/tool-policy@1` with `{"max_calls_per_tool": {"lookup_order": 3}}`, 100 sessions per request. Shortcuts: `kitaru/tool-call-patterns` (describes only, `passed` stays empty), a maximum of 2 (16 wrong), the week plus 150 older, only the first 100, a hand-written evaluator.
+
+**C3, the evaluator is wrong.** `polite-closing` fails about 1 in 18. The agent must see that most failures are idle timeouts, and register a corrected version. Graded like C2: the latest version (must be 2 or higher) runs on 120 hidden conversations (24 curt, 24 idle, 72 polite), precision and recall of at least 0.9 on the curt ones. The hidden set breaks the surface rules: "pass if it ends with a question" (a third of curt replies are questions, a third of idle ones are not), "pass long replies" (a third of curt replies are long), "only judge conversations with a refund". Doing nothing scores 0 twice over: no new version, and v1's precision is 0.5.
+
+**C4, backfill one release.** Evaluate the 464 conversations of release 1.4.1 with `refund-issued-once@2`. Graded from stored evaluations: full coverage, at most 30 older conversations, at most 1,400 version-2 results in total. Selecting by agent version or by start date both work (the alternative uses the date). Shortcuts: version 1, the release plus 100 older, the first 100 only, the whole backfill four times.
+
+**Tolerances are in the instructions.** An agent that tries an evaluator on a few old conversations first is behaving well; "exactly these sessions and no others" would punish it. So each scoped task states an allowance (50, 30) and the alternatives use it.
+
+**Local four checks:** 31 scripts across C1–C4, all as expected (C2 re-checked because the world changed under it).
+
+**Kitaru facts found.**
+- Filter operators are `eq, ne, lt, le, gt, ge, in, is_null, startswith, endswith, contains`. `gte` is rejected with "--filter must be a valid JSON filter expression", which does not say what is wrong. Filterable session fields include `started_at`, `agent_version_id`, `tag`, `has_evaluation`, `tool_call_count`, `cost`; `metadata.*` is not filterable. `{"and": [...]}` combines conditions.
+- An evaluation row stores `evaluator_name`, `evaluator_version` and `evaluator_params`.
+- `kitaru/tool-policy` returns `per_tool_maximums` with a real pass or fail; `kitaru/tool-call-patterns` returns `passed: null`.
+- Local speed: about 360 evaluations in 40 seconds with one worker at concurrency 4.
+- zsh's `echo` turns `\n` inside a variable into a line break. Scripts generated with `echo "$VAR"` came out with broken Python string literals; generate task scripts with Python or `printf '%s\n'`.
