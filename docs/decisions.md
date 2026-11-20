@@ -516,3 +516,12 @@ All four `storefront` tasks share one image (their `environment/` folders are by
 - `kitaru/tool-policy` returns `per_tool_maximums` with a real pass or fail; `kitaru/tool-call-patterns` returns `passed: null`.
 - Local speed: about 360 evaluations in 40 seconds with one worker at concurrency 4.
 - zsh's `echo` turns `\n` inside a variable into a line break. Scripts generated with `echo "$VAR"` came out with broken Python string literals; generate task scripts with Python or `printf '%s\n'`.
+
+## 2026-11-20 — base image also in Google Artifact Registry (private); GHCR cannot go public
+
+Making a GHCR package public needs an org-wide GitHub setting that ZenML keeps off (Hamza, via Alex). Alex chose Google Artifact Registry in project `zenml-core` instead.
+
+- Repository `kitaru-bench` (Docker format, location `us`), created by Alex's login, which is an owner of the project. The project's `iam.allowedPolicyMemberDomains` policy allows any member, so a public reader binding is possible. No repository in `zenml-core` is public today; this would be the first.
+- Image `us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1`, index digest `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`: the same digest as the GHCR copy that passed the leak scan before the push and after a pull, so the bytes are the same. A registry-to-registry copy (`docker buildx imagetools create`) failed part-way; `docker tag` + `docker push` from the local copy worked. Login used a one-hour token (`gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin us-docker.pkg.dev`), not a stored credential helper.
+- **Still private.** The step that makes it public is `gcloud artifacts repositories add-iam-policy-binding kitaru-bench --project zenml-core --location us --member allUsers --role roles/artifactregistry.reader`. It waits for Alex's explicit yes. To weigh: anyone can then pull it, and download traffic is billed to `zenml-core` (the image is about 400 MB compressed per CPU type; Modal keeps a copy after its first pull).
+- After it is public: `sync_env.sh` writes `FROM us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1` in place of the base section, and the tasks are re-verified on Modal.
