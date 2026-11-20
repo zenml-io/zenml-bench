@@ -549,3 +549,16 @@ Alex: fine to keep the image public there for our own runs now, but he does not 
 **Kitaru facts found.** `kitaru cohort get <name>` returns the cohort with `latest_version` as a number; the version's id comes from `kitaru cohort version get <name>@<n>`. `kitaru session evaluate --cohort` wants `<name>@<version>`, not a bare name. Sessions of a cohort version: `--filter '{"field":"cohort_version_id","op":"eq","value":"<id>"}'`. `kitaru session evaluate --wait` returns each task's results inline (`item.tasks[].results[]`), so a caller need not list evaluations afterwards.
 
 **Local four checks:** 48 scripts across C1 to C6, all as expected.
+
+## 2026-11-21 — C1 to C6: the four checks pass on Modal, built from the public base image
+
+`uv run scripts/verify_task.py kitaru/tasks/<task> --env modal -n 5 --job-prefix kv4`, every task's `environment/` starting `FROM` the Artifact Registry image. All six: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+| task | shortcuts at 0 | alternatives at 1 |
+|---|---|---|
+| `c1-rule-from-builtins` | 5 | 1 |
+| `c2-finding-to-check` | 6 | 1 |
+| `c3-evaluator-is-wrong` | 5 | 1 |
+| `c4-backfill-one-release` | 4 | 1 |
+| `c5-agree-with-reviewers` | 6 | 1 |
+| `c6-check-before-merge` | 4 | 1 |
