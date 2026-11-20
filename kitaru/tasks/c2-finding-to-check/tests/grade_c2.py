@@ -17,8 +17,8 @@ def passes(precision: float, recall: float) -> bool:
     precision = of the conversations the evaluator failed, the share that really were affected.
     recall    = of the affected conversations, the share the evaluator failed.
 
-    TODO(Alex): this is your call. 0.9 / 0.9 is the proposal's placeholder. On the hidden set
-    (40 affected, 80 clean) it allows 4 missed conversations and about 4 false alarms.
+    Set by Alex on 2026-11-20: 0.9 for both. On the hidden set (40 affected, 80 clean) that allows
+    4 missed conversations and about 4 false alarms.
     """
     return precision >= 0.9 and recall >= 0.9
 
