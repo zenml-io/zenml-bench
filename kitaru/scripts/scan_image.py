@@ -3,7 +3,7 @@
 # ///
 """Leak scan for a Docker image, run before the image is pushed anywhere and again on the pushed copy.
 
-    uv run kitaru/scripts/scan_image.py <image> [--secrets-from FILE ...] [--keep]
+    uv run kitaru/scripts/scan_image.py <image> [--platform linux/amd64] [--secrets-from FILE ...] [--keep]
 
 Prints counts and file paths only, never a secret's value. Exit code 1 if a blocking check finds anything.
 
@@ -79,10 +79,10 @@ def identity_strings() -> list[str]:
     return [s for s in {str(HOME), HOME.name, email, host} if len(s) >= 5]
 
 
-def unpack_layers(image: str, into: Path) -> list[Path]:
+def unpack_layers(image: str, into: Path, platform: str | None = None) -> list[Path]:
     """`docker save` the image and unpack each layer into its own folder."""
     saved = into / "image.tar"
-    subprocess.run(["docker", "save", image, "-o", str(saved)], check=True)
+    subprocess.run(["docker", "save", *(["--platform", platform] if platform else []), image, "-o", str(saved)], check=True)
     raw = into / "raw"
     with tarfile.open(saved) as tar:
         tar.extractall(raw, filter="tar")
@@ -125,6 +125,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("image")
     ap.add_argument("--secrets-from", type=Path, action="append", default=[], help="a .env file whose values must not be in the image (repeatable)")
+    ap.add_argument("--platform", default=None, help="e.g. linux/amd64; needed when the tag covers several CPU types")
     ap.add_argument("--keep", action="store_true", help="keep the unpacked layers for inspection")
     a = ap.parse_args()
     work = Path(tempfile.mkdtemp(prefix="scan-image-"))
@@ -140,7 +141,7 @@ def main() -> int:
             blocking += 1
 
     try:
-        layers = unpack_layers(a.image, work)
+        layers = unpack_layers(a.image, work, a.platform)
         meta = work / "metadata.txt"
         meta.write_text(subprocess.run(["docker", "history", "--no-trunc", "--format", "{{.CreatedBy}}", a.image], capture_output=True, text=True).stdout
                         + subprocess.run(["docker", "inspect", a.image], capture_output=True, text=True).stdout)

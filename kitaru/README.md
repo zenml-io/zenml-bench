@@ -29,3 +29,23 @@ MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py $T --env modal -n 4 --job-pr
 - The grader stops the agent's processes, starts its own worker as user `grader`, and runs the agent's registered work on inputs the agent never saw.
 - A Dockerfile `RUN` line must not contain the text `uvicorn kitaru.server` or `kitaru worker start`: `start.sh` looks for those with `pgrep -f` and would find the build shell itself.
 - The answer key never enters the image: `story.py` stays out, and only counts (`plan.json`) go in.
+
+## Publishing the base image
+
+The base image goes to `ghcr.io/zenml-io/kitaru-bench-base:<kitaru pin>-<revision>`, for `linux/amd64` (Modal) and `linux/arm64` (Macs). Every step, in order; do not skip the scans.
+
+```
+git status --short                     # must be clean: the image is built from the commit, not from the working folder
+X=$(mktemp -d); git archive HEAD kitaru/base | tar -x -C $X
+for A in amd64 arm64; do docker buildx build --platform linux/$A --load -t ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A -f $X/kitaru/base/Dockerfile $X/kitaru; done
+for A in amd64 arm64; do uv run kitaru/scripts/scan_image.py ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A --secrets-from .env; done    # both must print CLEAN
+gh auth token | docker login ghcr.io -u <login> --password-stdin        # needs the write:packages scope
+for A in amd64 arm64; do docker push ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A; done
+docker buildx imagetools create -t ghcr.io/zenml-io/kitaru-bench-base:<tag> ghcr.io/zenml-io/kitaru-bench-base:<tag>-{amd64,arm64}
+# pull it back and scan what the registry serves
+for P in linux/amd64 linux/arm64; do docker pull --platform $P ghcr.io/zenml-io/kitaru-bench-base:<tag>; uv run kitaru/scripts/scan_image.py ghcr.io/zenml-io/kitaru-bench-base:<tag> --platform $P --secrets-from .env; done
+```
+
+A new package on GHCR is private. Making it public is Alex's step, in the package's settings page on GitHub, after the scans above are clean. A published tag is never overwritten: a change to `base/` gets a new revision number.
+
+`scan_image.py` searches every layer (a file deleted by a later build step is still in the earlier layer), the build history and the image configuration. It blocks on: any secret value held on this machine (the `.env` files given, secret-looking shell variables, the credential files of `gh`, Modal, Hugging Face, Prime, Codex, Docker and others), plain or base64; the home path, login name, git email or host name; credential-style files; and pattern-scanner hits outside third-party package folders. It needs `rg` and uses `trufflehog` when installed, with verification off so no candidate string is sent anywhere.
