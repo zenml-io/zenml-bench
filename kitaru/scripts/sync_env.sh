@@ -2,8 +2,8 @@
 # Build a task's environment/ directory from the shared parts. Harbor (and Modal) build from that
 # directory alone, so everything the image needs is copied into it:
 #
-#   environment/Dockerfile   = base/Dockerfile + worlds/<world>/Dockerfile.world + tasks/<task>/Dockerfile.task
-#   environment/base/files/  = base/files/
+#   environment/Dockerfile   = FROM <the published base image, pinned by digest: base/IMAGE>
+#                              + worlds/<world>/Dockerfile.world + tasks/<task>/Dockerfile.task
 #   environment/world/       = the world's loader and its session files (generated here from story.py)
 #   environment/workspace/   = the world's workspace (what the agent sees in /app)
 #   tests/fixtures/ground_truth.json = the world's answer key, for the grader only
@@ -16,8 +16,7 @@ TASK=${1:?usage: sync_env.sh kitaru/tasks/<task>}
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 WORLD=$(tr -d '[:space:]' < "$TASK/world")
 ENV="$TASK/environment"
-rm -rf "$ENV"; mkdir -p "$ENV/base" "$ENV/world"
-cp -R "$ROOT/base/files" "$ENV/base/files"
+rm -rf "$ENV"; mkdir -p "$ENV/world"
 cp -R "$ROOT/worlds/$WORLD/workspace" "$ENV/workspace"
 cp "$ROOT/worlds/$WORLD/load.py" "$ENV/world/"
 if [ -d "$ROOT/worlds/$WORLD/old" ]; then cp -R "$ROOT/worlds/$WORLD/old" "$ENV/world/old"; fi
@@ -35,5 +34,7 @@ for f in sorted(src.glob("sessions-*.jsonl")):
 truth = json.loads((src / "ground_truth.json").read_text())
 (dst / "plan.json").write_text(json.dumps({"sessions": truth["sessions"], "by_version": truth["by_version"]}))  # counts only; the answer key stays out of the image
 PY
-{ cat "$ROOT/base/Dockerfile" "$ROOT/worlds/$WORLD/Dockerfile.world"; [ -f "$TASK/Dockerfile.task" ] && cat "$TASK/Dockerfile.task"; true; } > "$ENV/Dockerfile"
+# The base image is published and pinned by digest, so a task build pulls it and adds only the world.
+# base/Dockerfile is what that image was built from (kitaru/README.md, "Publishing the base image").
+{ echo "FROM $(tr -d '[:space:]' < "$ROOT/base/IMAGE")"; cat "$ROOT/worlds/$WORLD/Dockerfile.world"; [ -f "$TASK/Dockerfile.task" ] && cat "$TASK/Dockerfile.task"; true; } > "$ENV/Dockerfile"
 du -sh "$ENV" | cut -f1
