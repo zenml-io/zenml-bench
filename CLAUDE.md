@@ -21,7 +21,7 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 ## Pinned versions (single source of truth: `docs/decisions.md`)
 
 - ZenML `0.96.4` on Python `3.14`. The pin lives in exactly one place once `shared/base/Dockerfile` exists; read it from there everywhere else.
-- Harbor `0.22.0`, installed with `uv tool install harbor==0.22.0`. Local task dirs run with `harbor run -p <dir> --agent oracle|nop|claude-code… -o jobs --job-name <name>`.
+- Harbor `0.26.0` with the Modal extra, installed with `uv tool install 'harbor[modal]==0.26.0'` (bumped from `0.22.0` on 2026-11-20; the published v0.1 results were produced on `0.22.0`). Local task dirs run with `harbor run -p <dir> --agent oracle|nop|claude-code… -o jobs --job-name <name>`.
 
 ## Layout (grows as levels land; see brief section 9)
 
@@ -63,7 +63,9 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 - Never grep an agent's source for the "right" line; grade what the ZenML store recorded.
 - `docker build -t zenml-bench/base:0.96.4 shared/base` builds the base image every task `FROM`s. Rebuild after editing it.
 - API keys live in `.env` at the repo root (gitignored): `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`. `OPENROUTER_API_KEY` for the Qwen baselines via `terminus-2`.
-- **Model budget (Alex, 2026-09-10): no more Anthropic-model trials.** Baselines and experiments use Codex (`gpt-5.6-terra`, `gpt-5.4-mini`) and OpenRouter Qwen models only. The existing Claude rows in `results/` stay as the record; do not add new ones. Harbor does not read it by itself; pass `--env-file .env` to `harbor run`. Never print or commit key values.
+- Harbor does not read `.env` by itself; pass `--env-file .env` to `harbor run`. Never print or commit key values.
+- **Model budget (Alex, 2026-11-20): Anthropic-model trials are allowed again** (credits arrived; this replaces the 2026-09-10 ban). Whoever starts a run checks first that `ANTHROPIC_API_KEY` in `.env` is the credits key: `curl -s -o /dev/null -w '%{http_code}' https://api.anthropic.com/v1/models -H "x-api-key: $ANTHROPIC_API_KEY" -H 'anthropic-version: 2023-06-01'` must print `200`. Codex (`gpt-5.6-terra`, `gpt-5.4-mini`) and OpenRouter models stay available.
+- **Runs go to Modal, not the laptop**: workspace `zenml-io`, environment `dev` (`export MODAL_ENVIRONMENT=dev`, then `harbor run … --env modal`). Two rules a task must follow to run there, both in `docs/decisions.md` 2026-11-20: its Dockerfile's `FROM` must name an image a registry serves (Modal cannot see `zenml-bench/base` on the laptop), and `[environment]` must start as `network_mode = "allowlist"`, never `"no-network"`, when the agent phase uses an allowlist.
 - Docker runtime: OrbStack (`docker context use orbstack`) is required for `no-network`/`allowlist`; Docker Desktop (`docker context use desktop-linux`) rejects them. Images are per-runtime; rebuild the base image after switching. Check `docker context ls` first if Harbor complains about network mode.
 - Agent CLIs (claude-code, codex) are baked into the base image so setup needs no network. Harbor needs `-m <model>` for codex.
 - Set `ZENML_CONFIG_PATH` to a fresh directory for experiments so runs never touch the user's real ZenML config. `ZENML_ANALYTICS_OPT_IN=false`.
