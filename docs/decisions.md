@@ -357,3 +357,26 @@ Task dir: `kitaru/spikes/replay-scripted-model/` (`environment/spike_agent/agent
 - The CLI masks every usage key ending in `tokens` inside a model reply's payload (`cache_read_tokens: "***"`), while the node's own `tokens` field is readable.
 
 **Not covered.** A replay against a *changed* agent version (the fix-and-replay case, where new arguments miss the recording), experiments over a cohort, and `cohort_version` or `agent` scope.
+
+## 2026-11-20 — Kitaru spike 2: built-in evaluators and the JSONL importer run with the network sealed
+
+Task dir: `kitaru/spikes/builtin-plugins-offline/` (`environment/run_spike2.py` is the driver). Run on Modal, network sealed to the three model hosts: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/builtin-plugins-offline --agent oracle --env modal -o jobs`. Kitaru `0.27.7`, uv `0.13.9`. Reward 1.0; `pypi.org` was unreachable from inside the task.
+
+**Why there is a problem at all.** A built-in evaluator, importer or analyzer is not code inside the server. The server stores a package requirement and an entrypoint, for example `kitaru-evaluator==0.3.0` + `kitaru_evaluator.basic:tool_call_patterns`. When a worker claims the job it runs `uv run --no-project --with kitaru-evaluator==0.3.0 python -m kitaru.task …`, and uv downloads the package at that moment. With the network cut, the task fails: `Evaluator process exited with code 2 … Failed to fetch: https://pypi.org/simple/kitaru-evaluator/` (observed in a local container before the fix).
+
+**What 0.27.7 registers** (from `kitaru <kind> version get <name>@1`): 13 evaluators, all `kitaru-evaluator==0.3.0`; 7 importers: `kitaru-jsonl-importer==0.2.0`, `kitaru-langfuse-importer==0.5.0`, `kitaru-langsmith-importer==0.4.0`, `kitaru-phoenix-importer==0.4.0`, `kitaru-braintrust-importer==0.4.0`, `kitaru-logfire-importer==0.4.1`, `kitaru-mlflow-importer==0.1.0`; 3 analyzers, of which only `kitaru/post-import-insights` (`kitaru-post-import-insights==0.4.0`) needs no provider key.
+
+**The fix that works.** At image build, `pip download --only-binary=:all: -d /opt/kitaru-wheels` for `kitaru[cli,server,worker]==0.27.7` and those nine packages (52 wheels, 25 MB). Then a system-wide uv config, `/etc/uv/uv.toml`:
+
+```
+no-index = true
+find-links = ["/opt/kitaru-wheels"]
+```
+
+Every `uv` call in the container, by the worker or by the agent, then resolves from that folder only.
+
+**The fix that does not work.** Kitaru's own CI sets `UV_FIND_LINKS` and `UV_NO_INDEX=1`. With uv `0.13.9`, `uv run` ignored `UV_NO_INDEX` (both `1` and `true`) and still went to PyPI; the `--no-index` flag, `UV_OFFLINE=1`, and the config file each worked. The config file is used because it does not depend on which process inherited which variable. Pin uv in the base image, because this behaviour may differ between uv versions.
+
+**Result on Modal.** `kitaru session evaluate --all --evaluator kitaru/tool-call-patterns@1 --evaluator kitaru/session-diagnostics@1 --wait` over 3 recorded sessions: 33 evaluations in 7.7 s, all 33 with `evaluator_version_id` and `task_id`. `kitaru session import sessions.jsonl --importer kitaru/kitaru-jsonl@latest --agent spike-agent@1 --media-type application/x-ndjson --wait`: 6 sessions in 6.3 s, all 6 with `import_id` and `task_id`.
+
+**Open.** The analyzer was requested on the import (`--analyzer kitaru/post-import-insights@1`) and no insights were stored. With 3 imported sessions its task was `skipped`: the analyzer has `min_sessions: 5`. With 6 sessions the run did not record whether it ran and found nothing or had not finished when the driver read the list. Check before building task I4, which depends on `import analyze`. `kitaru job list` does not exist (only `get`, `watch`, `cancel`); find a job id from the command that created it or from `kitaru import list`.
