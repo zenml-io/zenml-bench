@@ -408,3 +408,40 @@ Task dir: `kitaru/spikes/replay-changed-agent/` (`environment/run_spike4.py` is 
 **Speed on Modal:** 12 replays in about 41 s.
 
 **Not covered:** where an experiment run stores baseline and result pass rates (F2 needs "higher than baseline"); `cohort_version` and `agent` history scope.
+
+## 2026-11-20 — Kitaru Level 1: base image, the storefront world, task C2
+
+Layout and commands: `kitaru/README.md`.
+
+**Base image (`kitaru/base/`).** Python 3.13, PostgreSQL 17, `kitaru[cli,server,worker,mcp]==0.27.7`, `kitaru-pydantic-ai==0.4.0`, uv `0.13.9`, Claude Code `2.1.329` and Codex `0.171.0` baked in, the plugin wheels and `/etc/uv/uv.toml` from spike 2, Kitaru's `docs/book` at tag `python/kitaru/v0.27.7` in `/opt/kitaru-docs`. Three Unix accounts: root (Postgres control, the server, the grader), `agent` (the agent under test and the worker it may restart), `grader` (the worker the grader starts). The reason for the third account: an evaluator the agent registers is code, and a worker runs it. A worker running as root would hand the agent root.
+
+**`start.sh` picks a new database password every time it starts the server** and writes it to a root-only file, so no password is in the repository or fixed in the image.
+
+**No registry yet, so each task's `environment/` is self-contained.** `kitaru/scripts/sync_env.sh` writes `environment/Dockerfile` as base + world + task sections and copies the files in. When the base image is on GHCR (behind the leak scan), the base section becomes one `FROM` line. Cost today: the first Modal build of a task takes longer than Harbor's default 10-minute build limit (`EnvironmentStartTimeoutError` on the first try), so `task.toml` sets `[environment] build_timeout_sec = 1800`.
+
+**World `storefront`.** `story.py` plans 3,056 conversations of a shop's returns assistant from 1 June to 30 July 2026 across three releases, as Kitaru JSONL. `load.py` imports them through the real JSONL importer while the image is built (46 s; every session gets an `import_id` and a `task_id`; session numbers follow start time) and stops the build if the server's counts differ from the plan. Planted so far: from release 1.4.0, a euro refund to a card is confirmed with 100 times the amount (170 conversations). The other problems in the proposal's table are added when their tasks are built.
+
+**A bug worth remembering.** The first builds never got the server up. `start.sh` asks "is the server running?" with `pgrep -f "uvicorn kitaru.server"`. The Dockerfile `RUN` line that called it also contained `pkill -f "uvicorn kitaru.server"` for the clean-up, so the build shell's own command line matched, and `start.sh` concluded the server was already running. The stop logic now lives in `stop.sh`, and no `RUN` line names those processes.
+
+**Task C2 (`kitaru/tasks/c2-finding-to-check/`).** The agent must register an evaluator named `refund-confirmation-amount` that fails conversations whose reply states 100 times the refunded amount. The grader stops the agent's processes, starts its own worker, imports 120 hidden conversations (40 affected), runs the latest registered version on them and computes precision and recall; reward 1 when both are at least 0.9 (placeholder bar, Alex to set) and the workspace is intact. The hidden set is labeled by what the reply says, and is built to break rules that never read the reply: the fault also appears on store-credit refunds and on a release the agent never saw, 30 euro refunds are correct, some correct partial refunds have an order total exactly 100 times the refund, and there are yen and large dollar refunds.
+
+Local four checks (`kitaru/scripts/grade_local.sh`):
+
+| script | evaluator failed | precision | recall | reward |
+|---|---|---|---|---|
+| reference | 40 | 1.00 | 1.00 | 1 |
+| alternative: any mismatch, two versions, backfill | 40 | 1.00 | 1.00 | 1 |
+| nothing | (none registered) | | | 0 |
+| shortcut: fail every euro refund | 70 | 0.57 | 1.00 | 0 |
+| shortcut: euro + card + release after 1.3.0 | 51 | 0.65 | 0.83 | 0 |
+| shortcut: recognise known session ids | 0 | 0 | 0 | 0 |
+| shortcut: manual labels, nothing registered | (none registered) | | | 0 |
+| shortcut: write to PostgreSQL | (none registered) | | | 0 |
+
+**Kitaru facts found while building it.**
+- `kitaru session evaluate` refuses more than 100 session-evaluator pairs in one request ("Evaluation request holds 120 pairs, the cap is 100"). Graders batch with `--sessions-file`. An agent backfilling 3,056 sessions hits the same wall; tasks C1 and C4 can use it.
+- Importing the same file twice creates nothing the second time: sessions are deduplicated on `external_id` plus importer per agent. A grader's hidden sessions therefore need external ids the agent could not have imported first.
+- `kitaru agent register` requires `--command` even for an agent whose sessions are only ever imported.
+- `kitaru session list --sort` accepts only `created:asc` and `created:desc`.
+- On failure the CLI prints its JSON on stderr, not stdout.
+- A worker stopped without a clean exit still lists as `live` for a short while.

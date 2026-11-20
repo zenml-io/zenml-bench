@@ -3,7 +3,9 @@
 # ///
 """The four verifier checks for one task, run through Harbor (brief §7.4).
 
-    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs] [-n 2] [--job-prefix verify]
+    uv run scripts/verify_task.py tasks/b3-stale-cache [--oracle-attempts 5] [--jobs-dir jobs] [-n 2] [--job-prefix verify] [--env modal]
+
+`--env modal` runs every trial in a Modal sandbox instead of local Docker (set MODAL_ENVIRONMENT=dev first).
 
 1. oracle (solution/solve.sh) scores 1.0 on every attempt
 2. the `nop` agent (does nothing) scores 0
@@ -23,10 +25,10 @@ import tempfile
 from pathlib import Path
 
 
-def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, name: str, n_concurrent: int | None = None) -> list[float]:
+def harbor_rewards(task_dir: Path, agent: str, attempts: int, jobs_dir: Path, name: str, n_concurrent: int | None = None, env: str | None = None) -> list[float]:
     job = jobs_dir / name
     shutil.rmtree(job, ignore_errors=True)
-    cmd = ["harbor", "run", "-p", str(task_dir), "--agent", agent, "-k", str(attempts), "-o", str(jobs_dir), "--job-name", name, *(["-n", str(n_concurrent)] if n_concurrent else [])]
+    cmd = ["harbor", "run", "-p", str(task_dir), "--agent", agent, "-k", str(attempts), "-o", str(jobs_dir), "--job-name", name, *(["-n", str(n_concurrent)] if n_concurrent else []), *(["--env", env] if env else [])]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         print(proc.stdout[-3000:], proc.stderr[-3000:], file=sys.stderr)
@@ -55,18 +57,19 @@ def main() -> int:
     ap.add_argument("-n", type=int, default=None, help="Harbor concurrency (trials at once); default Harbor's (4)")
     ap.add_argument("--jobs-dir", type=Path, default=Path("jobs"))
     ap.add_argument("--job-prefix", default="verify", help="Harbor job names are <prefix>-<task>-<check>")
+    ap.add_argument("--env", default=None, help="Harbor environment type, e.g. modal; default local Docker")
     a = ap.parse_args()
     task, prefix = a.task.resolve(), f"{a.job_prefix}-{a.task.name}"
     checks: list[tuple[str, list[float], float]] = []  # (label, rewards, expected)
 
-    checks.append(("oracle", harbor_rewards(task, "oracle", a.oracle_attempts, a.jobs_dir, f"{prefix}-oracle", a.n), 1.0))
-    checks.append(("nop", harbor_rewards(task, "nop", 1, a.jobs_dir, f"{prefix}-nop"), 0.0))
+    checks.append(("oracle", harbor_rewards(task, "oracle", a.oracle_attempts, a.jobs_dir, f"{prefix}-oracle", a.n, a.env), 1.0))
+    checks.append(("nop", harbor_rewards(task, "nop", 1, a.jobs_dir, f"{prefix}-nop", env=a.env), 0.0))
     with tempfile.TemporaryDirectory() as tmp_s:
         for kind, expected in (("tests/shortcuts", 0.0), ("solution/alternatives", 1.0)):
             for script in sorted((task / kind).glob("*.sh")):
                 copy = with_solution(task, script, Path(tmp_s) / script.stem)
                 label = f"{kind.split('/')[-1]}/{script.name}"
-                checks.append((label, harbor_rewards(copy, "oracle", 1, a.jobs_dir, f"{prefix}-{script.stem}"), expected))
+                checks.append((label, harbor_rewards(copy, "oracle", 1, a.jobs_dir, f"{prefix}-{script.stem}", env=a.env), expected))
 
     ok = True
     print(f"\n{'check':<45} {'rewards':<22} expected  status")
