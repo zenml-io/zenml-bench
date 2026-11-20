@@ -12,16 +12,11 @@ This section is written for a coding agent that picks the work up with no memory
 
 **What has been done so far.** Reading and design only. The earlier session read three repositories and wrote this proposal. No task, image, script or grader exists, and nothing was run: no server was started, no package installed. Every claim about Kitaru comes from reading its source at commit `38bfb11` (version `0.27.7+dev`). Claims marked **(spike)** are the ones a design choice depends on and that must be run before anything is built on them. Claims marked **(verify)** are about Harbor or verifiers and may be out of date.
 
-**The state of the repository.** The earlier session ran in a cloud container that could read `zenml-io/zenml-bench` but was refused when it pushed (the Claude GitHub App was not installed on that repository). So its one commit never reached GitHub, and your checkout probably does not contain this file. Two things were in that commit:
-
-1. This document, at `docs/2026-11-20-kitaru-plan.md`.
-2. One sentence added to `CLAUDE.md`, in the `docs/` bullet of the Layout section, directly after "`findings.md`.": `` `2026-11-20-kitaru-plan.md` is a proposal (not yet built) for a second task set on Kitaru: container arrangement, worlds, a 32-task catalogue and the spikes to run first. ``
-
-Nothing was changed in the `kitaru` or `kaizen` repositories.
+**The state of the repository.** This document and a one-sentence pointer to it in `CLAUDE.md` (the `docs/` bullet of the Layout section) are committed on the branch `claude/kitaru-benchmarks-repo-836l7f` of `zenml-io/zenml-bench`, pushed to GitHub. There is no pull request. Nothing was changed in the `kitaru` or `kaizen` repositories.
 
 **What to do next, in this order.**
 
-1. Save this document at the path above, add the `CLAUDE.md` sentence, and commit both on a branch (the earlier session used `claude/kitaru-benchmarks-repo-836l7f`; any branch is fine). Do not open a pull request unless Alex asks.
+1. Fetch and check out the branch `claude/kitaru-benchmarks-repo-836l7f` and continue on it. Do not open a pull request unless Alex asks.
 2. Read `docs/2026-09-09-plan.md` (the ZenML brief) and `docs/task-authoring.md` if they are not fresh. This document only says what changes for Kitaru.
 3. Put the five decisions in section 12 to Alex, each laid out as concrete arrangements with what works and what breaks, using a question tool and not a free-text question. Each has a recommendation. Decisions 1 to 4 change what gets built; decision 5 only matters at publishing time.
 4. Run the six Level 0 spikes in section 11. Each ends with a dated entry in `docs/decisions.md` saying what was observed. Spike 1 (how Postgres, the Kitaru server and a worker get started inside one task container) and spike 3 (identical results from repeated replays with a scripted model) can each overturn part of this design, so do them first.
