@@ -585,3 +585,13 @@ Alex: fine to keep the image public there for our own runs now, but he does not 
 **Kitaru facts found.** `KitaruAPIClient` (async, `from kitaru.client`) reads a session with its nodes in about 3 ms: the whole history in under 15 s, against about half a second per `kitaru session nodes` call. `kitaru cohort create` takes `--sessions-file`; a second version comes from `kitaru cohort version create <name> --add-session <id> --remove-session <id>`, one flag per id (several ids after one flag are refused although the help shows `UUID...`; sent to the issues session). A cohort created with no sessions has `latest_version` 0.
 
 **Local four checks:** 22 scripts across the three tasks, all as expected.
+
+## 2026-11-21 — Kitaru D8: the answer is an investigation with verdicts
+
+**D8, six to read.** Open an investigation `week-30-review` linking three to six conversations of 24 to 30 July in which the assistant got something wrong, of at least two kinds, each with the verdict `problematic`. What counts as wrong is what the workspace already says: the README's return window, the two evaluators, the reviewers' reasons on `reviewed-july`. In that week the world holds 47 replies stating the wrong amount, 4 curt replies, 1 late refund, 1 double refund, and 18 customers who never answered, which the `polite-closing` check fails although nothing went wrong. The grader reads the newest investigation of that name (names are not unique in Kitaru) and each linked session's verdict.
+
+Shortcuts at 0: the politeness check's first six failures (all idle customers), six of one kind, the right conversations without verdicts, seven conversations, real mistakes from earlier weeks, the right conversations marked `acceptable`. The alternative first opens an investigation of the same name with the wrong content, then a second one with the minimum that qualifies, verdicts set to `uncertain` and then corrected.
+
+**Kitaru facts found.** `kitaru investigation create` refuses a linked session that has no `--session-question <session>:<key>=<text>`; `investigation get` takes an id only; `name` is not a filterable field for investigations; two investigations may share a name. Sent to the issues session.
+
+**Local four checks:** 9 scripts, all as expected.
