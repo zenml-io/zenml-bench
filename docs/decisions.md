@@ -445,3 +445,13 @@ Local four checks (`kitaru/scripts/grade_local.sh`):
 - `kitaru session list --sort` accepts only `created:asc` and `created:desc`.
 - On failure the CLI prints its JSON on stderr, not stdout.
 - A worker stopped without a clean exit still lists as `live` for a short while.
+
+## 2026-11-20 — C2: the four checks pass on Modal; two corrections
+
+`MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py kitaru/tasks/c2-finding-to-check --env modal -n 5 --job-prefix kverify`: reference 5 of 5 at reward 1 (precision 1.00, recall 1.00 each time), `nop` 0, all five shortcuts 0 with the same numbers as the local table, the alternative 1. Wall time 18 minutes with the image already built; a single trial is about 7 minutes, of which the grader takes 2.5 (import 120 sessions, evaluate them, read the results).
+
+Modal's image builder left `/app` owned by root even though an earlier `RUN` had given it to `agent` and the files were copied with `--chown`; `git init` as `agent` then failed with `/app/.git: Permission denied`. Local Docker did not show this. `Dockerfile.world` now runs `chown -R agent:agent /app` in the same `RUN` as the `git init`.
+
+Corrections to earlier entries, from the issues filed on `zenml-io/kitaru` (#1545–#1552):
+- Spike 2 said uv `0.13.9` ignores `UV_NO_INDEX`. `UV_NO_INDEX` is not a uv setting in any version (#1545); Kitaru's CI recipe never did what it appeared to. The `/etc/uv/uv.toml` fix stands.
+- Spike 2's open analyzer question: `kitaru session import --wait` does not report whether the analyzers it was given ran, were skipped or failed (#1551).
