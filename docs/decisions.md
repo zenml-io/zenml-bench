@@ -562,3 +562,26 @@ Alex: fine to keep the image public there for our own runs now, but he does not 
 | `c4-backfill-one-release` | 4 | 1 |
 | `c5-agree-with-reviewers` | 6 | 1 |
 | `c6-check-before-merge` | 4 | 1 |
+
+## 2026-11-21 — Kitaru diagnosis tasks D6, D7, D9: the answer is a cohort
+
+**What a diagnosis task asks for.** The agent records its answer in Kitaru as a cohort (a named, versioned set of sessions). The grader reads the members of the cohort's latest version and compares them with the planted sessions: precision and recall of at least 0.9, stated in the instruction. Where a cause or a date is asked, it goes in `/app/answer.json` from a closed list. The grader runs none of the agent's code and refuses an answer file that is a link (it runs as root and the link could point at the answer key). Helpers `cohort_external_ids`, `score_cohort`, `read_answer_file` are in `kitaru/checks/kitaru_checks.py`.
+
+**The world gains four problems, behind a switch.** `story.py history --plants diagnosis` adds them; a task opts in with a file `plants`. Without the switch the history is byte-identical to before (checked), so the six checks tasks keep their images, their Modal checks and their baseline. With it, 424 of the 2,997 conversations change (exactly the planted ones) and 120 are added. The price: two images for one world. They can be merged later by giving every task the `plants` file and re-running checks and baselines.
+
+| planted | what happened | size |
+|---|---|---|
+| `over_refund` | 15 to 28 June: a full refund paid back the order total plus a shipping fee; `issue_refund` got more than `lookup_order` said the order cost | 38 |
+| `model_swap` | 9 July 14:00 to 18 July: model calls record `model` `gpt-5.4-mini-2026-07-08` while `requested_model` stays `gpt-5.4-mini`, and take about twice as long; a third of conversations for four days, then all | 355 of the 466 in that period |
+| `cost_spike_1` | 21 June 10:00 to 20:00: the order service was down, every conversation retried the lookup four to six times | 32 of that day's 47 |
+| `cost_spike_2` | 4 July: a promotion email brought 120 extra conversations of ordinary cost (`metadata.campaign`) | 120 of that day's 172 |
+
+**D6, refunded too much.** Cohort `over-refunds`. The decoy is the louder problem already in the world: 195 replies that state 100 times the refund, where the refund itself was right. Shortcuts at 0: that decoy (no overlap at all), every refund of the fortnight (precision 0.10), the first five found (recall 0.13), "at least the total" (every full refund, precision 0.02), an empty cohort.
+
+**D7, slower with no release.** Cohort `slower-replies` plus cause and first affected day. Shortcuts at 0: everything in the slow period (precision 0.76, because the change reached only some conversations at first), only the fully affected days (recall 0.82 and the wrong day), long conversations (timed-out lookups and idle customers are long too: precision 0.48), blaming release 1.4.1, the right cohort with the wrong day, the right cohort with the wrong cause.
+
+**D9, retries or traffic.** Cohorts `cost-spike-1` and `cost-spike-2` plus a date and cause for each. Shortcuts at 0: the whole day in each cohort (0.68 and 0.70), the causes swapped, the 40 most expensive conversations of each day (right for the retry loop, wrong for traffic), one spike only, both called retry loops. The alternative takes "any timed-out lookup that day" for spike 1, a looser reading that still clears the bar (precision 0.91).
+
+**Kitaru facts found.** `KitaruAPIClient` (async, `from kitaru.client`) reads a session with its nodes in about 3 ms: the whole history in under 15 s, against about half a second per `kitaru session nodes` call. `kitaru cohort create` takes `--sessions-file`; a second version comes from `kitaru cohort version create <name> --add-session <id> --remove-session <id>`, one flag per id (several ids after one flag are refused although the help shows `UUID...`; sent to the issues session). A cohort created with no sessions has `latest_version` 0.
+
+**Local four checks:** 22 scripts across the three tasks, all as expected.

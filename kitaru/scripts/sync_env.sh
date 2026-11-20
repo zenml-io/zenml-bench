@@ -8,7 +8,7 @@
 #   environment/workspace/   = the world's workspace (what the agent sees in /app)
 #   tests/fixtures/ground_truth.json = the world's answer key, for the grader only
 #
-# The world is named in tasks/<task>/world. Run from the repo root after editing base/ or a world:
+# The world is named in tasks/<task>/world; tasks/<task>/plants, if present, is passed to the world's story as --plants. Run from the repo root after editing base/ or a world:
 #   kitaru/scripts/sync_env.sh kitaru/tasks/<task>
 # Never edit a task's environment/ by hand.
 set -euo pipefail
@@ -21,7 +21,9 @@ cp -R "$ROOT/worlds/$WORLD/workspace" "$ENV/workspace"
 cp "$ROOT/worlds/$WORLD/load.py" "$ENV/world/"
 if [ -d "$ROOT/worlds/$WORLD/old" ]; then cp -R "$ROOT/worlds/$WORLD/old" "$ENV/world/old"; fi
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
-python3 "$ROOT/worlds/$WORLD/story.py" history --out "$TMP" > /dev/null
+# tasks/<task>/plants (optional) names an extra set of planted problems for this task's copy of the world.
+PLANTS=(); if [ -f "$TASK/plants" ]; then PLANTS=(--plants "$(tr -d '[:space:]' < "$TASK/plants")"); fi
+python3 "$ROOT/worlds/$WORLD/story.py" history ${PLANTS[@]+"${PLANTS[@]}"} --out "$TMP" > /dev/null
 mkdir -p "$TASK/tests/fixtures"
 if [ -f "$TMP/reviewed.json" ]; then cp "$TMP/reviewed.json" "$ENV/world/reviewed.json"; fi   # verdicts the agent can see in Kitaru anyway
 cp "$TMP/ground_truth.json" "$TASK/tests/fixtures/ground_truth.json"   # the answer key goes to tests/ only, never into the image

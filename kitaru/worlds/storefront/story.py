@@ -28,6 +28,22 @@ Planted so far (more are added as tasks need them; each one is listed in ground_
   earlier, against the shop's policy. About 1 in 30 is a near-miss at 28 to 30 days, which is allowed.
 - `double_refund`: about 1 refund in 100 was issued twice in the same conversation.
 
+Planted only when `history --plants diagnosis` is given (the diagnosis tasks; the checks tasks were
+verified and baselined on the history without them, so their images stay byte-identical):
+
+- `over_refund`: from 15 to 28 June, about 1 full refund in 7 paid back the order total plus a
+  shipping fee the shop does not refund. `issue_refund` was called with more than `lookup_order`
+  said the order cost; the reply states the amount that was refunded.
+- `model_swap`: from 14:00 on 9 July to the end of 18 July the provider served a different model
+  for the same requested name. Every model call in an affected conversation has `model`
+  `gpt-5.4-mini-2026-07-08` while `requested_model` stays `gpt-5.4-mini`, and takes about twice as
+  long. For the first four days it reached about a third of conversations, then all of them. No release
+  of the assistant happened in that period.
+- `cost_spike_1`: on 21 June between 10:00 and 20:00 the order service was down and every
+  conversation retried `lookup_order` four to six times before it answered.
+- `cost_spike_2`: on 4 July a promotion email brought 120 extra conversations (metadata
+  `campaign: summer-sale`), each of ordinary cost.
+
 Attributes added after the first tasks shipped are drawn from a second random stream seeded by the
 session's own id (`extras`), so adding one does not reshuffle every existing conversation.
 """
@@ -52,6 +68,11 @@ SYSTEM_PROMPT = ("You are the returns assistant for Larkspur Goods. Look up the 
                  "inside the 30-day window, otherwise explain why not. Confirm the exact amount refunded and where it went.")
 MODEL = "gpt-5.4-mini"
 CLOSINGS = ["Thanks for shopping with Larkspur Goods.", "Is there anything else I can help you with?", "Have a lovely day."]
+SWAPPED_MODEL = "gpt-5.4-mini-2026-07-08"
+OVER_REFUND_DAYS = range(14, 28)
+SWAP_START, SWAP_FULL_DAY, SWAP_END_DAY = timedelta(days=38, hours=14), 42, 48  # partial from the start, everyone from day 42, over at day 48
+STORM_DAY, STORM_HOURS = 20, (10, 20)
+PROMO_DAY, PROMO_SESSIONS, PROMO_CAMPAIGN = 33, 120, "summer-sale"
 CURT = {("status", 0): "It shipped. Check the tracking page.", ("denied", 0): "Not eligible. Outside the 30-day window.",
         ("status", 1): "Did you look at the tracking page?", ("denied", 1): "Did you read the return policy?",
         ("status", 2): "The order is in transit and the tracking page already shows where it is, so there is nothing for me to add here.",
@@ -95,6 +116,14 @@ class Case:
     variant: int = 0  # idle: 0 asks a question, 1 makes a request. curt: 0 a short statement, 1 a question, 2 a long statement.
     days_since_delivery: int | None = None  # None = drawn when the session is written (1 to 27, or 44 for a declined return)
     double_refund: bool = False
+    over_refund: bool = False  # refunded the order total plus a shipping fee
+    served_model: str = MODEL  # the model the provider answered with; `requested_model` is always MODEL
+    storm_lookups: int = 0  # extra timed-out calls to lookup_order during the order-service outage
+    campaign: str | None = None
+
+    @property
+    def diagnosis_plant(self) -> bool:
+        return self.over_refund or self.served_model != MODEL or self.storm_lookups > 0 or self.campaign is not None
 
     @property
     def late_refund(self) -> bool:
@@ -150,6 +179,21 @@ def draw_case(rng: random.Random, external_id: str, started: datetime, version: 
     return case
 
 
+def plant_diagnosis(case: Case) -> None:
+    """The planted problems of the diagnosis tasks. Every draw comes from a stream seeded by the
+    session's id and happens for every session, so one plant never moves another."""
+    rng = random.Random(f"{case.external_id}/diagnosis")
+    over, swap, storm = rng.random(), rng.random(), rng.randint(4, 6)
+    since = case.started - START
+    if case.refund is not None and case.reply_style != 2 and since.days in OVER_REFUND_DAYS and over < 0.14:
+        fee = Decimal(rng.choice(["500", "800", "1200"])) if case.currency in ZERO_DECIMAL else Decimal(rng.choice(["4.99", "7.50", "9.99", "14.99"]))
+        case.refund, case.quoted, case.over_refund = case.total + fee, case.total + fee, True
+    if since >= SWAP_START and since.days < SWAP_END_DAY and (since.days >= SWAP_FULL_DAY or swap < 0.35):
+        case.served_model = SWAPPED_MODEL
+    if since.days == STORM_DAY and STORM_HOURS[0] <= case.started.hour < STORM_HOURS[1]:
+        case.storm_lookups = storm
+
+
 def history_fault(case: Case, _rng: random.Random) -> bool:
     return case.currency == "EUR" and case.method == "card" and case.version != "1.3.0"
 
@@ -197,13 +241,13 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
         return begin.isoformat().replace("+00:00", "Z"), clock.isoformat().replace("+00:00", "Z")
 
     def model_call(output: dict[str, Any], rng: random.Random = rng) -> None:
-        begin, end = tick(rng.uniform(0.6, 2.4))
+        begin, end = tick(rng.uniform(0.6, 2.4) * (2.2 if c.served_model != MODEL else 1.0))
         tokens_in, tokens_out = 180 + 45 * len(history) + rng.randrange(40), 20 + len(json.dumps(output)) // 4
         nodes.append({"index": len(nodes), "parent_index": 0, "links": [], "external_id": f"{c.external_id}-n{len(nodes)}", "trace_id": c.external_id,
                       "node_type": "llm_call", "name": "returns assistant turn", "status": "completed", "started_at": begin, "ended_at": end,
                       "input_text_selector": f"/{len(history) - 1}/content", "output_text_selector": "/0/content" if output.get("content") else None,
                       "system_prompt_selector": "/0/content", "reasoning_selectors": [], "inputs": list(history), "outputs": [output],
-                      "requested_model": MODEL, "model": MODEL, "model_provider": "openai",
+                      "requested_model": MODEL, "model": c.served_model, "model_provider": "openai",
                       "tokens": {"input_tokens": tokens_in, "output_tokens": tokens_out, "cached_input_tokens": 0, "cache_write_input_tokens": 0, "reasoning_tokens": 0},
                       "cost": f"{(tokens_in * 0.25 + tokens_out * 2.0) / 1_000_000:.6f}", "attributes": {}, "metadata": {}})
         history.append(output)
@@ -217,6 +261,9 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
         history.append({"role": "tool", "name": name, "content": json.dumps(result)})
 
     nodes.append({})  # the root span is filled in last, once the end time is known
+    outage = random.Random(f"{c.external_id}/outage")  # its own stream, so the rest of the session is unchanged
+    for _ in range(c.storm_lookups):
+        tool_call("lookup_order", {"order_id": c.order_id}, {"error": "order service timed out", "retryable": True}, error="order service timed out", rng=outage)
     for _ in range(c.lookups - 1):
         tool_call("lookup_order", {"order_id": c.order_id}, {"error": "order service timed out", "retryable": True}, error="order service timed out")
     drawn_days = 44 if c.kind == "denied" else rng.randrange(1, 28)  # drawn exactly when it always was, so a planted value does not shift the stream
@@ -241,17 +288,28 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
     return {"status": "completed", "name": f"Returns: {c.order_id}", "inputs": {"message": message}, "outputs": {"reply": reply},
             "started_at": start, "ended_at": end, "external_id": c.external_id, "framework": "pydantic-ai",
             "metadata": {"channel": rng.choice(["chat", "email"]), "locale": c.locale, "agent_release": c.version,
-                         "end_reason": "idle_timeout" if c.idle else "resolved"}, "nodes": nodes}
+                         "end_reason": "idle_timeout" if c.idle else "resolved"} | ({"campaign": c.campaign} if c.campaign else {}), "nodes": nodes}
 
 
-def build_history(seed: int, per_day: int) -> list[tuple[Case, dict[str, Any]]]:
+def build_history(seed: int, per_day: int, diagnosis: bool = False) -> list[tuple[Case, dict[str, Any]]]:
+    """Every conversation of the 60 days. With `diagnosis`, the diagnosis tasks' problems are planted
+    on top; a conversation that gains none of them comes out byte-identical."""
     rng = random.Random(seed)
     out = []
     for day in range(DAYS):
         seconds = sorted(rng.uniform(6 * 3600, 23 * 3600) for _ in range(per_day + rng.randrange(-6, 7)))
         for s in seconds:
             case = draw_case(rng, f"sf-{len(out) + 1:05d}", START + timedelta(days=day, seconds=s), version_on(day), history_fault)
+            if diagnosis:
+                plant_diagnosis(case)
             out.append((case, to_record(case, rng)))
+    if diagnosis:  # the promotion's conversations come from their own stream and take the ids after the last ordinary one
+        promo = random.Random(f"{seed}/promotion")
+        for s in sorted(promo.uniform(8 * 3600, 23 * 3600) for _ in range(PROMO_SESSIONS)):
+            case = draw_case(promo, f"sf-{len(out) + 1:05d}", START + timedelta(days=PROMO_DAY, seconds=s), version_on(PROMO_DAY), history_fault)
+            case.campaign = PROMO_CAMPAIGN
+            out.append((case, to_record(case, promo)))
+        out.sort(key=lambda pair: pair[0].started)
     return out
 
 
@@ -295,7 +353,7 @@ def review(c: Case) -> tuple[bool, str]:
 
 def reviewable(c: Case) -> bool:
     """Conversations the reviewers' two rules judge without argument: nothing curt, nothing refunded twice."""
-    return not c.curt and not c.double_refund
+    return not c.curt and not c.double_refund and not c.diagnosis_plant
 
 
 def pick_reviewed(pairs: list[tuple[Case, dict[str, Any]]], seed: int) -> list[Case]:
@@ -419,11 +477,12 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20260730)
     ap.add_argument("--per-day", type=int, default=50)
     ap.add_argument("--n", type=int, default=120)
+    ap.add_argument("--plants", choices=["diagnosis"], default=None, help="history only: also plant the diagnosis tasks' problems")
     ap.add_argument("--task", choices=["c2", "c3", "c5", "c6"], default="c2", help="which grader the hidden sessions are for")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     if a.mode == "history":
-        pairs = build_history(a.seed, a.per_day)
+        pairs = build_history(a.seed, a.per_day, diagnosis=a.plants == "diagnosis")
         for version, _ in VERSIONS:
             write_jsonl(a.out / f"sessions-{version}.jsonl", [r for c, r in pairs if c.version == version])
         affected = sorted(c.external_id for c, _ in pairs if c.affected)
@@ -434,6 +493,19 @@ def main() -> None:
                                                  "late_refund": c.late_refund, "double_refund": c.double_refund, "wrong_amount": c.affected}
                                  for c, r in pairs}}
         truth["planted"] |= {"late_refund": sorted(c.external_id for c, _ in pairs if c.late_refund), "double_refund": sorted(c.external_id for c, _ in pairs if c.double_refund)}
+        if a.plants == "diagnosis":
+            day = lambda c: (c.started - START).days
+            date = lambda n: (START + timedelta(days=n)).date().isoformat()
+            swapped = [c for c, _ in pairs if c.served_model != MODEL]
+            truth["planted"] |= {"over_refund": sorted(c.external_id for c, _ in pairs if c.over_refund), "model_swap": sorted(c.external_id for c in swapped),
+                                 # three or more timed-out lookups on the outage day, whether or not the outage caused them
+                                 "cost_spike_1": sorted(c.external_id for c, _ in pairs if day(c) == STORM_DAY and c.lookups - 1 + c.storm_lookups >= 3),
+                                 "cost_spike_2": sorted(c.external_id for c, _ in pairs if c.campaign)}
+            truth["facts"] = {"model_swap_first_day": min(c.started for c in swapped).date().isoformat(), "served_model": SWAPPED_MODEL,
+                              "cost_spike_1": {"date": date(STORM_DAY), "cause": "retry_loop"}, "cost_spike_2": {"date": date(PROMO_DAY), "cause": "traffic_increase"},
+                              "sessions_on": {date(n): sum(day(c) == n for c, _ in pairs) for n in (STORM_DAY, PROMO_DAY)},
+                              "swap_window_sessions": sum(SWAP_START <= c.started - START < timedelta(days=SWAP_END_DAY) for c, _ in pairs),
+                              "swap_full_days_only": sum(c.served_model != MODEL and day(c) >= SWAP_FULL_DAY for c, _ in pairs)}
         reviewed = [{"external_id": c.external_id, "passed": review(c)[0], "explanation": review(c)[1]} for c in pick_reviewed(pairs, a.seed)]
         truth["reviewed"] = {r["external_id"]: r["passed"] for r in reviewed}
         (a.out / "reviewed.json").write_text(json.dumps(reviewed, indent=1))

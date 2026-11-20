@@ -161,3 +161,42 @@ def grade_evaluator_on_hidden(evaluator: str, hidden_jsonl: str, labels: dict[st
     return metrics | {"hidden_sessions": len(ids), "should_fail": len(should_fail), "failed_by_evaluator": len(failed), "true_positives": true_pos,
                       "no_result": len(silent), "precision": round(true_pos / len(failed), 4) if failed else 0.0, "recall": round(true_pos / len(should_fail), 4),
                       "false_alarm_ids": sorted(by_id[s] for s in failed - should_fail), "missed_ids": sorted(by_id[s] for s in should_fail - failed)}
+
+
+def cohort_external_ids(name: str) -> set[str] | None:
+    """The external ids of the sessions in the latest version of the cohort `name`. None if no cohort
+    has that name; an empty set if it has no version yet."""
+    cohort = kitaru("cohort", "get", name, check=False)
+    if not cohort.get("ok"):
+        return None
+    number = cohort["item"]["latest_version"]
+    if not number:
+        return set()
+    version_id = kitaru("cohort", "version", "get", f"{name}@{number}")["item"]["id"]
+    return {s["external_id"] for s in list_all("session", "list", "--filter", json.dumps({"field": "cohort_version_id", "op": "eq", "value": version_id}))}
+
+
+def score_cohort(name: str, truth: set[str], bar: float = 0.9) -> dict[str, Any]:
+    """Compare the cohort's members with the sessions that belong in it. `ok` needs precision and
+    recall of at least `bar`. A diagnosis task's answer sheet is a cohort: nothing to parse, and
+    "find all of them" is graded, not "find one"."""
+    members = cohort_external_ids(name)
+    if members is None:
+        return {"ok": False, "reason": f"no cohort named {name}"}
+    hits = len(members & truth)
+    precision, recall = (hits / len(members) if members else 0.0), hits / len(truth)
+    return {"ok": precision >= bar and recall >= bar, "members": len(members), "belong": len(truth), "hits": hits, "precision": round(precision, 4), "recall": round(recall, 4),
+            "wrong_members": sorted(members - truth)[:25], "missed": sorted(truth - members)[:25]}
+
+
+def read_answer_file(path: str, max_bytes: int = 20_000) -> dict[str, Any] | None:
+    """The agent's small answer file, or None if it is missing, a link, too large or not a JSON object.
+    The grader runs as root, so a link is refused: it could point at the answer key."""
+    import os
+    if os.path.islink(path) or not os.path.isfile(path) or os.path.getsize(path) > max_bytes:
+        return None
+    try:
+        data = json.loads(open(path, encoding="utf-8").read())
+    except (OSError, ValueError):
+        return None
+    return data if isinstance(data, dict) else None
