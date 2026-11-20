@@ -314,3 +314,12 @@ The same `reward.json` serves two consumers with opposite needs. The benchmark w
 - *Agents.* On that image, one trial each of `codex` + `gpt-5.4-mini` (US$0.04) and `claude-code` + `claude-haiku-5-5` (US$0.01) scored 1.0.
 
 **Accounts** (read-only checks; nothing was published): Harbor Hub `strickvl`, owner of org `zenml`; Prime `strickvl`, admin of team `zenml`; Hugging Face `strickvl`, admin of org `zenml`, but the `HF_TOKEN` in the shell is a read-only fine-grained token and the token cached by `hf auth login` is no longer valid, so publishing to Hugging Face needs a new write token.
+
+## 2026-11-20 — Kitaru set: four design decisions (Alex)
+
+1. **One container.** Postgres, the Kitaru server, the worker and the agent under test share one container, so Modal builds it from the Dockerfile and the set can go on both Hubs. The agent can reach the database, so graders re-run the agent's work on inputs it never saw; locking the database behind a second Unix user is tried as a spike.
+2. **Scripted model.** The example agents that Kitaru replays use a Python function in place of a model. Planted faults live in tools, formatters and configuration, not prompt wording.
+3. **New stories.** The public set gets newly written companies. The existing private fixtures stay unpublished as the held-out set.
+4. **Base image: public on GHCR, behind a leak scan.** Alex is open to `ghcr.io/zenml-io/…` only if nothing secret can be in the image. The gate, to be built with the base image and run before every push: build from a clean `git worktree` export with a `.dockerignore` that keeps `.env`, `jobs/` and `design/` out of the build context; no secret ever passed as a build `ARG` or `ENV` (both are stored in the image's history); scan the image's full file system and `docker history --no-trunc` for key-shaped strings, home paths and emails, counts only (extend `scripts/check_public.sh`); push private first, scan the pushed digest, and only then flip it public, with Alex confirming each public step.
+
+Carried over from the proposal without a new question: the tasks live in a `kitaru/` directory of this repo. Deferred to publishing time: whether the diagnosis family appears on a public leaderboard.
