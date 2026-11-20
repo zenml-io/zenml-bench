@@ -54,8 +54,13 @@ def main() -> None:
         plain.unlink()
     if created != plan["by_version"]:
         sys.exit(f"server holds {created}, the plan says {plan['by_version']}")
-    kitaru("evaluator", "register", "refund-issued-once", "--script", "/app/evaluators/refund_issued_once.py", "--entrypoint", "evaluate",
+    # The team's checks. `refund-issued-once` has two versions: the first from a file that is not kept
+    # in the workspace, the second from the workspace's current source.
+    kitaru("evaluator", "register", "refund-issued-once", "--script", str(WORLD / "old" / "refund_issued_once_v1.py"), "--entrypoint", "evaluate",
            "--description", "Passes when a conversation issued at most one refund.")
+    kitaru("evaluator", "version", "register", "refund-issued-once", "--script", "/app/evaluators/refund_issued_once.py", "--entrypoint", "evaluate")
+    kitaru("evaluator", "register", "polite-closing", "--script", "/app/evaluators/polite_closing.py", "--entrypoint", "evaluate",
+           "--description", "Passes when the reply ends with a closing courtesy.")
     first, last = (kitaru("session", "list", "--size", "1", "--sort", order)["items"][0] for order in ("created:asc", "created:desc"))
     print(json.dumps({"created": created, "first": [first["number"], first["started_at"]], "last": [last["number"], last["started_at"]]}))
 

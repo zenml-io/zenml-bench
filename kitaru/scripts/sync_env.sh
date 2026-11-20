@@ -6,6 +6,7 @@
 #   environment/base/files/  = base/files/
 #   environment/world/       = the world's loader and its session files (generated here from story.py)
 #   environment/workspace/   = the world's workspace (what the agent sees in /app)
+#   tests/fixtures/ground_truth.json = the world's answer key, for the grader only
 #
 # The world is named in tasks/<task>/world. Run from the repo root after editing base/ or a world:
 #   kitaru/scripts/sync_env.sh kitaru/tasks/<task>
@@ -19,8 +20,11 @@ rm -rf "$ENV"; mkdir -p "$ENV/base" "$ENV/world"
 cp -R "$ROOT/base/files" "$ENV/base/files"
 cp -R "$ROOT/worlds/$WORLD/workspace" "$ENV/workspace"
 cp "$ROOT/worlds/$WORLD/load.py" "$ENV/world/"
+if [ -d "$ROOT/worlds/$WORLD/old" ]; then cp -R "$ROOT/worlds/$WORLD/old" "$ENV/world/old"; fi
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 python3 "$ROOT/worlds/$WORLD/story.py" history --out "$TMP" > /dev/null
+mkdir -p "$TASK/tests/fixtures"
+cp "$TMP/ground_truth.json" "$TASK/tests/fixtures/ground_truth.json"   # the answer key goes to tests/ only, never into the image
 python3 - "$TMP" "$ENV/world" <<'PY'
 import gzip, json, pathlib, sys
 src, dst = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])

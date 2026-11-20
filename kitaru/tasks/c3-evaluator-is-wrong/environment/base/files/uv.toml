@@ -1,0 +1,2 @@
+no-index = true
+find-links = ["/opt/kitaru-wheels"]

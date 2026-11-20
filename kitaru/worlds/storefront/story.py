@@ -7,7 +7,7 @@ One seeded plan produces every session as plain data. No model is called and no 
 code writes the history that is loaded into the image and the hidden sessions a grader imports later.
 
     python story.py history --out <dir>          # sessions-<version>.jsonl per agent version + ground_truth.json
-    python story.py hidden --seed 7 --n 120 --out <dir>   # hidden.jsonl + hidden_labels.json for a grader
+    python story.py hidden --task c2 --seed 7 --n 120 --out <dir>   # hidden.jsonl + hidden_labels.json for a grader
 
 The calendar is frozen: the history runs from 1 June to 30 July 2026 and every task says "this is a
 snapshot taken on 30 July 2026". Nothing has to run at container start for the dates to be right.
@@ -17,6 +17,13 @@ Planted so far (more are added as tasks need them; each one is listed in ground_
 - `euro_confirmation_x100`: from version 1.4.0, when a refund in euros goes back to a card, the
   reply quotes 100 times the refunded amount. The refund tool was called with the right amount; only
   the sentence the customer reads is wrong. Store-credit refunds use another formatting path and are right.
+- `repeated_lookups`: the order service sometimes times out and the assistant retries. About 4 in 100
+  conversations call `lookup_order` more than three times.
+- `idle_timeout`: about 1 conversation in 20 ends because the customer never answered the assistant's
+  request for more detail. The last reply is that request, with no closing courtesy, and the session's
+  metadata says `end_reason: idle_timeout`. Nothing is wrong with these.
+- `curt_reply`: about 1 conversation in 150 ended normally with a terse reply and no closing courtesy.
+  These are the ones a politeness check should catch.
 """
 import argparse
 import json
@@ -38,6 +45,11 @@ REASONS = ["arrived damaged", "is the wrong size", "is not what I ordered", "sto
 SYSTEM_PROMPT = ("You are the returns assistant for Larkspur Goods. Look up the order before deciding. Refund when the return is "
                  "inside the 30-day window, otherwise explain why not. Confirm the exact amount refunded and where it went.")
 MODEL = "gpt-5.4-mini"
+CLOSINGS = ["Thanks for shopping with Larkspur Goods.", "Is there anything else I can help you with?", "Have a lovely day."]
+CURT = {("status", 0): "It shipped. Check the tracking page.", ("denied", 0): "Not eligible. Outside the 30-day window.",
+        ("status", 1): "Did you look at the tracking page?", ("denied", 1): "Did you read the return policy?",
+        ("status", 2): "The order is in transit and the tracking page already shows where it is, so there is nothing for me to add here.",
+        ("denied", 2): "The order is outside the return window and it will not be refunded, as the policy on our website already explains."}
 
 
 def version_on(day: int) -> str:
@@ -67,11 +79,22 @@ class Case:
     currency: str
     locale: str
     total: Decimal
-    kind: str  # refund | status | denied
+    kind: str  # refund | status | denied | idle
     refund: Decimal | None = None
     method: str | None = None  # card | store_credit
     quoted: Decimal | None = None
     reply_style: int = 0  # 0, 1: states the amount; 2: partial, states amount and order total; 3: states no amount
+    lookups: int = 1  # calls to lookup_order; all but the last time out
+    closing: str | None = ""  # the courtesy that ends the reply; None = a curt reply with none
+    variant: int = 0  # idle: 0 asks a question, 1 makes a request. curt: 0 a short statement, 1 a question, 2 a long statement.
+
+    @property
+    def idle(self) -> bool:
+        return self.kind == "idle"
+
+    @property
+    def curt(self) -> bool:
+        return self.closing is None and not self.idle
 
     @property
     def affected(self) -> bool:
@@ -99,6 +122,14 @@ def draw_case(rng: random.Random, external_id: str, started: datetime, version: 
         else:
             case.refund = total
         case.quoted = case.refund * 100 if faulty(case, rng) else case.refund
+    case.lookups = rng.choices([1, 2, 3, 4, 5, 6], [800, 110, 50, 25, 10, 5])[0]
+    roll = rng.random()
+    if case.kind != "refund" and roll < 0.12:
+        case.kind, case.variant = "idle", int(rng.random() < 0.3)
+    elif case.kind != "refund" and roll < 0.135:
+        case.closing, case.variant = None, rng.choices([0, 1, 2], [50, 25, 25])[0]
+    if case.closing is not None:
+        case.closing = None if case.idle else rng.choice(CLOSINGS)
     return case
 
 
@@ -107,6 +138,17 @@ def history_fault(case: Case, _rng: random.Random) -> bool:
 
 
 def reply_text(c: Case) -> str:
+    """The reply the customer reads: the body, then a closing courtesy unless the reply is curt or the
+    conversation never finished."""
+    if c.idle:
+        ask = "Could you confirm which item you would like to return?" if c.variant == 0 else "Please tell me which item you would like to return."
+        return f"Hi {c.name}, I found order {c.order_id}. {ask}"
+    if c.curt:
+        return CURT[(c.kind, c.variant)]
+    return f"{reply_body(c)} {c.closing}"
+
+
+def reply_body(c: Case) -> str:
     if c.kind == "status":
         return f"Hi {c.name}, order {c.order_id} ({c.item}) shipped and is due within two days. Nothing has been refunded."
     if c.kind == "denied":
@@ -125,7 +167,8 @@ def reply_text(c: Case) -> str:
 
 def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
     """One session in the Kitaru JSONL contract: a root span, then model call / tool call pairs."""
-    message = f"Hi, my {c.item} from order {c.order_id} {c.reason}. Can I get a refund?" if c.kind != "status" else f"Where is my order {c.order_id}?"
+    message = (f"Where is my order {c.order_id}?" if c.kind == "status" else f"Hi, I'd like to return something from order {c.order_id}." if c.idle
+               else f"Hi, my {c.item} from order {c.order_id} {c.reason}. Can I get a refund?")
     reply = reply_text(c)
     clock = c.started
     nodes: list[dict[str, Any]] = []
@@ -148,15 +191,17 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
                       "cost": f"{(tokens_in * 0.25 + tokens_out * 2.0) / 1_000_000:.6f}", "attributes": {}, "metadata": {}})
         history.append(output)
 
-    def tool_call(name: str, args: dict[str, Any], result: dict[str, Any]) -> None:
+    def tool_call(name: str, args: dict[str, Any], result: dict[str, Any], error: str | None = None) -> None:
         model_call({"role": "assistant", "content": None, "tool_calls": [{"name": name, "arguments": args}]})
-        begin, end = tick(rng.uniform(0.1, 0.7))
+        begin, end = tick(rng.uniform(4.0, 6.0) if error else rng.uniform(0.1, 0.7))
         nodes.append({"index": len(nodes), "parent_index": 0, "links": [], "external_id": f"{c.external_id}-n{len(nodes)}", "trace_id": c.external_id,
-                      "node_type": "tool_call", "name": name, "tool_name": name, "status": "completed", "started_at": begin, "ended_at": end,
-                      "reasoning_selectors": [], "inputs": args, "outputs": result, "attributes": {}, "metadata": {}})
+                      "node_type": "tool_call", "name": name, "tool_name": name, "status": "failed" if error else "completed", "error": error,
+                      "started_at": begin, "ended_at": end, "reasoning_selectors": [], "inputs": args, "outputs": result, "attributes": {}, "metadata": {}})
         history.append({"role": "tool", "name": name, "content": json.dumps(result)})
 
     nodes.append({})  # the root span is filled in last, once the end time is known
+    for _ in range(c.lookups - 1):
+        tool_call("lookup_order", {"order_id": c.order_id}, {"error": "order service timed out", "retryable": True}, error="order service timed out")
     tool_call("lookup_order", {"order_id": c.order_id},
               {"order_id": c.order_id, "customer": c.name, "items": [c.item], "total": str(c.total), "currency": c.currency,
                "days_since_delivery": 44 if c.kind == "denied" else rng.randrange(1, 28), "status": "delivered" if c.kind != "status" else "in_transit"})
@@ -164,13 +209,16 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
         tool_call("issue_refund", {"order_id": c.order_id, "amount": str(c.refund), "currency": c.currency, "method": c.method},
                   {"refund_id": f"rf_{rng.randrange(16**8):08x}", "status": "issued", "amount": str(c.refund), "currency": c.currency})
     model_call({"role": "assistant", "content": reply})
+    if c.idle:
+        clock += timedelta(minutes=30)  # the session stays open until the idle limit closes it
     start, end = c.started.isoformat().replace("+00:00", "Z"), clock.isoformat().replace("+00:00", "Z")
     nodes[0] = {"index": 0, "parent_index": None, "links": [], "external_id": f"{c.external_id}-root", "trace_id": c.external_id, "node_type": "span",
                 "name": "returns conversation", "status": "completed", "started_at": start, "ended_at": end, "input_text_selector": "/message",
                 "output_text_selector": "/reply", "reasoning_selectors": [], "inputs": {"message": message}, "outputs": {"reply": reply}, "attributes": {}, "metadata": {}}
     return {"status": "completed", "name": f"Returns: {c.order_id}", "inputs": {"message": message}, "outputs": {"reply": reply},
             "started_at": start, "ended_at": end, "external_id": c.external_id, "framework": "pydantic-ai",
-            "metadata": {"channel": rng.choice(["chat", "email"]), "locale": c.locale, "agent_release": c.version}, "nodes": nodes}
+            "metadata": {"channel": rng.choice(["chat", "email"]), "locale": c.locale, "agent_release": c.version,
+                         "end_reason": "idle_timeout" if c.idle else "resolved"}, "nodes": nodes}
 
 
 def build_history(seed: int, per_day: int) -> list[tuple[Case, dict[str, Any]]]:
@@ -181,6 +229,33 @@ def build_history(seed: int, per_day: int) -> list[tuple[Case, dict[str, Any]]]:
         for s in seconds:
             case = draw_case(rng, f"sf-{len(out) + 1:05d}", START + timedelta(days=day, seconds=s), version_on(day), history_fault)
             out.append((case, to_record(case, rng)))
+    return out
+
+
+def build_hidden_c3(seed: int, n: int) -> list[tuple[Case, dict[str, Any]]]:
+    """Hidden sessions for the politeness check. The label is "ended normally without a closing
+    courtesy". Shares of `n`: a fifth idle timeouts (must pass; a third of them phrased as a request,
+    not a question, and many with retried lookups), a fifth curt replies (must fail; a third short
+    statements, a third questions, a third long statements), the rest ordinary polite conversations."""
+    rng = random.Random(seed)
+    day0 = START + timedelta(days=DAYS + 3)
+    buckets: list[tuple[int, Callable[[Case], bool]]] = [(n // 5, lambda c: c.idle), (n // 5, lambda c: c.curt)]
+    buckets.append((n - 2 * (n // 5), lambda c: not c.idle and not c.curt))
+    out: list[tuple[Case, dict[str, Any]]] = []
+    for bucket, (count, wanted) in enumerate(buckets):
+        kept = 0
+        while kept < count:
+            case = draw_case(rng, f"hx-{rng.randrange(16**10):010x}", day0 + timedelta(seconds=rng.uniform(0, 5 * 86400)),
+                             rng.choice(["1.4.0", "1.4.1", "1.5.0"]), lambda c, r: False)
+            if not wanted(case):
+                continue
+            if bucket < 2:
+                case.variant = int(kept % 3 == 0) if bucket == 0 else kept % 3
+            if bucket == 0:
+                case.lookups = 1 + kept % 4
+            out.append((case, to_record(case, rng)))
+            kept += 1
+    out.sort(key=lambda pair: pair[0].started)
     return out
 
 
@@ -235,6 +310,7 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20260730)
     ap.add_argument("--per-day", type=int, default=50)
     ap.add_argument("--n", type=int, default=120)
+    ap.add_argument("--task", choices=["c2", "c3"], default="c2", help="which grader the hidden sessions are for")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     if a.mode == "history":
@@ -243,9 +319,18 @@ def main() -> None:
             write_jsonl(a.out / f"sessions-{version}.jsonl", [r for c, r in pairs if c.version == version])
         affected = sorted(c.external_id for c, _ in pairs if c.affected)
         truth = {"snapshot_date": "2026-07-30", "sessions": len(pairs), "by_version": {v: sum(c.version == v for c, _ in pairs) for v, _ in VERSIONS},
-                 "planted": {"euro_confirmation_x100": affected}}
+                 "planted": {"euro_confirmation_x100": affected, "repeated_lookups": sorted(c.external_id for c, _ in pairs if c.lookups > 3),
+                             "idle_timeout": sorted(c.external_id for c, _ in pairs if c.idle), "curt_reply": sorted(c.external_id for c, _ in pairs if c.curt)},
+                 "per_session": {c.external_id: {"started_at": r["started_at"], "release": c.version, "lookups": c.lookups, "idle": c.idle, "curt": c.curt}
+                                 for c, r in pairs}}
         (a.out / "ground_truth.json").write_text(json.dumps(truth, indent=1))
-        print(json.dumps({"sessions": len(pairs), "by_version": truth["by_version"], "euro_confirmation_x100": len(affected)}))
+        print(json.dumps({"sessions": len(pairs), "by_version": truth["by_version"], **{k: len(v) for k, v in truth["planted"].items()}}))
+    elif a.task == "c3":
+        pairs = build_hidden_c3(a.seed, a.n)
+        write_jsonl(a.out / "hidden.jsonl", [r for _, r in pairs])
+        labels = {c.external_id: {"should_fail": c.curt, "idle": c.idle, "variant": c.variant, "lookups": c.lookups} for c, _ in pairs}
+        (a.out / "hidden_labels.json").write_text(json.dumps(labels, indent=1))
+        print(json.dumps({"sessions": len(pairs), "should_fail": sum(c.curt for c, _ in pairs), "idle": sum(c.idle for c, _ in pairs)}))
     else:
         pairs = build_hidden(a.seed, a.n)
         write_jsonl(a.out / "hidden.jsonl", [r for _, r in pairs])

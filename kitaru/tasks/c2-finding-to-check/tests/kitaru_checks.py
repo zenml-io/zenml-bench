@@ -126,3 +126,38 @@ def failed_sessions(session_ids: list[str], evaluator_version_id: str) -> tuple[
         elif any(e.get("passed") is False for e in rows):
             failed.add(sid)
     return failed, silent
+
+
+def sessions_by_external_id(tag: str = "history") -> dict[str, str]:
+    """Map each session's external id to its Kitaru id, for every session carrying the tag."""
+    return {s["external_id"]: s["id"] for s in list_all("session", "list", "--tag", tag)}
+
+
+def all_evaluations() -> list[dict[str, Any]]:
+    """Every stored evaluation row, oldest first."""
+    return sorted(list_all("evaluation", "list"), key=lambda e: e["created"])
+
+
+def grade_evaluator_on_hidden(evaluator: str, hidden_jsonl: str, labels: dict[str, bool], agent_ref: str, min_version: int = 1) -> dict[str, Any]:
+    """Run the latest registered version of `evaluator` on hidden sessions and score which ones it
+    failed against `labels` (external id -> should this session fail?). Starts the grader's own worker
+    first. Returns metrics including `precision` and `recall` over the sessions that should fail."""
+    metrics: dict[str, Any] = {}
+    start_grader_worker()
+    version = latest_version("evaluator", evaluator)
+    if version is None:
+        return metrics | {"reason": f"no evaluator named {evaluator} is registered"}
+    metrics["evaluator_version"] = version["version"]
+    if version["version"] < min_version:
+        return metrics | {"reason": f"{evaluator} is still at version {version['version']}; no new version was registered"}
+    tag, ids = import_hidden(hidden_jsonl, agent_ref)
+    if set(ids) != set(labels):
+        return metrics | {"reason": f"imported {len(ids)} hidden sessions, expected {len(labels)}"}
+    metrics["evaluate_errors"] = evaluate_sessions(list(ids.values()), f"{evaluator}@{version['version']}")
+    failed, silent = failed_sessions(list(ids.values()), version["id"])
+    should_fail = {ids[x] for x, bad in labels.items() if bad}
+    true_pos = len(failed & should_fail)
+    by_id = {v: k for k, v in ids.items()}
+    return metrics | {"hidden_sessions": len(ids), "should_fail": len(should_fail), "failed_by_evaluator": len(failed), "true_positives": true_pos,
+                      "no_result": len(silent), "precision": round(true_pos / len(failed), 4) if failed else 0.0, "recall": round(true_pos / len(should_fail), 4),
+                      "false_alarm_ids": sorted(by_id[s] for s in failed - should_fail), "missed_ids": sorted(by_id[s] for s in should_fail - failed)}

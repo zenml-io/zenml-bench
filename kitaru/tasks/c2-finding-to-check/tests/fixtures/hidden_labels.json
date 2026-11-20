@@ -1,177 +1,114 @@
 {
- "hx-3a071f31c8": {
-  "affected": true,
+ "hx-fc618d7062": {
+  "affected": false,
   "currency": "EUR",
   "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-8245a3ada7": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
   "style": 2,
-  "release": "1.4.1"
+  "release": "1.4.0"
  },
- "hx-6b994406e0": {
-  "affected": false,
-  "currency": "GBP",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-325d3d63c6": {
-  "affected": false,
-  "currency": "GBP",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-6bacff817a": {
+ "hx-bdc7a53745": {
   "affected": false,
   "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-8b3ff81a5b": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-5b7487e799": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.4.0"
- },
- "hx-4d209bc7ef": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-498cbe0f76": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-79dedb2588": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-00c4fe54b8": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-50af79af4a": {
-  "affected": false,
-  "currency": "EUR",
   "method": "store_credit",
   "style": 3,
-  "release": "1.4.1"
- },
- "hx-8bd8d69662": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "store_credit",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-b11c5feec5": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
   "release": "1.5.0"
  },
- "hx-70b45bb55e": {
-  "affected": false,
-  "currency": "USD",
+ "hx-fedba0db68": {
+  "affected": true,
+  "currency": "EUR",
   "method": "card",
   "style": 1,
   "release": "1.4.1"
  },
- "hx-a413425c6b": {
+ "hx-0e08964954": {
   "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-1579ab45c7": {
-  "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 0,
   "release": "1.4.0"
  },
- "hx-dec8ecb6d1": {
+ "hx-984232dcda": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-b6968f9cac": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
-  "style": 3,
+  "style": 1,
   "release": "1.4.1"
  },
- "hx-0aedabcfe9": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.1"
- },
- "hx-968fd78fed": {
+ "hx-57d8e58fed": {
   "affected": false,
   "currency": "USD",
   "method": null,
   "style": 0,
   "release": "1.4.1"
  },
- "hx-4ea5df5d2a": {
+ "hx-13864f7726": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
   "style": 2,
   "release": "1.5.0"
  },
- "hx-b185df7790": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 1,
-  "release": "1.4.0"
- },
- "hx-bf4f3ea784": {
+ "hx-9f005f4d88": {
   "affected": true,
   "currency": "EUR",
   "method": "store_credit",
   "style": 1,
-  "release": "1.5.0"
+  "release": "1.4.1"
  },
- "hx-9c2b2bf6a0": {
+ "hx-f257835175": {
   "affected": false,
   "currency": "USD",
   "method": null,
   "style": 0,
   "release": "1.5.0"
  },
- "hx-c8b23fe418": {
+ "hx-0e7f2e1577": {
+  "affected": false,
+  "currency": "GBP",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-ece9f7eb73": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-a95be0decc": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-9e8abf5aaf": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-6978ec493c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.4.0"
+ },
+ "hx-1d8ca4defb": {
   "affected": false,
   "currency": "USD",
   "method": "card",
-  "style": 1,
+  "style": 2,
   "release": "1.4.1"
  },
  "hx-eed10afa32": {
@@ -181,165 +118,263 @@
   "style": 1,
   "release": "1.5.0"
  },
- "hx-d9ee3d24cc": {
+ "hx-84d565a7b6": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-e1b0b8ff94": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-a621bc136c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-799c7da958": {
   "affected": false,
   "currency": "JPY",
   "method": "card",
   "style": 2,
-  "release": "1.4.1"
+  "release": "1.4.0"
  },
- "hx-8c0e7ef5e4": {
+ "hx-5db1423f91": {
   "affected": false,
-  "currency": "USD",
+  "currency": "JPY",
   "method": "card",
   "style": 1,
   "release": "1.5.0"
  },
- "hx-7faf7252a2": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-64b4358d2c": {
-  "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.0"
- },
- "hx-fb950cc1ea": {
-  "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-c6c87316a2": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-dcf8cf85a4": {
+ "hx-7a50247638": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
   "style": 2,
   "release": "1.4.1"
  },
- "hx-600b1be2f6": {
+ "hx-bda626dee7": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
-  "style": 1,
-  "release": "1.4.0"
+  "style": 2,
+  "release": "1.5.0"
  },
- "hx-af459a8ada": {
+ "hx-f1a8679aee": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-41bc7bfe86": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-40f4dc94f7": {
   "affected": false,
   "currency": "JPY",
-  "method": "store_credit",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-db2a1c3fcf": {
-  "affected": true,
-  "currency": "EUR",
   "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-81c1558ed6": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
+  "style": 2,
   "release": "1.4.0"
  },
- "hx-33b884198f": {
-  "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.0"
- },
- "hx-4fecf5fa7c": {
-  "affected": false,
-  "currency": "USD",
-  "method": "store_credit",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-60ad1eeb0b": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-e316e8d7aa": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-006260427a": {
-  "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-165899f4fb": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-6c07541613": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.0"
- },
- "hx-97b58405ba": {
+ "hx-1316e9b33a": {
   "affected": false,
   "currency": "GBP",
   "method": "card",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-4c301dba87": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
   "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-9f80537e28": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 3,
+  "release": "1.5.0"
+ },
+ "hx-083e7ae4e0": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-18987605d8": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-6369b8ecc8": {
+  "affected": false,
+  "currency": "JPY",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-928c86e66c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
   "release": "1.4.0"
  },
- "hx-24066030c5": {
+ "hx-70b942423e": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.4.0"
+ },
+ "hx-f65579811c": {
   "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.4.0"
+ },
+ "hx-95422439d3": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-2bd27086c8": {
+  "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 0,
   "release": "1.4.1"
  },
- "hx-f775738005": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-f6f269b420": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-82af38f0a0": {
+ "hx-89c65010ac": {
   "affected": false,
   "currency": "JPY",
   "method": "card",
   "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-213cbed6ab": {
+  "affected": false,
+  "currency": "JPY",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-99a7d27669": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-3a39dd1457": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-fc000b46ec": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-47a5f688f2": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-988861c78d": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-479a46023c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-936f171907": {
+  "affected": false,
+  "currency": "USD",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-889d9988d6": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-1eda4de576": {
+  "affected": false,
+  "currency": "JPY",
+  "method": "store_credit",
+  "style": 2,
+  "release": "1.4.1"
+ },
+ "hx-7aa63e1258": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-fa8c4e4a82": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-abfc8835d2": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-f52cb9e88a": {
+  "affected": false,
+  "currency": "JPY",
+  "method": "card",
+  "style": 2,
+  "release": "1.4.0"
+ },
+ "hx-cd256c0c81": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
   "release": "1.5.0"
  },
  "hx-3fe50022e9": {
@@ -349,229 +384,243 @@
   "style": 0,
   "release": "1.4.1"
  },
- "hx-0f44d4af23": {
+ "hx-4f2ca755aa": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-ec90c67daa": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-9c572aadb0": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-3bac881274": {
+  "affected": false,
+  "currency": "USD",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-e142e7c8bf": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-3842d56354": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 2,
+  "release": "1.4.1"
+ },
+ "hx-f2832719ee": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-fec42e333f": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-aa6ed09fc7": {
+  "affected": false,
+  "currency": "JPY",
+  "method": "card",
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-1ff8a501bb": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-6c9285e6d6": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-555d4dd4bf": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-bb03694202": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-cd8df050db": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-683da0ee03": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-0228f6716d": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-5a670c6d09": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-1bf538fa77": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-3055cae32c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-ded9068b6b": {
   "affected": false,
   "currency": "GBP",
   "method": "card",
   "style": 0,
-  "release": "1.5.0"
- },
- "hx-e80417b96b": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.1"
- },
- "hx-a31847d93e": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
   "release": "1.4.0"
  },
- "hx-89e9530d6f": {
+ "hx-8f64c7a478": {
   "affected": false,
   "currency": "EUR",
   "method": "store_credit",
   "style": 2,
   "release": "1.4.0"
  },
- "hx-a047977488": {
-  "affected": false,
-  "currency": "USD",
+ "hx-b58213eeeb": {
+  "affected": true,
+  "currency": "EUR",
   "method": "store_credit",
   "style": 0,
-  "release": "1.4.1"
- },
- "hx-9c866cd06f": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
   "release": "1.5.0"
  },
- "hx-6c42ecfc16": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.1"
- },
- "hx-506d7dc37d": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 3,
-  "release": "1.5.0"
- },
- "hx-c6bd2925aa": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-795a175798": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-6fbb5dcae9": {
+ "hx-5a63e397e6": {
   "affected": false,
   "currency": "USD",
-  "method": "store_credit",
+  "method": "card",
   "style": 0,
   "release": "1.4.0"
  },
- "hx-f78eb748d2": {
+ "hx-0cf946224f": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-8828c21098": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
   "style": 2,
-  "release": "1.4.1"
+  "release": "1.5.0"
  },
- "hx-5482ca8ce2": {
+ "hx-79eb4e5eec": {
   "affected": false,
   "currency": "JPY",
   "method": "card",
   "style": 1,
-  "release": "1.4.1"
- },
- "hx-919eccce2f": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
   "release": "1.5.0"
  },
- "hx-d02beb705e": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-e86fa08bdd": {
+ "hx-f567abc386": {
   "affected": false,
   "currency": "EUR",
   "method": "card",
   "style": 2,
   "release": "1.4.1"
  },
- "hx-bb741bedd6": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-f04ecd351f": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-0b45f87132": {
+ "hx-0808c55762": {
   "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 2,
+  "release": "1.4.1"
+ },
+ "hx-f76aba2357": {
+  "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 2,
-  "release": "1.5.0"
- },
- "hx-42c2cb6750": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
   "release": "1.4.1"
  },
- "hx-af15e9e0b9": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-60602c0b99": {
-  "affected": false,
-  "currency": "GBP",
-  "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-bc6f5b03f8": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-012a072652": {
+ "hx-ef4926a626": {
   "affected": false,
   "currency": "EUR",
   "method": "store_credit",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-7edf160f09": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-9c84e91aa8": {
-  "affected": false,
-  "currency": "USD",
-  "method": "store_credit",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-806f355f23": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.0"
- },
- "hx-05a13fed0d": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-1b62ee1d55": {
-  "affected": false,
-  "currency": "USD",
-  "method": null,
   "style": 0,
   "release": "1.4.1"
  },
- "hx-4019b842e2": {
-  "affected": true,
+ "hx-4d0122490d": {
+  "affected": false,
   "currency": "EUR",
-  "method": "card",
-  "style": 1,
+  "method": "store_credit",
+  "style": 0,
   "release": "1.5.0"
  },
- "hx-dff2203548": {
+ "hx-619586ea99": {
   "affected": false,
   "currency": "JPY",
   "method": "store_credit",
-  "style": 2,
+  "style": 1,
+  "release": "1.4.1"
+ },
+ "hx-b2ce1ffa2e": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
   "release": "1.4.0"
+ },
+ "hx-037a21a481": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.5.0"
+ },
+ "hx-a8e7618709": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.1"
  },
  "hx-b76f4fc048": {
   "affected": true,
@@ -580,166 +629,117 @@
   "style": 2,
   "release": "1.4.1"
  },
- "hx-876ff7ddee": {
+ "hx-c40457465a": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-4904308b89": {
   "affected": false,
   "currency": "USD",
   "method": null,
   "style": 0,
   "release": "1.4.1"
  },
- "hx-b83a8bb44f": {
+ "hx-c2a71ace37": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-e5b28f28d4": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-66c2125a03": {
   "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 0,
-  "release": "1.4.1"
+  "release": "1.5.0"
  },
- "hx-c2e74433be": {
+ "hx-6852dd3dab": {
   "affected": false,
   "currency": "USD",
   "method": "card",
   "style": 1,
   "release": "1.5.0"
  },
- "hx-121cdd7e39": {
+ "hx-ae9e4c2f85": {
   "affected": false,
   "currency": "EUR",
-  "method": "store_credit",
+  "method": "card",
   "style": 2,
-  "release": "1.4.0"
+  "release": "1.4.1"
  },
- "hx-4adfedda44": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.0"
- },
- "hx-f61c31f024": {
+ "hx-4d23b01222": {
   "affected": true,
   "currency": "EUR",
   "method": "card",
-  "style": 0,
+  "style": 2,
   "release": "1.4.1"
  },
- "hx-c94306b975": {
-  "affected": false,
-  "currency": "USD",
+ "hx-2c3f70f693": {
+  "affected": true,
+  "currency": "EUR",
   "method": "store_credit",
   "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-efccf7f2c4": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
   "release": "1.4.0"
  },
- "hx-dbe29f023c": {
+ "hx-e3c409bc9f": {
   "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 1,
   "release": "1.5.0"
  },
- "hx-e082259e3b": {
+ "hx-1b932167e0": {
   "affected": false,
   "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.4.1"
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
  },
- "hx-3860ca4222": {
+ "hx-cd5879e0f9": {
   "affected": false,
   "currency": "JPY",
-  "method": "card",
-  "style": 3,
-  "release": "1.4.0"
- },
- "hx-1b544360f7": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
+  "method": null,
   "style": 0,
-  "release": "1.4.0"
+  "release": "1.4.1"
  },
- "hx-f634bec37c": {
+ "hx-4ba494e01e": {
   "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-774fa4797f": {
-  "affected": true,
   "currency": "EUR",
   "method": "card",
   "style": 2,
   "release": "1.4.1"
  },
- "hx-ccda3edba6": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "card",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-9761ba0651": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-d63c404a49": {
-  "affected": false,
-  "currency": "USD",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.0"
- },
- "hx-996a89ba70": {
+ "hx-343a040540": {
   "affected": false,
   "currency": "USD",
   "method": null,
   "style": 0,
-  "release": "1.5.0"
- },
- "hx-e5b80bd60d": {
-  "affected": false,
-  "currency": "GBP",
-  "method": "store_credit",
-  "style": 0,
   "release": "1.4.1"
  },
- "hx-799ab74994": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.4.1"
- },
- "hx-7595c1557b": {
+ "hx-2bb3a57c9e": {
   "affected": false,
-  "currency": "USD",
+  "currency": "JPY",
   "method": "card",
   "style": 1,
   "release": "1.4.0"
- },
- "hx-20c0a4240c": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-fff8c91465": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-b0a5565651": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.1"
  },
  "hx-b68ef7b5dd": {
   "affected": true,
@@ -748,95 +748,95 @@
   "style": 2,
   "release": "1.4.1"
  },
- "hx-3bc35d5223": {
+ "hx-23c752761c": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-6262b9e8f2": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 2,
+  "release": "1.5.0"
+ },
+ "hx-d3364fc998": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-9e916aaee8": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 0,
+  "release": "1.5.0"
+ },
+ "hx-83e9dd20c6": {
+  "affected": false,
+  "currency": "USD",
+  "method": "card",
+  "style": 3,
+  "release": "1.4.1"
+ },
+ "hx-16805d86b0": {
   "affected": false,
   "currency": "JPY",
+  "method": "card",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-b7a0dc7c4b": {
+  "affected": false,
+  "currency": "USD",
   "method": "store_credit",
   "style": 0,
   "release": "1.5.0"
  },
- "hx-8f1ac66a7b": {
+ "hx-ea321949c5": {
+  "affected": false,
+  "currency": "USD",
+  "method": null,
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-660f7d8bf3": {
+  "affected": false,
+  "currency": "USD",
+  "method": "store_credit",
+  "style": 0,
+  "release": "1.4.0"
+ },
+ "hx-da1a1e3df0": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "card",
+  "style": 0,
+  "release": "1.4.1"
+ },
+ "hx-d5ce5dc44d": {
+  "affected": true,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 2,
+  "release": "1.4.1"
+ },
+ "hx-74e404220a": {
+  "affected": false,
+  "currency": "EUR",
+  "method": "store_credit",
+  "style": 1,
+  "release": "1.4.0"
+ },
+ "hx-e2630963e7": {
   "affected": false,
   "currency": "USD",
   "method": "card",
   "style": 1,
-  "release": "1.4.1"
- },
- "hx-4bf689355e": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-cacdf3e72a": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "card",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-a6a53133ff": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
   "release": "1.4.0"
- },
- "hx-a8610fc4e4": {
-  "affected": false,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 2,
-  "release": "1.4.0"
- },
- "hx-de7619b0b4": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 2,
-  "release": "1.5.0"
- },
- "hx-8cb0250cda": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-0923f7715e": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 0,
-  "release": "1.4.1"
- },
- "hx-53d9a7d3c5": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "store_credit",
-  "style": 1,
-  "release": "1.5.0"
- },
- "hx-8c7668a12e": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "card",
-  "style": 0,
-  "release": "1.5.0"
- },
- "hx-b9758d6e71": {
-  "affected": false,
-  "currency": "JPY",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
- },
- "hx-0a20c663aa": {
-  "affected": true,
-  "currency": "EUR",
-  "method": "card",
-  "style": 1,
-  "release": "1.4.1"
  }
 }

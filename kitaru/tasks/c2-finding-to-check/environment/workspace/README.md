@@ -13,6 +13,15 @@ Every conversation is recorded in a Kitaru workspace that is already running on 
 
 Kitaru's documentation is in `/opt/kitaru-docs` (Markdown). `kitaru schema` prints every CLI command. This machine has no internet access; Python packages install only from the wheels already on it.
 
+## What a recorded conversation holds
+
+Each conversation is one Kitaru session. Its `outputs.reply` is the text the customer read. Its nodes are the assistant's model calls and tool calls, in order; a tool call node has the tool's arguments in `inputs` and its result in `outputs`. The order service sometimes times out, and the assistant then calls `lookup_order` again.
+
+A session's `metadata` says how the conversation ended: `end_reason` is `resolved` when the assistant gave its final answer, and `idle_timeout` when the assistant asked the customer for more detail and the customer never came back. `metadata.agent_release` is the release that served it.
+
 ## Evaluators
 
-`evaluators/` holds the checks this team runs over recorded conversations. `refund_issued_once.py` is registered in Kitaru as `refund-issued-once`.
+`evaluators/` holds the checks this team runs over recorded conversations.
+
+- `refund_issued_once.py` is registered in Kitaru as `refund-issued-once`. Version 2 is the current source; version 1 counted rejected refund calls too.
+- `polite_closing.py` is registered as `polite-closing`: the team expects every finished conversation to end with one of three closing courtesies.
