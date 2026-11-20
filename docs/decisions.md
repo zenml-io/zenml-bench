@@ -380,3 +380,31 @@ Every `uv` call in the container, by the worker or by the agent, then resolves f
 **Result on Modal.** `kitaru session evaluate --all --evaluator kitaru/tool-call-patterns@1 --evaluator kitaru/session-diagnostics@1 --wait` over 3 recorded sessions: 33 evaluations in 7.7 s, all 33 with `evaluator_version_id` and `task_id`. `kitaru session import sessions.jsonl --importer kitaru/kitaru-jsonl@latest --agent spike-agent@1 --media-type application/x-ndjson --wait`: 6 sessions in 6.3 s, all 6 with `import_id` and `task_id`.
 
 **Open.** The analyzer was requested on the import (`--analyzer kitaru/post-import-insights@1`) and no insights were stored. With 3 imported sessions its task was `skipped`: the analyzer has `min_sessions: 5`. With 6 sessions the run did not record whether it ran and found nothing or had not finished when the driver read the list. Check before building task I4, which depends on `import analyze`. `kitaru job list` does not exist (only `get`, `watch`, `cancel`); find a job id from the command that created it or from `kitaru import list`.
+
+## 2026-11-20 — Kitaru spike: replaying recordings against a fixed agent version
+
+Task dir: `kitaru/spikes/replay-changed-agent/` (`environment/run_spike4.py` is the driver). Run on Modal, network sealed: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/replay-changed-agent --agent oracle --env modal -o jobs`. Reward 1.0.
+
+**Setup.** Version 1 of the scripted agent has a planted fault: for a euro order it calls `issue_refund` with 100 times the amount (order A-3: amount 13, refund 1300). Version 2 is the same command and directory with `--env SPIKE_FIX=1` in its run spec (`kitaru agent version register spike-agent --command … --working-dir /app --env SPIKE_FIX=1`), which turns the fix on. 12 sessions were recorded with version 1: 3 euro refunds (wrong), 6 dollar refunds (right), 3 orders not found. The evaluator `refund-amount` passes when every refund equals the amount the lookup returned.
+
+**What each replay of the 12 did.**
+
+| agent version | tool policy | replays | evaluator | ledger rows added |
+|---|---|---|---|---|
+| 1 | every tool from the recording, miss = fail | 12 completed | 9 pass, 3 fail | 0 |
+| 2 | every tool from the recording, miss = fail | 9 completed, **3 failed** | 9 pass | 0 |
+| 2 | every tool from the recording, miss = error result | 12 completed | 12 pass | 0 |
+| 2 | lookups from the recording, `issue_refund` answered by a fixed `static` result | 12 completed | 12 pass | 0 |
+
+- Row 1 is the reproduction: the old version replays to the old answers, and the evaluator finds the three bad refunds.
+- Row 2 is the trap task F4 is built on. The fixed agent calls `issue_refund(amount=13)`. The recording only holds `issue_refund(amount=1300)`. Kitaru matches a recorded call by tool name plus arguments, finds nothing, and the agent process exits with `ToolPolicyMissError: No history result for tool 'issue_refund'`. A fix that changes a tool's arguments can never be replayed with "everything from the recording, fail on a miss".
+- Row 3: the agent receives `{"error": "No history result for tool 'issue_refund'"}` as the tool's result and carries on. The replay completes and this evaluator passes, because it reads the arguments, not the result. An evaluator that checks the refund succeeded would fail here.
+- Row 4 is the reference answer for F2–F4: keep lookups on the recording, give the side-effect tool a `static` answer (`{"type":"static","on_miss":"fail","cases":[{"match_mode":"subset","match":{},"result":{…}}]}`). Nothing real is refunded and the fix is measured.
+
+**Experiments over a cohort** (`kitaru cohort create recorded-12 --agent spike-agent --sessions-file ids.txt`, `kitaru experiment create <name> --agent spike-agent --evaluator refund-amount@1 --tool-policy …`, `kitaru experiment run start <name> --cohort-version <id> --agent spike-agent@2 --wait`): with the row-2 policy the run's status is `failed` (progress: 9 completed, 3 failed) and the CLI exits with an error; with the row-4 policy it is `completed` (12 of 12). So one failed replay does fail the whole run, as F4 assumes. `--all` on a cohort would also sweep in replay result sessions, so the cohort was built from an explicit id file.
+
+**An agent version does not hold code.** A version is a run spec: a command, a directory, environment variables. With the fix switched on by a file on disk (standing in for "someone edited the code in place"), a replay against *version 1* produced the fixed answer (13, not 1300). Consequences for graders: "replay against version 1.6.1" means "run whatever is in that directory now"; a baseline comparison is only meaningful if the old code still exists somewhere the old version points at; and a grader that wants to test the agent's fix must replay against the version the agent registered *and* check which directory and command that version names, or copy the code first. The fix-and-replay tasks should give each version its own directory (or git worktree) and say so in the instruction.
+
+**Speed on Modal:** 12 replays in about 41 s.
+
+**Not covered:** where an experiment run stores baseline and result pass rates (F2 needs "higher than baseline"); `cohort_version` and `agent` history scope.
