@@ -124,3 +124,15 @@ Table and failure notes in `results/kitaru-level1.md`. What it points at:
 - **The planted near-miss does its job.** Two trials (one per Codex model) failed only on correct partial refunds whose order total is 100 times the refund. Keep it in every generated instance of this family.
 - **The agent's closing message is no evidence.** Every failed trial ended with "registered and working". The grader's re-run on unseen sessions is what found the six failures.
 - **Infrastructure:** Codex and Claude Code both ran as the non-root `agent` user in the sealed Modal sandbox with the CLIs baked into the image; no trial had an infrastructure exception.
+
+## 2026-11-21 — Kitaru Level 2 baseline, ten tasks: sonnet-5.5 41/50, gpt-5.6-terra 39/50, gpt-5.4-mini 4/50
+
+Table and per-task failure notes in `results/kitaru-level2.md`. What it points at:
+
+- **A baseline is also a check on the answer key.** D6's key held 38 conversations; seven of eight strong-model trials returned the same 49. The extra 11 were orders refunded twice in full, which do pay back more than the order cost. The four checks could not catch this, because the reference solution shared the key's reading. Rule: when several strong trials agree with each other and disagree with the key in the same way, read the disagreement before counting it as failure.
+- **Agents do not test at the size they are told to expect.** C6 says a cohort holds a few hundred conversations; 13 of 15 scripts were tried only on the 40-conversation cohort in the workspace and then failed on 130, at Kitaru's limit of 100 session-evaluator pairs per request. The limit is in the docs. Saying the size in the instruction changed 1 of 15 into 2 of 15.
+- **The small model stops one step before the work is recorded.** C3: file edited, never registered (3 of 5). I3: importer written, never registered (2 of 5). D8: sessions linked, verdicts not set. C1: an evaluator that gives no verdict. Each final message says done. Same pattern as C2.
+- **"Agrees with the examples" is not "learned the rule".** C5: every gpt-5.6-terra evaluator matched all 40 reviewed conversations and failed on unseen ones at day 30 of the return window, which the README states is allowed.
+- **"First affected" is read as "when it became obvious".** D7: three trials named the right cause and dated the start to the day most conversations were affected, not the first one.
+- **Same result, ten times the wall clock.** D7 and D6: Sonnet under Claude Code took 13 to 22 minutes (two D6 trials ran out of time) where gpt-5.6-terra under Codex took 1 to 3. Not yet read from the trajectories why; the Python client reads every session with its nodes in seconds, one CLI call per session takes half a second each.
+- **For Kitaru's docs:** which built-in evaluators give a pass or fail and which only describe (C1); the 100-pair limit next to `--cohort` in `session evaluate --help` (C6).

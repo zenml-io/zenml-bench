@@ -497,7 +497,9 @@ def main() -> None:
             day = lambda c: (c.started - START).days
             date = lambda n: (START + timedelta(days=n)).date().isoformat()
             swapped = [c for c, _ in pairs if c.served_model != MODEL]
-            truth["planted"] |= {"over_refund": sorted(c.external_id for c, _ in pairs if c.over_refund), "model_swap": sorted(c.external_id for c in swapped),
+            truth["planted"] |= {# more money back than the order cost: the shipping-fee refunds, and a refund issued twice whose two payments add up to more than the total
+                                 "over_refund": sorted(c.external_id for c, _ in pairs if c.over_refund or (c.double_refund and c.refund is not None and 2 * c.refund > c.total)),
+                                 "over_refund_shipping_fee": sorted(c.external_id for c, _ in pairs if c.over_refund), "model_swap": sorted(c.external_id for c in swapped),
                                  # three or more timed-out lookups on the outage day, whether or not the outage caused them
                                  "cost_spike_1": sorted(c.external_id for c, _ in pairs if day(c) == STORM_DAY and c.lookups - 1 + c.storm_lookups >= 3),
                                  "cost_spike_2": sorted(c.external_id for c, _ in pairs if c.campaign)}

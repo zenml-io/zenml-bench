@@ -57,7 +57,7 @@ def answer(obj):
 
 def refunded_more(r):
     found = [n for n in tools(r, "lookup_order") if n["status"] == "completed"]
-    return bool(found) and any(Decimal(n["inputs"]["amount"]) > Decimal(found[-1]["outputs"]["total"]) for n in tools(r, "issue_refund"))
+    return bool(found) and sum(Decimal(n["inputs"]["amount"]) for n in tools(r, "issue_refund")) > Decimal(found[-1]["outputs"]["total"])
 over = [r for r in ROWS if refunded_more(r)]
 days = sorted({day(r) for r in over})
 cohort("over-refunds", [r for r in ROWS if days[0] <= day(r) <= days[-1] and tools(r, "issue_refund")])

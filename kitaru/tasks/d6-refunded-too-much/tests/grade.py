@@ -1,5 +1,5 @@
 """Grader for D6. Reads the members of the cohort `over-refunds` and compares them with the conversations
-in which `issue_refund` was called with more than the order's total. Runs none of the agent's code."""
+in which the `issue_refund` calls paid back more than the order's total. Runs none of the agent's code."""
 import json
 import subprocess
 import sys

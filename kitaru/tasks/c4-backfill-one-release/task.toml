@@ -8,7 +8,7 @@ description = "Evaluate every conversation served by one release with the correc
 [metadata]
 family = "checks"
 world = "storefront"
-difficulty_estimate = "unknown"  # set after the first baseline
+difficulty_estimate = "easy"  # 2026-11-21 bare, k=5: sonnet-5.5, gpt-5.6-terra, gpt-5.4-mini = 5/5, 5/5, 3/5
 kitaru_version = "0.27.7"
 source = "docs/2026-11-20-kitaru-plan.md, task C4"
 conditions_supported = ["bare"]

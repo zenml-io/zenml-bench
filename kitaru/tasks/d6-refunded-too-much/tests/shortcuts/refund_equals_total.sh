@@ -57,6 +57,6 @@ def answer(obj):
 
 def at_least(r):
     found = [n for n in tools(r, "lookup_order") if n["status"] == "completed"]
-    return bool(found) and any(Decimal(n["inputs"]["amount"]) >= Decimal(found[-1]["outputs"]["total"]) for n in tools(r, "issue_refund"))
+    return bool(found) and sum(Decimal(n["inputs"]["amount"]) for n in tools(r, "issue_refund")) >= Decimal(found[-1]["outputs"]["total"])
 cohort("over-refunds", [r for r in ROWS if at_least(r)])
 PY

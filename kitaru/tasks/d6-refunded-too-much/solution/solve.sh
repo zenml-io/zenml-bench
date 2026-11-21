@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "${APP_DIR:-/app}"
-# Reference: compare the amount each `issue_refund` call was given with the total `lookup_order` returned, over every conversation.
+# Reference: add up what a conversation's `issue_refund` calls paid back and compare it with the total `lookup_order` returned, over every conversation.
 python3 - <<'PY'
 import asyncio, json, re, subprocess, tempfile
 from collections import defaultdict
@@ -57,7 +57,7 @@ def answer(obj):
 
 def refunded_more(r):
     found = [n for n in tools(r, "lookup_order") if n["status"] == "completed"]
-    return bool(found) and any(Decimal(n["inputs"]["amount"]) > Decimal(found[-1]["outputs"]["total"]) for n in tools(r, "issue_refund"))
+    return bool(found) and sum(Decimal(n["inputs"]["amount"]) for n in tools(r, "issue_refund")) > Decimal(found[-1]["outputs"]["total"])
 over = [r for r in ROWS if refunded_more(r)]
 cohort("over-refunds", over)
 PY

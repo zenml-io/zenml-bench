@@ -621,3 +621,11 @@ Shortcuts at 0: no parent links; cached tokens ignored (78 of 150 wrong); no han
 | `d8-six-to-read` | 6 | 1 |
 | `d9-retries-or-traffic` | 5 | 1 |
 | `i3-write-an-importer` | 9 | 1 |
+
+## 2026-11-21 — after the first baseline: D6's answer key corrected, C6's instruction states the cohort size
+
+**D6.** "Refunded more than the order cost" now means the total the conversation paid back. The key grows from 38 to 49 (11 orders refunded twice in full); `planted.over_refund_shipping_fee` keeps the 38. The instruction says "in total". New shortcut `single_refund_calls_only.sh` (the old reading, recall 0.78). Four checks re-run on Modal (`--job-prefix kv6`): reference 5 of 5, `nop` 0, six shortcuts 0, alternative 1. Baseline re-run as `kbaseline2-d6-*`. How it was found is in `docs/findings.md`.
+
+**C6.** One sentence added to the instruction: cohorts hold a few hundred conversations. The grader and the four checks are unchanged. Baseline re-run as `kbaseline2-c6-*`; the first run's rows are kept in `results/kitaru-c6-check-before-merge-first-instruction.jsonl`.
+
+**Difficulty estimates** are set in each `task.toml` from this baseline (`results/kitaru-level2.md`).
