@@ -238,3 +238,66 @@ def run_agent_script(script: str, *args: str, timeout: int = 900) -> dict[str, A
         return {"exit_code": out.returncode, "output_tail": (out.stdout + out.stderr)[-600:]}
     except subprocess.TimeoutExpired:
         return {"exit_code": None, "output_tail": f"did not finish in {timeout} s"}
+
+
+# ---- world helpdesk-live: an agent that really runs, a finance service that records every refund ----
+
+FINANCE = "/var/lib/helpdesk-finance"
+SAFE_REPLAY = {"default": {"type": "history", "scope": "baseline", "on_miss": "fail"},
+               "tools": {name: {"type": "static", "on_miss": "fail", "cases": [{"match_mode": "subset", "match": {}, "result": result}]}
+                         for name, result in (("issue_refund", {"receipt": "rf_grader_replay", "status": "issued"}), ("escalate_to_human", {"case": "cs_grader_replay", "status": "paged"}))}}
+
+
+def finance_rows(kind: str) -> int:
+    """How many calls of one kind (`refunds`, `escalations`) the finance service has received. The file is root-only."""
+    import os
+    path = f"{FINANCE}/{kind}.jsonl"
+    return len(open(path).read().splitlines()) if os.path.exists(path) else 0
+
+
+def repo_changed(since: str, *paths: str) -> bool:
+    """True when any tracked file under `paths` in /app differs from commit `since`, in the working tree or in a later commit."""
+    out = subprocess.run(["git", "-c", "safe.directory=/app", "-C", "/app", "diff", "--quiet", since, "--", *paths], capture_output=True)
+    return out.returncode != 0
+
+
+def record_requests(requests: list[dict[str, Any]], release_dir: str, agent_id: str, version_id: str) -> dict[str, str]:
+    """Run the assistant in `release_dir` once per request, as user `grader`, so each becomes a recorded session under
+    the given agent version. These runs are live: the finance service receives their refunds. Returns request id -> session id."""
+    import os
+    for r in requests:
+        env = {"KITARU_AGENT_ID": agent_id, "KITARU_AGENT_VERSION_ID": version_id, "KITARU_SESSION_NAME": r["id"], "HOME": "/home/grader", "PATH": os.environ["PATH"],
+               **{k: v for k, v in os.environ.items() if k.startswith("KITARU_") or k == "DO_NOT_TRACK"}}
+        env |= {"KITARU_AGENT_ID": agent_id, "KITARU_AGENT_VERSION_ID": version_id, "KITARU_SESSION_NAME": r["id"]}
+        out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
+                             cwd=release_dir, capture_output=True, text=True)
+        if out.returncode:
+            raise KitaruError(f"recording {r['id']} failed: {out.stderr[-400:]}")
+    wanted = {r["id"] for r in requests}
+    return {s["name"]: s["id"] for s in list_all("session", "list", "--origin", "recorded") if s.get("name") in wanted}
+
+
+def sys_python() -> str:
+    import sys
+    return sys.executable
+
+
+def replay_sessions(session_ids: list[str], agent_ref: str, evaluator_ref: str, policy: dict[str, Any] = SAFE_REPLAY, timeout: int = 900) -> dict[str, dict[str, Any]]:
+    """Replay each session against `agent_ref` and wait. Returns baseline session id -> the settled replay."""
+    created = {s: kitaru("replay", "create", s, "--evaluator", evaluator_ref, "--agent", agent_ref, "--tool-policy", json.dumps(policy))["item"]["id"] for s in session_ids}
+    done: dict[str, dict[str, Any]] = {}
+    deadline = time.time() + timeout
+    while len(done) < len(created) and time.time() < deadline:
+        for s, replay in created.items():
+            if s not in done:
+                item = kitaru("replay", "get", replay)["item"]
+                if item["status"] in ("completed", "failed", "cancelled", "canceled"):
+                    done[s] = item
+        time.sleep(1)
+    return {s: done.get(s) or {"status": "timeout", "result_session_id": None} for s in created}
+
+
+def verdict(session_id: str, evaluator_version_id: str) -> bool | None:
+    """The newest verdict one evaluator version gave a session; None if it gave none."""
+    rows = [e for e in list_all("evaluation", "list", "--filter", json.dumps({"field": "session_id", "op": "eq", "value": session_id})) if e.get("evaluator_version_id") == evaluator_version_id]
+    return max(rows, key=lambda e: e["created"]).get("passed") if rows else None

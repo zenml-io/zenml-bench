@@ -9,6 +9,7 @@ file plans what those runs see: the shop's orders and customers, and the custome
 
     python story.py data --out workspace/data     # orders.json and customers.json: what the tools read (committed)
     python story.py history --out <dir>           # sessions-requests.jsonl (what load.py runs) + ground_truth.json
+    python story.py hidden --out <dir>            # hidden_requests.json: refund requests on orders the history never touched, for a grader
 
 The assistant's decisions are a Python function (`helpdesk/planner.py`), so the same request gives the same
 conversation every time. What is planted lives in the assistant's code and in the data:
@@ -69,7 +70,7 @@ def build_requests(seed: int, orders: dict[str, Any], customers: dict[str, Any])
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["data", "history"])
+    ap.add_argument("mode", choices=["data", "history", "hidden"])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--seed", type=int, default=20260720)
     ap.add_argument("--plants", default=None, help="unused; accepted so sync_env.sh can call every world the same way")
@@ -82,6 +83,17 @@ def main() -> None:
         print(json.dumps({"orders": len(orders), "customers": len(customers)}))
         return
     requests = build_requests(a.seed, orders, customers)
+    if a.mode == "hidden":  # refunds the assistant will issue, on orders no recorded request is about: a fixed number per currency
+        used, rng, hidden = {r["order_id"] for r in requests}, random.Random(f"{a.seed}/hidden"), []
+        for currency, count in (("EUR", 8), ("USD", 6), ("GBP", 4), ("JPY", 6)):
+            pool = [o for o in sorted(orders) if o not in used and orders[o]["currency"] == currency and eligible(orders[o], customers[orders[o]["customer_email"]]["tier"])]
+            for order_id in rng.sample(pool, count):
+                order = orders[order_id]
+                hidden.append({"id": f"HID-{len(hidden) + 1:03d}", "order_id": order_id, "currency": currency, "total_minor": order["total_minor"], "items": len(order["items"]),
+                               "prompt": f"The {order['items'][0]} in order {order_id} arrived damaged. Please refund the order. My account is {order['customer_email']}."})
+        (a.out / "hidden_requests.json").write_text(json.dumps(hidden, indent=1))
+        print(json.dumps({"hidden": len(hidden)}))
+        return
     # the cohort the replay tasks start from: refunds that release 1.6.0 issued, in dollars, pounds or yen (so every one of them was right)
     cohort = [r["id"] for r in requests if r["release"] == "1.6.0" and r["refunded"] and r["currency"] != "EUR"][:36]
     (a.out / "sessions-requests.jsonl").write_text("".join(json.dumps(r | {"cohort": COHORT if r["id"] in cohort else None}) + "\n" for r in requests))
