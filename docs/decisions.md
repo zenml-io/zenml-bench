@@ -726,3 +726,33 @@ Built after the second round showed that longer tasks and documented details do 
 
 **Baseline** (`results/kitaru-level2.md`, "Fourth round"): `claude-sonnet-5-5` 22 of 25, `gpt-5.6-terra` 24 of 25, `gpt-5.4-mini` 0 of 25.
 
+
+## 2026-11-21 — Kitaru Level 3 starts: world `helpdesk-live` and tasks F1 to F4
+
+**Why a fourth world.** Kitaru's replay finds a recorded tool result by the tool's name and arguments, and guarantees a match only when the recording and the replay come from the same adapter. So the history here is not invented: `load.py` runs the assistant once per request while the image is built, through the real `kitaru-pydantic-ai` adapter (260 conversations in about a minute).
+
+**The assistant** (`kitaru/worlds/helpdesk-live/workspace/releases/<version>/helpdesk/`) is a PydanticAI agent whose model is a Python function (`planner.py`), so a request gives the same conversation every time, with no network and no cost. Six tools: four that read, and `issue_refund` and `escalate_to_human`, which call a finance service.
+
+**Each release has its own directory**, and each agent version points at one. Spike 4 showed that an agent version is a command and a directory, not a copy of the code: with one shared directory, "replay against 1.6.1" would run whatever is on disk. Tasks that ask for a fix ask for it in a new directory and check that the old ones are untouched.
+
+**The finance service is how a side effect becomes measurable.** `old/ledger_service.py` listens on `127.0.0.1:8091`, appends every refund and escalation to a file under a root-only directory, and offers no way to delete or read a row. The world's `start.sh` replaces the base image's (kept as `start-base.sh`) so the healthcheck, `grade_local.sh` and the graders start it without knowing about it. A replay under Kitaru's default tool policy calls the live tool, and the grader sees one more row. The count at build time is in `/etc/kitaru-bench/helpdesk.json` (root only) with the agent, version, session and cohort ids.
+
+**What is planted** is in the assistant's code, not in prompts, because a scripted model does not read a prompt: `money.to_major` treats the euro as a currency with no minor unit (euro refunds 100 times too large; the obvious fix, dividing everything by 100, breaks yen); the planner reads an order twice when it has more than one item; some orders time out on the first read and some parcels have no scan on the first ask (useful repeats, for F5).
+
+**Hidden conversations are recorded by the grader.** For F2 and F3 the grader first checks that releases 1.6.0 and 1.6.1 are untouched, then runs release 1.6.1 itself on 24 refund requests about orders the history never touched (8 in euros, 6 dollars, 4 pounds, 6 yen), as user `grader`. Those runs are live and are the grader's own; it counts them separately. It then replays the 24 against the agent's newest version on its own worker, with lookups from the recording and the two finance tools stubbed, and judges with its own copy of the amount evaluator.
+
+| task | what the agent must do | what is graded | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|
+| `f1-replay-without-refunding` | replay a cohort of 32 recorded refunds against release 1.6.1 | a completed replay per conversation against version 2 with the `issue_refund` call in its result; no new finance call; repository untouched | 6 | 1 |
+| `f2-fix-euro-with-evidence` | fix the euro fault in `releases/1.6.2`, register it, and run an experiment over at least 20 refunds | version 1.6.2 from its own directory; a completed run whose results pass more often than its baselines; no new finance call; hidden replays right in every currency | 7 | 1 |
+| `f3-refunds-far-too-large` | symptom only; same fix, no experiment asked for | as F2 without the experiment | 5 | 1 |
+| `f4-experiment-keeps-failing` | the fix exists and its experiment fails every time; get a completed run | a completed run of version 3 over the same cohort, all 58 passing; no new finance call; in that run the refund tool could not have run live | 7 | 1 |
+
+**Kitaru facts found.**
+
+- An experiment that has runs cannot have its tool policy changed: `kitaru experiment update <name> --tool-policy …` answers 409 "has runs and its replay config cannot be changed". F4's fix is therefore a new experiment.
+- `on_miss: error_result` did not rescue F4 in this world: the assistant gets a tool error for `issue_refund`, asks again, misses again, and the replay fails. In spike 4 it completed because that agent carried on after an error. Whether `error_result` helps depends on what the agent does with an error, so it is a shortcut here, not an alternative.
+- An experiment run records its status and progress and nothing about pass rates. The grader works them out from the run's replays: the newest verdict of the named evaluator on each baseline session and on each result session.
+- `client.sessions.iter()` and `kitaru session list` do not return a session's `outputs`; `session get` and `get_with_nodes` do.
+
+**Local four checks:** F1 9 scripts, F2 10, F3 8, F4 10, all as expected.
