@@ -761,3 +761,44 @@ Built after the second round showed that longer tasks and documented details do 
 
 **Baseline** (`results/kitaru-level3.md`): both large models 20 of 20; `gpt-5.4-mini` 4 of 20. In F1 the small model paid every customer in the cohort again in four trials of five.
 
+## 2026-11-21 — Kitaru world `helpdesk-services` and tasks F5 to F8, O1 to O4
+
+**Alex's call (2026-11-21):** build all eight remaining Level 3 tasks, each designed hard from the start, baseline one first and adjust if it saturates.
+
+**Why a fifth world.** F5 and F6 are about what the assistant asks its services, and `helpdesk-live` has nothing that counts or limits a lookup. `helpdesk-services` adds an order service (`old/order_service.py`, `127.0.0.1:8092`): a quarter of a second per answer, four requests at a time and a 429 for the fifth, its data and its request log under a root-only directory. The history is 420 conversations of release 2.0.0, recorded through the real adapter while the image is built. `helpdesk-live` and its four tasks are unchanged.
+
+**What is planted.** The planner repeats a lookup in seven places. For four of them the second answer differs in some recordings (in 6, 4 and 3 conversations for the three rarest), for three it never does. The planner also has a low-effort branch that ends 96 of the 420 conversations differently. F8 uses a second history (`plants` = `partial`) with requests for one item of an order.
+
+| task | the trap | what the grader measures |
+|---|---|---|
+| F5 | judging a repeat from a sample, or by reasoning about the code, gets the rare cases wrong | hidden requests through 2.0.0 and the new release: same answers and payments, no needed lookup missing, no unneeded one left |
+| F6 | everything at once is refused by the order service; fewer calls is not the same calls | hidden requests, per conversation: same calls, the order and customer reads overlap, many-order requests take under half the time, no 429 |
+| F7 | predicting instead of replaying; a history scope that borrows answers from other conversations; editing the planner | the cohort against the known 324 and 96; one completed run whose 300-odd results end as recorded; no new finance call |
+| F8 | each colleague's own experiment; a cohort that includes requests nobody was paid for | one cohort version with a completed, evaluated run for each candidate; the release chosen; hidden requests |
+| O1 | adding one claim to the script; pinning the worker to today's version | the script is run again as another user: waiting and new work completes, also for a version registered afterwards, and an import is left waiting |
+| O2, O4 | recording that works only with an agent id in the environment; a version that records and cannot replay | hidden orders through the entry points as another user, then replays under a history policy |
+| O3 | fixing one of the four faults (capabilities, working directory, arguments, a missing environment variable) | hidden requests by hand, then replays with the override and the policy on another user's worker |
+
+**Where this departs from the plan** (§9.4 and §9.5 of the Kitaru plan).
+- **F7 is about reasoning effort, not a cheaper model.** A scripted model has no cheaper sibling; an effort switch in the planner gives the same question (where does the cheap setting change the outcome?) with an exact answer key.
+- **O1 excludes imports, not analyses.** "This machine's work" is agent runs for every version, and evaluations; an import must be left for another machine. An importer job is the one kind the grader can create and watch stay pending.
+- **O4 installs `kitaru-langgraph` 0.3.1 from PyPI when the task image is built** (`Dockerfile.task`); the base image does not carry it.
+
+**Kitaru facts found.**
+- PydanticAI runs the tool calls of one model response at the same time, and Kitaru's recorded node times overlap, so a grader can tell from the recording whether two lookups ran together.
+- A `model_params` override on a replay replaces the agent's model settings and reaches a `FunctionModel` (`info.model_settings`), so a scripted model can behave differently at `low`.
+- A history tool policy returns repeated identical calls in the order they were recorded (scope `baseline`). Scope `cohort_version` answers from any session in the cohort.
+- An explicit worker `--claim` replaces the default claims (`agent`, `evaluator`, `importer`, `analyzer`); `agent=<version id>` pins to one version. `KITARU_WORKER_SCOPE__CLAIMS` sets the same from the environment.
+- Agent versions: `register` needs `--command`; `--spec file.yaml` cannot be combined with the direct options; there is no CLI `version update`, and `client.agent_versions.update(id, AgentVersionUpdateRequest(run_spec=…))` works. A version whose `runtime_capabilities` are false gets a 422 at replay creation; a working directory that does not exist gets "Task runner failed: [Errno 2]" at run time.
+- A `KitaruAgent` run outside a worker needs an agent id ("Session names no agent and no task to infer one from").
+- `kitaru-langgraph`: `KitaruGraphRunner(graph)` records and cannot replay from history (`UnsupportedCapabilityError … substitute_tool_result`); `KitaruGraphRunner.from_agent_factory(create_agent, factory_kwargs=…)` can. `stream()` is refused.
+- `kitaru session read --sessions-file <ids> --full -o json` reads every session with its payloads in one call. `session evaluate` returns its job id only under `next_actions`. `session import --tag` needs `--wait`.
+
+**After the first baseline of F7 and F8** both instructions were tightened (see `results/kitaru-level3.md`): F8 defines a request for one item by example and F7 says the tools answer from the same conversation and the releases stay untouched. F7 gained the shortcuts `any_recording_will_do` and `low_made_like_high`, and its agent limit went from 30 to 45 minutes.
+
+**Four checks on Modal:** `--job-prefix kv11` for F5, F6 and O1 to O4; `kv12` for the revised F7 and F8. Reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level3.md`): Sonnet 39 of 40, terra 39 of 40, `gpt-5.4-mini` 2 of 40.
+
+**Open.** Two graders (F6, F8) crash without a metrics file on a release that hangs or a registered directory that does not exist; the score is still 0. The harder direction this round points at is work that must be run and takes time, as in F7.
+

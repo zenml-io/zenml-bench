@@ -8,7 +8,7 @@ description = "A LangGraph agent runs unrecorded and is read with stream(). Reco
 [metadata]
 family = "operate"
 world = "helpdesk-services"
-difficulty_estimate = "unknown"
+difficulty_estimate = "medium"  # 2026-11-21 bare, k=5: sonnet-5.5, gpt-5.6-terra, gpt-5.4-mini = 5/5, 5/5, 0/5
 kitaru_version = "0.27.7"
 source = "docs/2026-11-20-kitaru-plan.md, task O4"
 conditions_supported = ["bare"]

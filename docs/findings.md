@@ -176,3 +176,15 @@ Table and failure notes in `results/kitaru-level3.md`.
 - **An experiment that has runs keeps its replay settings** (409 on update). An agent that tries to repair a failing experiment in place gets nowhere; it has to make a new one. Worth a line in `kitaru experiment update --help`.
 - **Whether `on_miss: error_result` helps depends on the agent.** In the spike the agent carried on after a tool error and the replay completed; this world's assistant asks again and the replay fails. A benchmark cannot treat it as a generally valid route.
 
+## 2026-11-21 — Kitaru F5 to F8 and O1 to O4: sonnet-5.5 39/40, gpt-5.6-terra 39/40, gpt-5.4-mini 2/40
+
+Table and failure notes in `results/kitaru-level3.md`, second part.
+
+- **Hard by design did not separate the two large models.** Each task was built with a trap the easy route falls into (rare cases a sample misses, a service that refuses a fifth request, two experiments that cannot be compared). Both large models lost one trial of 40.
+- **Reading the whole history is free for them.** F5 hides the deciding cases in 3 to 6 conversations of 420. A large model bulk-reads all 420 and counts, in about a minute. Rarity in the data is not difficulty. Difficulty would have to come from something a read cannot settle: work that has to be run, and takes time or money to run.
+- **F7 shows that:** it is the one task where the answer has to be measured by replaying hundreds of conversations, it takes a quarter of an hour, and it is the one task where a large model predicted instead (Sonnet, one trial, 17 conversations wrong).
+- **My wording cost a round.** The first F7 and F8 run (30 trials, US$14.45) was discarded: three of Sonnet's F8 failures and two of terra's F7 failures followed a reading the instruction allowed. A task that asks for a set ("conversations where the customer asked for one item") needs the edge of the set stated, and an example of what is outside it.
+- **For Kitaru, from the small model's setup failures:** "Session names no agent and no task to infer one from" was the end of the road in most O2 and O4 failures. The message does not say what to pass or where. Naming the argument (`agent_id=`) or the environment variable in it would likely turn several of those into passes.
+- **For Kitaru, from building the tasks:** an explicit `--claim` on a worker replaces the defaults instead of adding to them (O1 is built on this, and the small model never noticed in five trials); `kitaru session nodes` lists nodes without their inputs and outputs, so anything that compares tool results needs the Python client or `session read --full`; there is no CLI command to change a registered version's run spec; a history tool policy with scope `cohort_version` answers a tool call from any conversation in the cohort, which silently changes what a replay of one conversation means.
+- **Two graders crash on states only a failing agent produces** (a registered directory that does not exist, a release that hangs). The score is right; the metrics file is missing. To fix before publishing.
+
