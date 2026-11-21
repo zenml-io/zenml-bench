@@ -1,0 +1,40 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/kitaru-d8h-triage-check-failures"
+version = "0.1.0"
+description = "Harder variant of D8: link every conversation of the last week that one of the team's two checks fails, and say for each whether the check is right; graded on the investigation Kitaru holds."
+
+[metadata]
+family = "diagnose"
+world = "storefront"
+difficulty_estimate = "unknown"
+kitaru_version = "0.27.7"
+source = "harder variant of D8 (docs/2026-11-20-kitaru-plan.md, section 11, Level 2 done bar)"
+conditions_supported = ["bare"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+# Starts as an allowlist, not "no-network": on Modal a sandbox created with no domain list cannot be given one later (decisions.md 2026-11-20).
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 1800.0
+
+# Nothing in the image starts by itself. Harbor runs this as root before the agent, until it exits 0.
+[environment.healthcheck]
+command = "/opt/kitaru-bench/start.sh"
+interval_sec = 3.0
+start_interval_sec = 3.0
+start_period_sec = 180.0
+timeout_sec = 60.0
+retries = 3
+
+[agent]
+user = "agent"  # not root: the agent reaches Kitaru over HTTP and cannot open the database
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
