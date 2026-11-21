@@ -674,7 +674,7 @@ The Level 2 done bar says a task at 100 % on every model "gets a harder variant 
 
 C2 has no variant: its harder form is C5 (a rule that has to hold on unseen conversations), which already separates the models.
 
-**Four checks on Modal** (`--job-prefix kv7`): all four variants: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1. C7's run of `verify_task.py` stopped on the host during its last check (the alternative) with no result written; that one check was run again by hand with the same job name and scored 1.
+**Four checks on Modal** (`--job-prefix kv7`): all four variants: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1. C7's last check (the alternative) had written no result when I looked, and I took the run for dead because `ps` showed no Harbor process. `ps` is restricted in the shell these runs are started from and shows nothing either way (`pgrep` works), so the run may only have been slow. I ran that one check again by hand under the same job name; the result on disk is reward 1.
 
 **Baseline** (`results/kitaru-level2.md`, "Second round"): both large models passed all four variants, 5 of 5 each; `gpt-5.4-mini` 1, 1, 0, 0. So the variants are not harder for the models they were built for, and by the same rule all four go on the regression list beside the tasks they came from. They stay in the set: each caught the small model.
 
