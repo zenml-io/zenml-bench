@@ -155,3 +155,14 @@ Details in `results/kitaru-level2.md`, "Third round".
 - **A paging loop is not proof of paging.** Both large-model failures have a correct-looking `while` loop over pages. It reads the cursor from `.page.next_cursor`, the CLI's shape; the REST response puts `next_cursor` at the top level, so the loop runs once. With 216 sessions there is nothing to show the difference. Sent to the issues session: the CLI and the REST API name the same cursor differently.
 - **Which route the agent takes decides whether the trap exists.** The Python client's `sessions.iter()` pages by itself, so those trials passed without thinking about it. A task built on a limit should check that no common route avoids the limit for free, or accept that it measures route choice as well.
 
+## 2026-11-21 — Kitaru D1 to D5 (clinic): sonnet-5.5 22/25, gpt-5.6-terra 24/25, gpt-5.4-mini 0/25
+
+Table, the two corrections and failure notes in `results/kitaru-level2.md`, "Fourth round".
+
+- **A second and third case of "the baseline checks the task".** D2's changelog credited a release with the thing that raised cost; D4's label list held two true answers and its history could not rule out the decoy. In both, the failing trials had the right cohort and a defensible cause. Rule added to the D6 one: a cause label is fair only if (a) every other label on the list is false, not merely worse, and (b) the data holds the observation that refutes each decoy. A decoy that cannot be refuted from the data is a coin toss, not a trap.
+- **Shared label lists are a mistake.** One list of eight causes across tasks put `traffic_mix_changed` in front of a task where it was true and not the answer. Each task now carries its own list, with one line per label saying what it means.
+- **A world shared by five tasks makes every fix five times as expensive.** Each correction rebuilt the image all five tasks use, so all five were re-checked and re-baselined: US$25.84 of discarded trials against US$15.28 kept. Baseline one task per world first, read its failures, then run the rest.
+- **Sonnet under Claude Code loses on the clock, not on the answer.** All three of its clinic failures are the 30-minute limit; the same model passes the same task in one minute or in twenty. Still not read why.
+- **Five attempts do not rank two strong models here.** The same model on the same task moved by two passes in five between rounds.
+- **`ps` lies in this shell.** It lists four lines whatever is running; `pgrep` works. I restarted runs that were alive.
+

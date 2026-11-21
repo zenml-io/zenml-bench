@@ -102,3 +102,40 @@ Spend US$3.48 for 15 trials. No infrastructure exception and no timeout. Median 
 - **`gpt-5.4-mini`, 0/5:** every removal script left every stray in place; one crashed on a client argument that does not exist. Three of the five had also repaired the store by hand.
 - **Reading.** One failure in five for each large model is a small difference with five attempts, and I4 itself was 5 and 5. What it supports: the property that made C6 hard (a limit that only shows at a size the workspace does not hold) works a second time, where length and documented details did not. Unlike C6, most large-model trials got through, because one common route (the Python client) pages by itself.
 
+## Fourth round: D1 to D5 on the `clinic` world
+
+Run on 2026-11-21, same setup. All five tasks read one history: a veterinary chain's appointment assistant, 3,211 conversations from 1 June to 20 July 2026, and a repository with five dated commits.
+
+Passes out of 5:
+
+| task | what the agent must do | Claude Code + `claude-sonnet-5-5` | Codex + `gpt-5.6-terra` | Codex + `gpt-5.4-mini` |
+|---|---|---|---|---|
+| D1 wrong clinic | cohort of every booking confirmed at another clinic than the one asked for (269); the 13 complaints are other conversations | 4 | 5 | 0 |
+| D2 was it the release? | cohort of the conversations that raised cost per conversation (207 new patients), and the cause; a release rolled out on the same days | 5 | 5 | 0 |
+| D3 answers cut off | cohort of cut-off replies (288), the commit that caused it, the first day; no release went out | 5 | 5 | 0 |
+| D4 what broke? | cohort of the failed calls that account for a tripled failure rate (67 refused group bookings), and the cause; nothing broke | 3 | 5 | 0 |
+| D5 did the hotfix work? | cohort of wrong-clinic bookings under the release that was meant to stop them (98); an empty cohort is legal and wrong | 5 | 4 | 0 |
+| **total of 25** | | **22** | **24** | **0** |
+
+Spend US$15.28 for these 75 trials, and US$25.84 more for 131 trials in two earlier rounds that were discarded (see below). No infrastructure exception.
+
+### Two tasks changed after their first runs
+
+- **D2.** First run: Sonnet 2 of 5, `gpt-5.6-terra` 2 of 5. All six failures had exactly the right cohort and the cause `new_release`. The workspace's changelog said release 1.2.0 added the new-patient flow, so the answer was defensible. The line was removed; the re-run is 5 and 5.
+- **D4.** First and second runs: `gpt-5.6-terra` 2 of 5 both times, with the right cohort and the cause given as a prompt change (five trials) or a traffic change (one). The label list contained a second true answer, and the history gave no way to tell whether the assistant had always attempted such bookings. D4 now has its own label list, and four group bookings are refused before the prompt commit. The re-run is 5 of 5.
+
+Same lesson as D6 in the first round: when several strong trials agree on an answer the key calls wrong, check the key and the workspace before the agents.
+
+### What the failures were
+
+- **Sonnet, all three (D1 once, D4 twice): the 30-minute limit, with no cohort created.** Its passing D4 trials took 1, 19 and 20 minutes. `gpt-5.6-terra` took about 2 minutes on every clinic task. Not read from the trajectories why; the same was seen on D6 and D7.
+- **`gpt-5.6-terra`, D5 once:** 127 members for 98. The extra 29 are group bookings that were refused: the test "the result's clinic differs from the one sent" is true when the result has no clinic at all.
+- **In the discarded rounds, two more kinds, both from the tasks as they are now:** D1 answered with the 13 complaints (the planted trap) or with 60 of the 269; D5 answered with an empty cohort (the planted trap) twice in ten.
+- **`gpt-5.4-mini`, 0 of 25.** D1: the complaints, every conversation in the history, or no cohort. D2: three trials named the right cause with a cohort of a quarter of the conversations or less. D3: four of five named the wrong commit, with cohorts from 5 to 1,347 members. D4: three built no cohort. D5: four empty cohorts.
+
+### Reading
+
+- **With five attempts per cell, the two large models are not separated on any clinic task**: the largest gap is D4 at 3 against 5, and all of Sonnet's losses are timeouts, not wrong answers.
+- **The run-to-run spread is as large as the gaps.** `gpt-5.6-terra` on D1 scored 5, 3 and 5 in three rounds on a task that did not change in substance; on D5, 3, 3 and 4. A cell of five is too few to rank these two models on these tasks.
+- **The traps do bite, sometimes.** Across the three rounds a large model answered D1 with the complaints once, D5 with an empty cohort three times, and D4 with the prompt commit until the data ruled it out.
+

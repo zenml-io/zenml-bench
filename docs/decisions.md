@@ -702,12 +702,27 @@ Built after the second round showed that longer tasks and documented details do 
 
 | task | cohort | what belongs in it | also asked | the trap | shortcuts at 0 | alternatives at 1 |
 |---|---|---|---|---|---|---|
-| `d1-wrong-clinic` | `wrong-clinic-bookings` | 267 conversations where `book_appointment` was sent one clinic and came back confirmed at its similarly named neighbour | | the 14 complaints are other conversations; the reply repeats the clinic the customer asked for | 5 | 1 |
-| `d2-was-it-the-release` | `cost-rise` | 207 new-patient conversations a partner's portal has sent since 22 June | cause, from a closed list of eight | release 1.2.0 rolled out on the same days and costs what 1.1.0 did | 6 | 1 |
+| `d1-wrong-clinic` | `wrong-clinic-bookings` | 269 conversations where `book_appointment` was sent one clinic and came back confirmed at its similarly named neighbour | | the 13 complaints are other conversations; the reply repeats the clinic the customer asked for | 5 | 1 |
+| `d2-was-it-the-release` | `cost-rise` | 207 new-patient conversations a partner's portal has sent since 22 June | cause, from its own closed list of six | release 1.2.0 rolled out on the same days and costs what 1.1.0 did | 6 | 1 |
 | `d3-answers-cut-off` | `cut-off-answers` | 288 conversations whose reply hit the token limit, from 1 July | the commit, and the first day | no release; a configuration commit lowered `max_tokens` from 400 to 120 | 5 | 1 |
-| `d4-what-broke` | `failed-calls` | 61 conversations where `book_appointment` refused more than three animals | cause | nothing broke; timeouts were always there at the same rate; "fixing" the limit in the repository scores 0 | 6 | 1 |
+| `d4-what-broke` | `failed-calls` | 67 conversations where `book_appointment` refused more than three animals, 4 of them before the offer | cause, from its own closed list of six | nothing broke; timeouts were always there at the same rate; a prompt commit landed the day before the offer; "fixing" the limit in the repository scores 0 | 6 | 1 |
 | `d5-did-the-hotfix-work` | `wrong-clinic-after-1-3-0` | the 98 of D1's conversations that release 1.3.0 served | | the release fixed the clinic search (two searches became one) and not the booking; an empty cohort is legal and wrong | 5 | 1 |
 
 **Kitaru fact confirmed:** the CLI prints a node's `model_params.max_tokens` as `***`; `GET /api/v1/sessions/{id}/nodes` returns the number. D3 can still be solved from the CLI (the reply's ending, output tokens of exactly 120), but the setting itself is only readable over REST or the Python client.
 
-**Local four checks:** 37 scripts across the five tasks, all as expected. A helper fix on the way: `kitaru cohort create` refuses an empty `--sessions-file`; a cohort with no members is created with no selection at all.
+**Local four checks:** 42 scripts across the five tasks, all as expected. A helper fix on the way: `kitaru cohort create` refuses an empty `--sessions-file`; a cohort with no members is created with no selection at all.
+
+## 2026-11-21 — D1 to D5: two tasks corrected after their first baselines; four checks and baseline on Modal
+
+**D2, first baseline.** Five of ten large-model trials built exactly the right cohort and named the cause `new_release`. They had a reason: the changelog said release 1.2.0 added "new patients sent by a partner's portal can register and book in one conversation", which credits the release with the conversations that raised the cost. The data said otherwise (1.1.0 served new patients too while it was live), but a changelog that contradicts the data makes the label a matter of opinion. Changed: that changelog line and the commit subject no longer mention new patients. Re-run: 5 of 5 and 5 of 5.
+
+**D4, first and second baselines.** Three of five `gpt-5.6-terra` trials built the right cohort and named a prompt change; one earlier trial named a traffic change. Both had a reason. The shared list of eight labels held `traffic_mix_changed`, which is also true of D4 (a new kind of request arrived). And the first rejected group booking in the history came the day after a prompt commit that mentions the offer, so nothing in the data could show whether the assistant had always behaved this way. Changed: D2 and D4 each have their own list of six labels with a one-line meaning per label, and the history now holds four group bookings refused before the prompt commit (7, 17, 22 and 26 June), which is the evidence that the tool always refused them. Re-run: `gpt-5.6-terra` 5 of 5.
+
+**What the fixes cost.** Each changed the image for all five tasks, so all five were re-checked and re-baselined each time. Kept: 75 trials, US$15.28. Discarded from the two earlier rounds: 131 trials, US$25.84.
+
+**A mistake of mine in running them.** After the first launch I saw no results for ten minutes and no Harbor process in `ps`, concluded the runs had died, and started a second set. They had not died: Modal was building the new image, and `ps` shows nothing in the shell these runs are started from. Two sets ran against the same job folders for about twenty minutes before I found out with `pgrep`, stopped both, and started one clean set. Rule for this repo: check for running jobs with `pgrep -fl "harbor run"`, never `ps`.
+
+**Four checks on Modal** (`--job-prefix kv9`, on the final image): all five tasks, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level2.md`, "Fourth round"): `claude-sonnet-5-5` 22 of 25, `gpt-5.6-terra` 24 of 25, `gpt-5.4-mini` 0 of 25.
+
