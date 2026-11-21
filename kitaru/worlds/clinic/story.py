@@ -27,7 +27,7 @@ What is planted (each is listed in ground_truth.json). The diagnosis tasks D1 to
   From then on any reply that needs more is cut mid-sentence: care advice, and the summary a new patient gets.
 - `group_rejected` (D4): from 27 June a litter check-up offer makes customers try to book four or more
   animals at once. The booking tool rejects that, as it always has (three animals at most; groups book by
-  phone). Nothing is broken. About 2 conversations in 100, all along, have an unrelated timed-out call.
+  phone): a handful of customers asked before the offer and were refused the same way. Nothing is broken. About 2 conversations in 100, all along, have an unrelated timed-out call.
 """
 import argparse
 import json
@@ -102,7 +102,7 @@ def draw_case(rng: random.Random, external_id: str, started: datetime, day: int,
     roll = rng.random()
     if not partner and day >= API_CHANGE_DAY + 2 and roll < 0.012:
         kind = "complaint"
-    elif not partner and day >= GROUP_DAY and roll < 0.057:
+    elif not partner and (roll < 0.057 if day >= GROUP_DAY else 0.012 <= roll < 0.017):  # before the offer a few customers asked too, and were refused the same way
         kind = "group"
     clinic = rng.choice(["hbr-st", "mill-rd"]) if kind == "complaint" else rng.choices(list(CLINICS), [14, 9, 12, 8, 12, 10, 9, 9, 9, 8])[0]
     case = Case(external_id, started, day, release_on(day, rng), kind, "partner-portal" if partner else rng.choices(["web", "app", "phone-transfer"], [50, 40, 10])[0],
@@ -127,7 +127,8 @@ def to_record(c: Case, rng: random.Random) -> dict[str, Any]:
                "reschedule": f"I need to move {c.pet}'s appointment {reference} at {name} to another day.",
                "hours": f"When is the {name} clinic open on Saturdays?",
                "complaint": f"You booked {c.pet} in at {CLINICS[BOOKED_INTO[c.clinic]][0]} but I asked for {name}. I turned up at the wrong clinic!" if c.kind == "complaint" else "",
-               "group": f"I'd like to bring my litter of {c.animals} for the litter check-up offer at {name}. Can I book them all in together?",
+               "group": (f"I'd like to bring my litter of {c.animals} for the litter check-up offer at {name}. Can I book them all in together?" if c.day >= GROUP_DAY
+                         else f"I have {c.animals} kittens that all need a first check at {name}. Can I book them all in together?"),
                "new_patient": f"Hello, I'm new to Fernhill Vets. I was sent by the rescue's portal and would like to register and book a first visit at {name}."}[c.kind]
     clock = c.started
     nodes: list[dict[str, Any]] = [{}]

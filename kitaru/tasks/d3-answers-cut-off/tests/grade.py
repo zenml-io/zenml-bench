@@ -1,4 +1,4 @@
-"""Grader for D3. The cohort `cut-off-answers` must hold the 288 conversations whose final reply hit the token limit (care advice, and the summary a new
+"""Grader for D3. The cohort `cut-off-answers` must hold the conversations whose final reply hit the token limit (care advice, and the summary a new
 patient gets, from 1 July), and /app/answer.json must name the configuration commit that lowered `max_tokens` and the first affected day.
 Runs none of the agent's code."""
 import json

@@ -1,5 +1,5 @@
-"""Grader for D4. The cohort `failed-calls` must hold the 61 conversations in which `book_appointment` rejected a booking for more than three animals,
-and /app/answer.json must name the cause `expected_rejection`: the tool enforces a rule it always had. The timed-out calls that happen all along do not belong.
+"""Grader for D4. The cohort `failed-calls` must hold the conversations in which `book_appointment` rejected a booking for more than three animals,
+and /app/answer.json must name the cause `expected_rejection`: the tool enforces a rule it always had, as a few rejections from before the offer show. The timed-out calls do not belong.
 Runs none of the agent's code."""
 import json
 import subprocess

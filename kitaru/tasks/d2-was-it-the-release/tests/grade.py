@@ -1,4 +1,4 @@
-"""Grader for D2. The cohort `cost-rise` must hold the 207 new-patient conversations a partner's portal has sent since 22 June, and /app/answer.json must
+"""Grader for D2. The cohort `cost-rise` must hold the new-patient conversations a partner's portal has sent since 22 June, and /app/answer.json must
 name the cause `traffic_mix_changed`. Release 1.2.0 rolled out on the same days and costs what 1.1.0 did.
 Runs none of the agent's code."""
 import json

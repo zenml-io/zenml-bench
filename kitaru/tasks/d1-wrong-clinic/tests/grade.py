@@ -1,5 +1,5 @@
 """Grader for D1. The cohort `wrong-clinic-bookings` must hold the conversations in which `book_appointment` came back confirmed at a clinic other than
-the one it was sent (267 of them, from 15 June on). The 14 conversations in which a customer complains are not among them.
+the one it was sent (from 15 June on). The conversations in which a customer complains are not among them.
 Runs none of the agent's code."""
 import json
 import subprocess

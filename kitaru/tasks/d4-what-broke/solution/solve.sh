@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "${APP_DIR:-/app}"
-# Reference: the new failures are all `book_appointment` rejecting a booking for four or more animals, which the tool has always refused; the timed-out calls are as frequent as before.
+# Reference: the new failures are all `book_appointment` rejecting a booking for four or more animals. The same rejection happened a few times before the offer and before the prompt commit, so the tool has always refused it; the timed-out calls are as frequent as before.
 python3 - <<'PY'
 import asyncio, json, re, subprocess, tempfile
 from collections import defaultdict

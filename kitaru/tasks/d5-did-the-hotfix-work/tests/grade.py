@@ -1,4 +1,4 @@
-"""Grader for D5. The cohort `wrong-clinic-after-1-3-0` must hold the 98 conversations served by release 1.3.0 in which `book_appointment` came back
+"""Grader for D5. The cohort `wrong-clinic-after-1-3-0` must hold the conversations served by release 1.3.0 in which `book_appointment` came back
 confirmed at another clinic than it was sent. The release fixed the clinic search, not the booking.
 Runs none of the agent's code."""
 import json
