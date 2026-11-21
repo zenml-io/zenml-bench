@@ -1,0 +1,4217 @@
+{
+ "sessions": 0,
+ "by_version": {},
+ "sample": {
+  "tw-00001": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:06.134117Z",
+   "ended_at": "2026-08-03T06:00:14.371887Z",
+   "reply": "Parcel TW42367483: handled.",
+   "message": "Why is TW42367483 late?",
+   "cost": 0.001982,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:06.134117Z",
+     "ended_at": "2026-08-03T06:00:07.768493Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1035,
+     "output_tokens": 36,
+     "cached_input_tokens": 0,
+     "cost": 0.000331
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:07.768493Z",
+     "ended_at": "2026-08-03T06:00:08.000134Z",
+     "parent_started_at": "2026-08-03T06:00:06.134117Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:08.000134Z",
+     "ended_at": "2026-08-03T06:00:09.375403Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 594,
+     "output_tokens": 71,
+     "cached_input_tokens": 0,
+     "cost": 0.00029
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:09.375403Z",
+     "ended_at": "2026-08-03T06:00:09.912114Z",
+     "parent_started_at": "2026-08-03T06:00:08.000134Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:09.912114Z",
+     "ended_at": "2026-08-03T06:00:12.126845Z",
+     "parent_started_at": "2026-08-03T06:00:09.375403Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3250,
+     "output_tokens": 275,
+     "cached_input_tokens": 1600,
+     "cost": 0.001031
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:12.126845Z",
+     "ended_at": "2026-08-03T06:00:12.469510Z",
+     "parent_started_at": "2026-08-03T06:00:09.375403Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:12.469510Z",
+     "ended_at": "2026-08-03T06:00:12.864710Z",
+     "parent_started_at": "2026-08-03T06:00:09.375403Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:12.864710Z",
+     "ended_at": "2026-08-03T06:00:14.171887Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 382,
+     "output_tokens": 130,
+     "cached_input_tokens": 128,
+     "cost": 0.00033
+    }
+   ]
+  },
+  "tw-00002": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:10.049601Z",
+   "ended_at": "2026-08-03T06:00:17.404782Z",
+   "reply": "Parcel TW89145679: handled.",
+   "message": "Where is parcel TW89145679?",
+   "cost": 0.002052,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:10.049601Z",
+     "ended_at": "2026-08-03T06:00:11.847749Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 706,
+     "output_tokens": 38,
+     "cached_input_tokens": 0,
+     "cost": 0.000252
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:11.847749Z",
+     "ended_at": "2026-08-03T06:00:12.294109Z",
+     "parent_started_at": "2026-08-03T06:00:10.049601Z",
+     "tool_name": "find_parcel",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:12.294109Z",
+     "ended_at": "2026-08-03T06:00:13.559202Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1091,
+     "output_tokens": 129,
+     "cached_input_tokens": 0,
+     "cost": 0.000531
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:13.559202Z",
+     "ended_at": "2026-08-03T06:00:13.872127Z",
+     "parent_started_at": "2026-08-03T06:00:12.294109Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:13.872127Z",
+     "ended_at": "2026-08-03T06:00:15.281481Z",
+     "parent_started_at": "2026-08-03T06:00:13.559202Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2250,
+     "output_tokens": 100,
+     "cached_input_tokens": 0,
+     "cost": 0.000835
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:15.281481Z",
+     "ended_at": "2026-08-03T06:00:15.362045Z",
+     "parent_started_at": "2026-08-03T06:00:13.559202Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:15.362045Z",
+     "ended_at": "2026-08-03T06:00:17.204782Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1275,
+     "output_tokens": 115,
+     "cached_input_tokens": 576,
+     "cost": 0.000434
+    }
+   ]
+  },
+  "tw-00003": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:14.869880Z",
+   "ended_at": "2026-08-03T06:00:19.237035Z",
+   "reply": "Parcel TW24736039: handled.",
+   "message": "Where is parcel TW24736039?",
+   "cost": 0.001377,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:14.869880Z",
+     "ended_at": "2026-08-03T06:00:16.355392Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 788,
+     "output_tokens": 158,
+     "cached_input_tokens": 0,
+     "cost": 0.000513
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:16.355392Z",
+     "ended_at": "2026-08-03T06:00:16.503851Z",
+     "parent_started_at": "2026-08-03T06:00:14.869880Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:16.503851Z",
+     "ended_at": "2026-08-03T06:00:17.844205Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1038,
+     "output_tokens": 85,
+     "cached_input_tokens": 0,
+     "cost": 0.00043
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:17.844205Z",
+     "ended_at": "2026-08-03T06:00:18.175617Z",
+     "parent_started_at": "2026-08-03T06:00:16.503851Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:18.175617Z",
+     "ended_at": "2026-08-03T06:00:19.037035Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1256,
+     "output_tokens": 60,
+     "cached_input_tokens": 0,
+     "cost": 0.000434
+    }
+   ]
+  },
+  "tw-00004": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:18.705394Z",
+   "ended_at": "2026-08-03T06:00:22.196797Z",
+   "reply": "Parcel TW55513360: handled.",
+   "message": "Why is TW55513360 late?",
+   "cost": 0.000723,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:18.705394Z",
+     "ended_at": "2026-08-03T06:00:19.922882Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1215,
+     "output_tokens": 21,
+     "cached_input_tokens": 0,
+     "cost": 0.000346
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:19.922882Z",
+     "ended_at": "2026-08-03T06:00:19.996948Z",
+     "parent_started_at": "2026-08-03T06:00:18.705394Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:19.996948Z",
+     "ended_at": "2026-08-03T06:00:21.996797Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 570,
+     "output_tokens": 143,
+     "cached_input_tokens": 256,
+     "cost": 0.000377
+    }
+   ]
+  },
+  "tw-00005": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:23.622220Z",
+   "ended_at": "2026-08-03T06:00:27.451017Z",
+   "reply": "Parcel TW43008732: handled.",
+   "message": "Where is parcel TW43008732?",
+   "cost": 0.001127,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:23.622220Z",
+     "ended_at": "2026-08-03T06:00:24.671773Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1295,
+     "output_tokens": 43,
+     "cached_input_tokens": 0,
+     "cost": 0.00041
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:24.671773Z",
+     "ended_at": "2026-08-03T06:00:24.801224Z",
+     "parent_started_at": "2026-08-03T06:00:23.622220Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:24.801224Z",
+     "ended_at": "2026-08-03T06:00:26.202009Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1008,
+     "output_tokens": 49,
+     "cached_input_tokens": 0,
+     "cost": 0.00035
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:26.202009Z",
+     "ended_at": "2026-08-03T06:00:26.653827Z",
+     "parent_started_at": "2026-08-03T06:00:24.801224Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:26.653827Z",
+     "ended_at": "2026-08-03T06:00:27.251017Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 636,
+     "output_tokens": 104,
+     "cached_input_tokens": 0,
+     "cost": 0.000367
+    }
+   ]
+  },
+  "tw-00006": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:28.089145Z",
+   "ended_at": "2026-08-03T06:00:36.115215Z",
+   "reply": "Parcel TW48284110: handled.",
+   "message": "Why is TW48284110 late?",
+   "cost": 0.001602,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:28.089145Z",
+     "ended_at": "2026-08-03T06:00:29.591709Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 440,
+     "output_tokens": 46,
+     "cached_input_tokens": 0,
+     "cost": 0.000202
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:29.591709Z",
+     "ended_at": "2026-08-03T06:00:29.821274Z",
+     "parent_started_at": "2026-08-03T06:00:28.089145Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:29.821274Z",
+     "ended_at": "2026-08-03T06:00:31.267105Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 748,
+     "output_tokens": 43,
+     "cached_input_tokens": 0,
+     "cost": 0.000273
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:31.267105Z",
+     "ended_at": "2026-08-03T06:00:31.647743Z",
+     "parent_started_at": "2026-08-03T06:00:29.821274Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:31.647743Z",
+     "ended_at": "2026-08-03T06:00:33.477154Z",
+     "parent_started_at": "2026-08-03T06:00:31.267105Z",
+     "model": "gpt-5.4",
+     "input_tokens": 1650,
+     "output_tokens": 175,
+     "cached_input_tokens": 0,
+     "cost": 0.000775
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:33.477154Z",
+     "ended_at": "2026-08-03T06:00:34.005868Z",
+     "parent_started_at": "2026-08-03T06:00:31.267105Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:34.005868Z",
+     "ended_at": "2026-08-03T06:00:35.915215Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1296,
+     "output_tokens": 78,
+     "cached_input_tokens": 640,
+     "cost": 0.000352
+    }
+   ]
+  },
+  "tw-00007": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:34.948042Z",
+   "ended_at": "2026-08-03T06:00:40.373293Z",
+   "reply": "Parcel TW46852626: handled.",
+   "message": "Why is TW46852626 late?",
+   "cost": 0.000999,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:34.948042Z",
+     "ended_at": "2026-08-03T06:00:35.545327Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 304,
+     "output_tokens": 39,
+     "cached_input_tokens": 0,
+     "cost": 0.000154
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:35.545327Z",
+     "ended_at": "2026-08-03T06:00:35.998216Z",
+     "parent_started_at": "2026-08-03T06:00:34.948042Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:35.998216Z",
+     "ended_at": "2026-08-03T06:00:37.857043Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1143,
+     "output_tokens": 106,
+     "cached_input_tokens": 512,
+     "cost": 0.000395
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:37.857043Z",
+     "ended_at": "2026-08-03T06:00:38.206949Z",
+     "parent_started_at": "2026-08-03T06:00:35.998216Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:38.206949Z",
+     "ended_at": "2026-08-03T06:00:40.173293Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1127,
+     "output_tokens": 84,
+     "cached_input_tokens": 0,
+     "cost": 0.00045
+    }
+   ]
+  },
+  "tw-00008": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:41.608855Z",
+   "ended_at": "2026-08-03T06:00:46.599602Z",
+   "reply": "Parcel TW34509870: handled.",
+   "message": "Where is parcel TW34509870?",
+   "cost": 0.000765,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:41.608855Z",
+     "ended_at": "2026-08-03T06:00:43.385741Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1082,
+     "output_tokens": 31,
+     "cached_input_tokens": 0,
+     "cost": 0.000332
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:43.385741Z",
+     "ended_at": "2026-08-03T06:00:43.494307Z",
+     "parent_started_at": "2026-08-03T06:00:41.608855Z",
+     "tool_name": "find_parcel",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:43.494307Z",
+     "ended_at": "2026-08-03T06:00:44.376336Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 679,
+     "output_tokens": 86,
+     "cached_input_tokens": 320,
+     "cost": 0.000278
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:44.376336Z",
+     "ended_at": "2026-08-03T06:00:44.716675Z",
+     "parent_started_at": "2026-08-03T06:00:43.494307Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:44.716675Z",
+     "ended_at": "2026-08-03T06:00:46.399602Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 445,
+     "output_tokens": 22,
+     "cached_input_tokens": 0,
+     "cost": 0.000155
+    }
+   ]
+  },
+  "tw-00009": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:46.659405Z",
+   "ended_at": "2026-08-03T06:00:49.934642Z",
+   "reply": "Parcel TW65470112: handled.",
+   "message": "Can you redeliver TW65470112 tomorrow?",
+   "cost": 0.000526,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:46.659405Z",
+     "ended_at": "2026-08-03T06:00:47.919117Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 933,
+     "output_tokens": 50,
+     "cached_input_tokens": 0,
+     "cost": 0.000333
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:47.919117Z",
+     "ended_at": "2026-08-03T06:00:48.076677Z",
+     "parent_started_at": "2026-08-03T06:00:46.659405Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:48.076677Z",
+     "ended_at": "2026-08-03T06:00:49.734642Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 880,
+     "output_tokens": 25,
+     "cached_input_tokens": 384,
+     "cost": 0.000193
+    }
+   ]
+  },
+  "tw-00010": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:49.933114Z",
+   "ended_at": "2026-08-03T06:01:01.428658Z",
+   "reply": "Parcel TW86653238: handled.",
+   "message": "Parcel TW86653238 arrived damaged, what now?",
+   "cost": 0.002674,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:49.933114Z",
+     "ended_at": "2026-08-03T06:00:51.478925Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1354,
+     "output_tokens": 144,
+     "cached_input_tokens": 640,
+     "cost": 0.000498
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:51.478925Z",
+     "ended_at": "2026-08-03T06:00:51.866909Z",
+     "parent_started_at": "2026-08-03T06:00:49.933114Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:51.866909Z",
+     "ended_at": "2026-08-03T06:00:53.819574Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1168,
+     "output_tokens": 152,
+     "cached_input_tokens": 0,
+     "cost": 0.000596
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:53.819574Z",
+     "ended_at": "2026-08-03T06:00:54.069019Z",
+     "parent_started_at": "2026-08-03T06:00:51.866909Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:54.069019Z",
+     "ended_at": "2026-08-03T06:00:57.034654Z",
+     "parent_started_at": "2026-08-03T06:00:53.819574Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2900,
+     "output_tokens": 195,
+     "cached_input_tokens": 1450,
+     "cost": 0.000834
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:57.034654Z",
+     "ended_at": "2026-08-03T06:00:57.601797Z",
+     "parent_started_at": "2026-08-03T06:00:53.819574Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:57.601797Z",
+     "ended_at": "2026-08-03T06:00:57.810265Z",
+     "parent_started_at": "2026-08-03T06:00:53.819574Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:57.810265Z",
+     "ended_at": "2026-08-03T06:00:59.580314Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 807,
+     "output_tokens": 20,
+     "cached_input_tokens": 0,
+     "cost": 0.000242
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:59.580314Z",
+     "ended_at": "2026-08-03T06:00:59.715993Z",
+     "parent_started_at": "2026-08-03T06:00:57.810265Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:59.715993Z",
+     "ended_at": "2026-08-03T06:01:01.228658Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1318,
+     "output_tokens": 87,
+     "cached_input_tokens": 0,
+     "cost": 0.000504
+    }
+   ]
+  },
+  "tw-00011": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:00:56.141214Z",
+   "ended_at": "2026-08-03T06:01:05.321257Z",
+   "reply": null,
+   "message": "Where is parcel TW92733489?",
+   "cost": 0.002366,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:56.141214Z",
+     "ended_at": "2026-08-03T06:00:57.913147Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 418,
+     "output_tokens": 109,
+     "cached_input_tokens": 0,
+     "cost": 0.000322
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:57.913147Z",
+     "ended_at": "2026-08-03T06:00:58.135525Z",
+     "parent_started_at": "2026-08-03T06:00:56.141214Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:58.135525Z",
+     "ended_at": "2026-08-03T06:01:00.115903Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 447,
+     "output_tokens": 146,
+     "cached_input_tokens": 0,
+     "cost": 0.000404
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:00.115903Z",
+     "ended_at": "2026-08-03T06:01:00.336204Z",
+     "parent_started_at": "2026-08-03T06:00:58.135525Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:00.336204Z",
+     "ended_at": "2026-08-03T06:01:03.072428Z",
+     "parent_started_at": "2026-08-03T06:01:00.115903Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3600,
+     "output_tokens": 120,
+     "cached_input_tokens": 0,
+     "cost": 0.001272
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:03.072428Z",
+     "ended_at": "2026-08-03T06:01:03.660454Z",
+     "parent_started_at": "2026-08-03T06:01:00.115903Z",
+     "tool_name": "geocode",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:03.660454Z",
+     "ended_at": "2026-08-03T06:01:05.121257Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 712,
+     "output_tokens": 95,
+     "cached_input_tokens": 0,
+     "cost": 0.000368
+    }
+   ]
+  },
+  "tw-00012": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:00:56.769717Z",
+   "ended_at": "2026-08-03T06:01:01.527684Z",
+   "reply": "Parcel TW99331733: handled.",
+   "message": "Parcel TW99331733 arrived damaged, what now?",
+   "cost": 0.000906,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:56.769717Z",
+     "ended_at": "2026-08-03T06:00:58.227807Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 370,
+     "output_tokens": 26,
+     "cached_input_tokens": 0,
+     "cost": 0.000144
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:00:58.227807Z",
+     "ended_at": "2026-08-03T06:00:58.787539Z",
+     "parent_started_at": "2026-08-03T06:00:56.769717Z",
+     "tool_name": "find_parcel",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:00:58.787539Z",
+     "ended_at": "2026-08-03T06:01:00.106938Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1112,
+     "output_tokens": 107,
+     "cached_input_tokens": 512,
+     "cost": 0.00039
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:00.106938Z",
+     "ended_at": "2026-08-03T06:01:00.466054Z",
+     "parent_started_at": "2026-08-03T06:00:58.787539Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:00.466054Z",
+     "ended_at": "2026-08-03T06:01:01.327684Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1253,
+     "output_tokens": 87,
+     "cached_input_tokens": 576,
+     "cost": 0.000372
+    }
+   ]
+  },
+  "tw-00013": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:01.032384Z",
+   "ended_at": "2026-08-03T06:01:07.585995Z",
+   "reply": "Parcel TW46224404: handled.",
+   "message": "Can you redeliver TW46224404 tomorrow?",
+   "cost": 0.00225,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:01.032384Z",
+     "ended_at": "2026-08-03T06:01:01.737911Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1060,
+     "output_tokens": 82,
+     "cached_input_tokens": 512,
+     "cost": 0.000327
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:01.737911Z",
+     "ended_at": "2026-08-03T06:01:01.833403Z",
+     "parent_started_at": "2026-08-03T06:01:01.032384Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:01.833403Z",
+     "ended_at": "2026-08-03T06:01:03.027167Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 672,
+     "output_tokens": 30,
+     "cached_input_tokens": 0,
+     "cost": 0.000228
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:03.027167Z",
+     "ended_at": "2026-08-03T06:01:03.135662Z",
+     "parent_started_at": "2026-08-03T06:01:01.833403Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:03.135662Z",
+     "ended_at": "2026-08-03T06:01:05.354146Z",
+     "parent_started_at": "2026-08-03T06:01:03.027167Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3950,
+     "output_tokens": 125,
+     "cached_input_tokens": 0,
+     "cost": 0.001385
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:05.354146Z",
+     "ended_at": "2026-08-03T06:01:05.724089Z",
+     "parent_started_at": "2026-08-03T06:01:03.027167Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:05.724089Z",
+     "ended_at": "2026-08-03T06:01:07.385995Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 590,
+     "output_tokens": 81,
+     "cached_input_tokens": 0,
+     "cost": 0.00031
+    }
+   ]
+  },
+  "tw-00014": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:07.074647Z",
+   "ended_at": "2026-08-03T06:01:15.756825Z",
+   "reply": "Parcel TW17130850: handled.",
+   "message": "Why is TW17130850 late?",
+   "cost": 0.00246,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:07.074647Z",
+     "ended_at": "2026-08-03T06:01:08.457416Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 316,
+     "output_tokens": 152,
+     "cached_input_tokens": 0,
+     "cost": 0.000383
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:08.457416Z",
+     "ended_at": "2026-08-03T06:01:08.771294Z",
+     "parent_started_at": "2026-08-03T06:01:07.074647Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:08.771294Z",
+     "ended_at": "2026-08-03T06:01:10.522972Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 420,
+     "output_tokens": 107,
+     "cached_input_tokens": 0,
+     "cost": 0.000319
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:10.522972Z",
+     "ended_at": "2026-08-03T06:01:10.805809Z",
+     "parent_started_at": "2026-08-03T06:01:08.771294Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:10.805809Z",
+     "ended_at": "2026-08-03T06:01:13.602968Z",
+     "parent_started_at": "2026-08-03T06:01:10.522972Z",
+     "model": "gpt-5.4",
+     "input_tokens": 1550,
+     "output_tokens": 285,
+     "cached_input_tokens": 0,
+     "cost": 0.000921
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:13.602968Z",
+     "ended_at": "2026-08-03T06:01:13.679131Z",
+     "parent_started_at": "2026-08-03T06:01:10.522972Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:13.679131Z",
+     "ended_at": "2026-08-03T06:01:14.346004Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1399,
+     "output_tokens": 100,
+     "cached_input_tokens": 0,
+     "cost": 0.00055
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:14.346004Z",
+     "ended_at": "2026-08-03T06:01:14.848830Z",
+     "parent_started_at": "2026-08-03T06:01:13.679131Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:14.848830Z",
+     "ended_at": "2026-08-03T06:01:15.556825Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 691,
+     "output_tokens": 57,
+     "cached_input_tokens": 0,
+     "cost": 0.000287
+    }
+   ]
+  },
+  "tw-00015": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:12.347048Z",
+   "ended_at": "2026-08-03T06:01:18.617337Z",
+   "reply": "Parcel TW33350765: handled.",
+   "message": "Why is TW33350765 late?",
+   "cost": 0.002022,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:12.347048Z",
+     "ended_at": "2026-08-03T06:01:13.885298Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 452,
+     "output_tokens": 130,
+     "cached_input_tokens": 0,
+     "cost": 0.000373
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:13.885298Z",
+     "ended_at": "2026-08-03T06:01:14.235222Z",
+     "parent_started_at": "2026-08-03T06:01:12.347048Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:14.235222Z",
+     "ended_at": "2026-08-03T06:01:15.541456Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1286,
+     "output_tokens": 109,
+     "cached_input_tokens": 640,
+     "cost": 0.000412
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:15.541456Z",
+     "ended_at": "2026-08-03T06:01:15.632515Z",
+     "parent_started_at": "2026-08-03T06:01:14.235222Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:15.632515Z",
+     "ended_at": "2026-08-03T06:01:16.791868Z",
+     "parent_started_at": "2026-08-03T06:01:15.541456Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2350,
+     "output_tokens": 285,
+     "cached_input_tokens": 1150,
+     "cost": 0.000885
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:16.791868Z",
+     "ended_at": "2026-08-03T06:01:17.038190Z",
+     "parent_started_at": "2026-08-03T06:01:15.541456Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:17.038190Z",
+     "ended_at": "2026-08-03T06:01:18.417337Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 799,
+     "output_tokens": 76,
+     "cached_input_tokens": 0,
+     "cost": 0.000352
+    }
+   ]
+  },
+  "tw-00016": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:14.257618Z",
+   "ended_at": "2026-08-03T06:01:17.397351Z",
+   "reply": "Parcel TW36532007: handled.",
+   "message": "Parcel TW36532007 arrived damaged, what now?",
+   "cost": 0.000868,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:14.257618Z",
+     "ended_at": "2026-08-03T06:01:15.664027Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 878,
+     "output_tokens": 97,
+     "cached_input_tokens": 0,
+     "cost": 0.000414
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:15.664027Z",
+     "ended_at": "2026-08-03T06:01:15.841306Z",
+     "parent_started_at": "2026-08-03T06:01:14.257618Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:15.841306Z",
+     "ended_at": "2026-08-03T06:01:17.197351Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1066,
+     "output_tokens": 94,
+     "cached_input_tokens": 0,
+     "cost": 0.000454
+    }
+   ]
+  },
+  "tw-00017": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:21.098327Z",
+   "ended_at": "2026-08-03T06:01:26.033822Z",
+   "reply": "Parcel TW54170352: handled.",
+   "message": "Where is parcel TW54170352?",
+   "cost": 0.001214,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:21.098327Z",
+     "ended_at": "2026-08-03T06:01:22.672553Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 397,
+     "output_tokens": 131,
+     "cached_input_tokens": 0,
+     "cost": 0.000361
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:22.672553Z",
+     "ended_at": "2026-08-03T06:01:22.773541Z",
+     "parent_started_at": "2026-08-03T06:01:21.098327Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:22.773541Z",
+     "ended_at": "2026-08-03T06:01:24.399097Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 898,
+     "output_tokens": 31,
+     "cached_input_tokens": 0,
+     "cost": 0.000286
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:24.399097Z",
+     "ended_at": "2026-08-03T06:01:24.845587Z",
+     "parent_started_at": "2026-08-03T06:01:22.773541Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:24.845587Z",
+     "ended_at": "2026-08-03T06:01:25.833822Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1380,
+     "output_tokens": 111,
+     "cached_input_tokens": 0,
+     "cost": 0.000567
+    }
+   ]
+  },
+  "tw-00018": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:27.199759Z",
+   "ended_at": "2026-08-03T06:01:30.477369Z",
+   "reply": "Parcel TW28391906: handled.",
+   "message": "Why is TW28391906 late?",
+   "cost": 0.00138,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:27.199759Z",
+     "ended_at": "2026-08-03T06:01:27.801353Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 904,
+     "output_tokens": 97,
+     "cached_input_tokens": 0,
+     "cost": 0.00042
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:27.801353Z",
+     "ended_at": "2026-08-03T06:01:28.071275Z",
+     "parent_started_at": "2026-08-03T06:01:27.199759Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:28.071275Z",
+     "ended_at": "2026-08-03T06:01:28.630716Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1268,
+     "output_tokens": 151,
+     "cached_input_tokens": 576,
+     "cost": 0.000504
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:28.630716Z",
+     "ended_at": "2026-08-03T06:01:28.765630Z",
+     "parent_started_at": "2026-08-03T06:01:28.071275Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:28.765630Z",
+     "ended_at": "2026-08-03T06:01:30.277369Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 610,
+     "output_tokens": 152,
+     "cached_input_tokens": 0,
+     "cost": 0.000456
+    }
+   ]
+  },
+  "tw-00019": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:33.395291Z",
+   "ended_at": "2026-08-03T06:01:38.187957Z",
+   "reply": "Parcel TW20645145: handled.",
+   "message": "Can you redeliver TW20645145 tomorrow?",
+   "cost": 0.000834,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:33.395291Z",
+     "ended_at": "2026-08-03T06:01:34.188317Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 353,
+     "output_tokens": 41,
+     "cached_input_tokens": 0,
+     "cost": 0.00017
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:34.188317Z",
+     "ended_at": "2026-08-03T06:01:34.501409Z",
+     "parent_started_at": "2026-08-03T06:01:33.395291Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:34.501409Z",
+     "ended_at": "2026-08-03T06:01:36.411653Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1016,
+     "output_tokens": 42,
+     "cached_input_tokens": 0,
+     "cost": 0.000338
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:36.411653Z",
+     "ended_at": "2026-08-03T06:01:36.784008Z",
+     "parent_started_at": "2026-08-03T06:01:34.501409Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:36.784008Z",
+     "ended_at": "2026-08-03T06:01:37.987957Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 578,
+     "output_tokens": 91,
+     "cached_input_tokens": 0,
+     "cost": 0.000326
+    }
+   ]
+  },
+  "tw-00020": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:40.318882Z",
+   "ended_at": "2026-08-03T06:01:44.693745Z",
+   "reply": "Parcel TW14954890: handled.",
+   "message": "Where is parcel TW14954890?",
+   "cost": 0.001178,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:40.318882Z",
+     "ended_at": "2026-08-03T06:01:41.545121Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1344,
+     "output_tokens": 37,
+     "cached_input_tokens": 0,
+     "cost": 0.00041
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:41.545121Z",
+     "ended_at": "2026-08-03T06:01:42.094118Z",
+     "parent_started_at": "2026-08-03T06:01:40.318882Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:42.094118Z",
+     "ended_at": "2026-08-03T06:01:42.901148Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1126,
+     "output_tokens": 143,
+     "cached_input_tokens": 0,
+     "cost": 0.000568
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:42.901148Z",
+     "ended_at": "2026-08-03T06:01:43.296548Z",
+     "parent_started_at": "2026-08-03T06:01:42.094118Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:43.296548Z",
+     "ended_at": "2026-08-03T06:01:44.493745Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 697,
+     "output_tokens": 45,
+     "cached_input_tokens": 320,
+     "cost": 0.0002
+    }
+   ]
+  },
+  "tw-00021": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:43.719501Z",
+   "ended_at": "2026-08-03T06:01:51.321994Z",
+   "reply": "Parcel TW14668382: handled.",
+   "message": "Where is parcel TW14668382?",
+   "cost": 0.002031,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:43.719501Z",
+     "ended_at": "2026-08-03T06:01:45.461149Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 993,
+     "output_tokens": 135,
+     "cached_input_tokens": 0,
+     "cost": 0.000518
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:45.461149Z",
+     "ended_at": "2026-08-03T06:01:45.529980Z",
+     "parent_started_at": "2026-08-03T06:01:43.719501Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:45.529980Z",
+     "ended_at": "2026-08-03T06:01:47.191868Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1258,
+     "output_tokens": 101,
+     "cached_input_tokens": 576,
+     "cost": 0.000401
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:47.191868Z",
+     "ended_at": "2026-08-03T06:01:47.386729Z",
+     "parent_started_at": "2026-08-03T06:01:45.529980Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:47.386729Z",
+     "ended_at": "2026-08-03T06:01:48.789184Z",
+     "parent_started_at": "2026-08-03T06:01:47.191868Z",
+     "model": "gpt-5.4",
+     "input_tokens": 1800,
+     "output_tokens": 245,
+     "cached_input_tokens": 900,
+     "cost": 0.000716
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:48.789184Z",
+     "ended_at": "2026-08-03T06:01:49.201778Z",
+     "parent_started_at": "2026-08-03T06:01:47.191868Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:49.201778Z",
+     "ended_at": "2026-08-03T06:01:51.121994Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 575,
+     "output_tokens": 126,
+     "cached_input_tokens": 0,
+     "cost": 0.000396
+    }
+   ]
+  },
+  "tw-00022": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:01:44.565507Z",
+   "ended_at": "2026-08-03T06:01:51.759711Z",
+   "reply": null,
+   "message": "Parcel TW69962406 arrived damaged, what now?",
+   "cost": 0.001886,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:44.565507Z",
+     "ended_at": "2026-08-03T06:01:45.343051Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 562,
+     "output_tokens": 20,
+     "cached_input_tokens": 0,
+     "cost": 0.00018
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:45.343051Z",
+     "ended_at": "2026-08-03T06:01:45.936716Z",
+     "parent_started_at": "2026-08-03T06:01:44.565507Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:45.936716Z",
+     "ended_at": "2026-08-03T06:01:47.507141Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 529,
+     "output_tokens": 150,
+     "cached_input_tokens": 0,
+     "cost": 0.000432
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:47.507141Z",
+     "ended_at": "2026-08-03T06:01:48.106495Z",
+     "parent_started_at": "2026-08-03T06:01:45.936716Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:48.106495Z",
+     "ended_at": "2026-08-03T06:01:49.612141Z",
+     "parent_started_at": "2026-08-03T06:01:47.507141Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2200,
+     "output_tokens": 180,
+     "cached_input_tokens": 0,
+     "cost": 0.000948
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:49.612141Z",
+     "ended_at": "2026-08-03T06:01:50.045659Z",
+     "parent_started_at": "2026-08-03T06:01:47.507141Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:50.045659Z",
+     "ended_at": "2026-08-03T06:01:50.433726Z",
+     "parent_started_at": "2026-08-03T06:01:47.507141Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:50.433726Z",
+     "ended_at": "2026-08-03T06:01:51.759711Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 567,
+     "output_tokens": 92,
+     "cached_input_tokens": 0,
+     "cost": 0.000326
+    }
+   ]
+  },
+  "tw-00023": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:47.736100Z",
+   "ended_at": "2026-08-03T06:01:55.626545Z",
+   "reply": "Parcel TW35764275: handled.",
+   "message": "Change the address for TW35764275 please.",
+   "cost": 0.001678,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:47.736100Z",
+     "ended_at": "2026-08-03T06:01:49.405916Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 388,
+     "output_tokens": 136,
+     "cached_input_tokens": 0,
+     "cost": 0.000369
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:49.405916Z",
+     "ended_at": "2026-08-03T06:01:49.832348Z",
+     "parent_started_at": "2026-08-03T06:01:47.736100Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:49.832348Z",
+     "ended_at": "2026-08-03T06:01:51.421151Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1004,
+     "output_tokens": 46,
+     "cached_input_tokens": 0,
+     "cost": 0.000343
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:51.421151Z",
+     "ended_at": "2026-08-03T06:01:52.017253Z",
+     "parent_started_at": "2026-08-03T06:01:49.832348Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:52.017253Z",
+     "ended_at": "2026-08-03T06:01:53.556107Z",
+     "parent_started_at": "2026-08-03T06:01:51.421151Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3250,
+     "output_tokens": 115,
+     "cached_input_tokens": 1600,
+     "cost": 0.000775
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:53.556107Z",
+     "ended_at": "2026-08-03T06:01:54.146507Z",
+     "parent_started_at": "2026-08-03T06:01:51.421151Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:54.146507Z",
+     "ended_at": "2026-08-03T06:01:54.641228Z",
+     "parent_started_at": "2026-08-03T06:01:51.421151Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:54.641228Z",
+     "ended_at": "2026-08-03T06:01:55.426545Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 485,
+     "output_tokens": 35,
+     "cached_input_tokens": 0,
+     "cost": 0.000191
+    }
+   ]
+  },
+  "tw-00024": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:50.001114Z",
+   "ended_at": "2026-08-03T06:01:56.878354Z",
+   "reply": "Parcel TW44880616: handled.",
+   "message": "Why is TW44880616 late?",
+   "cost": 0.002126,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:50.001114Z",
+     "ended_at": "2026-08-03T06:01:50.947270Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 616,
+     "output_tokens": 105,
+     "cached_input_tokens": 0,
+     "cost": 0.000364
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:50.947270Z",
+     "ended_at": "2026-08-03T06:01:51.502784Z",
+     "parent_started_at": "2026-08-03T06:01:50.001114Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:51.502784Z",
+     "ended_at": "2026-08-03T06:01:52.690849Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 857,
+     "output_tokens": 20,
+     "cached_input_tokens": 0,
+     "cost": 0.000254
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:52.690849Z",
+     "ended_at": "2026-08-03T06:01:52.854581Z",
+     "parent_started_at": "2026-08-03T06:01:51.502784Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:52.854581Z",
+     "ended_at": "2026-08-03T06:01:55.498415Z",
+     "parent_started_at": "2026-08-03T06:01:52.690849Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2150,
+     "output_tokens": 205,
+     "cached_input_tokens": 0,
+     "cost": 0.000973
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:55.498415Z",
+     "ended_at": "2026-08-03T06:01:55.773928Z",
+     "parent_started_at": "2026-08-03T06:01:52.690849Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:55.773928Z",
+     "ended_at": "2026-08-03T06:01:56.678354Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 917,
+     "output_tokens": 153,
+     "cached_input_tokens": 0,
+     "cost": 0.000535
+    }
+   ]
+  },
+  "tw-00025": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:54.713193Z",
+   "ended_at": "2026-08-03T06:01:56.777480Z",
+   "reply": "Parcel TW91881325: handled.",
+   "message": "Change the address for TW91881325 please.",
+   "cost": 0.000932,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:54.713193Z",
+     "ended_at": "2026-08-03T06:01:55.221927Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1345,
+     "output_tokens": 66,
+     "cached_input_tokens": 0,
+     "cost": 0.000468
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:01:55.221927Z",
+     "ended_at": "2026-08-03T06:01:55.375896Z",
+     "parent_started_at": "2026-08-03T06:01:54.713193Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:55.375896Z",
+     "ended_at": "2026-08-03T06:01:56.577480Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 710,
+     "output_tokens": 143,
+     "cached_input_tokens": 0,
+     "cost": 0.000464
+    }
+   ]
+  },
+  "tw-00026": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:01:59.545046Z",
+   "ended_at": "2026-08-03T06:02:09.719774Z",
+   "reply": "Parcel TW94516738: handled.",
+   "message": "Can you redeliver TW94516738 tomorrow?",
+   "cost": 0.00246,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:01:59.545046Z",
+     "ended_at": "2026-08-03T06:02:01.134613Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1297,
+     "output_tokens": 74,
+     "cached_input_tokens": 0,
+     "cost": 0.000472
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:01.134613Z",
+     "ended_at": "2026-08-03T06:02:01.449911Z",
+     "parent_started_at": "2026-08-03T06:01:59.545046Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:01.449911Z",
+     "ended_at": "2026-08-03T06:02:03.320607Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 837,
+     "output_tokens": 80,
+     "cached_input_tokens": 0,
+     "cost": 0.000369
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:03.320607Z",
+     "ended_at": "2026-08-03T06:02:03.701041Z",
+     "parent_started_at": "2026-08-03T06:02:01.449911Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:03.701041Z",
+     "ended_at": "2026-08-03T06:02:05.493518Z",
+     "parent_started_at": "2026-08-03T06:02:03.320607Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2250,
+     "output_tokens": 135,
+     "cached_input_tokens": 0,
+     "cost": 0.000891
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:05.493518Z",
+     "ended_at": "2026-08-03T06:02:05.927092Z",
+     "parent_started_at": "2026-08-03T06:02:03.320607Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:05.927092Z",
+     "ended_at": "2026-08-03T06:02:07.189835Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 624,
+     "output_tokens": 62,
+     "cached_input_tokens": 256,
+     "cost": 0.000229
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:07.189835Z",
+     "ended_at": "2026-08-03T06:02:07.630746Z",
+     "parent_started_at": "2026-08-03T06:02:05.927092Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:07.630746Z",
+     "ended_at": "2026-08-03T06:02:09.519774Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1356,
+     "output_tokens": 80,
+     "cached_input_tokens": 0,
+     "cost": 0.000499
+    }
+   ]
+  },
+  "tw-00027": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:02.492819Z",
+   "ended_at": "2026-08-03T06:02:04.882579Z",
+   "reply": "Parcel TW84178581: handled.",
+   "message": "Where is parcel TW84178581?",
+   "cost": 0.000563,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:02.492819Z",
+     "ended_at": "2026-08-03T06:02:03.496412Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 835,
+     "output_tokens": 43,
+     "cached_input_tokens": 384,
+     "cost": 0.000218
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:03.496412Z",
+     "ended_at": "2026-08-03T06:02:03.637677Z",
+     "parent_started_at": "2026-08-03T06:02:02.492819Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:03.637677Z",
+     "ended_at": "2026-08-03T06:02:04.682579Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 773,
+     "output_tokens": 76,
+     "cached_input_tokens": 0,
+     "cost": 0.000345
+    }
+   ]
+  },
+  "tw-00028": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:05.006999Z",
+   "ended_at": "2026-08-03T06:02:08.868273Z",
+   "reply": "Parcel TW77316721: handled.",
+   "message": "Where is parcel TW77316721?",
+   "cost": 0.000756,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:05.006999Z",
+     "ended_at": "2026-08-03T06:02:06.708635Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 973,
+     "output_tokens": 44,
+     "cached_input_tokens": 0,
+     "cost": 0.000331
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:06.708635Z",
+     "ended_at": "2026-08-03T06:02:06.948116Z",
+     "parent_started_at": "2026-08-03T06:02:05.006999Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:06.948116Z",
+     "ended_at": "2026-08-03T06:02:08.668273Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 660,
+     "output_tokens": 130,
+     "cached_input_tokens": 0,
+     "cost": 0.000425
+    }
+   ]
+  },
+  "tw-00029": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:02:08.735893Z",
+   "ended_at": "2026-08-03T06:02:17.319134Z",
+   "reply": null,
+   "message": "Parcel TW65343203 arrived damaged, what now?",
+   "cost": 0.002541,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:08.735893Z",
+     "ended_at": "2026-08-03T06:02:09.993421Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1380,
+     "output_tokens": 85,
+     "cached_input_tokens": 0,
+     "cost": 0.000515
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:09.993421Z",
+     "ended_at": "2026-08-03T06:02:10.210416Z",
+     "parent_started_at": "2026-08-03T06:02:08.735893Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:10.210416Z",
+     "ended_at": "2026-08-03T06:02:11.138100Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 403,
+     "output_tokens": 93,
+     "cached_input_tokens": 0,
+     "cost": 0.000287
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:11.138100Z",
+     "ended_at": "2026-08-03T06:02:11.730394Z",
+     "parent_started_at": "2026-08-03T06:02:10.210416Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:11.730394Z",
+     "ended_at": "2026-08-03T06:02:13.672746Z",
+     "parent_started_at": "2026-08-03T06:02:11.138100Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2800,
+     "output_tokens": 110,
+     "cached_input_tokens": 0,
+     "cost": 0.001016
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:13.672746Z",
+     "ended_at": "2026-08-03T06:02:14.046514Z",
+     "parent_started_at": "2026-08-03T06:02:11.138100Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:14.046514Z",
+     "ended_at": "2026-08-03T06:02:14.399776Z",
+     "parent_started_at": "2026-08-03T06:02:11.138100Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:14.399776Z",
+     "ended_at": "2026-08-03T06:02:16.278896Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1364,
+     "output_tokens": 39,
+     "cached_input_tokens": 0,
+     "cost": 0.000419
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:16.278896Z",
+     "ended_at": "2026-08-03T06:02:16.506499Z",
+     "parent_started_at": "2026-08-03T06:02:14.399776Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:16.506499Z",
+     "ended_at": "2026-08-03T06:02:17.319134Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 328,
+     "output_tokens": 111,
+     "cached_input_tokens": 0,
+     "cost": 0.000304
+    }
+   ]
+  },
+  "tw-00030": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:02:10.525632Z",
+   "ended_at": "2026-08-03T06:02:16.879749Z",
+   "reply": null,
+   "message": "Where is parcel TW77973511?",
+   "cost": 0.002249,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:10.525632Z",
+     "ended_at": "2026-08-03T06:02:11.707228Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1302,
+     "output_tokens": 36,
+     "cached_input_tokens": 640,
+     "cost": 0.00027
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:11.707228Z",
+     "ended_at": "2026-08-03T06:02:11.868098Z",
+     "parent_started_at": "2026-08-03T06:02:10.525632Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:11.868098Z",
+     "ended_at": "2026-08-03T06:02:12.927508Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 584,
+     "output_tokens": 25,
+     "cached_input_tokens": 0,
+     "cost": 0.000196
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:12.927508Z",
+     "ended_at": "2026-08-03T06:02:13.469429Z",
+     "parent_started_at": "2026-08-03T06:02:11.868098Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:13.469429Z",
+     "ended_at": "2026-08-03T06:02:14.907720Z",
+     "parent_started_at": "2026-08-03T06:02:12.927508Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3650,
+     "output_tokens": 245,
+     "cached_input_tokens": 0,
+     "cost": 0.001487
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:14.907720Z",
+     "ended_at": "2026-08-03T06:02:15.074421Z",
+     "parent_started_at": "2026-08-03T06:02:12.927508Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:15.074421Z",
+     "ended_at": "2026-08-03T06:02:15.647321Z",
+     "parent_started_at": "2026-08-03T06:02:12.927508Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:15.647321Z",
+     "ended_at": "2026-08-03T06:02:16.879749Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1166,
+     "output_tokens": 60,
+     "cached_input_tokens": 576,
+     "cost": 0.000296
+    }
+   ]
+  },
+  "tw-00031": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:14.549854Z",
+   "ended_at": "2026-08-03T06:02:21.130042Z",
+   "reply": "Parcel TW36288179: handled.",
+   "message": "Can you redeliver TW36288179 tomorrow?",
+   "cost": 0.002226,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:14.549854Z",
+     "ended_at": "2026-08-03T06:02:15.221208Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 970,
+     "output_tokens": 86,
+     "cached_input_tokens": 0,
+     "cost": 0.000414
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:15.221208Z",
+     "ended_at": "2026-08-03T06:02:15.702433Z",
+     "parent_started_at": "2026-08-03T06:02:14.549854Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:15.702433Z",
+     "ended_at": "2026-08-03T06:02:16.854636Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 602,
+     "output_tokens": 102,
+     "cached_input_tokens": 0,
+     "cost": 0.000354
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:16.854636Z",
+     "ended_at": "2026-08-03T06:02:16.993247Z",
+     "parent_started_at": "2026-08-03T06:02:15.702433Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:16.993247Z",
+     "ended_at": "2026-08-03T06:02:18.740809Z",
+     "parent_started_at": "2026-08-03T06:02:16.854636Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2850,
+     "output_tokens": 205,
+     "cached_input_tokens": 1400,
+     "cost": 0.000847
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:18.740809Z",
+     "ended_at": "2026-08-03T06:02:19.081104Z",
+     "parent_started_at": "2026-08-03T06:02:16.854636Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:19.081104Z",
+     "ended_at": "2026-08-03T06:02:19.337337Z",
+     "parent_started_at": "2026-08-03T06:02:16.854636Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:19.337337Z",
+     "ended_at": "2026-08-03T06:02:20.930042Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1395,
+     "output_tokens": 131,
+     "cached_input_tokens": 0,
+     "cost": 0.000611
+    }
+   ]
+  },
+  "tw-00032": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:19.636178Z",
+   "ended_at": "2026-08-03T06:02:22.277506Z",
+   "reply": "Parcel TW58303445: handled.",
+   "message": "Can you redeliver TW58303445 tomorrow?",
+   "cost": 0.000811,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:19.636178Z",
+     "ended_at": "2026-08-03T06:02:21.188025Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 694,
+     "output_tokens": 84,
+     "cached_input_tokens": 0,
+     "cost": 0.000342
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:21.188025Z",
+     "ended_at": "2026-08-03T06:02:21.426191Z",
+     "parent_started_at": "2026-08-03T06:02:19.636178Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:21.426191Z",
+     "ended_at": "2026-08-03T06:02:22.077506Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1188,
+     "output_tokens": 86,
+     "cached_input_tokens": 0,
+     "cost": 0.000469
+    }
+   ]
+  },
+  "tw-00033": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:02:24.105910Z",
+   "ended_at": "2026-08-03T06:02:31.129484Z",
+   "reply": null,
+   "message": "Change the address for TW92804089 please.",
+   "cost": 0.001989,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:24.105910Z",
+     "ended_at": "2026-08-03T06:02:25.952251Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 851,
+     "output_tokens": 63,
+     "cached_input_tokens": 384,
+     "cost": 0.000262
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:25.952251Z",
+     "ended_at": "2026-08-03T06:02:26.089075Z",
+     "parent_started_at": "2026-08-03T06:02:24.105910Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:26.089075Z",
+     "ended_at": "2026-08-03T06:02:27.175391Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 330,
+     "output_tokens": 150,
+     "cached_input_tokens": 0,
+     "cost": 0.000382
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:27.175391Z",
+     "ended_at": "2026-08-03T06:02:27.387159Z",
+     "parent_started_at": "2026-08-03T06:02:26.089075Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:27.387159Z",
+     "ended_at": "2026-08-03T06:02:29.384338Z",
+     "parent_started_at": "2026-08-03T06:02:27.175391Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3350,
+     "output_tokens": 80,
+     "cached_input_tokens": 0,
+     "cost": 0.001133
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:29.384338Z",
+     "ended_at": "2026-08-03T06:02:29.656232Z",
+     "parent_started_at": "2026-08-03T06:02:27.175391Z",
+     "tool_name": "geocode",
+     "status": "failed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:29.656232Z",
+     "ended_at": "2026-08-03T06:02:29.908731Z",
+     "parent_started_at": "2026-08-03T06:02:27.175391Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:29.908731Z",
+     "ended_at": "2026-08-03T06:02:30.929484Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 376,
+     "output_tokens": 59,
+     "cached_input_tokens": 0,
+     "cost": 0.000212
+    }
+   ]
+  },
+  "tw-00034": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:26.705062Z",
+   "ended_at": "2026-08-03T06:02:34.775742Z",
+   "reply": "Parcel TW64286387: handled.",
+   "message": "Change the address for TW64286387 please.",
+   "cost": 0.002371,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:26.705062Z",
+     "ended_at": "2026-08-03T06:02:28.173688Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1147,
+     "output_tokens": 72,
+     "cached_input_tokens": 512,
+     "cost": 0.000328
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:28.173688Z",
+     "ended_at": "2026-08-03T06:02:28.378549Z",
+     "parent_started_at": "2026-08-03T06:02:26.705062Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:28.378549Z",
+     "ended_at": "2026-08-03T06:02:29.280774Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 606,
+     "output_tokens": 91,
+     "cached_input_tokens": 256,
+     "cost": 0.000282
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:29.280774Z",
+     "ended_at": "2026-08-03T06:02:29.397691Z",
+     "parent_started_at": "2026-08-03T06:02:28.378549Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:29.397691Z",
+     "ended_at": "2026-08-03T06:02:30.411551Z",
+     "parent_started_at": "2026-08-03T06:02:29.280774Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2000,
+     "output_tokens": 235,
+     "cached_input_tokens": 1000,
+     "cost": 0.000736
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:30.411551Z",
+     "ended_at": "2026-08-03T06:02:30.580354Z",
+     "parent_started_at": "2026-08-03T06:02:29.280774Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:30.580354Z",
+     "ended_at": "2026-08-03T06:02:32.224285Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1067,
+     "output_tokens": 121,
+     "cached_input_tokens": 0,
+     "cost": 0.000509
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:32.224285Z",
+     "ended_at": "2026-08-03T06:02:32.679120Z",
+     "parent_started_at": "2026-08-03T06:02:30.580354Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:32.679120Z",
+     "ended_at": "2026-08-03T06:02:34.575742Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1384,
+     "output_tokens": 85,
+     "cached_input_tokens": 0,
+     "cost": 0.000516
+    }
+   ]
+  },
+  "tw-00035": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:27.857255Z",
+   "ended_at": "2026-08-03T06:02:36.066663Z",
+   "reply": "Parcel TW86872540: handled.",
+   "message": "Why is TW86872540 late?",
+   "cost": 0.002045,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:27.857255Z",
+     "ended_at": "2026-08-03T06:02:28.521135Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 353,
+     "output_tokens": 113,
+     "cached_input_tokens": 0,
+     "cost": 0.000314
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:28.521135Z",
+     "ended_at": "2026-08-03T06:02:29.086896Z",
+     "parent_started_at": "2026-08-03T06:02:27.857255Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:29.086896Z",
+     "ended_at": "2026-08-03T06:02:31.077255Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 953,
+     "output_tokens": 75,
+     "cached_input_tokens": 0,
+     "cost": 0.000388
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:31.077255Z",
+     "ended_at": "2026-08-03T06:02:31.618908Z",
+     "parent_started_at": "2026-08-03T06:02:29.086896Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:31.618908Z",
+     "ended_at": "2026-08-03T06:02:33.278840Z",
+     "parent_started_at": "2026-08-03T06:02:31.077255Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3700,
+     "output_tokens": 160,
+     "cached_input_tokens": 1850,
+     "cost": 0.000922
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:33.278840Z",
+     "ended_at": "2026-08-03T06:02:33.408108Z",
+     "parent_started_at": "2026-08-03T06:02:31.077255Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:33.408108Z",
+     "ended_at": "2026-08-03T06:02:33.968814Z",
+     "parent_started_at": "2026-08-03T06:02:31.077255Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:33.968814Z",
+     "ended_at": "2026-08-03T06:02:35.866663Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 459,
+     "output_tokens": 153,
+     "cached_input_tokens": 0,
+     "cost": 0.000421
+    }
+   ]
+  },
+  "tw-00036": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:02:30.927284Z",
+   "ended_at": "2026-08-03T06:02:39.937976Z",
+   "reply": null,
+   "message": "Can you redeliver TW27147727 tomorrow?",
+   "cost": 0.002572,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:30.927284Z",
+     "ended_at": "2026-08-03T06:02:31.460859Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 405,
+     "output_tokens": 124,
+     "cached_input_tokens": 0,
+     "cost": 0.000349
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:31.460859Z",
+     "ended_at": "2026-08-03T06:02:31.596083Z",
+     "parent_started_at": "2026-08-03T06:02:30.927284Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:31.596083Z",
+     "ended_at": "2026-08-03T06:02:33.507054Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1364,
+     "output_tokens": 138,
+     "cached_input_tokens": 0,
+     "cost": 0.000617
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:33.507054Z",
+     "ended_at": "2026-08-03T06:02:33.670305Z",
+     "parent_started_at": "2026-08-03T06:02:31.596083Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:33.670305Z",
+     "ended_at": "2026-08-03T06:02:36.099753Z",
+     "parent_started_at": "2026-08-03T06:02:33.507054Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2450,
+     "output_tokens": 290,
+     "cached_input_tokens": 1200,
+     "cost": 0.000911
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:36.099753Z",
+     "ended_at": "2026-08-03T06:02:36.693592Z",
+     "parent_started_at": "2026-08-03T06:02:33.507054Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:36.693592Z",
+     "ended_at": "2026-08-03T06:02:38.572091Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1399,
+     "output_tokens": 89,
+     "cached_input_tokens": 640,
+     "cost": 0.0004
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:38.572091Z",
+     "ended_at": "2026-08-03T06:02:38.829566Z",
+     "parent_started_at": "2026-08-03T06:02:36.693592Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:38.829566Z",
+     "ended_at": "2026-08-03T06:02:39.737976Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1339,
+     "output_tokens": 44,
+     "cached_input_tokens": 640,
+     "cost": 0.000295
+    }
+   ]
+  },
+  "tw-00037": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:34.252407Z",
+   "ended_at": "2026-08-03T06:02:43.309468Z",
+   "reply": "Parcel TW73815798: handled.",
+   "message": "Where is parcel TW73815798?",
+   "cost": 0.003093,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:34.252407Z",
+     "ended_at": "2026-08-03T06:02:35.181553Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1123,
+     "output_tokens": 35,
+     "cached_input_tokens": 512,
+     "cost": 0.000248
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:35.181553Z",
+     "ended_at": "2026-08-03T06:02:35.768530Z",
+     "parent_started_at": "2026-08-03T06:02:34.252407Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:35.768530Z",
+     "ended_at": "2026-08-03T06:02:36.721840Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1301,
+     "output_tokens": 157,
+     "cached_input_tokens": 0,
+     "cost": 0.000639
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:36.721840Z",
+     "ended_at": "2026-08-03T06:02:37.110981Z",
+     "parent_started_at": "2026-08-03T06:02:35.768530Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:37.110981Z",
+     "ended_at": "2026-08-03T06:02:39.967476Z",
+     "parent_started_at": "2026-08-03T06:02:36.721840Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3700,
+     "output_tokens": 265,
+     "cached_input_tokens": 0,
+     "cost": 0.001534
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:39.967476Z",
+     "ended_at": "2026-08-03T06:02:40.181949Z",
+     "parent_started_at": "2026-08-03T06:02:36.721840Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:40.181949Z",
+     "ended_at": "2026-08-03T06:02:41.102550Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 361,
+     "output_tokens": 57,
+     "cached_input_tokens": 0,
+     "cost": 0.000204
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:41.102550Z",
+     "ended_at": "2026-08-03T06:02:41.281144Z",
+     "parent_started_at": "2026-08-03T06:02:40.181949Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:41.281144Z",
+     "ended_at": "2026-08-03T06:02:43.109468Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1234,
+     "output_tokens": 80,
+     "cached_input_tokens": 0,
+     "cost": 0.000468
+    }
+   ]
+  },
+  "tw-00038": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:39.549435Z",
+   "ended_at": "2026-08-03T06:02:42.289455Z",
+   "reply": "Parcel TW61287787: handled.",
+   "message": "Where is parcel TW61287787?",
+   "cost": 0.000854,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:39.549435Z",
+     "ended_at": "2026-08-03T06:02:40.361655Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 763,
+     "output_tokens": 110,
+     "cached_input_tokens": 0,
+     "cost": 0.000411
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:40.361655Z",
+     "ended_at": "2026-08-03T06:02:40.917121Z",
+     "parent_started_at": "2026-08-03T06:02:39.549435Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:40.917121Z",
+     "ended_at": "2026-08-03T06:02:42.089455Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 988,
+     "output_tokens": 98,
+     "cached_input_tokens": 0,
+     "cost": 0.000443
+    }
+   ]
+  },
+  "tw-00039": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:42.015858Z",
+   "ended_at": "2026-08-03T06:02:44.905626Z",
+   "reply": "Parcel TW11028224: handled.",
+   "message": "Why is TW11028224 late?",
+   "cost": 0.000623,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:42.015858Z",
+     "ended_at": "2026-08-03T06:02:43.914335Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 994,
+     "output_tokens": 28,
+     "cached_input_tokens": 0,
+     "cost": 0.000304
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:43.914335Z",
+     "ended_at": "2026-08-03T06:02:43.978244Z",
+     "parent_started_at": "2026-08-03T06:02:42.015858Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:43.978244Z",
+     "ended_at": "2026-08-03T06:02:44.705626Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1043,
+     "output_tokens": 29,
+     "cached_input_tokens": 0,
+     "cost": 0.000319
+    }
+   ]
+  },
+  "tw-00040": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:44.344895Z",
+   "ended_at": "2026-08-03T06:02:46.603371Z",
+   "reply": "Parcel TW83372404: handled.",
+   "message": "Why is TW83372404 late?",
+   "cost": 0.000941,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:44.344895Z",
+     "ended_at": "2026-08-03T06:02:45.051356Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1118,
+     "output_tokens": 61,
+     "cached_input_tokens": 0,
+     "cost": 0.000402
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:45.051356Z",
+     "ended_at": "2026-08-03T06:02:45.363070Z",
+     "parent_started_at": "2026-08-03T06:02:44.344895Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:45.363070Z",
+     "ended_at": "2026-08-03T06:02:46.403371Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1324,
+     "output_tokens": 104,
+     "cached_input_tokens": 0,
+     "cost": 0.000539
+    }
+   ]
+  },
+  "tw-00041": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:49.642507Z",
+   "ended_at": "2026-08-03T06:02:54.048607Z",
+   "reply": "Parcel TW60760710: handled.",
+   "message": "Parcel TW60760710 arrived damaged, what now?",
+   "cost": 0.001199,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:49.642507Z",
+     "ended_at": "2026-08-03T06:02:50.236576Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 636,
+     "output_tokens": 93,
+     "cached_input_tokens": 0,
+     "cost": 0.000345
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:50.236576Z",
+     "ended_at": "2026-08-03T06:02:50.466646Z",
+     "parent_started_at": "2026-08-03T06:02:49.642507Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:50.466646Z",
+     "ended_at": "2026-08-03T06:02:51.688375Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1096,
+     "output_tokens": 124,
+     "cached_input_tokens": 512,
+     "cost": 0.00042
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:51.688375Z",
+     "ended_at": "2026-08-03T06:02:52.215102Z",
+     "parent_started_at": "2026-08-03T06:02:50.466646Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:52.215102Z",
+     "ended_at": "2026-08-03T06:02:53.848607Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 782,
+     "output_tokens": 119,
+     "cached_input_tokens": 0,
+     "cost": 0.000434
+    }
+   ]
+  },
+  "tw-00042": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:02:54.393976Z",
+   "ended_at": "2026-08-03T06:03:04.310640Z",
+   "reply": "Parcel TW80730710: handled.",
+   "message": "Can you redeliver TW80730710 tomorrow?",
+   "cost": 0.003011,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:54.393976Z",
+     "ended_at": "2026-08-03T06:02:56.120459Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1072,
+     "output_tokens": 79,
+     "cached_input_tokens": 512,
+     "cost": 0.000324
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:56.120459Z",
+     "ended_at": "2026-08-03T06:02:56.717070Z",
+     "parent_started_at": "2026-08-03T06:02:54.393976Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:56.717070Z",
+     "ended_at": "2026-08-03T06:02:58.710988Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 440,
+     "output_tokens": 76,
+     "cached_input_tokens": 192,
+     "cost": 0.000224
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:02:58.710988Z",
+     "ended_at": "2026-08-03T06:02:59.143571Z",
+     "parent_started_at": "2026-08-03T06:02:56.717070Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:02:59.143571Z",
+     "ended_at": "2026-08-03T06:03:00.651745Z",
+     "parent_started_at": "2026-08-03T06:02:58.710988Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3950,
+     "output_tokens": 235,
+     "cached_input_tokens": 0,
+     "cost": 0.001561
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:00.651745Z",
+     "ended_at": "2026-08-03T06:03:00.769381Z",
+     "parent_started_at": "2026-08-03T06:02:58.710988Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:00.769381Z",
+     "ended_at": "2026-08-03T06:03:00.840079Z",
+     "parent_started_at": "2026-08-03T06:02:58.710988Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:00.840079Z",
+     "ended_at": "2026-08-03T06:03:02.135575Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1226,
+     "output_tokens": 113,
+     "cached_input_tokens": 576,
+     "cost": 0.000417
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:02.135575Z",
+     "ended_at": "2026-08-03T06:03:02.350051Z",
+     "parent_started_at": "2026-08-03T06:03:00.840079Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:02.350051Z",
+     "ended_at": "2026-08-03T06:03:04.110640Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1125,
+     "output_tokens": 153,
+     "cached_input_tokens": 512,
+     "cost": 0.000485
+    }
+   ]
+  },
+  "tw-00043": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:00.876512Z",
+   "ended_at": "2026-08-03T06:03:04.560563Z",
+   "reply": "Parcel TW62718788: handled.",
+   "message": "Change the address for TW62718788 please.",
+   "cost": 0.00091,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:00.876512Z",
+     "ended_at": "2026-08-03T06:03:02.709759Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1269,
+     "output_tokens": 56,
+     "cached_input_tokens": 0,
+     "cost": 0.000429
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:02.709759Z",
+     "ended_at": "2026-08-03T06:03:02.869005Z",
+     "parent_started_at": "2026-08-03T06:03:00.876512Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:02.869005Z",
+     "ended_at": "2026-08-03T06:03:04.360563Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 876,
+     "output_tokens": 131,
+     "cached_input_tokens": 0,
+     "cost": 0.000481
+    }
+   ]
+  },
+  "tw-00044": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:03:05.058083Z",
+   "ended_at": "2026-08-03T06:03:06.914932Z",
+   "reply": null,
+   "message": "Change the address for TW54583638 please.",
+   "cost": 0.000699,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:05.058083Z",
+     "ended_at": "2026-08-03T06:03:06.073845Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 798,
+     "output_tokens": 25,
+     "cached_input_tokens": 384,
+     "cost": 0.000173
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:06.073845Z",
+     "ended_at": "2026-08-03T06:03:06.127835Z",
+     "parent_started_at": "2026-08-03T06:03:05.058083Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:06.127835Z",
+     "ended_at": "2026-08-03T06:03:06.714932Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1034,
+     "output_tokens": 134,
+     "cached_input_tokens": 0,
+     "cost": 0.000526
+    }
+   ]
+  },
+  "tw-00045": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:08.518118Z",
+   "ended_at": "2026-08-03T06:03:18.209005Z",
+   "reply": "Parcel TW55310706: handled.",
+   "message": "Change the address for TW55310706 please.",
+   "cost": 0.00207,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:08.518118Z",
+     "ended_at": "2026-08-03T06:03:09.820228Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 670,
+     "output_tokens": 66,
+     "cached_input_tokens": 0,
+     "cost": 0.0003
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:09.820228Z",
+     "ended_at": "2026-08-03T06:03:10.005636Z",
+     "parent_started_at": "2026-08-03T06:03:08.518118Z",
+     "tool_name": "find_parcel",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:10.005636Z",
+     "ended_at": "2026-08-03T06:03:11.789152Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 551,
+     "output_tokens": 122,
+     "cached_input_tokens": 0,
+     "cost": 0.000382
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:11.789152Z",
+     "ended_at": "2026-08-03T06:03:11.911594Z",
+     "parent_started_at": "2026-08-03T06:03:10.005636Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:11.911594Z",
+     "ended_at": "2026-08-03T06:03:14.642915Z",
+     "parent_started_at": "2026-08-03T06:03:11.789152Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3400,
+     "output_tokens": 80,
+     "cached_input_tokens": 1700,
+     "cost": 0.00074
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:14.642915Z",
+     "ended_at": "2026-08-03T06:03:14.711146Z",
+     "parent_started_at": "2026-08-03T06:03:11.789152Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:14.711146Z",
+     "ended_at": "2026-08-03T06:03:16.187251Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 415,
+     "output_tokens": 152,
+     "cached_input_tokens": 192,
+     "cost": 0.000369
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:16.187251Z",
+     "ended_at": "2026-08-03T06:03:16.723380Z",
+     "parent_started_at": "2026-08-03T06:03:14.711146Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:16.723380Z",
+     "ended_at": "2026-08-03T06:03:18.009005Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 901,
+     "output_tokens": 27,
+     "cached_input_tokens": 0,
+     "cost": 0.000279
+    }
+   ]
+  },
+  "tw-00046": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:13.239006Z",
+   "ended_at": "2026-08-03T06:03:17.086490Z",
+   "reply": "Parcel TW80364793: handled.",
+   "message": "Why is TW80364793 late?",
+   "cost": 0.000621,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:13.239006Z",
+     "ended_at": "2026-08-03T06:03:15.127182Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 632,
+     "output_tokens": 82,
+     "cached_input_tokens": 0,
+     "cost": 0.000322
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:15.127182Z",
+     "ended_at": "2026-08-03T06:03:15.453588Z",
+     "parent_started_at": "2026-08-03T06:03:13.239006Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:15.453588Z",
+     "ended_at": "2026-08-03T06:03:16.886490Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 397,
+     "output_tokens": 100,
+     "cached_input_tokens": 0,
+     "cost": 0.000299
+    }
+   ]
+  },
+  "tw-00047": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:14.407295Z",
+   "ended_at": "2026-08-03T06:03:17.256161Z",
+   "reply": "Parcel TW99434294: handled.",
+   "message": "Parcel TW99434294 arrived damaged, what now?",
+   "cost": 0.000701,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:14.407295Z",
+     "ended_at": "2026-08-03T06:03:15.515798Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1013,
+     "output_tokens": 101,
+     "cached_input_tokens": 448,
+     "cost": 0.000366
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:15.515798Z",
+     "ended_at": "2026-08-03T06:03:15.655423Z",
+     "parent_started_at": "2026-08-03T06:03:14.407295Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:15.655423Z",
+     "ended_at": "2026-08-03T06:03:17.056161Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 397,
+     "output_tokens": 118,
+     "cached_input_tokens": 0,
+     "cost": 0.000335
+    }
+   ]
+  },
+  "tw-00048": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:19.052999Z",
+   "ended_at": "2026-08-03T06:03:26.741680Z",
+   "reply": "Parcel TW49015689: handled.",
+   "message": "Change the address for TW49015689 please.",
+   "cost": 0.002477,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:19.052999Z",
+     "ended_at": "2026-08-03T06:03:19.979754Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 921,
+     "output_tokens": 115,
+     "cached_input_tokens": 0,
+     "cost": 0.00046
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:19.979754Z",
+     "ended_at": "2026-08-03T06:03:20.036586Z",
+     "parent_started_at": "2026-08-03T06:03:19.052999Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:20.036586Z",
+     "ended_at": "2026-08-03T06:03:21.250971Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1058,
+     "output_tokens": 90,
+     "cached_input_tokens": 512,
+     "cost": 0.000342
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:21.250971Z",
+     "ended_at": "2026-08-03T06:03:21.473962Z",
+     "parent_started_at": "2026-08-03T06:03:20.036586Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:21.473962Z",
+     "ended_at": "2026-08-03T06:03:23.015655Z",
+     "parent_started_at": "2026-08-03T06:03:21.250971Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2300,
+     "output_tokens": 285,
+     "cached_input_tokens": 0,
+     "cost": 0.001146
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:23.015655Z",
+     "ended_at": "2026-08-03T06:03:23.307129Z",
+     "parent_started_at": "2026-08-03T06:03:21.250971Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:23.307129Z",
+     "ended_at": "2026-08-03T06:03:24.066410Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 605,
+     "output_tokens": 30,
+     "cached_input_tokens": 0,
+     "cost": 0.000211
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:24.066410Z",
+     "ended_at": "2026-08-03T06:03:24.614249Z",
+     "parent_started_at": "2026-08-03T06:03:23.307129Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:24.614249Z",
+     "ended_at": "2026-08-03T06:03:26.541680Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 794,
+     "output_tokens": 60,
+     "cached_input_tokens": 0,
+     "cost": 0.000318
+    }
+   ]
+  },
+  "tw-00049": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:24.551834Z",
+   "ended_at": "2026-08-03T06:03:27.852102Z",
+   "reply": "Parcel TW30817508: handled.",
+   "message": "Can you redeliver TW30817508 tomorrow?",
+   "cost": 0.000572,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:24.551834Z",
+     "ended_at": "2026-08-03T06:03:26.302964Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 982,
+     "output_tokens": 53,
+     "cached_input_tokens": 0,
+     "cost": 0.000352
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:26.302964Z",
+     "ended_at": "2026-08-03T06:03:26.438039Z",
+     "parent_started_at": "2026-08-03T06:03:24.551834Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:26.438039Z",
+     "ended_at": "2026-08-03T06:03:27.652102Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 366,
+     "output_tokens": 64,
+     "cached_input_tokens": 0,
+     "cost": 0.00022
+    }
+   ]
+  },
+  "tw-00050": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:03:29.783453Z",
+   "ended_at": "2026-08-03T06:03:38.525718Z",
+   "reply": null,
+   "message": "Parcel TW53682255 arrived damaged, what now?",
+   "cost": 0.002127,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:29.783453Z",
+     "ended_at": "2026-08-03T06:03:31.457579Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1375,
+     "output_tokens": 102,
+     "cached_input_tokens": 640,
+     "cost": 0.00042
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:31.457579Z",
+     "ended_at": "2026-08-03T06:03:31.599393Z",
+     "parent_started_at": "2026-08-03T06:03:29.783453Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:31.599393Z",
+     "ended_at": "2026-08-03T06:03:33.403721Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1003,
+     "output_tokens": 132,
+     "cached_input_tokens": 0,
+     "cost": 0.000515
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:33.403721Z",
+     "ended_at": "2026-08-03T06:03:33.799970Z",
+     "parent_started_at": "2026-08-03T06:03:31.599393Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:33.799970Z",
+     "ended_at": "2026-08-03T06:03:36.416197Z",
+     "parent_started_at": "2026-08-03T06:03:33.403721Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2000,
+     "output_tokens": 170,
+     "cached_input_tokens": 0,
+     "cost": 0.000872
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:36.416197Z",
+     "ended_at": "2026-08-03T06:03:36.573398Z",
+     "parent_started_at": "2026-08-03T06:03:33.403721Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:36.573398Z",
+     "ended_at": "2026-08-03T06:03:36.889774Z",
+     "parent_started_at": "2026-08-03T06:03:33.403721Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:36.889774Z",
+     "ended_at": "2026-08-03T06:03:38.525718Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 626,
+     "output_tokens": 82,
+     "cached_input_tokens": 0,
+     "cost": 0.00032
+    }
+   ]
+  },
+  "tw-00051": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:34.014448Z",
+   "ended_at": "2026-08-03T06:03:41.962934Z",
+   "reply": "Parcel TW34056017: handled.",
+   "message": "Why is TW34056017 late?",
+   "cost": 0.002337,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:34.014448Z",
+     "ended_at": "2026-08-03T06:03:35.319959Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 778,
+     "output_tokens": 38,
+     "cached_input_tokens": 0,
+     "cost": 0.00027
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:35.319959Z",
+     "ended_at": "2026-08-03T06:03:35.496092Z",
+     "parent_started_at": "2026-08-03T06:03:34.014448Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:35.496092Z",
+     "ended_at": "2026-08-03T06:03:36.424709Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1073,
+     "output_tokens": 30,
+     "cached_input_tokens": 0,
+     "cost": 0.000328
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:36.424709Z",
+     "ended_at": "2026-08-03T06:03:36.922130Z",
+     "parent_started_at": "2026-08-03T06:03:35.496092Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:36.922130Z",
+     "ended_at": "2026-08-03T06:03:39.490903Z",
+     "parent_started_at": "2026-08-03T06:03:36.424709Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2900,
+     "output_tokens": 275,
+     "cached_input_tokens": 0,
+     "cost": 0.00131
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:39.490903Z",
+     "ended_at": "2026-08-03T06:03:40.077490Z",
+     "parent_started_at": "2026-08-03T06:03:36.424709Z",
+     "tool_name": "geocode",
+     "status": "failed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:40.077490Z",
+     "ended_at": "2026-08-03T06:03:40.219447Z",
+     "parent_started_at": "2026-08-03T06:03:36.424709Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:40.219447Z",
+     "ended_at": "2026-08-03T06:03:41.762934Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 915,
+     "output_tokens": 100,
+     "cached_input_tokens": 0,
+     "cost": 0.000429
+    }
+   ]
+  },
+  "tw-00052": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:40.919593Z",
+   "ended_at": "2026-08-03T06:03:49.525535Z",
+   "reply": "Parcel TW80200710: handled.",
+   "message": "Where is parcel TW80200710?",
+   "cost": 0.001719,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:40.919593Z",
+     "ended_at": "2026-08-03T06:03:42.887468Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 512,
+     "output_tokens": 38,
+     "cached_input_tokens": 256,
+     "cost": 0.000153
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:42.887468Z",
+     "ended_at": "2026-08-03T06:03:43.240933Z",
+     "parent_started_at": "2026-08-03T06:03:40.919593Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:43.240933Z",
+     "ended_at": "2026-08-03T06:03:44.104092Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1133,
+     "output_tokens": 124,
+     "cached_input_tokens": 0,
+     "cost": 0.000531
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:44.104092Z",
+     "ended_at": "2026-08-03T06:03:44.651114Z",
+     "parent_started_at": "2026-08-03T06:03:43.240933Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:44.651114Z",
+     "ended_at": "2026-08-03T06:03:47.329751Z",
+     "parent_started_at": "2026-08-03T06:03:44.104092Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2250,
+     "output_tokens": 95,
+     "cached_input_tokens": 1100,
+     "cost": 0.000563
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:47.329751Z",
+     "ended_at": "2026-08-03T06:03:47.655482Z",
+     "parent_started_at": "2026-08-03T06:03:44.104092Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:47.655482Z",
+     "ended_at": "2026-08-03T06:03:49.325535Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1184,
+     "output_tokens": 88,
+     "cached_input_tokens": 0,
+     "cost": 0.000472
+    }
+   ]
+  },
+  "tw-00053": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:45.889777Z",
+   "ended_at": "2026-08-03T06:03:53.869184Z",
+   "reply": "Parcel TW26036077: handled.",
+   "message": "Where is parcel TW26036077?",
+   "cost": 0.002007,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:45.889777Z",
+     "ended_at": "2026-08-03T06:03:46.566874Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 910,
+     "output_tokens": 44,
+     "cached_input_tokens": 0,
+     "cost": 0.000316
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:46.566874Z",
+     "ended_at": "2026-08-03T06:03:47.149578Z",
+     "parent_started_at": "2026-08-03T06:03:45.889777Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:47.149578Z",
+     "ended_at": "2026-08-03T06:03:49.113920Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 692,
+     "output_tokens": 41,
+     "cached_input_tokens": 0,
+     "cost": 0.000255
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:49.113920Z",
+     "ended_at": "2026-08-03T06:03:49.447271Z",
+     "parent_started_at": "2026-08-03T06:03:47.149578Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:49.447271Z",
+     "ended_at": "2026-08-03T06:03:51.522045Z",
+     "parent_started_at": "2026-08-03T06:03:49.113920Z",
+     "model": "gpt-5.4",
+     "input_tokens": 1900,
+     "output_tokens": 205,
+     "cached_input_tokens": 0,
+     "cost": 0.000898
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:51.522045Z",
+     "ended_at": "2026-08-03T06:03:51.857314Z",
+     "parent_started_at": "2026-08-03T06:03:49.113920Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:51.857314Z",
+     "ended_at": "2026-08-03T06:03:52.310667Z",
+     "parent_started_at": "2026-08-03T06:03:49.113920Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:52.310667Z",
+     "ended_at": "2026-08-03T06:03:53.669184Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1177,
+     "output_tokens": 122,
+     "cached_input_tokens": 0,
+     "cost": 0.000538
+    }
+   ]
+  },
+  "tw-00054": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:50.850062Z",
+   "ended_at": "2026-08-03T06:03:54.665518Z",
+   "reply": "Parcel TW25807716: handled.",
+   "message": "Can you redeliver TW25807716 tomorrow?",
+   "cost": 0.001453,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:50.850062Z",
+     "ended_at": "2026-08-03T06:03:51.969684Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1352,
+     "output_tokens": 107,
+     "cached_input_tokens": 0,
+     "cost": 0.000552
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:51.969684Z",
+     "ended_at": "2026-08-03T06:03:52.231288Z",
+     "parent_started_at": "2026-08-03T06:03:50.850062Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:52.231288Z",
+     "ended_at": "2026-08-03T06:03:52.913333Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 805,
+     "output_tokens": 146,
+     "cached_input_tokens": 0,
+     "cost": 0.000493
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:52.913333Z",
+     "ended_at": "2026-08-03T06:03:53.187939Z",
+     "parent_started_at": "2026-08-03T06:03:52.231288Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:53.187939Z",
+     "ended_at": "2026-08-03T06:03:54.465518Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1048,
+     "output_tokens": 73,
+     "cached_input_tokens": 0,
+     "cost": 0.000408
+    }
+   ]
+  },
+  "tw-00055": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:51.480489Z",
+   "ended_at": "2026-08-03T06:03:58.208510Z",
+   "reply": "Parcel TW14915766: handled.",
+   "message": "Change the address for TW14915766 please.",
+   "cost": 0.002349,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:51.480489Z",
+     "ended_at": "2026-08-03T06:03:52.520959Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 859,
+     "output_tokens": 151,
+     "cached_input_tokens": 0,
+     "cost": 0.000517
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:52.520959Z",
+     "ended_at": "2026-08-03T06:03:52.900504Z",
+     "parent_started_at": "2026-08-03T06:03:51.480489Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:52.900504Z",
+     "ended_at": "2026-08-03T06:03:53.917639Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1269,
+     "output_tokens": 119,
+     "cached_input_tokens": 0,
+     "cost": 0.000555
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:53.917639Z",
+     "ended_at": "2026-08-03T06:03:54.121472Z",
+     "parent_started_at": "2026-08-03T06:03:52.900504Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:54.121472Z",
+     "ended_at": "2026-08-03T06:03:55.552786Z",
+     "parent_started_at": "2026-08-03T06:03:53.917639Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2000,
+     "output_tokens": 175,
+     "cached_input_tokens": 1000,
+     "cost": 0.00064
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:55.552786Z",
+     "ended_at": "2026-08-03T06:03:55.656095Z",
+     "parent_started_at": "2026-08-03T06:03:53.917639Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:55.656095Z",
+     "ended_at": "2026-08-03T06:03:56.822768Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1105,
+     "output_tokens": 44,
+     "cached_input_tokens": 0,
+     "cost": 0.000364
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:56.822768Z",
+     "ended_at": "2026-08-03T06:03:57.287385Z",
+     "parent_started_at": "2026-08-03T06:03:55.656095Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:57.287385Z",
+     "ended_at": "2026-08-03T06:03:58.008510Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 388,
+     "output_tokens": 107,
+     "cached_input_tokens": 192,
+     "cost": 0.000273
+    }
+   ]
+  },
+  "tw-00056": {
+   "status": "failed",
+   "started_at": "2026-08-03T06:03:55.479280Z",
+   "ended_at": "2026-08-03T06:04:04.374518Z",
+   "reply": null,
+   "message": "Where is parcel TW99149096?",
+   "cost": 0.002329,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:55.479280Z",
+     "ended_at": "2026-08-03T06:03:56.354449Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 498,
+     "output_tokens": 22,
+     "cached_input_tokens": 0,
+     "cost": 0.000168
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:56.354449Z",
+     "ended_at": "2026-08-03T06:03:56.814715Z",
+     "parent_started_at": "2026-08-03T06:03:55.479280Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:56.814715Z",
+     "ended_at": "2026-08-03T06:03:58.672621Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1219,
+     "output_tokens": 131,
+     "cached_input_tokens": 0,
+     "cost": 0.000567
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:03:58.672621Z",
+     "ended_at": "2026-08-03T06:03:59.269594Z",
+     "parent_started_at": "2026-08-03T06:03:56.814715Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:59.269594Z",
+     "ended_at": "2026-08-03T06:04:02.042530Z",
+     "parent_started_at": "2026-08-03T06:03:58.672621Z",
+     "model": "gpt-5.4",
+     "input_tokens": 3850,
+     "output_tokens": 185,
+     "cached_input_tokens": 1900,
+     "cost": 0.000995
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:02.042530Z",
+     "ended_at": "2026-08-03T06:04:02.313740Z",
+     "parent_started_at": "2026-08-03T06:03:58.672621Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:02.313740Z",
+     "ended_at": "2026-08-03T06:04:04.174518Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1180,
+     "output_tokens": 152,
+     "cached_input_tokens": 0,
+     "cost": 0.000599
+    }
+   ]
+  },
+  "tw-00057": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:03:58.230458Z",
+   "ended_at": "2026-08-03T06:04:01.974396Z",
+   "reply": "Parcel TW49899145: handled.",
+   "message": "Change the address for TW49899145 please.",
+   "cost": 0.000571,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:03:58.230458Z",
+     "ended_at": "2026-08-03T06:04:00.094205Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1133,
+     "output_tokens": 24,
+     "cached_input_tokens": 512,
+     "cost": 0.000229
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:00.094205Z",
+     "ended_at": "2026-08-03T06:04:00.461904Z",
+     "parent_started_at": "2026-08-03T06:03:58.230458Z",
+     "tool_name": "find_parcel",
+     "status": "failed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:00.461904Z",
+     "ended_at": "2026-08-03T06:04:01.774396Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 362,
+     "output_tokens": 126,
+     "cached_input_tokens": 0,
+     "cost": 0.000342
+    }
+   ]
+  },
+  "tw-00058": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:04:00.774191Z",
+   "ended_at": "2026-08-03T06:04:07.904818Z",
+   "reply": "Parcel TW47689031: handled.",
+   "message": "Change the address for TW47689031 please.",
+   "cost": 0.002363,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:00.774191Z",
+     "ended_at": "2026-08-03T06:04:01.559307Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1357,
+     "output_tokens": 59,
+     "cached_input_tokens": 640,
+     "cost": 0.000329
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:01.559307Z",
+     "ended_at": "2026-08-03T06:04:01.844872Z",
+     "parent_started_at": "2026-08-03T06:04:00.774191Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:01.844872Z",
+     "ended_at": "2026-08-03T06:04:02.568472Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 784,
+     "output_tokens": 117,
+     "cached_input_tokens": 0,
+     "cost": 0.00043
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:02.568472Z",
+     "ended_at": "2026-08-03T06:04:02.716478Z",
+     "parent_started_at": "2026-08-03T06:04:01.844872Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:02.716478Z",
+     "ended_at": "2026-08-03T06:04:04.200552Z",
+     "parent_started_at": "2026-08-03T06:04:02.568472Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2400,
+     "output_tokens": 135,
+     "cached_input_tokens": 0,
+     "cost": 0.000936
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:04.200552Z",
+     "ended_at": "2026-08-03T06:04:04.497839Z",
+     "parent_started_at": "2026-08-03T06:04:02.568472Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:04.497839Z",
+     "ended_at": "2026-08-03T06:04:05.726190Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 602,
+     "output_tokens": 75,
+     "cached_input_tokens": 256,
+     "cost": 0.000249
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:05.726190Z",
+     "ended_at": "2026-08-03T06:04:06.252181Z",
+     "parent_started_at": "2026-08-03T06:04:04.497839Z",
+     "tool_name": "notify_customer",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:06.252181Z",
+     "ended_at": "2026-08-03T06:04:07.704818Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 579,
+     "output_tokens": 137,
+     "cached_input_tokens": 0,
+     "cost": 0.000419
+    }
+   ]
+  },
+  "tw-00059": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:04:01.306937Z",
+   "ended_at": "2026-08-03T06:04:07.147791Z",
+   "reply": "Parcel TW21610385: handled.",
+   "message": "Why is TW21610385 late?",
+   "cost": 0.002218,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:01.306937Z",
+     "ended_at": "2026-08-03T06:04:02.124951Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1348,
+     "output_tokens": 127,
+     "cached_input_tokens": 0,
+     "cost": 0.000591
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:02.124951Z",
+     "ended_at": "2026-08-03T06:04:02.394402Z",
+     "parent_started_at": "2026-08-03T06:04:01.306937Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:02.394402Z",
+     "ended_at": "2026-08-03T06:04:03.045381Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1338,
+     "output_tokens": 113,
+     "cached_input_tokens": 0,
+     "cost": 0.00056
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:03.045381Z",
+     "ended_at": "2026-08-03T06:04:03.129521Z",
+     "parent_started_at": "2026-08-03T06:04:02.394402Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:03.129521Z",
+     "ended_at": "2026-08-03T06:04:05.218280Z",
+     "parent_started_at": "2026-08-03T06:04:03.045381Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2500,
+     "output_tokens": 210,
+     "cached_input_tokens": 1250,
+     "cost": 0.000786
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:05.218280Z",
+     "ended_at": "2026-08-03T06:04:05.469707Z",
+     "parent_started_at": "2026-08-03T06:04:03.045381Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:05.469707Z",
+     "ended_at": "2026-08-03T06:04:05.743856Z",
+     "parent_started_at": "2026-08-03T06:04:03.045381Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:05.743856Z",
+     "ended_at": "2026-08-03T06:04:06.947791Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 868,
+     "output_tokens": 32,
+     "cached_input_tokens": 0,
+     "cost": 0.000281
+    }
+   ]
+  },
+  "tw-00060": {
+   "status": "completed",
+   "started_at": "2026-08-03T06:04:03.102123Z",
+   "ended_at": "2026-08-03T06:04:10.672914Z",
+   "reply": "Parcel TW69985590: handled.",
+   "message": "Can you redeliver TW69985590 tomorrow?",
+   "cost": 0.002051,
+   "nodes": [
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:03.102123Z",
+     "ended_at": "2026-08-03T06:04:04.812286Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1016,
+     "output_tokens": 35,
+     "cached_input_tokens": 0,
+     "cost": 0.000324
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:04.812286Z",
+     "ended_at": "2026-08-03T06:04:05.167716Z",
+     "parent_started_at": "2026-08-03T06:04:03.102123Z",
+     "tool_name": "find_parcel",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:05.167716Z",
+     "ended_at": "2026-08-03T06:04:06.571593Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 1046,
+     "output_tokens": 72,
+     "cached_input_tokens": 0,
+     "cost": 0.000406
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:06.571593Z",
+     "ended_at": "2026-08-03T06:04:06.672811Z",
+     "parent_started_at": "2026-08-03T06:04:05.167716Z",
+     "tool_name": "plan_route",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:06.672811Z",
+     "ended_at": "2026-08-03T06:04:08.486546Z",
+     "parent_started_at": "2026-08-03T06:04:06.571593Z",
+     "model": "gpt-5.4",
+     "input_tokens": 2300,
+     "output_tokens": 155,
+     "cached_input_tokens": 0,
+     "cost": 0.000938
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:08.486546Z",
+     "ended_at": "2026-08-03T06:04:08.852383Z",
+     "parent_started_at": "2026-08-03T06:04:06.571593Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "tool_call",
+     "started_at": "2026-08-03T06:04:08.852383Z",
+     "ended_at": "2026-08-03T06:04:09.281349Z",
+     "parent_started_at": "2026-08-03T06:04:06.571593Z",
+     "tool_name": "geocode",
+     "status": "completed"
+    },
+    {
+     "type": "llm_call",
+     "started_at": "2026-08-03T06:04:09.281349Z",
+     "ended_at": "2026-08-03T06:04:10.472914Z",
+     "parent_started_at": null,
+     "model": "gpt-5.4-mini",
+     "input_tokens": 455,
+     "output_tokens": 154,
+     "cached_input_tokens": 192,
+     "cost": 0.000383
+    }
+   ]
+  }
+ }
+}

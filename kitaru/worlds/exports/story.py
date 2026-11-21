@@ -16,6 +16,14 @@ that log into Kitaru.
 `--plants invoice` adds one more thing the log does: the route planner asks a larger model itself, so some model calls
 have a tool call as their parent. Without it every file is byte for byte what it was before the option existed.
 
+`--plants messy` is the harder log (task I3h). It has the planner's model calls too, and:
+
+- the planner's calls go through the provider's batch gateway and their lines carry no `cost_microusd`; the cost has to be
+  worked out from the token counts and the price table in the format document
+- about 3 in 100 call lines are written twice (the writer retries after a timeout)
+- `hidden` only: half the conversations were written by the newer writer, which gives times as ISO 8601 strings with a UTC
+  offset. The sample has none of these; the format document describes them.
+
 One seeded plan produces every conversation as plain data; `events` renders it as log lines and
 `expected` as what Kitaru should hold after a correct import. No model is called.
 
@@ -38,6 +46,8 @@ from typing import Any
 START = datetime(2026, 8, 3, 6, 0, tzinfo=timezone.utc)
 MODEL = "gpt-5.4-mini"
 PLANNER_MODEL = "gpt-5.4"  # --plants invoice: the model the route planner calls
+PRICES = {MODEL: (0.25, 0.05, 2.0), PLANNER_MODEL: (0.3, 0.06, 1.6)}  # US dollars per million tokens: input, cached input, output
+OFFSETS = [0, 2, -5, 5.5]  # --plants messy: UTC offsets (hours) the newer writer's hosts use
 DEPOTS = ["Harbour Road", "Mill Lane", "Northgate", "Quayside"]
 ASKS = ["Where is parcel {p}?", "Can you redeliver {p} tomorrow?", "Parcel {p} arrived damaged, what now?", "Change the address for {p} please.", "Why is {p} late?"]
 SAMPLE_SEED, SAMPLE_N = 20260803, 60
@@ -47,7 +57,7 @@ def iso(t: datetime) -> str:
     return t.isoformat().replace("+00:00", "Z")
 
 
-def plan(seed: int, n: int, prefix: str, planner: bool = False, start: datetime = START, spread: bool = False) -> list[dict[str, Any]]:
+def plan(seed: int, n: int, prefix: str, planner: bool = False, start: datetime = START, spread: bool = False, batch: bool = False) -> list[dict[str, Any]]:
     """`n` conversations as structured data: each has spans (model calls and tool calls) with a parent.
     `planner`: the route planner makes a model call of its own, under the `plan_route` tool call. `spread`: bursts of
     overlapping conversations with hours between the bursts, so `n` conversations cover weeks, not minutes."""
@@ -84,7 +94,12 @@ def plan(seed: int, n: int, prefix: str, planner: bool = False, start: datetime 
         if rng.random() < 0.45:  # a route plan, whose tool calls the geocoder itself: a tool under a tool
             second = llm()
             route = tool("plan_route", second)
-            if planner:
+            if planner and batch:  # token counts chosen so the price table gives a whole number of millionths
+                tokens_in, tokens_out = rng.randrange(30, 80) * 50, rng.randrange(16, 60) * 5
+                cached = rng.choice([None, 0, tokens_in // 2 // 50 * 50])
+                span("llm", rng.uniform(1.0, 3.0), route, model=PLANNER_MODEL, tokens_in=tokens_in, tokens_out=tokens_out, cached=cached, batch=True,
+                     cost_microusd=round((tokens_in - (cached or 0)) * 0.3 + (cached or 0) * 0.06 + tokens_out * 1.6))
+            elif planner:
                 tokens_in, tokens_out = rng.randrange(1500, 4000), rng.randrange(80, 300)
                 span("llm", rng.uniform(1.0, 3.0), route, model=PLANNER_MODEL, tokens_in=tokens_in, tokens_out=tokens_out, cached=None, cost_microusd=round(tokens_in * 0.3 + tokens_out * 1.6))
             for _ in range(rng.choice([1, 1, 2])):
@@ -100,22 +115,31 @@ def plan(seed: int, n: int, prefix: str, planner: bool = False, start: datetime 
     return out
 
 
-def events(conversations: list[dict[str, Any]], seed: int, broken_lines: int) -> list[str]:
+def events(conversations: list[dict[str, Any]], seed: int, broken_lines: int, repeats: float = 0.0, iso_share: float = 0.0) -> list[str]:
     """The log file: every event of every conversation as one line, in time order, epoch seconds.
-    `broken_lines` extra lines are cut off part-way, as when the writer died mid-line."""
+    `broken_lines` extra lines are cut off part-way, as when the writer died mid-line. `repeats`: the share of call lines
+    written twice. `iso_share`: the share of conversations written by the newer writer (times as ISO 8601 with an offset)."""
     rows: list[tuple[datetime, dict[str, Any]]] = []
+    writer = random.Random(f"{seed}/writer")
     for c in conversations:
+        first = len(rows)
         rows.append((c["start"], {"conv": c["conv"], "kind": "start", "ts": c["start"].timestamp(), "customer_msg": c["message"], "channel": c["channel"]}))
         for s in c["spans"]:
             line = {"conv": c["conv"], "kind": s["kind"], "span": s["span"], "parent": s["parent"], "ts_start": s["start"].timestamp(), "ts_end": s["end"].timestamp()}
             if s["kind"] == "llm":
                 usage = {"in": s["tokens_in"], "out": s["tokens_out"]} | ({} if s["cached"] is None else {"cached": s["cached"]})
-                line |= {"model": s["model"], "usage": usage, "cost_microusd": s["cost_microusd"]}
+                line |= {"model": s["model"], "usage": usage} | ({} if s.get("batch") else {"cost_microusd": s["cost_microusd"]})
             else:
                 line |= {"tool": s["tool"], "ok": s["ok"], "args": s["args"], "result": s["result"]}
             rows.append((s["end"], line))  # a span is written when it finishes
         if c["outcome"]:
             rows.append((c["end"], {"conv": c["conv"], "kind": "end", "ts": c["end"].timestamp(), "outcome": c["outcome"]} | ({"reply": c["reply"]} if c["reply"] else {"error": c["error"]})))
+        if iso_share and writer.random() < iso_share:  # this conversation's host runs the newer writer
+            zone = timezone(timedelta(hours=writer.choice(OFFSETS)))
+            for _, line in rows[first:]:
+                line |= {"w": 2} | {k: datetime.fromtimestamp(line[k], tz=timezone.utc).astimezone(zone).isoformat() for k in ("ts", "ts_start", "ts_end") if k in line}
+    if repeats:
+        rows += [(at + timedelta(seconds=writer.uniform(0.01, 3)), line) for at, line in rows if "span" in line and writer.random() < repeats]
     rows.sort(key=lambda r: r[0])
     lines = [json.dumps(r, separators=(",", ":")) for _, r in rows]
     rng = random.Random(f"{seed}/broken")
@@ -152,17 +176,18 @@ def main() -> None:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--n", type=int, default=150)
-    ap.add_argument("--plants", default=None, choices=["invoice"], help="invoice: the route planner calls a model itself (a model call under a tool call)")
+    ap.add_argument("--plants", default=None, choices=["invoice", "messy"], help="invoice: the route planner calls a model itself (a model call under a tool call). messy: that, plus batch calls with no cost, repeated lines and, in `hidden`, ISO times")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
-    planner = a.plants == "invoice"
-    sample = plan(SAMPLE_SEED, SAMPLE_N, "tw", planner)
+    planner, messy = a.plants in ("invoice", "messy"), a.plants == "messy"
+    repeats = 0.03 if messy else 0.0
+    sample = plan(SAMPLE_SEED, SAMPLE_N, "tw", planner, batch=messy)
     if a.mode == "sample":
-        (a.out / "sample.log.jsonl").write_text("\n".join(events(sample, SAMPLE_SEED, 2)) + "\n")
+        (a.out / "sample.log.jsonl").write_text("\n".join(events(sample, SAMPLE_SEED, 2, repeats)) + "\n")
         print(json.dumps({"conversations": len(sample), "no_end": sum(c["outcome"] is None for c in sample), "errors": sum(c["outcome"] == "error" for c in sample)}))
     elif a.mode == "hidden":
-        hidden = plan(a.seed, a.n, "tx", planner)
-        (a.out / "hidden.log.jsonl").write_text("\n".join(events(hidden, a.seed, 3)) + "\n")
+        hidden = plan(a.seed, a.n, "tx", planner, batch=messy)
+        (a.out / "hidden.log.jsonl").write_text("\n".join(events(hidden, a.seed, 3, repeats, 0.5 if messy else 0.0)) + "\n")
         (a.out / "hidden_expected.json").write_text(json.dumps({"broken_lines": 3, "sessions": expected(hidden)}, indent=1))
         print(json.dumps({"conversations": len(hidden), "no_end": sum(c["outcome"] is None for c in hidden), "nested_tools": sum(s["kind"] == "tool" and s["tool"] == "geocode" for c in hidden for s in c["spans"])}))
     elif a.mode == "month":
