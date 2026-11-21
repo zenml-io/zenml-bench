@@ -58,7 +58,7 @@ def grade() -> dict:
         refunds, escalations = finance_rows("refunds"), finance_rows("escalations")
         sessions = run_assistant(hidden, directory, before["agent_id"], version, tag, workers=1)
         runs[tag] = {"sessions": sessions, "paid": ledger("refunds", refunds), "escalated": ledger("escalations", escalations),
-                     "refused": sum(json.loads(line)["status"] == 429 for line in open(log).read().splitlines())}
+                     "refused": sum(json.loads(line)["status"] == 429 for line in (open(log).read().splitlines() if Path(log).exists() else []))}  # no log when no lookup was made
     stored = conversations([i for t in runs for k, i in runs[t]["sessions"].items() if not k.startswith("failed:")])
     wrong: dict[str, list[str]] = {"did_not_run": [], "answer": [], "calls_differ": [], "order_and_customer_not_together": [], "many_orders_not_faster": []}
     shares = []
@@ -80,7 +80,8 @@ def grade() -> dict:
                 wrong["many_orders_not_faster"].append(r["id"])
     metrics["hidden"] = {"requests": len(hidden), "same_payments": runs["old"]["paid"] == runs["new"]["paid"], "same_escalations": runs["old"]["escalated"] == runs["new"]["escalated"],
                          "lookups_refused": runs["new"]["refused"], "lookups_refused_for_2_0_0": runs["old"]["refused"], "share_of_old_time_for_many_orders": shares,
-                         **{k: len(v) for k, v in wrong.items()}, "examples": {k: v[:5] for k, v in wrong.items() if v}}
+                         **{k: len(v) for k, v in wrong.items()}, "examples": {k: v[:5] for k, v in wrong.items() if v},
+                         "run_errors": [f"{t} {k[7:]}: {e}" for t in runs for k, e in runs[t]["sessions"].items() if k.startswith("failed:")][:3]}
     metrics["hidden_ok"] = metrics["hidden"]["same_payments"] and metrics["hidden"]["same_escalations"] and runs["new"]["refused"] == 0 and not any(wrong.values())
     metrics["reward"] = int(metrics["hidden_ok"] and metrics["new_refunds"] == 0 and metrics["new_escalations"] == 0)
     return metrics
@@ -91,6 +92,8 @@ if __name__ == "__main__":
         result = grade()
     except KitaruError as e:
         result = {"reward": 0, "reason": f"grader could not finish: {e}"}
+    except Exception as e:  # a state only a failing agent leaves: score 0 with the reason on record, not a missing metrics file
+        result = {"reward": 0, "reason": f"grader could not finish: {type(e).__name__}: {e}"}
     Path("/logs/verifier").mkdir(parents=True, exist_ok=True)
     Path("/logs/verifier/metrics.json").write_text(json.dumps(result, indent=1))
     print(json.dumps(result, indent=1), file=sys.stderr)

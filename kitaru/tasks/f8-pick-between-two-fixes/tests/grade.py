@@ -80,7 +80,8 @@ def grade() -> dict:
             wrong["did_not_run"].append(r["id"])
         elif paid.get(r["orders"][0], []) != owed:
             wrong["one_item" if r["kind"] == "partial" else "whole_order"].append(r["id"])
-    metrics["hidden"] = {"requests": len(hidden), "for_one_item": sum(r["kind"] == "partial" for r in hidden), **{f"wrong_{k}": len(v) for k, v in wrong.items()}, "examples": {k: v[:5] for k, v in wrong.items() if v}}
+    metrics["hidden"] = {"requests": len(hidden), "for_one_item": sum(r["kind"] == "partial" for r in hidden), **{f"wrong_{k}": len(v) for k, v in wrong.items()}, "examples": {k: v[:5] for k, v in wrong.items() if v},
+                         "run_errors": [f"{k[7:]}: {e}" for k, e in sessions.items() if k.startswith("failed:")][:3]}
     metrics["hidden_ok"] = not any(wrong.values())
     metrics["reward"] = int(metrics["evidence"]["ok"] and metrics["hidden_ok"] and metrics["new_refunds"] == 0 and metrics["new_escalations"] == 0)
     return metrics
@@ -91,6 +92,8 @@ if __name__ == "__main__":
         result = grade()
     except KitaruError as e:
         result = {"reward": 0, "reason": f"grader could not finish: {e}"}
+    except Exception as e:  # a state only a failing agent leaves: score 0 with the reason on record, not a missing metrics file
+        result = {"reward": 0, "reason": f"grader could not finish: {type(e).__name__}: {e}"}
     Path("/logs/verifier").mkdir(parents=True, exist_ok=True)
     Path("/logs/verifier/metrics.json").write_text(json.dumps(result, indent=1))
     print(json.dumps(result, indent=1), file=sys.stderr)

@@ -330,16 +330,29 @@ def serve_orders(data_path: str, tag: str) -> str:
 
 def run_assistant(requests: list[dict[str, Any]], release_dir: str, agent_id: str, version_id: str, tag: str, workers: int = 1) -> dict[str, str]:
     """Run the assistant in `release_dir` once per request, as user `grader`, `workers` conversations at a time. Each run is
-    live (the services receive its calls) and is recorded as the session `<request id>-<tag>`. Returns request id -> session id."""
+    live (the services receive its calls) and is recorded as the session `<request id>-<tag>`. Returns request id -> session id,
+    plus `failed:<request id>` -> why, for each run that exited with an error, could not start (a release directory that does
+    not exist) or did not finish in 300 seconds. After one run hangs, the rest are not started: a release that hangs once
+    would otherwise use up the verifier's whole time limit."""
     import os
     from concurrent.futures import ThreadPoolExecutor
 
+    hung: list[str] = []
+
     def one(r: dict[str, Any]) -> str | None:
+        if hung:
+            return f"not started: the conversation for {hung[0]} did not finish in 300 seconds"
         env = {"HOME": "/home/grader", "PATH": os.environ["PATH"], **{k: v for k, v in os.environ.items() if k.startswith("KITARU_") or k == "DO_NOT_TRACK"},
                "KITARU_AGENT_ID": agent_id, "KITARU_AGENT_VERSION_ID": version_id, "KITARU_SESSION_NAME": f"{r['id']}-{tag}"}
-        out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
-                             cwd=release_dir, capture_output=True, text=True, timeout=300)
-        return out.stderr[-300:] if out.returncode else None
+        try:
+            out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
+                                 cwd=release_dir, capture_output=True, text=True, timeout=300)
+        except subprocess.TimeoutExpired:
+            hung.append(r["id"])
+            return "did not finish in 300 seconds"
+        except OSError as e:
+            return f"could not start: {e}"
+        return (out.stderr[-300:] or f"exit code {out.returncode}") if out.returncode else None
 
     with ThreadPoolExecutor(workers) as pool:
         failed = {r["id"]: e for r, e in zip(requests, pool.map(one, requests)) if e}

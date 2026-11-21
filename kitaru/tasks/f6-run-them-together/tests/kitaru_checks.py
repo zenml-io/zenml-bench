@@ -330,16 +330,29 @@ def serve_orders(data_path: str, tag: str) -> str:
 
 def run_assistant(requests: list[dict[str, Any]], release_dir: str, agent_id: str, version_id: str, tag: str, workers: int = 1) -> dict[str, str]:
     """Run the assistant in `release_dir` once per request, as user `grader`, `workers` conversations at a time. Each run is
-    live (the services receive its calls) and is recorded as the session `<request id>-<tag>`. Returns request id -> session id."""
+    live (the services receive its calls) and is recorded as the session `<request id>-<tag>`. Returns request id -> session id,
+    plus `failed:<request id>` -> why, for each run that exited with an error, could not start (a release directory that does
+    not exist) or did not finish in 300 seconds. After one run hangs, the rest are not started: a release that hangs once
+    would otherwise use up the verifier's whole time limit."""
     import os
     from concurrent.futures import ThreadPoolExecutor
 
+    hung: list[str] = []
+
     def one(r: dict[str, Any]) -> str | None:
+        if hung:
+            return f"not started: the conversation for {hung[0]} did not finish in 300 seconds"
         env = {"HOME": "/home/grader", "PATH": os.environ["PATH"], **{k: v for k, v in os.environ.items() if k.startswith("KITARU_") or k == "DO_NOT_TRACK"},
                "KITARU_AGENT_ID": agent_id, "KITARU_AGENT_VERSION_ID": version_id, "KITARU_SESSION_NAME": f"{r['id']}-{tag}"}
-        out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
-                             cwd=release_dir, capture_output=True, text=True, timeout=300)
-        return out.stderr[-300:] if out.returncode else None
+        try:
+            out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
+                                 cwd=release_dir, capture_output=True, text=True, timeout=300)
+        except subprocess.TimeoutExpired:
+            hung.append(r["id"])
+            return "did not finish in 300 seconds"
+        except OSError as e:
+            return f"could not start: {e}"
+        return (out.stderr[-300:] or f"exit code {out.returncode}") if out.returncode else None
 
     with ThreadPoolExecutor(workers) as pool:
         failed = {r["id"]: e for r, e in zip(requests, pool.map(one, requests)) if e}
@@ -348,13 +361,10 @@ def run_assistant(requests: list[dict[str, Any]], release_dir: str, agent_id: st
     return found | {f"failed:{i}": e for i, e in failed.items()}
 
 
-def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
-    """Recorded conversations as a grader compares them, by session id: the tool calls in order (name, arguments, result, start
-    and end in seconds) and the assistant's last message with receipt and case numbers blanked, since those differ on every run.
-    Read through the Python client: the CLI's node list leaves the arguments and results out."""
+def read_sessions(session_ids: list[str]) -> list[dict[str, Any]]:
+    """Sessions with their nodes as Kitaru stores them ({"session": ..., "nodes": [...]}), in the order asked for. Read through
+    the Python client: the CLI's node list leaves the arguments and results out."""
     import asyncio
-    import re
-    from datetime import datetime
 
     from kitaru.client import KitaruAPIClient
 
@@ -367,12 +377,23 @@ def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
                     return (await client.sessions.get_with_nodes(i)).model_dump(mode="json")
             return await asyncio.gather(*(one(i) for i in session_ids))
 
+    return asyncio.run(fetch())
+
+
+def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
+    """Recorded conversations as a grader compares them, by session id: the tool calls in order (name, arguments, result, start
+    and end in seconds), the assistant's last message with receipt and case numbers blanked, since those differ on every run,
+    and the model parameters of each model call."""
+    import re
+    from datetime import datetime
+
     stamp = lambda t: datetime.fromisoformat(t.replace("Z", "+00:00")).timestamp() if t else None
     out = {}
-    for session_id, stored in zip(session_ids, asyncio.run(fetch())):
+    for session_id, stored in zip(session_ids, read_sessions(session_ids)):
         nodes = sorted(stored["nodes"], key=lambda n: n.get("started_at") or "")
         calls = [{"tool": n.get("tool_name"), "inputs": n.get("inputs"), "outputs": n.get("outputs"), "start": stamp(n.get("started_at")), "end": stamp(n.get("ended_at"))}
                  for n in nodes if n["node_type"] == "tool_call"]
         texts = [p.get("content") for n in nodes if n["node_type"] == "llm_call" for p in ((n.get("outputs") or {}).get("parts") or []) if p.get("part_kind") == "text"]
-        out[session_id] = {"calls": calls, "answer": re.sub(r"\b(rf|cs)_\w+", r"\1_#", texts[-1]) if texts else None}
+        out[session_id] = {"calls": calls, "answer": re.sub(r"\b(rf|cs)_\w+", r"\1_#", texts[-1]) if texts else None,
+                           "model_params": [n.get("model_params") for n in nodes if n["node_type"] == "llm_call"]}
     return out
