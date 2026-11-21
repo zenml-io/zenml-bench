@@ -1,0 +1,194 @@
+[
+ {
+  "id": "HID-001",
+  "order_id": "SO-10016",
+  "currency": "EUR",
+  "total_minor": 3273,
+  "items": 1,
+  "prompt": "The kettle in order SO-10016 arrived damaged. Please refund the order. My account is daniel.4@example.org."
+ },
+ {
+  "id": "HID-002",
+  "order_id": "SO-10523",
+  "currency": "EUR",
+  "total_minor": 36083,
+  "items": 3,
+  "prompt": "The notebook bundle in order SO-10523 arrived damaged. Please refund the order. My account is elena.4@example.org."
+ },
+ {
+  "id": "HID-003",
+  "order_id": "SO-10171",
+  "currency": "EUR",
+  "total_minor": 25355,
+  "items": 2,
+  "prompt": "The kettle in order SO-10171 arrived damaged. Please refund the order. My account is omar.6@example.org."
+ },
+ {
+  "id": "HID-004",
+  "order_id": "SO-10558",
+  "currency": "EUR",
+  "total_minor": 26553,
+  "items": 3,
+  "prompt": "The notebook bundle in order SO-10558 arrived damaged. Please refund the order. My account is sofia.4@example.org."
+ },
+ {
+  "id": "HID-005",
+  "order_id": "SO-10327",
+  "currency": "EUR",
+  "total_minor": 5490,
+  "items": 2,
+  "prompt": "The yoga mat in order SO-10327 arrived damaged. Please refund the order. My account is tomas.1@example.org."
+ },
+ {
+  "id": "HID-006",
+  "order_id": "SO-10631",
+  "currency": "EUR",
+  "total_minor": 30724,
+  "items": 1,
+  "prompt": "The yoga mat in order SO-10631 arrived damaged. Please refund the order. My account is kenji.2@example.org."
+ },
+ {
+  "id": "HID-007",
+  "order_id": "SO-10545",
+  "currency": "EUR",
+  "total_minor": 7283,
+  "items": 1,
+  "prompt": "The bluetooth speaker in order SO-10545 arrived damaged. Please refund the order. My account is omar.8@example.org."
+ },
+ {
+  "id": "HID-008",
+  "order_id": "SO-10177",
+  "currency": "EUR",
+  "total_minor": 2010,
+  "items": 1,
+  "prompt": "The kettle in order SO-10177 arrived damaged. Please refund the order. My account is daniel.6@example.org."
+ },
+ {
+  "id": "HID-009",
+  "order_id": "SO-10512",
+  "currency": "USD",
+  "total_minor": 47617,
+  "items": 1,
+  "prompt": "The desk lamp in order SO-10512 arrived damaged. Please refund the order. My account is omar.7@example.org."
+ },
+ {
+  "id": "HID-010",
+  "order_id": "SO-10687",
+  "currency": "USD",
+  "total_minor": 43490,
+  "items": 1,
+  "prompt": "The wool scarf in order SO-10687 arrived damaged. Please refund the order. My account is omar.1@example.org."
+ },
+ {
+  "id": "HID-011",
+  "order_id": "SO-10201",
+  "currency": "USD",
+  "total_minor": 42562,
+  "items": 2,
+  "prompt": "The backpack in order SO-10201 arrived damaged. Please refund the order. My account is daniel.5@example.org."
+ },
+ {
+  "id": "HID-012",
+  "order_id": "SO-10196",
+  "currency": "USD",
+  "total_minor": 30790,
+  "items": 1,
+  "prompt": "The ceramic mug set in order SO-10196 arrived damaged. Please refund the order. My account is aisha.7@example.org."
+ },
+ {
+  "id": "HID-013",
+  "order_id": "SO-10672",
+  "currency": "USD",
+  "total_minor": 18947,
+  "items": 2,
+  "prompt": "The running shoes in order SO-10672 arrived damaged. Please refund the order. My account is daniel.4@example.org."
+ },
+ {
+  "id": "HID-014",
+  "order_id": "SO-10810",
+  "currency": "USD",
+  "total_minor": 15476,
+  "items": 1,
+  "prompt": "The ceramic mug set in order SO-10810 arrived damaged. Please refund the order. My account is kenji.2@example.org."
+ },
+ {
+  "id": "HID-015",
+  "order_id": "SO-10706",
+  "currency": "GBP",
+  "total_minor": 13296,
+  "items": 1,
+  "prompt": "The bluetooth speaker in order SO-10706 arrived damaged. Please refund the order. My account is priya.2@example.org."
+ },
+ {
+  "id": "HID-016",
+  "order_id": "SO-10372",
+  "currency": "GBP",
+  "total_minor": 7556,
+  "items": 1,
+  "prompt": "The yoga mat in order SO-10372 arrived damaged. Please refund the order. My account is luca.4@example.org."
+ },
+ {
+  "id": "HID-017",
+  "order_id": "SO-10071",
+  "currency": "GBP",
+  "total_minor": 23932,
+  "items": 2,
+  "prompt": "The running shoes in order SO-10071 arrived damaged. Please refund the order. My account is ingrid.6@example.org."
+ },
+ {
+  "id": "HID-018",
+  "order_id": "SO-10648",
+  "currency": "GBP",
+  "total_minor": 47639,
+  "items": 1,
+  "prompt": "The linen shirt in order SO-10648 arrived damaged. Please refund the order. My account is aisha.2@example.org."
+ },
+ {
+  "id": "HID-019",
+  "order_id": "SO-10524",
+  "currency": "JPY",
+  "total_minor": 29752,
+  "items": 3,
+  "prompt": "The ceramic mug set in order SO-10524 arrived damaged. Please refund the order. My account is elena.2@example.org."
+ },
+ {
+  "id": "HID-020",
+  "order_id": "SO-10666",
+  "currency": "JPY",
+  "total_minor": 33219,
+  "items": 3,
+  "prompt": "The wool scarf in order SO-10666 arrived damaged. Please refund the order. My account is elena.8@example.org."
+ },
+ {
+  "id": "HID-021",
+  "order_id": "SO-10061",
+  "currency": "JPY",
+  "total_minor": 13668,
+  "items": 3,
+  "prompt": "The desk lamp in order SO-10061 arrived damaged. Please refund the order. My account is yuki.5@example.org."
+ },
+ {
+  "id": "HID-022",
+  "order_id": "SO-10428",
+  "currency": "JPY",
+  "total_minor": 33951,
+  "items": 1,
+  "prompt": "The bluetooth speaker in order SO-10428 arrived damaged. Please refund the order. My account is sofia.2@example.org."
+ },
+ {
+  "id": "HID-023",
+  "order_id": "SO-10354",
+  "currency": "JPY",
+  "total_minor": 28762,
+  "items": 3,
+  "prompt": "The backpack in order SO-10354 arrived damaged. Please refund the order. My account is freya.6@example.org."
+ },
+ {
+  "id": "HID-024",
+  "order_id": "SO-10012",
+  "currency": "JPY",
+  "total_minor": 24553,
+  "items": 1,
+  "prompt": "The desk lamp in order SO-10012 arrived damaged. Please refund the order. My account is daniel.3@example.org."
+ }
+]

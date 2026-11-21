@@ -1,0 +1,2 @@
+"""Larkspur Goods helpdesk assistant."""
+__version__ = "1.6.2"
