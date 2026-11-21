@@ -595,3 +595,17 @@ Shortcuts at 0: the politeness check's first six failures (all idle customers), 
 **Kitaru facts found.** `kitaru investigation create` refuses a linked session that has no `--session-question <session>:<key>=<text>`; `investigation get` takes an id only; `name` is not a filterable field for investigations; two investigations may share a name. Sent to the issues session.
 
 **Local four checks:** 9 scripts, all as expected.
+
+## 2026-11-21 — Kitaru world `exports` and I3, write an importer
+
+**The world.** Tidewater Couriers' dispatch assistant writes its own trace log: one JSON line per event (`start`, `llm`, `tool`, `end`), times in epoch seconds, cost in millionths of a dollar, spans that name their parent. `workspace/docs/trace-format.md` describes it; `workspace/logs/sample.log.jsonl` is 60 conversations. The image registers the agent `dispatch-agent` and imports nothing, so it builds in seconds. `story.py` plans conversations once and renders them twice: as log lines, and as what Kitaru should hold after a correct import (the grader's answer key).
+
+**What the log does that an importer must cope with,** each present in the visible sample as well as the hidden file: conversations overlap, so their lines are interleaved; a tool call made by another tool call; cached input tokens present on some model calls and the key absent on others; failed tool calls; conversations ending in error or with no `end` line at all; a few lines cut off mid-write.
+
+**I3.** Write an importer and register it as `tw-trace`. The instruction lists the six things Kitaru must hold afterwards. The grader starts its own worker, imports a hidden log of 150 conversations (seed 7341) through the latest registered version, reads every stored session with its nodes, and compares status, times to the millisecond, message and reply, each model call's model, tokens and cost, each tool call's name and status, and each node's parent. All 150 must be right. A root span above the top-level calls is accepted. The importer is the agent's code, so the grader's files are locked first.
+
+Shortcuts at 0: no parent links; cached tokens ignored (78 of 150 wrong); no handling of a broken line (the import job fails); lines filed under the most recent `start` (fails on interleaving); unfinished conversations dropped (6 missing) or stored as completed; cost left in millionths; an importer that parses the repository's sample whatever it is given; converting by hand and importing through the built-in JSONL importer (no `tw-trace` registered). The alternative registers a first version without parent links, imports the sample as a trial, then registers a second version that is right and adds a root span.
+
+**Kitaru facts found.** The custom importer guide's example imports `ParsedSession` and `ParsedNode` from `kitaru.task.importer`; in 0.27.7 those names do not exist (`ImportError`). `kitaru importer scaffold` writes the right ones, `ImportedSession` and `ImportedNode`. `kitaru importer test <script> --entrypoint parse --payload <file>` reports sessions and failures without a server. An `ImportFailure` yielded by the parser shows up as a warning on `session import` and in the importer task's result (`failed`, `failures[]`); the job still completes.
+
+**Local four checks:** 12 scripts, all as expected.

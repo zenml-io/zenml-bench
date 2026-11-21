@@ -1,6 +1,6 @@
 # Kitaru tasks
 
-Harbor tasks in which a coding agent has to use real Kitaru at a pinned version. In progress: ten tasks so far, all on the `storefront` world. The checks family: `c1-rule-from-builtins`, `c2-finding-to-check`, `c3-evaluator-is-wrong`, `c4-backfill-one-release`, `c5-agree-with-reviewers`, `c6-check-before-merge`. Four diagnosis tasks, where the answer is a Kitaru cohort (`d6-refunded-too-much`, `d7-slower-no-release`, `d9-retries-or-traffic`) or an investigation with verdicts (`d8-six-to-read`). Decisions and what each spike showed are in `docs/decisions.md` (entries dated 2026-11-20).
+Harbor tasks in which a coding agent has to use real Kitaru at a pinned version. In progress: eleven tasks so far, on two worlds. On `storefront`: The checks family: `c1-rule-from-builtins`, `c2-finding-to-check`, `c3-evaluator-is-wrong`, `c4-backfill-one-release`, `c5-agree-with-reviewers`, `c6-check-before-merge`. Four diagnosis tasks, where the answer is a Kitaru cohort (`d6-refunded-too-much`, `d7-slower-no-release`, `d9-retries-or-traffic`) or an investigation with verdicts (`d8-six-to-read`). On `exports` (a courier company's home-made trace log, no recorded history): `i3-write-an-importer`. Decisions and what each spike showed are in `docs/decisions.md` (entries dated 2026-11-20).
 
 ## Layout
 
