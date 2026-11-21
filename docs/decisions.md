@@ -693,3 +693,21 @@ Built after the second round showed that longer tasks and documented details do 
 - **Baseline:** 4, 4, 0 of 5. Both large-model failures read the REST cursor from the CLI's field name (`results/kitaru-level2.md`, "Third round").
 - **Kitaru fact found:** `kitaru session list -o json` returns the next cursor as `page.next_cursor`; `GET /api/v1/sessions` returns it as top-level `next_cursor`.
 
+
+## 2026-11-21 — Kitaru world `clinic` and diagnosis tasks D1 to D5
+
+**World.** `kitaru/worlds/clinic/`: Fernhill Vets, ten clinics, an appointment assistant (`booking-agent`, releases 1.1.0, 1.2.0, 1.3.0). `story.py` plans 3,211 conversations from 1 June to 20 July 2026 from one seed; the snapshot date is 20 July. All five tasks read the same history, with every plant in it, so one image serves all five. Nothing is taken from the private fixtures: the company, the tools, the numbers and the code are new; only the plan's one-line trap for each task is carried over.
+
+**The workspace is a repository with dated history.** `load.py` commits the workspace in five steps (1.1.0, 1.2.0, a prompt wording change, the configuration change, 1.3.0) with fixed dates, and writes the head commit and the configuration commit to `/etc/kitaru-bench/clinic.json`, root only. D3's grader reads the configuration commit from there; every grader uses the head to check that the agent committed nothing and changed no tracked file ("no changes to the agent's repository" in the proposal).
+
+| task | cohort | what belongs in it | also asked | the trap | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|---|---|
+| `d1-wrong-clinic` | `wrong-clinic-bookings` | 267 conversations where `book_appointment` was sent one clinic and came back confirmed at its similarly named neighbour | | the 14 complaints are other conversations; the reply repeats the clinic the customer asked for | 5 | 1 |
+| `d2-was-it-the-release` | `cost-rise` | 207 new-patient conversations a partner's portal has sent since 22 June | cause, from a closed list of eight | release 1.2.0 rolled out on the same days and costs what 1.1.0 did | 6 | 1 |
+| `d3-answers-cut-off` | `cut-off-answers` | 288 conversations whose reply hit the token limit, from 1 July | the commit, and the first day | no release; a configuration commit lowered `max_tokens` from 400 to 120 | 5 | 1 |
+| `d4-what-broke` | `failed-calls` | 61 conversations where `book_appointment` refused more than three animals | cause | nothing broke; timeouts were always there at the same rate; "fixing" the limit in the repository scores 0 | 6 | 1 |
+| `d5-did-the-hotfix-work` | `wrong-clinic-after-1-3-0` | the 98 of D1's conversations that release 1.3.0 served | | the release fixed the clinic search (two searches became one) and not the booking; an empty cohort is legal and wrong | 5 | 1 |
+
+**Kitaru fact confirmed:** the CLI prints a node's `model_params.max_tokens` as `***`; `GET /api/v1/sessions/{id}/nodes` returns the number. D3 can still be solved from the CLI (the reply's ending, output tokens of exactly 120), but the setting itself is only readable over REST or the Python client.
+
+**Local four checks:** 37 scripts across the five tasks, all as expected. A helper fix on the way: `kitaru cohort create` refuses an empty `--sessions-file`; a cohort with no members is created with no selection at all.
