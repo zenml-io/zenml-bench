@@ -681,3 +681,15 @@ C2 has no variant: its harder form is C5 (a rule that has to hold on unseen conv
 **A shortcut that was removed.** D8h had `stale_refund_check.sh`: run version 1 of `refund-issued-once`, which counts rejected refund calls, not the version `checks.txt` names. It scored 1. The `storefront` history has no conversation with a rejected refund call followed by an issued one, so the two versions fail the same conversations and the "shortcut" gives the right answer. The README's sentence about version 1 describes a case the history never plants. Follow-up, not done: plant that case in `storefront/story.py`; it changes the history, so C1 to C6 and D6 to D9 would need their checks re-run.
 
 **What a next variant should be built on.** The three properties that did separate the large models in the first round: a rule inferred from human verdicts that must hold on unseen cases (C5), a platform limit that only bites at a size the workspace does not hold (C6), and "find every one" over the whole history (D6, D7, D9). None of the four variants has one of these.
+
+## 2026-11-21 — I4h: I4 plus a stray-removal script graded on about 1,900 sessions
+
+Built after the second round showed that longer tasks and documented details do not separate the large models. I4h uses the property that did in C6: a platform limit that only bites at a size the workspace does not hold. Here the limit is the page size of a session listing (20 by default, 1,000 at most).
+
+- **Task.** I4's state, instruction and grader, plus requirement 4: `bin/remove_strays.sh` deletes every session under `support-assistant` whose external id does not start with `tidewater-support:` and nothing else; "the team will run it on the production workspace, where `support-assistant` has a few thousand sessions".
+- **Grader.** After I4's checks it writes two export files with the world's own generator (`tests/support_story.py` is a copy of `worlds/exports/support.py`; 9 MB of fixtures would otherwise sit in the repository), imports 500 tickets under the identity `support-2026-09-01` and then 1,200 under `tidewater-support`, and runs the script as the agent's user. Strays go in first, so they are the oldest and a single page of the newest sessions holds none. Reward needs I4's reward, exit 0, no stray left, no good session lost, the cohort still there. Verifier timeout raised to 1,800 s.
+- **Shortcuts at 0 (6):** I4's reference with no removal script; one page of 1,000; the default page of 20 in a loop; only the two stray identities seen in the workspace; delete everything Kitaru allows; both scripts right and the store never repaired. **Alternative at 1:** CLI listing 200 per page with the cursor followed, deletes over REST.
+- **Four checks on Modal** (`--job-prefix kv8`): reference 5 of 5, `nop` 0, six shortcuts 0, alternative 1.
+- **Baseline:** 4, 4, 0 of 5. Both large-model failures read the REST cursor from the CLI's field name (`results/kitaru-level2.md`, "Third round").
+- **Kitaru fact found:** `kitaru session list -o json` returns the next cursor as `page.next_cursor`; `GET /api/v1/sessions` returns it as top-level `next_cursor`.
+

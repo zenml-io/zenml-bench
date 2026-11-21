@@ -86,3 +86,19 @@ All 37 failures are `gpt-5.4-mini`. Read from each trial's `verifier/metrics.jso
 - **C1h, 1/5:** three trials stored no verdict from a built-in for either rule; one gave the lookup rule a verdict on 35 of 345 conversations.
 - **C7, 0/5:** two "corrected" versions fail nearly every conversation of the release (6 curt among 464 failed); three trials evaluated 5 to 20 conversations and stopped.
 - **D8h, 0/5:** two trials opened no investigation; three linked 0, 1 or 5 conversations, none of them one of the 23.
+
+## Third round: one variant built on a property that had separated the large models
+
+I4h, `i4h-strays-at-scale`, run on 2026-11-21, same setup. It is I4 plus one deliverable: `bin/remove_strays.sh`, which deletes every session under `support-assistant` whose external id does not start with `tidewater-support:`. The instruction says the script will run where the agent has "a few thousand sessions". The workspace holds 216. The grader imports 500 strays and then 1,200 good sessions (about 1,900 in all, the strays oldest) and runs the script.
+
+| task | Claude Code + `claude-sonnet-5-5` | Codex + `gpt-5.6-terra` | Codex + `gpt-5.4-mini` |
+|---|---|---|---|
+| I4h strays at scale (harder I4) | 4 | 4 | 0 |
+
+Spend US$3.48 for 15 trials. No infrastructure exception and no timeout. Median agent time 1.2 to 1.8 minutes.
+
+- **Both large-model failures are the same script.** It lists sessions over REST, 1,000 per page, in a loop that reads the next page's cursor from `.page.next_cursor`. That is where the CLI's JSON output puts it. The REST response has `next_cursor` at the top level. The loop therefore ends after one page; the 1,000 newest sessions hold no stray, and the script reports "deleted 0 stray sessions" with exit 0. On the 216 sessions in the workspace one page is everything, so the script worked when its author tried it.
+- **The eight passes** used the Python client's `sessions.iter()` or read the cursor from the right place.
+- **`gpt-5.4-mini`, 0/5:** every removal script left every stray in place; one crashed on a client argument that does not exist. Three of the five had also repaired the store by hand.
+- **Reading.** One failure in five for each large model is a small difference with five attempts, and I4 itself was 5 and 5. What it supports: the property that made C6 hard (a limit that only shows at a size the workspace does not hold) works a second time, where length and documented details did not. Unlike C6, most large-model trials got through, because one common route (the Python client) pages by itself.
+
