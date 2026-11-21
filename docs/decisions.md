@@ -756,3 +756,8 @@ Built after the second round showed that longer tasks and documented details do 
 - `client.sessions.iter()` and `kitaru session list` do not return a session's `outputs`; `session get` and `get_with_nodes` do.
 
 **Local four checks:** F1 9 scripts, F2 10, F3 8, F4 10, all as expected.
+
+**Four checks on Modal** (`--job-prefix kv10`): F1 to F4, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level3.md`): both large models 20 of 20; `gpt-5.4-mini` 4 of 20. In F1 the small model paid every customer in the cohort again in four trials of five.
+

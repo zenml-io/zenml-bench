@@ -8,7 +8,7 @@ description = "Symptom only: some refunds are far too large. Find the currency f
 [metadata]
 family = "replay"
 world = "helpdesk-live"
-difficulty_estimate = "unknown"
+difficulty_estimate = "easy"  # 2026-11-21 bare, k=5: sonnet-5.5, gpt-5.6-terra, gpt-5.4-mini = 5/5, 5/5, 3/5
 kitaru_version = "0.27.7"
 source = "docs/2026-11-20-kitaru-plan.md, task F3"
 conditions_supported = ["bare"]

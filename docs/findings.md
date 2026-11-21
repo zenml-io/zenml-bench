@@ -166,3 +166,13 @@ Table, the two corrections and failure notes in `results/kitaru-level2.md`, "Fou
 - **Five attempts do not rank two strong models here.** The same model on the same task moved by two passes in five between rounds.
 - **`ps` lies in this shell.** It lists four lines whatever is running; `pgrep` works. I restarted runs that were alive.
 
+## 2026-11-21 — Kitaru F1 to F4 (replay): sonnet-5.5 20/20, gpt-5.6-terra 20/20, gpt-5.4-mini 4/20
+
+Table and failure notes in `results/kitaru-level3.md`.
+
+- **A default that repeats side effects is the sharpest test in the set.** Kitaru's replay runs live tools unless told otherwise. In F1 the small model created all 32 replays correctly in every way the product reports (completed, right version, result sessions) and paid 32 to 42 customers again in four trials of five. Only a ledger outside Kitaru showed it. The large models never did it.
+- **For Kitaru:** the safest fix is in the product, not the docs: make `replay create` and `experiment create` refuse to run, or ask, when no tool policy is given and the agent version declares tools; or make the default `history` with a miss that fails. The docs already warn, in a hint box, and the small model did not read it.
+- **Right fix, no evidence.** In F2 the small model fixed the fault correctly five times of five and never produced an experiment that both completed and paid nobody. Fixing and proving are separate skills, and the second is the Kitaru one.
+- **An experiment that has runs keeps its replay settings** (409 on update). An agent that tries to repair a failing experiment in place gets nowhere; it has to make a new one. Worth a line in `kitaru experiment update --help`.
+- **Whether `on_miss: error_result` helps depends on the agent.** In the spike the agent carried on after a tool error and the replay completed; this world's assistant asks again and the replay fails. A benchmark cannot treat it as a generally valid route.
+
