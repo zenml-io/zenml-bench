@@ -1,0 +1,722 @@
+{
+ "hx-5e4fb1622f": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-7133a75bc4": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 1
+ },
+ "hx-4faa357e8c": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-bfe9176211": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-dd3898cdf8": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-1abd3d52be": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-1a18d82f02": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 4
+ },
+ "hx-5aeef17a2f": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-95730e1c6c": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-638488160e": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-7ca04f31c7": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-bc541b1080": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-125aeb5a11": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-baae5953a6": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-fcd2c0bab2": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-d38b6d2f69": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-f928260593": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-21ce737e8d": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-6724ff5200": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-ee8a2de158": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 5
+ },
+ "hx-52fffbecdb": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-b3bdd45977": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-f49bc5498a": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-f58d557d9b": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-473ed80b45": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e02a31c84d": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-b370b78a03": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-f502a60fce": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-bd443b873a": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 2
+ },
+ "hx-e2e7cd1192": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-73dc28df94": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-93350e12b9": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-3cace5e1f8": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-e88f7fa32b": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e3fc7bd5d8": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-0a36861728": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-d87ecbcbbc": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-5c32964db7": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-7d53595fda": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 2
+ },
+ "hx-699a969e25": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 1
+ },
+ "hx-2b2d90cb5a": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-dcf1caa928": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-069652a284": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-d389711403": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-34a7a2ead1": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 2
+ },
+ "hx-0262f7c5a9": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-36db010bf7": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-9f37bab37b": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-ea159d146d": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-34bd4a7332": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-691c2b55e2": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-ca59684d03": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 3
+ },
+ "hx-76a6362892": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-7e018f5af0": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-3c5fa3aca9": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-1b6cdd28a8": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-31952908ee": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 4
+ },
+ "hx-ba5c562326": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-d54a63d50a": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 4
+ },
+ "hx-1bbe2044ae": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8bd4a26a95": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-f439663c81": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 4
+ },
+ "hx-f7b428f3be": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-d34d096e49": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-a3ed83b524": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-c2a4378e99": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 3
+ },
+ "hx-21f6c7c557": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-cb44c564d3": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-30da25c7dc": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-18fddbd77f": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-fc2875d576": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-c1370c5b72": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 1
+ },
+ "hx-fc309e8000": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e7626484fa": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-42b5b5b67b": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-5500f1c927": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 4
+ },
+ "hx-f38133ab1a": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-ac05f416f1": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e8a17ecb88": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 4
+ },
+ "hx-e0650de948": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-5ae3631ba7": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-1a8e53841d": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-3b42fe5ff6": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-861919425d": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-9d06c20035": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-b61d458d61": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-c51ca3d263": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8e740f56c6": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-fd0799c14e": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-d8148ae831": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8a0a037e77": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8eb96a9479": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-3dc68b685e": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-b3e6f6b867": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-409f2f09de": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-93edbcabcc": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-9592a51c7d": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-2ed516946c": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8aa0f95599": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-6f912e1e41": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e459339fbd": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 3
+ },
+ "hx-a50032becc": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-cd62791cdb": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-f1eef9b0b9": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-c113f03799": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-26cc247db9": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 1
+ },
+ "hx-390a9e5fce": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 2
+ },
+ "hx-ac6e516270": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-cb22035977": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-b10a36251a": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-8a7b716118": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-dce5d389f9": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e9fa00bb73": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-e5f58ae805": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 2
+ },
+ "hx-4c71456410": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 1,
+  "lookups": 5
+ },
+ "hx-9ecb21810f": {
+  "should_fail": false,
+  "idle": false,
+  "variant": 0,
+  "lookups": 1
+ },
+ "hx-737b1c3103": {
+  "should_fail": true,
+  "idle": false,
+  "variant": 2,
+  "lookups": 1
+ },
+ "hx-afa1522296": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 3
+ },
+ "hx-38933cc674": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 0,
+  "lookups": 4
+ },
+ "hx-b1b55c1f28": {
+  "should_fail": false,
+  "idle": true,
+  "variant": 1,
+  "lookups": 1
+ }
+}

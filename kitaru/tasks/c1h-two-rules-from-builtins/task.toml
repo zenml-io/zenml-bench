@@ -1,0 +1,41 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/kitaru-c1h-two-rules-from-builtins"
+version = "0.1.0"
+description = "Harder variant of C1: two rules checked with two built-in evaluators over one week; the obvious parameter for the second rule leaves the rule breakers without a verdict. Graded on the evaluations Kitaru holds."
+
+[metadata]
+family = "checks"
+world = "storefront"
+difficulty_estimate = "unknown"
+kitaru_version = "0.27.7"
+source = "harder variant of C1 (docs/2026-11-20-kitaru-plan.md, section 11, Level 2 done bar)"
+conditions_supported = ["bare"]
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+# Starts as an allowlist, not "no-network": on Modal a sandbox created with no domain list cannot be given one later (decisions.md 2026-11-20).
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+cpus = 2
+memory_mb = 4096
+# Until the base image is on a registry, Modal builds everything from the Dockerfile the first time: over 10 minutes. Later runs reuse it.
+build_timeout_sec = 1800.0
+
+# Nothing in the image starts by itself. Harbor runs this as root before the agent, until it exits 0.
+[environment.healthcheck]
+command = "/opt/kitaru-bench/start.sh"
+interval_sec = 3.0
+start_interval_sec = 3.0
+start_period_sec = 180.0
+timeout_sec = 60.0
+retries = 3
+
+[agent]
+user = "agent"  # not root: the agent reaches Kitaru over HTTP and cannot open the database
+timeout_sec = 1800.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
