@@ -1,0 +1,7 @@
+You are working in `/app`, the repository of the team that runs the appointment assistant for a chain of veterinary clinics. `README.md` says where things are. Every conversation the assistant has had is recorded in a Kitaru workspace that is already running at `http://127.0.0.1:8000`; the `kitaru` CLI is installed and connected, and Kitaru's documentation is in `/opt/kitaru-docs`. The workspace is a snapshot taken on 20 July 2026 and holds the conversations of 1 June to 20 July 2026 for the agent `booking-agent`.
+
+Several customers have complained that their animal was booked in at a different clinic from the one they asked for, and they found out when they arrived.
+
+Find every booking this happened to, then record your answer: create a Kitaru cohort named `wrong-clinic-bookings`, for the agent `booking-agent`, that holds every conversation in which an appointment was booked at a clinic other than the one the customer asked for.
+
+How it is graded: the members of the cohort `wrong-clinic-bookings` as Kitaru has stored them when you finish: at least 90% of its members must be conversations that belong in it, and it must hold at least 90% of the conversations that belong in it. If the cohort has several versions, the latest one counts. Nothing you write to a file or say in your final message is graded. Do not delete or change any conversation, and do not change or commit anything in this repository.
