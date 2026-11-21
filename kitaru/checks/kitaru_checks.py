@@ -200,3 +200,41 @@ def read_answer_file(path: str, max_bytes: int = 20_000) -> dict[str, Any] | Non
     except (OSError, ValueError):
         return None
     return data if isinstance(data, dict) else None
+
+
+def ticket_problems(sessions: list[dict[str, Any]], want: dict[str, dict[str, Any]], project: str, version_ids: dict[str, str] | None = None) -> dict[str, str]:
+    """For Langfuse exports of a support assistant (world `exports`): what is wrong, per expected ticket, with the sessions
+    Kitaru holds. `want` maps a ticket id to its traces in order, call counts, cost and release; a ticket is right when exactly
+    one session has the external id `<project>:<ticket>`, was created by an import through the Langfuse importer, holds the
+    ticket's traces in order, and (when `version_ids` maps a release to an agent version id) sits under its release's version."""
+    by_external: dict[str, list[dict[str, Any]]] = {}
+    for s in sessions:
+        by_external.setdefault(s.get("external_id") or "", []).append(s)
+    problems = {}
+    for ticket, w in want.items():
+        found = by_external.get(f"{project}:{ticket}", [])
+        if len(found) != 1:
+            problems[ticket] = f"{len(found)} sessions with external id {project}:{ticket}"
+            continue
+        s = found[0]
+        if s.get("origin") != "imported" or s.get("imported_from") != "langfuse" or not s.get("import_id") or not s.get("task_id"):
+            problems[ticket] = "not created by an import through the Langfuse importer"
+        elif (s.get("metadata") or {}).get("langfuse.trace_ids") != w["traces"]:
+            problems[ticket] = "does not hold the ticket's turns in order"
+        elif (s.get("llm_call_count"), s.get("tool_call_count")) != (w["llm_calls"], w["tool_calls"]):
+            problems[ticket] = "model or tool call count"
+        elif abs(float(s.get("cost") or 0) - w["cost"]) > 1e-6:
+            problems[ticket] = "cost"
+        elif version_ids is not None and s.get("agent_version_id") != version_ids.get(w["release"]):
+            problems[ticket] = f"not under the version for release {w['release']}"
+    return problems
+
+
+def run_agent_script(script: str, *args: str, timeout: int = 900) -> dict[str, Any]:
+    """Run a script the agent left in /app, as user `agent` from /app, the way the team's scheduler would. Call
+    `start_grader_worker` first: it locks the grader's files and starts the worker that will run the script's jobs."""
+    try:
+        out = subprocess.run(["runuser", "-u", "agent", "--", "env", "HOME=/home/agent", "bash", script, *args], cwd="/app", capture_output=True, text=True, timeout=timeout)
+        return {"exit_code": out.returncode, "output_tail": (out.stdout + out.stderr)[-600:]}
+    except subprocess.TimeoutExpired:
+        return {"exit_code": None, "output_tail": f"did not finish in {timeout} s"}

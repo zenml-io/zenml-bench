@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "${APP_DIR:-/app}"
+# Shortcut: the script is repaired and the stray sessions deleted, but the two nights are never imported again, so the tickets that existed only as strays are gone. Must score 0.
+cat > bin/nightly_import.sh <<'SHEOF'
+#!/usr/bin/env bash
+# Nightly: import last night's Langfuse export into Kitaru. Cron runs this after the export job.
+set -euo pipefail
+FILE=${1:?usage: nightly_import.sh <export.jsonl>}
+kitaru session import "$FILE" --importer kitaru/langfuse@latest --agent support-assistant@latest \
+  --params '{"source_instance": "tidewater-support"}' --media-type application/x-ndjson --wait --timeout 900
+SHEOF
+python3 - <<'PY'
+import asyncio, json, subprocess
+from kitaru.client import KitaruAPIClient
+agent = json.loads(subprocess.run(["kitaru", "agent", "get", "support-assistant", "-o", "json"], capture_output=True, text=True).stdout)["item"]["id"]
+async def main():
+    async with KitaruAPIClient() as client:
+        strays = [s.id async for s in client.sessions.iter() if str(s.agent_id) == agent and not (s.external_id or "").startswith("tidewater-support:")]
+        for session in strays:
+            await client.sessions.delete(session)
+        print("deleted", len(strays))
+asyncio.run(main())
+PY

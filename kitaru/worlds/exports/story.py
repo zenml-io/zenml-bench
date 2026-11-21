@@ -11,6 +11,10 @@ that log into Kitaru.
     python story.py sample --out <dir>                 # sample.log.jsonl: the log the agent can read
     python story.py hidden --seed 7 --n 150 --out <dir>   # hidden.log.jsonl + hidden_expected.json for a grader
     python story.py history --out <dir>                # what sync_env.sh calls: an empty plan and the sample's expected sessions
+    python story.py month --plants invoice --out <dir>  # a whole month's log and what Kitaru should hold for it
+
+`--plants invoice` adds one more thing the log does: the route planner asks a larger model itself, so some model calls
+have a tool call as their parent. Without it every file is byte for byte what it was before the option existed.
 
 One seeded plan produces every conversation as plain data; `events` renders it as log lines and
 `expected` as what Kitaru should hold after a correct import. No model is called.
@@ -33,6 +37,7 @@ from typing import Any
 
 START = datetime(2026, 8, 3, 6, 0, tzinfo=timezone.utc)
 MODEL = "gpt-5.4-mini"
+PLANNER_MODEL = "gpt-5.4"  # --plants invoice: the model the route planner calls
 DEPOTS = ["Harbour Road", "Mill Lane", "Northgate", "Quayside"]
 ASKS = ["Where is parcel {p}?", "Can you redeliver {p} tomorrow?", "Parcel {p} arrived damaged, what now?", "Change the address for {p} please.", "Why is {p} late?"]
 SAMPLE_SEED, SAMPLE_N = 20260803, 60
@@ -42,13 +47,17 @@ def iso(t: datetime) -> str:
     return t.isoformat().replace("+00:00", "Z")
 
 
-def plan(seed: int, n: int, prefix: str) -> list[dict[str, Any]]:
-    """`n` conversations as structured data: each has spans (model calls and tool calls) with a parent."""
+def plan(seed: int, n: int, prefix: str, planner: bool = False, start: datetime = START, spread: bool = False) -> list[dict[str, Any]]:
+    """`n` conversations as structured data: each has spans (model calls and tool calls) with a parent.
+    `planner`: the route planner makes a model call of its own, under the `plan_route` tool call. `spread`: bursts of
+    overlapping conversations with hours between the bursts, so `n` conversations cover weeks, not minutes."""
     rng = random.Random(seed)
     out = []
-    clock = START
+    clock = start
     for number in range(1, n + 1):
         clock += timedelta(seconds=rng.uniform(0.5, 7))  # starts are close together, so conversations overlap
+        if spread and rng.random() < 0.2:
+            clock += timedelta(seconds=rng.uniform(3600, 50000))
         t = clock
         conv = f"{prefix}-{number:05d}"
         parcel = f"TW{rng.randrange(10**7, 10**8)}"
@@ -75,6 +84,9 @@ def plan(seed: int, n: int, prefix: str) -> list[dict[str, Any]]:
         if rng.random() < 0.45:  # a route plan, whose tool calls the geocoder itself: a tool under a tool
             second = llm()
             route = tool("plan_route", second)
+            if planner:
+                tokens_in, tokens_out = rng.randrange(1500, 4000), rng.randrange(80, 300)
+                span("llm", rng.uniform(1.0, 3.0), route, model=PLANNER_MODEL, tokens_in=tokens_in, tokens_out=tokens_out, cached=None, cost_microusd=round(tokens_in * 0.3 + tokens_out * 1.6))
             for _ in range(rng.choice([1, 1, 2])):
                 tool("geocode", route, ok=rng.random() > 0.1)
         if rng.random() < 0.3:
@@ -136,22 +148,30 @@ def expected(conversations: list[dict[str, Any]]) -> dict[str, Any]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["sample", "hidden", "history"])
+    ap.add_argument("mode", choices=["sample", "hidden", "history", "month"])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--n", type=int, default=150)
-    ap.add_argument("--plants", default=None, help="unused; accepted so sync_env.sh can call every world the same way")
+    ap.add_argument("--plants", default=None, choices=["invoice"], help="invoice: the route planner calls a model itself (a model call under a tool call)")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
-    sample = plan(SAMPLE_SEED, SAMPLE_N, "tw")
+    planner = a.plants == "invoice"
+    sample = plan(SAMPLE_SEED, SAMPLE_N, "tw", planner)
     if a.mode == "sample":
         (a.out / "sample.log.jsonl").write_text("\n".join(events(sample, SAMPLE_SEED, 2)) + "\n")
         print(json.dumps({"conversations": len(sample), "no_end": sum(c["outcome"] is None for c in sample), "errors": sum(c["outcome"] == "error" for c in sample)}))
     elif a.mode == "hidden":
-        hidden = plan(a.seed, a.n, "tx")
+        hidden = plan(a.seed, a.n, "tx", planner)
         (a.out / "hidden.log.jsonl").write_text("\n".join(events(hidden, a.seed, 3)) + "\n")
         (a.out / "hidden_expected.json").write_text(json.dumps({"broken_lines": 3, "sessions": expected(hidden)}, indent=1))
         print(json.dumps({"conversations": len(hidden), "no_end": sum(c["outcome"] is None for c in hidden), "nested_tools": sum(s["kind"] == "tool" and s["tool"] == "geocode" for c in hidden for s in c["spans"])}))
+    elif a.mode == "month":
+        month = plan(202608, 450, "ta", planner, start=datetime(2026, 8, 1, 0, 10, tzinfo=timezone.utc), spread=True)
+        (a.out / "2026-08.log.jsonl").write_text("\n".join(events(month, 202608, 4)) + "\n")
+        (a.out / "month_expected.json").write_text(json.dumps({"broken_lines": 4, "sessions": expected(month)}, indent=1))
+        total = sum(s.get("cost_microusd", 0) for c in month for s in c["spans"])
+        nested = sum(s.get("cost_microusd", 0) for c in month for s in c["spans"] if s["parent"] and s["kind"] == "llm")
+        print(json.dumps({"conversations": len(month), "first": iso(month[0]["start"]), "last": iso(month[-1]["start"]), "cost_usd": total / 1e6, "cost_of_calls_under_tools_usd": nested / 1e6, "share": round(nested / total, 3) if total else 0}))
     else:  # no recorded history in this world; the answer key for the visible sample goes to the grader's fixtures
         (a.out / "ground_truth.json").write_text(json.dumps({"sessions": 0, "by_version": {}, "sample": expected(sample)}, indent=1))
 

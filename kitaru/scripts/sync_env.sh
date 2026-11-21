@@ -5,7 +5,8 @@
 #   environment/Dockerfile   = FROM <the published base image, pinned by digest: base/IMAGE>
 #                              + worlds/<world>/Dockerfile.world + tasks/<task>/Dockerfile.task
 #   environment/world/       = the world's loader and its session files (generated here from story.py)
-#   environment/workspace/   = the world's workspace (what the agent sees in /app)
+#   environment/workspace/   = the world's workspace (what the agent sees in /app), with tasks/<task>/workspace/ laid over it if present
+#   environment/setup/       = tasks/<task>/setup/ if present, for the task's Dockerfile.task
 #   tests/fixtures/ground_truth.json = the world's answer key, for the grader only
 #
 # The world is named in tasks/<task>/world; tasks/<task>/plants, if present, is passed to the world's story as --plants. Run from the repo root after editing base/ or a world:
@@ -18,6 +19,10 @@ WORLD=$(tr -d '[:space:]' < "$TASK/world")
 ENV="$TASK/environment"
 rm -rf "$ENV"; mkdir -p "$ENV/world"
 cp -R "$ROOT/worlds/$WORLD/workspace" "$ENV/workspace"
+# tasks/<task>/workspace (optional): files laid over the world's workspace for this task only.
+if [ -d "$TASK/workspace" ]; then cp -R "$TASK/workspace/." "$ENV/workspace/"; fi
+# tasks/<task>/setup (optional): files the task's Dockerfile.task copies in to prepare Kitaru's state while the image is built.
+if [ -d "$TASK/setup" ]; then cp -R "$TASK/setup" "$ENV/setup"; fi
 cp "$ROOT/worlds/$WORLD/load.py" "$ENV/world/"
 if [ -d "$ROOT/worlds/$WORLD/old" ]; then cp -R "$ROOT/worlds/$WORLD/old" "$ENV/world/old"; fi
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
