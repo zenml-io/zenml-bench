@@ -609,3 +609,15 @@ Shortcuts at 0: no parent links; cached tokens ignored (78 of 150 wrong); no han
 **Kitaru facts found.** The custom importer guide's example imports `ParsedSession` and `ParsedNode` from `kitaru.task.importer`; in 0.27.7 those names do not exist (`ImportError`). `kitaru importer scaffold` writes the right ones, `ImportedSession` and `ImportedNode`. `kitaru importer test <script> --entrypoint parse --payload <file>` reports sessions and failures without a server. An `ImportFailure` yielded by the parser shows up as a warning on `session import` and in the importer task's result (`failed`, `failures[]`); the job still completes.
 
 **Local four checks:** 12 scripts, all as expected.
+
+## 2026-11-21 — D6 to D9 and I3: the four checks pass on Modal
+
+`uv run scripts/verify_task.py kitaru/tasks/<task> --env modal -n 5 --job-prefix kv5`. All five: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+| task | shortcuts at 0 | alternatives at 1 |
+|---|---|---|
+| `d6-refunded-too-much` | 5 | 1 |
+| `d7-slower-no-release` | 6 | 1 |
+| `d8-six-to-read` | 6 | 1 |
+| `d9-retries-or-traffic` | 5 | 1 |
+| `i3-write-an-importer` | 9 | 1 |
