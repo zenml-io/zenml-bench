@@ -35,6 +35,6 @@ retries = 3
 
 [agent]
 user = "agent"  # not root: the agent reaches Kitaru over HTTP and cannot open the database
-timeout_sec = 1800.0
+timeout_sec = 2700.0
 network_mode = "allowlist"
 allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]

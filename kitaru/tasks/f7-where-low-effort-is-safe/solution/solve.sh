@@ -23,7 +23,7 @@ def every(*args):
         if not cursor:
             return items
 async def _sessions(ids=None):
-    """Conversations with their tool calls in order: {"id", "name", "calls": [{"tool", "inputs", "outputs"}], "answer"}. Every recorded one unless `ids` is given."""
+    """Conversations with their tool calls in order: {"id", "name", "prompt", "calls": [{"tool", "inputs", "outputs"}], "answer"}. Every recorded one unless `ids` is given."""
     async with KitaruAPIClient() as client:
         ids = ids or [s.id async for s in client.sessions.iter() if str(s.origin).endswith("recorded")]
         gate = asyncio.Semaphore(8)
@@ -32,7 +32,7 @@ async def _sessions(ids=None):
                 d = (await client.sessions.get_with_nodes(i)).model_dump(mode="json")
                 nodes = sorted(d["nodes"], key=lambda n: n.get("started_at") or "")
                 texts = [p.get("content") for n in nodes if n["node_type"] == "llm_call" for p in ((n.get("outputs") or {}).get("parts") or []) if p.get("part_kind") == "text"]
-                return {"id": d["session"]["id"], "name": d["session"]["name"], "answer": re.sub(r"(rf|cs)_\w+", "#", texts[-1]) if texts else None,
+                return {"id": d["session"]["id"], "name": d["session"]["name"], "prompt": str(d["session"].get("inputs") or ""), "answer": re.sub(r"(rf|cs)_\w+", "#", texts[-1]) if texts else None,
                         "calls": [{"tool": n.get("tool_name"), "inputs": n.get("inputs"), "outputs": n.get("outputs")} for n in nodes if n["node_type"] == "tool_call"]}
         return await asyncio.gather(*(one(i) for i in ids))
 RECORDED = sorted(asyncio.run(_sessions()), key=lambda s: s["name"] or "")

@@ -348,13 +348,10 @@ def run_assistant(requests: list[dict[str, Any]], release_dir: str, agent_id: st
     return found | {f"failed:{i}": e for i, e in failed.items()}
 
 
-def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
-    """Recorded conversations as a grader compares them, by session id: the tool calls in order (name, arguments, result, start
-    and end in seconds) and the assistant's last message with receipt and case numbers blanked, since those differ on every run.
-    Read through the Python client: the CLI's node list leaves the arguments and results out."""
+def read_sessions(session_ids: list[str]) -> list[dict[str, Any]]:
+    """Sessions with their nodes as Kitaru stores them ({"session": ..., "nodes": [...]}), in the order asked for. Read through
+    the Python client: the CLI's node list leaves the arguments and results out."""
     import asyncio
-    import re
-    from datetime import datetime
 
     from kitaru.client import KitaruAPIClient
 
@@ -367,12 +364,23 @@ def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
                     return (await client.sessions.get_with_nodes(i)).model_dump(mode="json")
             return await asyncio.gather(*(one(i) for i in session_ids))
 
+    return asyncio.run(fetch())
+
+
+def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
+    """Recorded conversations as a grader compares them, by session id: the tool calls in order (name, arguments, result, start
+    and end in seconds), the assistant's last message with receipt and case numbers blanked, since those differ on every run,
+    and the model parameters of each model call."""
+    import re
+    from datetime import datetime
+
     stamp = lambda t: datetime.fromisoformat(t.replace("Z", "+00:00")).timestamp() if t else None
     out = {}
-    for session_id, stored in zip(session_ids, asyncio.run(fetch())):
+    for session_id, stored in zip(session_ids, read_sessions(session_ids)):
         nodes = sorted(stored["nodes"], key=lambda n: n.get("started_at") or "")
         calls = [{"tool": n.get("tool_name"), "inputs": n.get("inputs"), "outputs": n.get("outputs"), "start": stamp(n.get("started_at")), "end": stamp(n.get("ended_at"))}
                  for n in nodes if n["node_type"] == "tool_call"]
         texts = [p.get("content") for n in nodes if n["node_type"] == "llm_call" for p in ((n.get("outputs") or {}).get("parts") or []) if p.get("part_kind") == "text"]
-        out[session_id] = {"calls": calls, "answer": re.sub(r"\b(rf|cs)_\w+", r"\1_#", texts[-1]) if texts else None}
+        out[session_id] = {"calls": calls, "answer": re.sub(r"\b(rf|cs)_\w+", r"\1_#", texts[-1]) if texts else None,
+                           "model_params": [n.get("model_params") for n in nodes if n["node_type"] == "llm_call"]}
     return out

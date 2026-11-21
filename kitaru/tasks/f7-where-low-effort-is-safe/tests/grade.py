@@ -2,12 +2,12 @@
 reasoning effort low): none that ends differently, nothing that is not a recorded conversation, and at least 95 in 100 of those
 that do end the same way. Then looks for the proof: a completed experiment run over that cohort's latest version, against
 version 1, whose replays all carry the low-effort override and whose result conversations all end with the recorded answer.
-The finance service must have received no call."""
+The assistant's code must be untouched and the finance service must have received no call."""
 import json
 import sys
 from pathlib import Path
 
-from kitaru_checks import KitaruError, conversations, finance_rows, kitaru, list_all
+from kitaru_checks import KitaruError, conversations, finance_rows, kitaru, list_all, repo_changed
 
 FIXTURES = Path(__file__).parent / "fixtures"
 BEFORE, COHORT, SHARE = "/etc/kitaru-bench/helpdesk.json", "low-effort-safe", 0.95
@@ -44,7 +44,8 @@ def grade() -> dict:
     truth = json.loads((FIXTURES / "ground_truth.json").read_text())
     differ = set(truth["not_same_at_low_effort"])
     same = set(truth["requests"]) - differ
-    metrics: dict = {"new_refunds": finance_rows("refunds") - before["refund_rows"], "new_escalations": finance_rows("escalations") - before["escalation_rows"]}
+    metrics: dict = {"new_refunds": finance_rows("refunds") - before["refund_rows"], "new_escalations": finance_rows("escalations") - before["escalation_rows"],
+                     "assistant_untouched": not repo_changed(before["head"], "releases")}
     cohort = kitaru("cohort", "get", COHORT, check=False)
     if not cohort.get("ok") or not cohort["item"].get("latest_version"):
         return metrics | {"reward": 0, "reason": f"no cohort named {COHORT} with a version"}
@@ -56,7 +57,7 @@ def grade() -> dict:
                          "of": len(same), "share_found": round(len(names & same) / len(same), 4), "examples_that_end_differently": sorted(names & differ)[:8]}
     metrics["cohort_ok"] = not metrics["cohort"]["not_recorded_conversations"] and not metrics["cohort"]["end_differently"] and metrics["cohort"]["share_found"] >= SHARE
     metrics["proof"] = proof(version["id"], len(members), before["versions"]["2.0.0"])
-    metrics["reward"] = int(metrics["cohort_ok"] and metrics["proof"]["ok"] and metrics["new_refunds"] == 0 and metrics["new_escalations"] == 0)
+    metrics["reward"] = int(metrics["assistant_untouched"] and metrics["cohort_ok"] and metrics["proof"]["ok"] and metrics["new_refunds"] == 0 and metrics["new_escalations"] == 0)
     return metrics
 
 

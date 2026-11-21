@@ -71,7 +71,7 @@ def eligible(o: dict[str, Any], tier: str) -> bool:
     return o["status"] == "delivered" and o["days_since_delivery"] <= (45 if tier == "gold" else 30)
 
 
-def prompt(kind: str, ids: list[str], orders: dict[str, Any], guest: bool, rng: random.Random, item: str | None = None) -> str:
+def prompt(kind: str, ids: list[str], orders: dict[str, Any], guest: bool, rng: random.Random, item: str | None = None, plain: bool = False) -> str:
     first = orders[ids[0]]
     account = "I checked out as a guest." if guest else f"My account is {first['customer_email']}."
     if kind == "status":
@@ -80,7 +80,9 @@ def prompt(kind: str, ids: list[str], orders: dict[str, Any], guest: bool, rng: 
         return f"I want to dispute the charge for order {ids[0]}. {account}"
     if kind == "partial":
         return f"In order {ids[0]} only the {item} is wrong. Please refund only the {item}. {account}"
-    return rng.choice([f"My {first['items'][0]['name']} from order {ids[0]} is not what I expected. Please refund it.", f"Order {ids[0]} arrived damaged. Please refund the order."]) + f" {account}"
+    # `plain`: a history that also holds requests for one item names no item in a request for the whole order
+    named = f"Order {ids[0]} is not what I expected. Please refund the whole order." if plain else f"My {first['items'][0]['name']} from order {ids[0]} is not what I expected. Please refund it."
+    return rng.choice([named, f"Order {ids[0]} arrived damaged. Please refund the order."]) + f" {account}"
 
 
 def build(seed: int, n: int, first_order: int, prefix: str, plants: str | None, max_orders: int = 2, partial_weight: int = 18) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
@@ -102,7 +104,7 @@ def build(seed: int, n: int, first_order: int, prefix: str, plants: str | None, 
             orders[ids[-1]] = order(rng, kind, email)
         guest = kind in ("refund", "partial") and rng.random() < 0.09
         item = rng.choice(orders[ids[0]]["items"])["name"] if kind == "partial" else None
-        requests.append({"id": f"{prefix}-{i:04d}", "kind": kind, "orders": ids, "guest": guest, "item": item, "prompt": prompt(kind, ids, orders, guest, rng, item)})
+        requests.append({"id": f"{prefix}-{i:04d}", "kind": kind, "orders": ids, "guest": guest, "item": item, "prompt": prompt(kind, ids, orders, guest, rng, item, plain=plants == "partial")})
     return requests, orders, people
 
 

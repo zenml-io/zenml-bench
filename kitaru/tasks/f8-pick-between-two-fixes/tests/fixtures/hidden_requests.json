@@ -27,7 +27,7 @@
   ],
   "guest": false,
   "item": null,
-  "prompt": "My ceramic mug set from order SO-70017 is not what I expected. Please refund it. My account is aisha.5@example.org.",
+  "prompt": "Order SO-70017 is not what I expected. Please refund the whole order. My account is aisha.5@example.org.",
   "expected": {
    "refunded": false,
    "refund_minor": null,
@@ -521,7 +521,7 @@
   ],
   "guest": true,
   "item": null,
-  "prompt": "My ceramic mug set from order SO-70147 is not what I expected. Please refund it. I checked out as a guest.",
+  "prompt": "Order SO-70147 is not what I expected. Please refund the whole order. I checked out as a guest.",
   "expected": {
    "refunded": true,
    "refund_minor": 17311,
@@ -538,7 +538,7 @@
   ],
   "guest": true,
   "item": null,
-  "prompt": "My notebook bundle from order SO-70149 is not what I expected. Please refund it. I checked out as a guest.",
+  "prompt": "Order SO-70149 is not what I expected. Please refund the whole order. I checked out as a guest.",
   "expected": {
    "refunded": true,
    "refund_minor": 14998,
@@ -763,7 +763,7 @@
   ],
   "guest": false,
   "item": null,
-  "prompt": "My notebook bundle from order SO-70227 is not what I expected. Please refund it. My account is ingrid.5@example.org.",
+  "prompt": "Order SO-70227 is not what I expected. Please refund the whole order. My account is ingrid.5@example.org.",
   "expected": {
    "refunded": true,
    "refund_minor": 25446,
@@ -808,7 +808,7 @@
   ],
   "guest": false,
   "item": null,
-  "prompt": "My bluetooth speaker from order SO-70242 is not what I expected. Please refund it. My account is jonas.2@example.org.",
+  "prompt": "Order SO-70242 is not what I expected. Please refund the whole order. My account is jonas.2@example.org.",
   "expected": {
    "refunded": true,
    "refund_minor": 24242,
@@ -887,7 +887,7 @@
   ],
   "guest": false,
   "item": null,
-  "prompt": "My yoga mat from order SO-70255 is not what I expected. Please refund it. My account is tomas.6@example.org.",
+  "prompt": "Order SO-70255 is not what I expected. Please refund the whole order. My account is tomas.6@example.org.",
   "expected": {
    "refunded": false,
    "refund_minor": null,
@@ -938,7 +938,7 @@
   ],
   "guest": false,
   "item": null,
-  "prompt": "My desk lamp from order SO-70266 is not what I expected. Please refund it. My account is omar.4@example.org.",
+  "prompt": "Order SO-70266 is not what I expected. Please refund the whole order. My account is omar.4@example.org.",
   "expected": {
    "refunded": true,
    "refund_minor": 5077,
