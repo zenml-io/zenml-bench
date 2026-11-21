@@ -18,12 +18,12 @@ Passes out of 5:
 | I3 write an importer | importer for a home-made log, graded on a hidden log | 5 | 5 | 0 |
 | **total of 50** | | **41** | **39** | **4** |
 
-Spend about US$34 for 180 trials (the 150 above plus the first runs of C6 and D6, see below). Median cost per trial: `gpt-5.4-mini` US$0.06 to 0.12, `claude-sonnet-5-5` US$0.11 to 0.21, `gpt-5.6-terra` US$0.26 to 0.52. No infrastructure exception in any trial.
+Spend about US$37 for 180 trials (the 150 above plus the first runs of C6 and D6, see below). Median cost per trial: `gpt-5.4-mini` US$0.06 to 0.12, `claude-sonnet-5-5` US$0.11 to 0.21, `gpt-5.6-terra` US$0.26 to 0.52. No infrastructure exception in any trial.
 
 ## Two tasks changed after their first run
 
 - **C6.** First run 1 of 15. Fourteen scripts evaluated the whole cohort in one request; Kitaru refuses more than 100 session-evaluator pairs per request, the hidden cohorts hold 130 conversations, and the only cohort in the workspace holds 40. The instruction gave no size, so this was a requirement the agent could not see. One sentence was added ("expect a few hundred conversations in one cohort") and the task re-run: 2 of 15, the same failure in all 13. The table shows the re-run; the first run's rows are in `results/kitaru-c6-check-before-merge-first-instruction.jsonl`.
-- **D6.** First run 2 of 15, and the answer key was wrong. It held the 38 conversations where one refund call exceeded the order total. Seven of the eight strong-model trials that produced a cohort returned 49: those 38 plus 11 orders refunded twice in full. Twice the total went back, so they belong. The key now counts the total paid back, the instruction says "in total", the old reading is a shortcut that scores 0, the four checks were re-run on Modal, and the baseline was re-run. The table shows the re-run.
+- **D6.** First run 1 of 15 against the key as it then was (a second trial was graded after the correction), and the key was wrong. It held the 38 conversations where one refund call exceeded the order total. Eight of the nine strong-model trials that produced a cohort returned 49: those 38 plus 11 orders refunded twice in full. Twice the total went back, so they belong. The key now counts the total paid back, the instruction says "in total", the old reading is a shortcut that scores 0, the four checks were re-run on Modal, and the baseline was re-run. The table shows the re-run.
 
 ## What the failures were
 
@@ -36,7 +36,7 @@ Read from each failed trial's `verifier/metrics.json`; trajectories read where n
 - **C6, 13 of 15.** One `kitaru session evaluate --cohort ... --wait` for the whole cohort; exit 2 on all four hidden cohorts. The limit is stated in `guides/deterministic-evaluations.md`. No failing trial built a cohort larger than 100 to try its script on.
 - **D6, Sonnet 3/5: two trials hit the 30-minute limit** with no cohort created; the two slow passes took 22 minutes. `gpt-5.6-terra` took 2.5 minutes. `gpt-5.4-mini` built cohorts of 1 to 27 conversations with no affected one in them.
 - **D7.** `gpt-5.6-terra`'s one failure and two `gpt-5.4-mini` trials named the right cause and put the start one or two days late (10 or 11 July, when most conversations were affected, against 9 July when the first was). Sonnet's five passes took about 13 minutes each against 1.3 for `gpt-5.6-terra`.
-- **D8, `gpt-5.4-mini` 0/5:** conversations from outside the week (3 trials), conversations with no mistake marked problematic (2), verdicts never set (1).
+- **D8, `gpt-5.4-mini` 0/5:** conversations from outside the week (3 trials), conversations with no mistake marked problematic (2), verdicts never set (1); one trial did two of these.
 - **D9.** Both large models lost one trial the same way: the whole promotion day (166 or 172 conversations) in the second cohort, not the 120 the promotion brought.
 - **I3, `gpt-5.4-mini` 0/5:** three importers crashed on the hidden log (the import job failed, nothing stored); two trials never registered an importer.
 
