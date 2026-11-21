@@ -70,7 +70,7 @@ Two large-model failures, both the task working as meant:
 - **O2, 5 of 5 and O4, 5 of 5:** the hidden runs record nothing. Most often the entry point fails with "Session names no agent and no task to infer one from": the agent wrapped the chaser with Kitaru and never told it which agent the runs belong to. In O4, one kept `stream()`, which the adapter refuses, and one passed a dictionary where the adapter wants its policy object.
 - **O3, 3 of 5:** the registered command drops the customer message (two trials), or the working directory still points at a path that does not exist.
 
-Two graders crashed instead of writing `metrics.json` (F6 on the release that hangs, F8 on the directory that does not exist). The score of 0 is right in both; the reason has to be read from `verifier/grader.log`.
+In two of these trials the grader crashed instead of writing `metrics.json` (F6 on the release that hangs, F8 on the directory that does not exist). The score of 0 was right in both. Both graders were fixed afterwards: such a run now scores 0 with the reason in `metrics.json` under `run_errors`, and after one conversation hangs for 300 seconds the rest are not started.
 
 ## Reading
 
