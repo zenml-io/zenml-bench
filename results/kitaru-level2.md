@@ -1,4 +1,4 @@
-# Kitaru Level 2: first baseline on ten tasks
+# Kitaru Level 2: baselines (ten tasks, then eight more)
 
 Run on 2026-11-21 on Modal (workspace `zenml-io`, environment `dev`), Harbor 0.26.0, Kitaru 0.27.7, bare condition (CLI, SDK, offline docs; no skills, no MCP), 5 attempts per cell, 30-minute agent limit. Rows: `results/kitaru-<task>-baseline.jsonl`. Raw jobs: `jobs/kbaseline-*` and `jobs/kbaseline2-*` (not committed). C2 is in `results/kitaru-level1.md`.
 
@@ -46,3 +46,43 @@ Read from each failed trial's `verifier/metrics.json`; trajectories read where n
 - **Saturated for both large models: C1, C3, C4, D8, I3** (5 of 5 each). By the proposal's rule each needs a harder variant or moves to a regression list. C2 was already there.
 - **Hard for everyone: C5 and C6.** C5's trap is a rule stated in the README. C6's is a documented limit that only shows at a size the workspace does not contain.
 - Not done: the `+ skills` and `+ MCP` conditions; a read of every passing trajectory; a second model family for Claude Code.
+
+## Second round: four import tasks and four harder variants
+
+Run on 2026-11-21, same setup as above (Modal, Harbor 0.26.0, Kitaru 0.27.7, bare, 5 attempts per cell, 30-minute agent limit). Rows: `results/kitaru-<task>-baseline.jsonl`. Raw jobs: `jobs/kbaseline-*` (not committed).
+
+Passes out of 5:
+
+| task | what the agent must do | Claude Code + `claude-sonnet-5-5` | Codex + `gpt-5.6-terra` | Codex + `gpt-5.4-mini` |
+|---|---|---|---|---|
+| I1 import an export | register an agent with two releases and import a Langfuse export, each ticket under its release, under the right source identity | 5 | 5 | 0 |
+| I2 one ticket, one session | a script that imports a Langfuse export so one session is one ticket; graded on a hidden export too | 5 | 5 | 1 |
+| I4 nightly import twice | repair a nightly import script that began creating duplicates, and the store, keeping the sessions that were right | 5 | 5 | 0 |
+| I5 invoice does not match | find why Kitaru's cost is a third below the bill, register a corrected importer version, get the month right | 5 | 5 | 0 |
+| I3h messy log (harder I3) | importer for a log with batch calls that carry no cost, repeated lines, and a timestamp form the sample never shows | 5 | 5 | 1 |
+| C1h two rules from built-ins (harder C1) | two rules, two built-in evaluators, one week; the obvious parameter for the second rule gives the rule breakers no verdict | 5 | 5 | 1 |
+| C7 fix the check, then backfill (harder C3 and C4) | decide the check is wrong, register a corrected version, backfill one release, under a cap on results that counts every version | 5 | 5 | 0 |
+| D8h triage check failures (harder D8) | link all 23 conversations two checks fail in one week and say for each whether the check is right | 5 | 5 | 0 |
+| **total of 40** | | **40** | **40** | **3** |
+
+Spend US$27.86 for 120 trials. Median cost per trial: `gpt-5.4-mini` US$0.08, `claude-sonnet-5-5` US$0.17, `gpt-5.6-terra` US$0.33. No infrastructure exception and no timeout in any trial. Median agent time: under 2 minutes on every import task for all three models; about 5 to 7 minutes on the three `storefront` variants for the large models, except Sonnet on C1h at 13 minutes.
+
+### Reading
+
+- **Every one of the eight tasks separates the small model from the two large ones, and none separates the two large ones.** The four harder variants did not make their tasks harder for the large models: 30 of 30 on the variants, as on the tasks they came from.
+- **What the variants added, and how the large models met it.** I3h: a timestamp form that is in the format document and not in the sample; all ten large-model importers parse it. C1h: `require_requested_model_match` leaves `passed` empty for a dated variant of the requested model; seven of the ten large-model trials passed that parameter, and all ten also passed `allowed_models`, the one that states a failure. C7: a cap on results that counts every version; no large-model trial ran the old version at all (they read its source), and all ten ended with 464 to 760 results, every one from the corrected version, against a cap of 1,400. D8h: 23 conversations to link, each with a verdict; all ten investigations are exact.
+- **By the proposal's rule (section 11, Level 2 done bar) these eight go on the regression list, with C1, C2, C3, C4, D8 and I3.** They are still worth running: each one caught the small model, in a way one of its shortcuts predicted.
+- **What does separate the large models, across both rounds, is three things, and none of the eight has them:** a rule that has to be inferred from human verdicts and holds on unseen cases (C5: 3 and 0 of 5); a platform limit that only shows at a size the workspace does not contain (C6: 1 and 1); and "find every one" over the whole history, with a time limit (D6: 3 and 5; D7: 5 and 4; D9: 4 and 4). Longer chains of steps, and details stated in a document the agent is told to read, did not do it.
+
+### What the failures were
+
+All 37 failures are `gpt-5.4-mini`. Read from each trial's `verifier/metrics.json` and final message.
+
+- **I1, 0/5: tickets not split by release.** In four trials about half the tickets sit under the wrong version (46 to 48 of 90 right); one of those also holds a second copy of every ticket under another identity (180 sessions). One trial imported nothing. One final message says the file was imported for 1.4.0, then again for 1.5.0 where all 90 were "skipped as duplicates, so there are no extra sessions": nothing went under 1.5.0. Another says "verified the final state has 90 sessions under each version".
+- **I2, 1/5: the default grouping.** Two trials imported with the default grouping, so sessions follow the chat widget visit (78 sessions for 70 tickets, probes included); a third grouped wrongly another way (no ticket right). One wrote a correct script (hidden export 60 of 60) and left the day's export wrong (12 of 70 right).
+- **I4, 0/5: the strays are never deleted.** No trial removed a session. Two repaired the script: one of them also re-imported the two nights (every ticket present under the right identity, 96 strays left), the other left the store as it was. Three left the script wrong; two of those made more strays (312 and 432 sessions against 168 tickets).
+- **I5, 0/5: August untouched.** Three trials edited `importers/tw_trace.py` and registered nothing. Two registered a second version (one fully correct on the hidden log) and never re-imported: August still holds US$0.46 of US$0.67.
+- **I3h, 1/5:** four importers crashed on the hidden log (the import job failed, nothing stored).
+- **C1h, 1/5:** three trials stored no verdict from a built-in for either rule; one gave the lookup rule a verdict on 35 of 345 conversations.
+- **C7, 0/5:** two "corrected" versions fail nearly every conversation of the release (6 curt among 464 failed); three trials evaluated 5 to 20 conversations and stopped.
+- **D8h, 0/5:** two trials opened no investigation; three linked 0, 1 or 5 conversations, none of them one of the 23.

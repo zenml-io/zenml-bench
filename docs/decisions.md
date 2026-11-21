@@ -658,3 +658,26 @@ Four checks on Modal (`--job-prefix kv7`): all four tasks, reference 5 of 5, `no
 - No CLI command deletes a session. `DELETE /api/v1/sessions/{id}` and `client.sessions.delete(id)` do, and refuse (409) a session that a cohort version, investigation or replay refers to. I4 and I5 both depend on this: a re-import skips a session that exists and does not refresh it, so a wrong session has to be deleted before it can be imported again.
 - `kitaru agent delete NAME --force` hides the agent and leaves its sessions and cohorts in place under the old agent id; the name can be registered again and gets a new, empty agent.
 - With `--join-on`, a trace that has no value at the pointer fails by itself and the rest import. With the default grouping the Langfuse importer groups by `sessionId` and falls back to the trace id.
+
+## 2026-11-21 — four harder variants: I3h, C1h, C7, D8h; and what happened to them
+
+The Level 2 done bar says a task at 100 % on every model "gets a harder variant or moves to a regression list". After the first baseline that was C1, C2, C3, C4, D8 and I3 for the two large models. Four variants were built, each with one stated reason it should be harder.
+
+| variant | of | what is added | why it was expected to be harder | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|---|
+| `i3h-messy-log` | I3 | model calls made by a tool; batch calls with no cost on the line (price list in the format document); lines written twice; in the hidden log only, times as ISO 8601 with a UTC offset | the hidden log uses a form the format document describes and the sample never shows | 10 | 1 |
+| `c1h-two-rules-from-builtins` | C1 | a second rule: every model call served by exactly `gpt-5.4-mini`; the week of 9 to 15 July, on the history with the diagnosis plants | `kitaru/model-policy` with `require_requested_model_match` reports a hold (`passed` empty) for a dated variant; only `allowed_models` states a failure | 8 | 1 |
+| `c7-fix-check-then-backfill` | C3 and C4 | both tasks in one, the release's stored verdicts must be right, and at most 1,400 results from `polite-closing` counting every version | exploring with the old version over the history uses the cap up before the fix exists | 8 | 1 |
+| `d8h-triage-check-failures` | D8 | link all 23 conversations of the week that `polite-closing` or `refund-issued-once@2` fails, with `problematic` or `acceptable` on each | every flagged conversation, not three to six of the agent's choice; two checks; 359 conversations to evaluate, 100 per request | 8 | 1 |
+
+`exports/story.py` gained `--plants invoice` (I5) and `--plants messy` (I3h). Without the option every file it writes is byte for byte what it was; this was checked with `cmp` against I3's and I5's committed files after each change.
+
+C2 has no variant: its harder form is C5 (a rule that has to hold on unseen conversations), which already separates the models.
+
+**Four checks on Modal** (`--job-prefix kv7`): I3h, C1h and D8h: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1. C7: see the note under this entry.
+
+**Baseline** (`results/kitaru-level2.md`, "Second round"): both large models passed all four variants, 5 of 5 each; `gpt-5.4-mini` 1, 1, 0, 0. So the variants are not harder for the models they were built for, and by the same rule all four go on the regression list beside the tasks they came from. They stay in the set: each caught the small model.
+
+**A shortcut that was removed.** D8h had `stale_refund_check.sh`: run version 1 of `refund-issued-once`, which counts rejected refund calls, not the version `checks.txt` names. It scored 1. The `storefront` history has no conversation with a rejected refund call followed by an issued one, so the two versions fail the same conversations and the "shortcut" gives the right answer. The README's sentence about version 1 describes a case the history never plants. Follow-up, not done: plant that case in `storefront/story.py`; it changes the history, so C1 to C6 and D6 to D9 would need their checks re-run.
+
+**What a next variant should be built on.** The three properties that did separate the large models in the first round: a rule inferred from human verdicts that must hold on unseen cases (C5), a platform limit that only bites at a size the workspace does not hold (C6), and "find every one" over the whole history (D6, D7, D9). None of the four variants has one of these.
