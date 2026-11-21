@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "${APP_DIR:-/app}"
-# Shortcut: the timed-out calls, cause `upstream_outage`. They are as frequent as before. Must score 0.
+# Shortcut: the timed-out calls, cause `api_outage`. They are as frequent as before. Must score 0.
 python3 - <<'PY'
 import asyncio, json, re, subprocess, tempfile
 from collections import defaultdict
@@ -66,5 +66,5 @@ def wrong_clinic(r):
 rejected = lambda r: any(n["status"] == "failed" for n in tools(r, "book_appointment"))
 any_failed = lambda r: any(n["status"] == "failed" for n in r["nodes"] if n["node_type"] == "tool_call")
 cohort("failed-calls", [r for r in ROWS if any_failed(r) and not rejected(r)])
-answer({"cause": "upstream_outage"})
+answer({"cause": "api_outage"})
 PY

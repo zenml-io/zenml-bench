@@ -5,6 +5,12 @@ Since late June the share of conversations that contain a failed tool call has r
 Find out what the additional failures are, then record your answer:
 
 1. Create a Kitaru cohort named `failed-calls`, for the agent `booking-agent`, that holds every conversation with the kind of failure that accounts for the increase. Conversations with the kind of failure that was already happening before do not belong in it.
-2. Write `/app/answer.json` with one field, `cause`: one of `new_release`, `traffic_mix_changed`, `model_changed`, `retry_loop`, `config_changed`, `upstream_outage`, `expected_rejection`, `prompt_grew`.
+2. Write `/app/answer.json` with one field, `cause`, set to one of these:
+   - `api_outage`: the scheduling API was failing
+   - `tool_bug`: a tool rejects or mishandles requests it should accept
+   - `bad_release`: a release made the assistant call a tool wrongly
+   - `prompt_change`: changed instructions made the assistant call a tool wrongly
+   - `config_change`: a setting in `agent/config.yaml`
+   - `expected_rejection`: a tool refuses requests it has always refused, and is right to; nothing is broken
 
 How it is graded: the members of the cohort `failed-calls` as Kitaru has stored them when you finish, and the field of `/app/answer.json`. For the cohort: at least 90% of its members must be conversations that belong in it, and it must hold at least 90% of the conversations that belong in it. If the cohort has several versions, the latest one counts. The cause must be right. Do not delete or change any conversation, and do not change or commit anything in this repository except `/app/answer.json`.

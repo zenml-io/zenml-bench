@@ -66,5 +66,5 @@ def wrong_clinic(r):
 rejected = lambda r: any(n["status"] == "failed" for n in tools(r, "book_appointment"))
 any_failed = lambda r: any(n["status"] == "failed" for n in r["nodes"] if n["node_type"] == "tool_call")
 cohort("failed-calls", [r for r in ROWS if rejected(r)])
-answer({"cause": "upstream_outage"})
+answer({"cause": "api_outage"})
 PY

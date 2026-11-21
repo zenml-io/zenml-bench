@@ -6,16 +6,6 @@
   "1.2.0": 1089,
   "1.3.0": 804
  },
- "labels": [
-  "new_release",
-  "traffic_mix_changed",
-  "model_changed",
-  "retry_loop",
-  "config_changed",
-  "upstream_outage",
-  "expected_rejection",
-  "prompt_grew"
- ],
  "planted": {
   "wrong_clinic": [
    "cl-00832",

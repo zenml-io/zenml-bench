@@ -73,7 +73,7 @@ def build_repo() -> None:
     before_offer = before_cap | {"agent/prompt.md": swap(final["agent/prompt.md"], "- The litter check-up offer (from 27 June) covers one visit per litter; the limit of three animals per online booking still applies.\n", "")}
     first = before_offer | {"agent/VERSION": "1.1.0\n", "CHANGELOG.md": log[:log.index("## 1.3.0")] + log[log.index("## 1.1.0"):],
                             "agent/prompt.md": swap(before_offer["agent/prompt.md"], "- Greet briefly.\n", "- Greet the customer by name and thank them for choosing Fernhill Vets.\n")}
-    steps = [(first, "2026-05-29T09:00:00Z", "Appointment assistant 1.1.0"), (before_offer, "2026-06-20T16:30:00Z", "Release 1.2.0: shorter greeting, new-patient registration"),
+    steps = [(first, "2026-05-29T09:00:00Z", "Appointment assistant 1.1.0"), (before_offer, "2026-06-20T16:30:00Z", "Release 1.2.0: shorter greeting"),
              (before_cap, "2026-06-26T11:10:00Z", "prompt: wording for the litter check-up offer"), (before_13, "2026-07-01T08:05:00Z", "config: cap reply length to bring latency down"),
              (final, "2026-07-08T17:45:00Z", "Release 1.3.0: clinic search asks for the exact match first")]
     def git(*args: str, date: str | None = None) -> str:

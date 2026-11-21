@@ -21,7 +21,8 @@ What is planted (each is listed in ground_truth.json). The diagnosis tasks D1 to
 - `partner_referrals` (D2): from 22 June a partner's portal sends new patients. Registering an owner and
   their animals takes three times the model calls of an ordinary conversation, so cost per conversation rises
   by about a third. Release 1.2.0 rolled out over 21 to 25 June, the same days; its conversations cost what
-  1.1.0's did.
+  1.1.0's did, and 1.1.0 served new patients too while it was still live. The changelog must not credit the release
+  with the new-patient flow: a first baseline did, and half the large-model trials then named the release.
 - `cut_off` (D3): on 1 July a configuration commit lowered `max_tokens` from 400 to 120 with no release.
   From then on any reply that needs more is cut mid-sentence: care advice, and the summary a new patient gets.
 - `group_rejected` (D4): from 27 June a litter check-up offer makes customers try to book four or more
@@ -57,7 +58,6 @@ ADVICE = ["Please keep {pet} indoors and quiet for the rest of the day.", "Offer
           "Keep other animals in the house away for the first evening.", "Withhold food from eight in the evening before the operation, but leave water out."]
 SYSTEM_PROMPT = ("You are the appointment assistant for Fernhill Vets. Find the clinic the customer names, check availability, book, and confirm the clinic, "
                  "the time and the reference. At most three animals per appointment; larger groups book by phone.")
-LABELS = ["new_release", "traffic_mix_changed", "model_changed", "retry_loop", "config_changed", "upstream_outage", "expected_rejection", "prompt_grew"]
 
 
 def iso(t: datetime) -> str:
@@ -269,7 +269,7 @@ def main() -> None:
     def failed(days: range) -> float:
         rows = [r for c, r in pairs if c.day in days]
         return sum(any(n.get("status") == "failed" for n in r["nodes"]) for r in rows) / len(rows)
-    truth = {"snapshot_date": "2026-07-20", "sessions": len(pairs), "by_version": {v: sum(c.release == v for c, _ in pairs) for v in RELEASES}, "labels": LABELS,
+    truth = {"snapshot_date": "2026-07-20", "sessions": len(pairs), "by_version": {v: sum(c.release == v for c, _ in pairs) for v in RELEASES},
              "planted": {"wrong_clinic": ids(lambda c: c.wrong_clinic), "wrong_clinic_after_hotfix": ids(lambda c: c.wrong_clinic and c.release == "1.3.0"),
                          "partner_referrals": ids(lambda c: c.kind == "new_patient"), "cut_off": ids(lambda c: c.cut_off), "group_rejected": ids(lambda c: c.kind == "group"),
                          "complaints": ids(lambda c: c.kind == "complaint"), "timeouts": ids(lambda c: c.timeout and c.kind in ("book", "group", "hours", "reschedule", "new_patient"))},

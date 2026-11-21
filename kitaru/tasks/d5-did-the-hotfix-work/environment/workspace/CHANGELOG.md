@@ -7,7 +7,7 @@
 ## 1.2.0 (21 to 25 June 2026, rolled out over five days)
 
 - Shorter greeting.
-- New patients sent by a partner's portal can register and book in one conversation.
+- Clearer wording when the first slot offered is not free.
 
 ## 1.1.0 (29 May 2026)
 
