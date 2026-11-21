@@ -31,6 +31,7 @@ PLANTS=(); if [ -f "$TASK/plants" ]; then PLANTS=(--plants "$(tr -d '[:space:]' 
 python3 "$ROOT/worlds/$WORLD/story.py" history ${PLANTS[@]+"${PLANTS[@]}"} --out "$TMP" > /dev/null
 mkdir -p "$TASK/tests/fixtures"
 if [ -f "$TMP/reviewed.json" ]; then cp "$TMP/reviewed.json" "$ENV/world/reviewed.json"; fi   # verdicts the agent can see in Kitaru anyway
+if [ -f "$TMP/services_data.json" ]; then cp "$TMP/services_data.json" "$ENV/world/services_data.json"; fi   # what a world's own services read; root-only in the image
 cp "$TMP/ground_truth.json" "$TASK/tests/fixtures/ground_truth.json"   # the answer key goes to tests/ only, never into the image
 python3 - "$TMP" "$ENV/world" <<'PY'
 import gzip, json, pathlib, sys

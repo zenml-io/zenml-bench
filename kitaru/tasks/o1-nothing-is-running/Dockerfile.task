@@ -1,0 +1,7 @@
+
+# ---- task: o1-nothing-is-running ----
+# Writes the team's worker script, stops the worker that loaded the world, and leaves evaluations and replays waiting. The setup files are deleted afterwards.
+COPY setup/ /opt/setup/
+RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
+    bash /opt/setup/setup.sh; /opt/kitaru-bench/stop.sh; \
+    rm -rf /opt/setup /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*

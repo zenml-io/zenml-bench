@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "${APP_DIR:-/app}"
+# Reference: of the seven places where release 2.0.0 asks again, three never returned anything new in the recorded conversations: the order read again in a status request when it has several items,
+# the customer read again before a dispute is escalated, and the policy checked again before a refund is refused. Copy the release, remove those three, register the copy as version 2.
+# The other four stay: a read that timed out, a label with no scan yet, a parcel out for delivery (4 recorded conversations show it arrived in between) and the order read again before a refund is paid (6 show a credit landed in between).
+cp -R releases/2.0.0 releases/2.0.1
+find releases/2.0.1 -name __pycache__ -prune -exec rm -rf {} +
+sed -i 's/__version__ = "2.0.0"/__version__ = "2.0.1"/' releases/2.0.1/helpdesk/__init__.py
+python3 - <<'PY'
+from pathlib import Path
+p = Path("releases/2.0.1/helpdesk/planner.py"); s = p.read_text()
+def cut(old, new=""):
+    global s
+    assert s.count(old) == 1, old[:60]
+    s = s.replace(old, new)
+cut("""        if careful and len(order["items"]) > 1 and len([r for r in got("lookup_order", order_id=order_id) if "error" not in r]) < 2:
+            return "lookup_order", {"order_id": order_id}
+""")
+cut('if len(got("lookup_customer", email=email)) < 2:', 'if not got("lookup_customer", email=email):')
+cut("""        if careful and len(checks) < 2:
+            return "check_return_policy", {"order_id": order_id, "tier": tier}
+""")
+p.write_text(s)
+PY
+kitaru agent version register helpdesk-agent --display-version 2.0.1 --command "python -m helpdesk.agent" --working-dir /app/releases/2.0.1 --tool lookup_order --tool lookup_customer --tool check_return_policy --tool get_shipping_status --tool issue_refund --tool escalate_to_human -o json > /dev/null

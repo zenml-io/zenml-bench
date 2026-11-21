@@ -14,10 +14,12 @@ if [ "${BUILD:-0}" = 1 ] || ! docker image inspect "$IMAGE" > /dev/null 2>&1; th
   docker build -q -t "$IMAGE" "$TASK/environment" > /dev/null || { echo "image build failed" >&2; exit 1; }
 fi
 [ $# -gt 0 ] || set -- ""
+# Start the services the way the task's healthcheck does (a task may start them without a worker).
+START=$(sed -n 's/^command = "\(\/opt\/kitaru-bench\/start\.sh[^"]*\)"/\1/p' "$TASK/task.toml" | head -1); START=${START:-/opt/kitaru-bench/start.sh}
 for SCRIPT in "$@"; do
   C="kitaru-grade-$$-$RANDOM"
   docker run -d --name "$C" "$IMAGE" sleep infinity > /dev/null
-  for i in $(seq 40); do docker exec "$C" /opt/kitaru-bench/start.sh && break; sleep 2; done
+  for i in $(seq 40); do docker exec "$C" $START && break; sleep 2; done
   docker cp "$TASK/tests" "$C:/tests" > /dev/null
   if [ -n "$SCRIPT" ]; then
     docker exec "$C" mkdir -p /solution && docker cp "$SCRIPT" "$C:/solution/solve.sh" > /dev/null

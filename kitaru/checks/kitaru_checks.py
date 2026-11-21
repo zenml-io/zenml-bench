@@ -301,3 +301,86 @@ def verdict(session_id: str, evaluator_version_id: str) -> bool | None:
     """The newest verdict one evaluator version gave a session; None if it gave none."""
     rows = [e for e in list_all("evaluation", "list", "--filter", json.dumps({"field": "session_id", "op": "eq", "value": session_id})) if e.get("evaluator_version_id") == evaluator_version_id]
     return max(rows, key=lambda e: e["created"]).get("passed") if rows else None
+
+
+ORDERS = "/var/lib/helpdesk-orders"
+
+
+def serve_orders(data_path: str, tag: str) -> str:
+    """World `helpdesk-services`: stop the order service and start it on other orders with an empty memory.
+    Returns the path of its request log, one JSON line per request with the HTTP status it answered."""
+    import os
+    import urllib.request
+    subprocess.run(["pkill", "-f", "/opt/helpdesk/order_service.py"], capture_output=True)
+    time.sleep(0.5)
+    state, log = f"{ORDERS}/{tag}.json", f"{ORDERS}/{tag}-requests.jsonl"
+    for path in (state, log):
+        if os.path.exists(path):
+            os.remove(path)
+    out = open("/var/log/kitaru-bench/orders.log", "a")
+    subprocess.Popen([sys_python(), "/opt/helpdesk/order_service.py", "--data", data_path, "--state", state], cwd="/", stdout=out, stderr=subprocess.STDOUT, start_new_session=True)
+    for _ in range(40):
+        try:
+            urllib.request.urlopen("http://127.0.0.1:8092/health", timeout=2).read()
+            return log
+        except OSError:
+            time.sleep(0.5)
+    raise KitaruError("the order service did not start")
+
+
+def run_assistant(requests: list[dict[str, Any]], release_dir: str, agent_id: str, version_id: str, tag: str, workers: int = 1) -> dict[str, str]:
+    """Run the assistant in `release_dir` once per request, as user `grader`, `workers` conversations at a time. Each run is
+    live (the services receive its calls) and is recorded as the session `<request id>-<tag>`. Returns request id -> session id."""
+    import os
+    from concurrent.futures import ThreadPoolExecutor
+
+    def one(r: dict[str, Any]) -> str | None:
+        env = {"HOME": "/home/grader", "PATH": os.environ["PATH"], **{k: v for k, v in os.environ.items() if k.startswith("KITARU_") or k == "DO_NOT_TRACK"},
+               "KITARU_AGENT_ID": agent_id, "KITARU_AGENT_VERSION_ID": version_id, "KITARU_SESSION_NAME": f"{r['id']}-{tag}"}
+        out = subprocess.run(["runuser", "-u", "grader", "--", "env", "-i", *(f"{k}={v}" for k, v in env.items()), sys_python(), "-m", "helpdesk.agent", r["prompt"]],
+                             cwd=release_dir, capture_output=True, text=True, timeout=300)
+        return out.stderr[-300:] if out.returncode else None
+
+    with ThreadPoolExecutor(workers) as pool:
+        failed = {r["id"]: e for r, e in zip(requests, pool.map(one, requests)) if e}
+    names = {f"{r['id']}-{tag}": r["id"] for r in requests}
+    found = {names[s["name"]]: s["id"] for s in list_all("session", "list", "--origin", "recorded") if s.get("name") in names}
+    return found | {f"failed:{i}": e for i, e in failed.items()}
+
+
+def read_sessions(session_ids: list[str]) -> list[dict[str, Any]]:
+    """Sessions with their nodes as Kitaru stores them ({"session": ..., "nodes": [...]}), in the order asked for. Read through
+    the Python client: the CLI's node list leaves the arguments and results out."""
+    import asyncio
+
+    from kitaru.client import KitaruAPIClient
+
+    async def fetch() -> list[dict[str, Any]]:
+        async with KitaruAPIClient() as client:
+            gate = asyncio.Semaphore(8)
+
+            async def one(i: str) -> dict[str, Any]:
+                async with gate:
+                    return (await client.sessions.get_with_nodes(i)).model_dump(mode="json")
+            return await asyncio.gather(*(one(i) for i in session_ids))
+
+    return asyncio.run(fetch())
+
+
+def conversations(session_ids: list[str]) -> dict[str, dict[str, Any]]:
+    """Recorded conversations as a grader compares them, by session id: the tool calls in order (name, arguments, result, start
+    and end in seconds), the assistant's last message with receipt and case numbers blanked, since those differ on every run,
+    and the model parameters of each model call."""
+    import re
+    from datetime import datetime
+
+    stamp = lambda t: datetime.fromisoformat(t.replace("Z", "+00:00")).timestamp() if t else None
+    out = {}
+    for session_id, stored in zip(session_ids, read_sessions(session_ids)):
+        nodes = sorted(stored["nodes"], key=lambda n: n.get("started_at") or "")
+        calls = [{"tool": n.get("tool_name"), "inputs": n.get("inputs"), "outputs": n.get("outputs"), "start": stamp(n.get("started_at")), "end": stamp(n.get("ended_at"))}
+                 for n in nodes if n["node_type"] == "tool_call"]
+        texts = [p.get("content") for n in nodes if n["node_type"] == "llm_call" for p in ((n.get("outputs") or {}).get("parts") or []) if p.get("part_kind") == "text"]
+        out[session_id] = {"calls": calls, "answer": re.sub(r"\b(rf|cs)_\w+", r"\1_#", texts[-1]) if texts else None,
+                           "model_params": [n.get("model_params") for n in nodes if n["node_type"] == "llm_call"]}
+    return out
