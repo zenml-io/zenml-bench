@@ -131,7 +131,7 @@ Same lesson as D6 in the first round: when several strong trials agree on an ans
 - **Sonnet, all three (D1 once, D4 twice): the 30-minute limit, with no cohort created.** Its passing D4 trials took 1, 19 and 20 minutes. `gpt-5.6-terra` took about 2 minutes on every clinic task. Not read from the trajectories why; the same was seen on D6 and D7.
 - **`gpt-5.6-terra`, D5 once:** 127 members for 98. The extra 29 are group bookings that were refused: the test "the result's clinic differs from the one sent" is true when the result has no clinic at all.
 - **In the discarded rounds, two more kinds, both from the tasks as they are now:** D1 answered with the 13 complaints (the planted trap) or with 60 of the 269; D5 answered with an empty cohort (the planted trap) twice in ten.
-- **`gpt-5.4-mini`, 0 of 25.** D1: the complaints, every conversation in the history, or no cohort. D2: three trials named the right cause with a cohort of a quarter of the conversations or less. D3: four of five named the wrong commit, with cohorts from 5 to 1,347 members. D4: three built no cohort. D5: four empty cohorts.
+- **`gpt-5.4-mini`, 0 of 25.** D1: the complaints, every conversation in the history, or no cohort. D2: three trials named the right cause with a cohort of a quarter of the conversations or less. D3: all five named the right commit, and none built the cohort: one had no cohort, the others held 5, 85, 226 and 1,347 conversations for 288; three also gave a first day that was days late. D4: three built no cohort. D5: four empty cohorts.
 
 ### Reading
 
