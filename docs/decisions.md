@@ -629,3 +629,32 @@ Shortcuts at 0: no parent links; cached tokens ignored (78 of 150 wrong); no han
 **C6.** One sentence added to the instruction: cohorts hold a few hundred conversations. The grader and the four checks are unchanged. Baseline re-run as `kbaseline2-c6-*`; the first run's rows are kept in `results/kitaru-c6-check-before-merge-first-instruction.jsonl`.
 
 **Difficulty estimates** are set in each `task.toml` from this baseline (`results/kitaru-level2.md`).
+
+## 2026-11-21 — Kitaru import tasks I1, I2, I4, I5; a task can now lay files over its world and prepare Kitaru's state
+
+**Two additions to `kitaru/scripts/sync_env.sh`,** both optional, so every earlier task's `environment/` is byte for byte what it was:
+
+- `tasks/<task>/workspace/` is copied over the world's workspace. The import tasks need different files in `/app` (an export, a script, a README that describes them) on the same world.
+- `tasks/<task>/setup/` is copied to `environment/setup/`, and the task's `Dockerfile.task` runs `setup/setup.sh` against a live server and worker while the image is built. I2, I4 and I5 start from state that has to exist in Kitaru before the agent arrives (an agent, earlier imports, a cohort, a registered importer).
+
+**A second assistant on the `exports` world.** `kitaru/worlds/exports/support.py` writes Langfuse-shaped export files for Tidewater's support assistant (a ticket is one to four turns; Langfuse recorded each turn as one trace) and what Kitaru should hold after a correct import. No Langfuse is involved. The files were tried against the real `kitaru/langfuse` importer (0.5.0) before any task was written.
+
+**What a setup step records for the grader.** I4 and I5 write the ids of what existed before the agent started (sessions, the cohort, the importer version) to `/etc/kitaru-bench/<task>.json`, mode 600, owner root. The agent's user cannot read it; the grader uses it to tell "the same session" from "a deleted and re-imported copy".
+
+| task | what the agent must do | what is graded | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|
+| `i1-import-an-export` | register an agent with two releases; import a Langfuse trace export so each ticket lands under the release that produced it, with the Langfuse project as source identity | sessions under the agent: external ids, version, call counts, cost, created by a Langfuse import | 7 | 1 |
+| `i2-one-ticket-one-session` | write `bin/import_tickets.sh` so one session is one ticket; the export's `sessionId` is the chat widget visit, the ticket id is in metadata, probes have no ticket | the given export's sessions, then the script run on a hidden export | 7 | 1 |
+| `i4-nightly-import-twice` | a nightly script began naming the import's source after the file, so two nights created strays; repair the script and the store without losing the sessions that were right | the store against the nightly files and the recorded ids; the cohort; two runs of the script on the next night's file | 7 | 1 |
+| `i5-invoice-does-not-match` | Kitaru's cost for August is a third below the bill; the team's importer drops calls made by tools and never reads cached tokens; register a corrected version and get August right | August's 450 sessions node by node, then a hidden log through the latest version; version 1 still registered | 7 | 1 |
+
+Four checks on Modal (`--job-prefix kv7`): all four tasks, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Left out of I4.** The proposal's I4 also asked that insights be refreshed with `kitaru import analyze`. That part is not in the task: "insights were refreshed" has no outcome a grader can read without judging text, and the identity repair is already a full task.
+
+**Kitaru facts found** (sent to the issues session):
+
+- An import in which every record fails still reports `ok: true`, job `completed`, exit 0; the failures are a `warnings` list. I1's shortcut `no_identity.sh` is that case.
+- No CLI command deletes a session. `DELETE /api/v1/sessions/{id}` and `client.sessions.delete(id)` do, and refuse (409) a session that a cohort version, investigation or replay refers to. I4 and I5 both depend on this: a re-import skips a session that exists and does not refresh it, so a wrong session has to be deleted before it can be imported again.
+- `kitaru agent delete NAME --force` hides the agent and leaves its sessions and cohorts in place under the old agent id; the name can be registered again and gets a new, empty agent.
+- With `--join-on`, a trace that has no value at the pointer fails by itself and the rest import. With the default grouping the Langfuse importer groups by `sessionId` and falls back to the trace id.
