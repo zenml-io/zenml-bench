@@ -815,4 +815,4 @@ Alex chose Docker Hub (namespace `zenmldocker`): pulls of a public image there c
 - **Tasks.** `kitaru/base/IMAGE` now names `docker.io/zenmldocker/kitaru-bench-base:0.27.7-1@sha256:f8a65cef…`. `sync_env.sh` was run for all 37 tasks; the only change in each is the `FROM` line. All 37 then passed the four checks on Modal (job prefix `kv14`), with no pull-limit error from Docker Hub.
 - **Accounts line.** The 2026-11-20 entry no longer names the maintainer's accounts (Alex, 2026-11-22).
 
-**Open.** The Artifact Registry repository is still public and the private GHCR copy still exists. Removing them is Alex's call (`kitaru/README.md`, "Before this work is merged or published").
+**Old copies.** Alex said to remove public access from the Artifact Registry repository (2026-11-22): `gcloud artifacts repositories remove-iam-policy-binding kitaru-bench --project zenml-core --location us --member allUsers --role roles/artifactregistry.reader`. Its policy now has no bindings. The image is still stored there, and a private copy is still on GHCR; deleting either is Alex's call.

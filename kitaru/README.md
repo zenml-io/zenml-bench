@@ -57,4 +57,4 @@ A new repository on Docker Hub is public as soon as it is pushed, so the scans c
 
 Open items that must be settled first. Add to this list; do not let it go stale.
 
-- **Retire the two older copies of the base image.** The image moved to Docker Hub on 2026-11-22 with the same digest. The Artifact Registry repository in `zenml-core` is still public (downloads there are billed to the project) and a private copy is still on GHCR. To do, on Alex's word: remove the `allUsers` binding on the Artifact Registry repository and delete the GHCR copy.
+- **Delete the two older copies of the base image.** The image moved to Docker Hub on 2026-11-22 with the same digest. The Artifact Registry repository in `zenml-core` is private again (the `allUsers` binding was removed the same day), and a private copy is still on GHCR. Neither is used by any task. Deleting them is Alex's call.
