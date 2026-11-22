@@ -51,3 +51,24 @@ prime eval push results/prime-evals/harbor-b10-terminus2-qwen3.5-9b-bare --env z
 ```
 
 Wrapper re-push after the 0.1.1 fix (no `__all__` in 0.1.0, so the pushed environment could not be loaded; Dockerfile-only tasks now map to prebuilt images): `cd integrations/prime/zenml_bench && prime env push`.
+
+## Kitaru set (`zenml/kitaru-bench`), prepared 2026-11-22
+
+Decisions (2026-11-22, Alex): its own dataset `zenml/kitaru-bench`, version 0.1.0, all 37 tasks under `kitaru/tasks/`; Harbor Hub and Prime only, nothing on Hugging Face for now; baseline scores without transcripts. Nothing below has been run yet.
+
+How it differs from the ZenML set:
+
+- **These tasks do not run on Harbor's local Docker.** They ask for a network allow-list, which only a provider such as Modal enforces: `harbor run -d zenml/kitaru-bench@v0.1 --env modal -a <agent> -m <model>`. From the repo, with no Hub account: `harbor run --repo zenml-io/zenml-bench@kitaru-v0.1 -d kitaru-bench@0.1.0 --env modal ...`.
+- **The manifest is `kitaru/dataset.toml`**, not the one at the root. Run `harbor sync` in `kitaru/` after any task change.
+- **The git tag is `kitaru-v0.1`.** `v0.1` belongs to the ZenML set and does not move.
+- **Prime needs one image per task on a registry**, because each task's Dockerfile loads a recorded history: `zenmldocker/kitaru-bench-tasks:<task>-0.1.0` on Docker Hub, built by `kitaru/scripts/build_task_images.sh` and scanned with `kitaru/scripts/scan_image.py` before the push.
+- **`harbor upload` sends a whole job folder, transcripts included.** There is no scores-only upload to the Harbor Hub, so under the decision above the Harbor scores stay in `results/`. For Prime, `scripts/harbor_to_prime_eval.py` without `--transcripts` writes scores only.
+
+Order:
+
+1. Tag the merged commit: `git tag kitaru-v0.1 && git push origin kitaru-v0.1`.
+2. Harbor Hub, private first, tasks before the dataset: `harbor publish kitaru/tasks/* -t v0.1 --private`, then `harbor publish kitaru -t v0.1 --private`. Check with `harbor run -d zenml/kitaru-bench@v0.1 --env modal -a oracle` on one task, then make the 37 tasks and the dataset public.
+3. Task images: build for `linux/amd64` from a clean checkout of the tag, scan each, push to Docker Hub.
+4. Prime: `cd integrations/prime/kitaru_bench && prime env push`, check `vf-validate kitaru-bench` against the pushed images, then make it public.
+5. Prime scores: convert the baseline jobs without transcripts and `prime eval push` them.
+

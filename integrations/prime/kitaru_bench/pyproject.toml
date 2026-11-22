@@ -1,0 +1,20 @@
+[project]
+name = "kitaru-bench"
+description = "Coding agents check, diagnose, import, replay and set up agents with real Kitaru: 37 Harbor tasks graded on what Kitaru recorded, wrapped as a verifiers v1 taskset."
+tags = ["kitaru", "agents", "evals", "tracing", "harbor", "agentic", "terminal", "train", "eval"]
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "verifiers[harbor]>=0.4.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["kitaru_bench.py", "pyproject.toml"]
+
+[tool.verifiers.eval]
+num_examples = 37
+rollouts_per_example = 3

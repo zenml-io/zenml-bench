@@ -1,0 +1,161 @@
+# Dataset manifest for zenml/kitaru-bench
+# Add tasks using: harbor add <org>/<name>
+# Publish using: harbor publish
+
+[dataset]
+name = "zenml/kitaru-bench"
+version = "0.1.0"
+description = "Kitaru Bench v0.1: 37 Harbor tasks where coding agents check, diagnose, import, replay and set up agents with real Kitaru 0.27.7; graded on what Kitaru recorded. https://github.com/zenml-io/zenml-bench"
+keywords = [ "kitaru", "agents", "evals", "tracing", "replay",]
+[[dataset.authors]]
+name = "Alex Strick van Linschoten"
+
+
+[[tasks]]
+name = "zenml/kitaru-c1-rule-from-builtins"
+digest = "sha256:272fa8c71ceb20970850f28ebe859773e7db044426bbb93d711cae1b7fcb4ece"
+
+[[tasks]]
+name = "zenml/kitaru-c1h-two-rules-from-builtins"
+digest = "sha256:c1762c4579542444116e44cf814831ebe38a19b3ea50074386bb132e15462231"
+
+[[tasks]]
+name = "zenml/kitaru-c2-finding-to-check"
+digest = "sha256:9cfb3ae6d573172a0473991e9492e38e25962f37af469f15f81f415ac691e4b7"
+
+[[tasks]]
+name = "zenml/kitaru-c3-evaluator-is-wrong"
+digest = "sha256:423e9f4a7cfe59266e70b3ae251e75c81569565085bbad325d1c45e075601210"
+
+[[tasks]]
+name = "zenml/kitaru-c4-backfill-one-release"
+digest = "sha256:2e5cafc340181dba9c9ed3350c98f4c9fd1dfe26fd0bc9ed9ae9baffea6b0c99"
+
+[[tasks]]
+name = "zenml/kitaru-c5-agree-with-reviewers"
+digest = "sha256:78d416fdd226fec11e9ae1f2837e1bdc2806e0a6f1361fa991d39e24d9fd7e04"
+
+[[tasks]]
+name = "zenml/kitaru-c6-check-before-merge"
+digest = "sha256:e451d8ea25d13ef52ee724c62db29bbc4af6fafd5e61f74b500e3337d65446ba"
+
+[[tasks]]
+name = "zenml/kitaru-c7-fix-check-then-backfill"
+digest = "sha256:46c7a4f67e9c37bcb3b8a7240e0e08ea2b6288cbf0fe26d1475bf4fb3a774a78"
+
+[[tasks]]
+name = "zenml/kitaru-d1-wrong-clinic"
+digest = "sha256:eea09d09a289bc92ca7f610ec0b87cdc9b3566a500c4b9d6b6f9b8ffdbf2fcc5"
+
+[[tasks]]
+name = "zenml/kitaru-d2-was-it-the-release"
+digest = "sha256:b05a082252161681a6ad600ba8ee1c27de73ccf11e51c63f13b765a6b1478b4a"
+
+[[tasks]]
+name = "zenml/kitaru-d3-answers-cut-off"
+digest = "sha256:d34726a431132291758d62dd61dd10089a6c83e6cdd22da35da5e530b30ff0cb"
+
+[[tasks]]
+name = "zenml/kitaru-d4-what-broke"
+digest = "sha256:dbcbe83644f0b1e1766b7fe75428cc2f3bb0020dd668be4e99f8f94caea518e4"
+
+[[tasks]]
+name = "zenml/kitaru-d5-did-the-hotfix-work"
+digest = "sha256:2a6e57cba581d9ad3c126f94d0713bfd64b42f58ccd2f310ca3f46986987bdfd"
+
+[[tasks]]
+name = "zenml/kitaru-d6-refunded-too-much"
+digest = "sha256:a56895e7b4207a68fbe05f2338a6159067b470ab464af0a0b6ee9d4411d13048"
+
+[[tasks]]
+name = "zenml/kitaru-d7-slower-no-release"
+digest = "sha256:00d7dfd67d01ef856997952b27c3f534cf4fce02c329a060c21407f2eaaa2864"
+
+[[tasks]]
+name = "zenml/kitaru-d8-six-to-read"
+digest = "sha256:60b6dfbbc737198e27335c33638b48892774db41497170a15aec521a6bb6e832"
+
+[[tasks]]
+name = "zenml/kitaru-d8h-triage-check-failures"
+digest = "sha256:4712ac933c50efd854becf9b0e7fe6901ff981281193026e93b1886eb386c6cb"
+
+[[tasks]]
+name = "zenml/kitaru-d9-retries-or-traffic"
+digest = "sha256:0eed5cf9ec44cee890bff7cd5db58c7a06b0c752f62f5f71e25c3d8931c2e678"
+
+[[tasks]]
+name = "zenml/kitaru-f1-replay-without-refunding"
+digest = "sha256:9051cf4a094995a0013678dbb235b8381d42cf5c2e4787845ab585b5c0e2b61a"
+
+[[tasks]]
+name = "zenml/kitaru-f2-fix-euro-with-evidence"
+digest = "sha256:6dcdd20cd536047a0d061a6d67ad9308203d74e2f3db55b197285091e6408d2f"
+
+[[tasks]]
+name = "zenml/kitaru-f3-refunds-far-too-large"
+digest = "sha256:a53d9ed0e39e061e4a2ab7a913cda8cfe2023b4b62c2b64e0b64d51e8ea5da9c"
+
+[[tasks]]
+name = "zenml/kitaru-f4-experiment-keeps-failing"
+digest = "sha256:80267c2be144386fcd45bfba46525b2af570377336c9daeb891a5599e4ba1792"
+
+[[tasks]]
+name = "zenml/kitaru-f5-stop-asking-twice"
+digest = "sha256:82dd5bab61b24f3962360ddde41f82524499fad8544c7f7eff307282ada82f68"
+
+[[tasks]]
+name = "zenml/kitaru-f6-run-them-together"
+digest = "sha256:ead9d0324550214950a077b0bc4d8fa4dd1805c26acdd8bce8c343b60fcdfb9e"
+
+[[tasks]]
+name = "zenml/kitaru-f7-where-low-effort-is-safe"
+digest = "sha256:b4b85a9a51407edfc304474106c826b3bad08d5d835fcf4dfb134ae3b04be014"
+
+[[tasks]]
+name = "zenml/kitaru-f8-pick-between-two-fixes"
+digest = "sha256:209e07d43f92762d70f0c36140b42ed60e1ca8f4335c828ffe0ba92cc07fb8fe"
+
+[[tasks]]
+name = "zenml/kitaru-i1-import-an-export"
+digest = "sha256:4b6d672b6526e26b6299e98f9ba3bb587f1c26db9ff4a5a683a13cec833f644a"
+
+[[tasks]]
+name = "zenml/kitaru-i2-one-ticket-one-session"
+digest = "sha256:97718a975719a3eaba099251970da1e27b9b72c1e36bcadf43309ad5210627f0"
+
+[[tasks]]
+name = "zenml/kitaru-i3-write-an-importer"
+digest = "sha256:6f7f1794112f86ba04e92a3f64d8d4940d45d0561d6e02ed0e421aabac734b90"
+
+[[tasks]]
+name = "zenml/kitaru-i3h-messy-log"
+digest = "sha256:2ac37bf44b1fdd9ab73b6d49d0c6b49185b3dca026702690d248cbce125812cc"
+
+[[tasks]]
+name = "zenml/kitaru-i4-nightly-import-twice"
+digest = "sha256:ef367dd238a1173001a50104b6063ad2068e522e7a810b35c76a9cf23423b661"
+
+[[tasks]]
+name = "zenml/kitaru-i4h-strays-at-scale"
+digest = "sha256:648073f9d3ea934ca4f18a0e0c05f5bc7fbc4a8040eadfad110772d597f4d83a"
+
+[[tasks]]
+name = "zenml/kitaru-i5-invoice-does-not-match"
+digest = "sha256:7203fed6d562b9185d6129cd787705232ac0821d5f7f0b9053d856efcc431bcc"
+
+[[tasks]]
+name = "zenml/kitaru-o1-nothing-is-running"
+digest = "sha256:8fb4c10837fdb5dca8dafe4b425d7c663565a429520e276c0413051b919512e3"
+
+[[tasks]]
+name = "zenml/kitaru-o2-record-this-agent"
+digest = "sha256:ea90e97cf2bda06ce044a7896ce8280353be1d0c86b407a25e5cc36493a99e11"
+
+[[tasks]]
+name = "zenml/kitaru-o3-make-it-replayable"
+digest = "sha256:1f2462b98ec07f83b88bf961d5c5e651c0b4490ca3fc1c4bb9ed7692a3934f28"
+
+[[tasks]]
+name = "zenml/kitaru-o4-record-a-langgraph-agent"
+digest = "sha256:13bbed2b34866d70122144736f2964eb4c88642ff99e584c024ac83c3ded749b"
+

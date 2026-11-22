@@ -816,3 +816,26 @@ Alex chose Docker Hub (namespace `zenmldocker`): pulls of a public image there c
 - **Accounts line.** The 2026-11-20 entry no longer names the maintainer's accounts (Alex, 2026-11-22).
 
 **Old copies.** On Alex's word (2026-11-22) both are deleted. The Artifact Registry copy was first made private again (the `allUsers` binding removed) and then deleted with its repository: `gcloud artifacts repositories delete kitaru-bench --project zenml-core --location us`. It held only this image. Alex deleted the private GHCR package `kitaru-bench-base`. Docker Hub is now the only copy.
+
+## 2026-11-22 — publishing the Kitaru set: five decisions, and what a first test under Prime's runner showed
+
+Alex's decisions (2026-11-22), each asked as a choice between concrete arrangements:
+
+| question | decision |
+|---|---|
+| Name | `zenml/kitaru-bench`, its own dataset, version 0.1.0. The ZenML set stays frozen. |
+| Which tasks | All 37. No task is picked or dropped by how models scored. |
+| Hugging Face | Nothing for now. Harbor Hub and Prime only. |
+| Baseline results on the hubs | Scores only, no transcripts. |
+| Diagnosis tasks, which measure what the hosted AI engineer does | Published as they are, with their real numbers. |
+
+**Test under Prime's runner (verifiers 0.4.1, local docker runtime, task C1).** Codex on `gpt-5.6-terra` scored 1 (15 turns, about 5 minutes, 79k tokens); `vf-validate`'s no-agent run scored 0. verifiers reads the task's health check and runs it before the agent, so PostgreSQL, the Kitaru server and the worker start as they do under Harbor; it reads `[agent] user` and refuses to run if the runtime cannot switch to that user; the task's own grader produced the reward. Not tested: Prime's hosted sandboxes, the other 36 tasks, and whether the allow-list is enforced.
+
+**verifiers changed between 0.3.1 and 0.4.1.** The command `eval` is `vf-run`; there is no `push` option; `HarborEnv` is gone from `verifiers.v1.tasksets.harbor`. The ZenML wrapper (0.1.1, `verifiers[harbor]>=0.3.1`) imports `HarborEnv`, so a fresh install today fails at import. Not fixed here. `vf-validate` is new: its no-agent check works for Harbor tasks; its reference-solution check reports "unchecked" for them.
+
+**Harbor's local Docker environment rejects these tasks.** `harbor run` without `--env modal` stops with `network_mode='allowlist' is not supported by EnvironmentType.DOCKER`. The tasks ask for an allow-list because Modal cannot add one later (2026-11-20 entry). So the public instructions say to run on Modal, or another provider that enforces a host list.
+
+**A local `registry.json` with local paths exports nothing.** `harbor download --registry-path registry.json --export` reports 37 tasks downloaded and writes none, because the tasks are already on disk. verifiers' loader then fails on the missing export folder. The published wrapper resolves from a git tag (`repo = "zenml-io/zenml-bench@kitaru-v0.1"`), which does export.
+
+**Files.** `kitaru/dataset.toml` (37 tasks pinned by digest; run `harbor sync` after any task change), a `kitaru-bench` entry in `registry.json`, `integrations/prime/kitaru_bench/` (wrapper for verifiers 0.4.1), `kitaru/scripts/build_task_images.sh` (one image per task, `zenmldocker/kitaru-bench-tasks:<task>-0.1.0`).
+
