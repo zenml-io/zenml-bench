@@ -116,5 +116,5 @@
   "verbose": false,
   "rich": null,
   "push": false,
-  "output_dir": "/private/tmp/claude-501/-Users-strickvl-coding-zenml-repos-zenml-bench/f77d19e1-9c1c-4ef2-adc6-a4a8d2a12c79/scratchpad/prime/outputs"
+  "output_dir": "<scratch>/prime/outputs"
 }
