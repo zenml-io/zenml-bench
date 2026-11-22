@@ -853,5 +853,5 @@ Published to the Harbor Hub and Prime as decided earlier today; the steps and id
 
 **Prime enforces the allow-list.** Its log shows the egress policy applied per sandbox with the task's three hosts. The first use of an image takes Prime up to ten minutes to cache.
 
-**Not done.** The ZenML wrapper still imports `HarborEnv`, which verifiers 0.4.1 no longer has. The Prime scores are private.
+**Not done.** The Prime scores are private. The ZenML wrapper's import of `HarborEnv` is fixed in wrapper 0.1.2 (it now needs verifiers 0.4.1 or newer; all 18 tasks load, and B3 scores 0 with no agent on the local docker runtime). The 18 ZenML task images are still local-only, so that set does not run on Prime's hosted sandboxes.
 

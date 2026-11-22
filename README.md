@@ -12,7 +12,7 @@ Both sets are in [Harbor](https://www.harborframework.com) task format, so the s
 | where | ZenML Bench | Kitaru Bench |
 |---|---|---|
 | Harbor Hub | [`zenml/zenml-bench`](https://hub.harborframework.com/datasets/zenml/zenml-bench) | [`zenml/kitaru-bench`](https://hub.harborframework.com/datasets/zenml/kitaru-bench) |
-| Prime Intellect Environments Hub | `prime env install zenml/zenml-bench` | `prime env install zenml/kitaru-bench` |
+| Prime Intellect Environments Hub | [`zenml/zenml-bench`](https://app.primeintellect.ai/dashboard/environments/zenml/zenml-bench) (`prime env install zenml/zenml-bench`) | [`zenml/kitaru-bench`](https://app.primeintellect.ai/dashboard/environments/zenml/kitaru-bench) (`prime env install zenml/kitaru-bench`) |
 | this repository, no Hub account | `--repo zenml-io/zenml-bench@v0.1 -d zenml-bench@0.1.0` | `--repo zenml-io/zenml-bench@kitaru-v0.1 -d kitaru-bench@0.1.0` |
 
 ## How every task is checked

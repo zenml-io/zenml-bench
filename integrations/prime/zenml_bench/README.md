@@ -19,10 +19,10 @@ verifiers never builds a task's `environment/Dockerfile`; it only pulls or reuse
 ### Quickstart
 ```bash
 uv pip install -e .                      # or: prime env install zenml/zenml-bench
-uv run eval zenml-bench -m gpt-5.4-mini --client.base-url https://api.openai.com/v1 --client.api-key-var OPENAI_API_KEY \
-  --env.agent.harness.id codex --env.agent.runtime.type docker --no-push
+uv run vf-run zenml-bench -m gpt-5.4-mini --client.base-url https://api.openai.com/v1 --client.api-key-var OPENAI_API_KEY \
+  --env.agent.harness.id codex --env.agent.runtime.type docker
 ```
-`eval` is verifiers' v1 runner (`vf-eval` is the legacy one and cannot load a v1 taskset). Outputs: `outputs/<run>/traces.jsonl` + `configs/resolved/eval.json`. The taskset resolves the dataset from the repo's `registry.json` at tag `v0.1` (Harbor's `--repo` route), so it works before the Harbor Hub entry is public. `ignore_timeouts=false` (the default here) keeps the task-authored budgets; the research tasks state their wall-clock budget in the instruction.
+`vf-run` is verifiers' v1 runner (needs verifiers 0.4.1 or newer). Outputs: `outputs/<run>/traces.jsonl` + `configs/resolved/run.json`. The taskset resolves the dataset from the repo's `registry.json` at tag `v0.1` (Harbor's `--repo` route), so it works before the Harbor Hub entry is public. `ignore_timeouts=false` (the default here) keeps the task-authored budgets; the research tasks state their wall-clock budget in the instruction.
 
 ### Environment arguments
 | arg | default | description |
