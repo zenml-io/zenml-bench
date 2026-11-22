@@ -43,6 +43,6 @@ truth = json.loads((src / "ground_truth.json").read_text())
 (dst / "plan.json").write_text(json.dumps({"sessions": truth["sessions"], "by_version": truth["by_version"]}))  # counts only; the answer key stays out of the image
 PY
 # The base image is published and pinned by digest, so a task build pulls it and adds only the world.
-# base/Dockerfile is what that image was built from (kitaru/README.md, "Publishing the base image").
+# base/Dockerfile is what that image was built from (kitaru/DEVELOPING.md, "Publishing the base image").
 { echo "FROM $(tr -d '[:space:]' < "$ROOT/base/IMAGE")"; cat "$ROOT/worlds/$WORLD/Dockerfile.world"; [ -f "$TASK/Dockerfile.task" ] && cat "$TASK/Dockerfile.task"; true; } > "$ENV/Dockerfile"
 du -sh "$ENV" | cut -f1
