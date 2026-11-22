@@ -21,12 +21,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-HARBOR_VERSION = "0.22.0"
+HARBOR_VERSION = os.environ.get("HARBOR_VERSION", "0.22.0")  # the version the jobs were run with; it goes into the metadata note
 ENV_ID = "zenml/zenml-bench"
 
 
