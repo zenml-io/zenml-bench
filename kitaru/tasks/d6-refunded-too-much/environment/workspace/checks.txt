@@ -1,0 +1,2 @@
+# Release checks: every evaluator listed here must pass for a conversation to count as good.
+refund-issued-once@2

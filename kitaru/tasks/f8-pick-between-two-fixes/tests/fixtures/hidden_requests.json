@@ -1,0 +1,1079 @@
+[
+ {
+  "id": "HID-0001",
+  "kind": "partial",
+  "orders": [
+   "SO-70009"
+  ],
+  "guest": false,
+  "item": "bluetooth speaker",
+  "prompt": "In order SO-70009 only the bluetooth speaker is wrong. Please refund only the bluetooth speaker. My account is aisha.5@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0002",
+  "kind": "refund",
+  "orders": [
+   "SO-70017"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70017 is not what I expected. Please refund the whole order. My account is aisha.5@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0003",
+  "kind": "dispute",
+  "orders": [
+   "SO-70025"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70025. My account is sofia.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0004",
+  "kind": "partial",
+  "orders": [
+   "SO-70030"
+  ],
+  "guest": false,
+  "item": "backpack",
+  "prompt": "In order SO-70030 only the backpack is wrong. Please refund only the backpack. My account is elena.4@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0005",
+  "kind": "partial",
+  "orders": [
+   "SO-70034"
+  ],
+  "guest": false,
+  "item": "desk lamp",
+  "prompt": "In order SO-70034 only the desk lamp is wrong. Please refund only the desk lamp. My account is ingrid.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 22101,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 3964,
+   "quantity": 2,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0006",
+  "kind": "refund",
+  "orders": [
+   "SO-70035"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70035 arrived damaged. Please refund the order. My account is priya.3@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 9295,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0007",
+  "kind": "partial",
+  "orders": [
+   "SO-70040"
+  ],
+  "guest": false,
+  "item": "ceramic mug set",
+  "prompt": "In order SO-70040 only the ceramic mug set is wrong. Please refund only the ceramic mug set. My account is maya.1@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 19065,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 12893,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0008",
+  "kind": "status",
+  "orders": [
+   "SO-70041"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70041? My account is kenji.7@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0009",
+  "kind": "status",
+  "orders": [
+   "SO-70044"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70044? My account is freya.4@example.org.",
+  "expected": {
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-70044"
+   ]
+  }
+ },
+ {
+  "id": "HID-0010",
+  "kind": "partial",
+  "orders": [
+   "SO-70049"
+  ],
+  "guest": false,
+  "item": "running shoes",
+  "prompt": "In order SO-70049 only the running shoes is wrong. Please refund only the running shoes. My account is aisha.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 12913,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 2167,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0011",
+  "kind": "partial",
+  "orders": [
+   "SO-70055"
+  ],
+  "guest": false,
+  "item": "wool scarf",
+  "prompt": "In order SO-70055 only the wool scarf is wrong. Please refund only the wool scarf. My account is jonas.3@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 17131,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 5321,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0012",
+  "kind": "partial",
+  "orders": [
+   "SO-70063"
+  ],
+  "guest": false,
+  "item": "desk lamp",
+  "prompt": "In order SO-70063 only the desk lamp is wrong. Please refund only the desk lamp. My account is omar.1@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 35477,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 10139,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0013",
+  "kind": "partial",
+  "orders": [
+   "SO-70065"
+  ],
+  "guest": false,
+  "item": "notebook bundle",
+  "prompt": "In order SO-70065 only the notebook bundle is wrong. Please refund only the notebook bundle. My account is maya.6@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0014",
+  "kind": "partial",
+  "orders": [
+   "SO-70068"
+  ],
+  "guest": false,
+  "item": "backpack",
+  "prompt": "In order SO-70068 only the backpack is wrong. Please refund only the backpack. My account is tomas.2@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0015",
+  "kind": "partial",
+  "orders": [
+   "SO-70071"
+  ],
+  "guest": false,
+  "item": "notebook bundle",
+  "prompt": "In order SO-70071 only the notebook bundle is wrong. Please refund only the notebook bundle. My account is yuki.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 13754,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 10506,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0016",
+  "kind": "partial",
+  "orders": [
+   "SO-70077"
+  ],
+  "guest": false,
+  "item": "backpack",
+  "prompt": "In order SO-70077 only the backpack is wrong. Please refund only the backpack. My account is daniel.3@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 2493,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 1380,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0017",
+  "kind": "partial",
+  "orders": [
+   "SO-70083"
+  ],
+  "guest": false,
+  "item": "wool scarf",
+  "prompt": "In order SO-70083 only the wool scarf is wrong. Please refund only the wool scarf. My account is tomas.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 18510,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 1806,
+   "quantity": 3,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0018",
+  "kind": "refund",
+  "orders": [
+   "SO-70087"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70087 arrived damaged. Please refund the order. My account is freya.1@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0019",
+  "kind": "refund",
+  "orders": [
+   "SO-70096"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70096 arrived damaged. Please refund the order. My account is freya.8@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0020",
+  "kind": "dispute",
+  "orders": [
+   "SO-70100"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70100. My account is luca.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0021",
+  "kind": "partial",
+  "orders": [
+   "SO-70101"
+  ],
+  "guest": false,
+  "item": "desk lamp",
+  "prompt": "In order SO-70101 only the desk lamp is wrong. Please refund only the desk lamp. My account is tomas.4@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0022",
+  "kind": "partial",
+  "orders": [
+   "SO-70110"
+  ],
+  "guest": false,
+  "item": "kettle",
+  "prompt": "In order SO-70110 only the kettle is wrong. Please refund only the kettle. My account is ingrid.6@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 14229,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 2433,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0023",
+  "kind": "dispute",
+  "orders": [
+   "SO-70118"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70118. My account is maya.7@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0024",
+  "kind": "partial",
+  "orders": [
+   "SO-70122"
+  ],
+  "guest": false,
+  "item": "yoga mat",
+  "prompt": "In order SO-70122 only the yoga mat is wrong. Please refund only the yoga mat. My account is maya.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 19439,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 5327,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0025",
+  "kind": "partial",
+  "orders": [
+   "SO-70130"
+  ],
+  "guest": false,
+  "item": "wool scarf",
+  "prompt": "In order SO-70130 only the wool scarf is wrong. Please refund only the wool scarf. My account is tomas.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 10410,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 6495,
+   "quantity": 2,
+   "discount_minor": 721
+  }
+ },
+ {
+  "id": "HID-0026",
+  "kind": "partial",
+  "orders": [
+   "SO-70133"
+  ],
+  "guest": false,
+  "item": "backpack",
+  "prompt": "In order SO-70133 only the backpack is wrong. Please refund only the backpack. My account is priya.6@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 42976,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 15238,
+   "quantity": 2,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0027",
+  "kind": "partial",
+  "orders": [
+   "SO-70136"
+  ],
+  "guest": false,
+  "item": "ceramic mug set",
+  "prompt": "In order SO-70136 only the ceramic mug set is wrong. Please refund only the ceramic mug set. My account is elena.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 5353,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 1581,
+   "quantity": 1,
+   "discount_minor": 175
+  }
+ },
+ {
+  "id": "HID-0028",
+  "kind": "status",
+  "orders": [
+   "SO-70138"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70138? My account is freya.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0029",
+  "kind": "refund",
+  "orders": [
+   "SO-70147"
+  ],
+  "guest": true,
+  "item": null,
+  "prompt": "Order SO-70147 is not what I expected. Please refund the whole order. I checked out as a guest.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 17311,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0030",
+  "kind": "refund",
+  "orders": [
+   "SO-70149"
+  ],
+  "guest": true,
+  "item": null,
+  "prompt": "Order SO-70149 is not what I expected. Please refund the whole order. I checked out as a guest.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 14998,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0031",
+  "kind": "partial",
+  "orders": [
+   "SO-70156"
+  ],
+  "guest": false,
+  "item": "running shoes",
+  "prompt": "In order SO-70156 only the running shoes is wrong. Please refund only the running shoes. My account is omar.1@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 6490,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 2484,
+   "quantity": 2,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0032",
+  "kind": "partial",
+  "orders": [
+   "SO-70162"
+  ],
+  "guest": false,
+  "item": "notebook bundle",
+  "prompt": "In order SO-70162 only the notebook bundle is wrong. Please refund only the notebook bundle. My account is priya.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 16344,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 8532,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0033",
+  "kind": "partial",
+  "orders": [
+   "SO-70169"
+  ],
+  "guest": false,
+  "item": "bluetooth speaker",
+  "prompt": "In order SO-70169 only the bluetooth speaker is wrong. Please refund only the bluetooth speaker. My account is jonas.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 9146,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 5762,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0034",
+  "kind": "partial",
+  "orders": [
+   "SO-70171"
+  ],
+  "guest": false,
+  "item": "notebook bundle",
+  "prompt": "In order SO-70171 only the notebook bundle is wrong. Please refund only the notebook bundle. My account is aisha.3@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 85
+  }
+ },
+ {
+  "id": "HID-0035",
+  "kind": "partial",
+  "orders": [
+   "SO-70177"
+  ],
+  "guest": false,
+  "item": "kettle",
+  "prompt": "In order SO-70177 only the kettle is wrong. Please refund only the kettle. My account is luca.3@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 2,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0036",
+  "kind": "partial",
+  "orders": [
+   "SO-70182"
+  ],
+  "guest": false,
+  "item": "yoga mat",
+  "prompt": "In order SO-70182 only the yoga mat is wrong. Please refund only the yoga mat. My account is maya.8@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 2,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0037",
+  "kind": "status",
+  "orders": [
+   "SO-70188"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70188? My account is freya.5@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0038",
+  "kind": "partial",
+  "orders": [
+   "SO-70195"
+  ],
+  "guest": false,
+  "item": "yoga mat",
+  "prompt": "In order SO-70195 only the yoga mat is wrong. Please refund only the yoga mat. My account is aisha.4@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 559
+  }
+ },
+ {
+  "id": "HID-0039",
+  "kind": "partial",
+  "orders": [
+   "SO-70203"
+  ],
+  "guest": true,
+  "item": "running shoes",
+  "prompt": "In order SO-70203 only the running shoes is wrong. Please refund only the running shoes. I checked out as a guest.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0040",
+  "kind": "status",
+  "orders": [
+   "SO-70211"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70211? My account is priya.7@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0041",
+  "kind": "partial",
+  "orders": [
+   "SO-70219"
+  ],
+  "guest": false,
+  "item": "desk lamp",
+  "prompt": "In order SO-70219 only the desk lamp is wrong. Please refund only the desk lamp. My account is maya.6@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 16787,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 13188,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0042",
+  "kind": "refund",
+  "orders": [
+   "SO-70227"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70227 is not what I expected. Please refund the whole order. My account is ingrid.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 25446,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0043",
+  "kind": "dispute",
+  "orders": [
+   "SO-70234"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70234. My account is yuki.8@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0044",
+  "kind": "status",
+  "orders": [
+   "SO-70241"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70241? My account is kenji.1@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0045",
+  "kind": "refund",
+  "orders": [
+   "SO-70242"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70242 is not what I expected. Please refund the whole order. My account is jonas.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 24242,
+   "currency": "EUR",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0046",
+  "kind": "refund",
+  "orders": [
+   "SO-70244"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70244 arrived damaged. Please refund the order. My account is aisha.8@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0047",
+  "kind": "dispute",
+  "orders": [
+   "SO-70249"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70249. My account is luca.2@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0048",
+  "kind": "refund",
+  "orders": [
+   "SO-70250"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70250 arrived damaged. Please refund the order. My account is priya.4@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0049",
+  "kind": "dispute",
+  "orders": [
+   "SO-70252"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70252. My account is elena.7@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0050",
+  "kind": "refund",
+  "orders": [
+   "SO-70255"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70255 is not what I expected. Please refund the whole order. My account is tomas.6@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0051",
+  "kind": "partial",
+  "orders": [
+   "SO-70257"
+  ],
+  "guest": false,
+  "item": "wool scarf",
+  "prompt": "In order SO-70257 only the wool scarf is wrong. Please refund only the wool scarf. My account is aisha.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 32121,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 7954,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0052",
+  "kind": "status",
+  "orders": [
+   "SO-70263"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70263? My account is omar.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0053",
+  "kind": "refund",
+  "orders": [
+   "SO-70266"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70266 is not what I expected. Please refund the whole order. My account is omar.4@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 5077,
+   "currency": "JPY",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0054",
+  "kind": "dispute",
+  "orders": [
+   "SO-70275"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70275. My account is omar.3@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0055",
+  "kind": "status",
+  "orders": [
+   "SO-70282",
+   "SO-70291",
+   "SO-70293",
+   "SO-70299",
+   "SO-70308"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where are orders SO-70282, SO-70291, SO-70293, SO-70299 and SO-70308? My account is priya.7@example.org.",
+  "expected": {
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-70282",
+    "SO-70299"
+   ]
+  }
+ },
+ {
+  "id": "HID-0056",
+  "kind": "partial",
+  "orders": [
+   "SO-70316"
+  ],
+  "guest": false,
+  "item": "desk lamp",
+  "prompt": "In order SO-70316 only the desk lamp is wrong. Please refund only the desk lamp. My account is maya.1@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 1,
+   "discount_minor": 0
+  }
+ },
+ {
+  "id": "HID-0057",
+  "kind": "status",
+  "orders": [
+   "SO-70322"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70322? My account is kenji.4@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0058",
+  "kind": "partial",
+  "orders": [
+   "SO-70329"
+  ],
+  "guest": false,
+  "item": "backpack",
+  "prompt": "In order SO-70329 only the backpack is wrong. Please refund only the backpack. My account is jonas.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 14590,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 8581,
+   "quantity": 1,
+   "discount_minor": 953
+  }
+ },
+ {
+  "id": "HID-0059",
+  "kind": "partial",
+  "orders": [
+   "SO-70331"
+  ],
+  "guest": false,
+  "item": "notebook bundle",
+  "prompt": "In order SO-70331 only the notebook bundle is wrong. Please refund only the notebook bundle. My account is priya.6@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 15724,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": 6030,
+   "quantity": 1,
+   "discount_minor": 670
+  }
+ },
+ {
+  "id": "HID-0060",
+  "kind": "partial",
+  "orders": [
+   "SO-70333"
+  ],
+  "guest": false,
+  "item": "yoga mat",
+  "prompt": "In order SO-70333 only the yoga mat is wrong. Please refund only the yoga mat. My account is maya.1@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true,
+   "right_refund_minor": null,
+   "quantity": 3,
+   "discount_minor": 0
+  }
+ }
+]

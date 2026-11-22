@@ -1,0 +1,2648 @@
+{
+ "sessions": 260,
+ "by_version": {
+  "1.6.0": 200,
+  "1.6.1": 60
+ },
+ "cohort": {
+  "name": "refunds-to-recheck",
+  "requests": [
+   "REQ-0001",
+   "REQ-0002",
+   "REQ-0005",
+   "REQ-0015",
+   "REQ-0017",
+   "REQ-0027",
+   "REQ-0028",
+   "REQ-0036",
+   "REQ-0046",
+   "REQ-0047",
+   "REQ-0048",
+   "REQ-0062",
+   "REQ-0080",
+   "REQ-0081",
+   "REQ-0085",
+   "REQ-0086",
+   "REQ-0090",
+   "REQ-0094",
+   "REQ-0095",
+   "REQ-0096",
+   "REQ-0103",
+   "REQ-0106",
+   "REQ-0117",
+   "REQ-0125",
+   "REQ-0150",
+   "REQ-0154",
+   "REQ-0155",
+   "REQ-0156",
+   "REQ-0157",
+   "REQ-0161",
+   "REQ-0173",
+   "REQ-0181"
+  ]
+ },
+ "refunds_recorded": 58,
+ "escalations_recorded": 36,
+ "requests": {
+  "REQ-0001": {
+   "id": "REQ-0001",
+   "prompt": "My wool scarf from order SO-10305 is not what I expected. Please refund it. My account is freya.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10305",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0002": {
+   "id": "REQ-0002",
+   "prompt": "My wool scarf from order SO-10330 is not what I expected. Please refund it. My account is kenji.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10330",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0003": {
+   "id": "REQ-0003",
+   "prompt": "I want to dispute the charge for order SO-10391. My account is tomas.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10391",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0004": {
+   "id": "REQ-0004",
+   "prompt": "Where is order SO-10225? My account is maya.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10225",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0005": {
+   "id": "REQ-0005",
+   "prompt": "My running shoes from order SO-10126 is not what I expected. Please refund it. My account is aisha.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10126",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0006": {
+   "id": "REQ-0006",
+   "prompt": "I want to dispute the charge for order SO-10293. My account is luca.4@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10293",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0007": {
+   "id": "REQ-0007",
+   "prompt": "My linen shirt from order SO-10541 is not what I expected. Please refund it. My account is yuki.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10541",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0008": {
+   "id": "REQ-0008",
+   "prompt": "My linen shirt from order SO-10362 is not what I expected. Please refund it. My account is sofia.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10362",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0009": {
+   "id": "REQ-0009",
+   "prompt": "Where is order SO-10024? My account is ingrid.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10024",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0010": {
+   "id": "REQ-0010",
+   "prompt": "My yoga mat from order SO-10448 is not what I expected. Please refund it. My account is daniel.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10448",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0011": {
+   "id": "REQ-0011",
+   "prompt": "My yoga mat from order SO-10224 is not what I expected. Please refund it. My account is jonas.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10224",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0012": {
+   "id": "REQ-0012",
+   "prompt": "I want to dispute the charge for order SO-10123. My account is aisha.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10123",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0013": {
+   "id": "REQ-0013",
+   "prompt": "My running shoes from order SO-10191 is not what I expected. Please refund it. My account is maya.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10191",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0014": {
+   "id": "REQ-0014",
+   "prompt": "I want to dispute the charge for order SO-10186. My account is omar.1@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10186",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0015": {
+   "id": "REQ-0015",
+   "prompt": "My yoga mat from order SO-10638 is not what I expected. Please refund it. My account is jonas.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10638",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0016": {
+   "id": "REQ-0016",
+   "prompt": "My desk lamp from order SO-10053 is not what I expected. Please refund it. My account is aisha.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10053",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0017": {
+   "id": "REQ-0017",
+   "prompt": "My running shoes from order SO-10408 is not what I expected. Please refund it. My account is maya.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10408",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0018": {
+   "id": "REQ-0018",
+   "prompt": "Where is order SO-10283? My account is kenji.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10283",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0019": {
+   "id": "REQ-0019",
+   "prompt": "My running shoes from order SO-10488 is not what I expected. Please refund it. My account is tomas.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10488",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0020": {
+   "id": "REQ-0020",
+   "prompt": "My notebook bundle from order SO-10779 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10779",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0021": {
+   "id": "REQ-0021",
+   "prompt": "Where is order SO-10551? My account is aisha.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10551",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0022": {
+   "id": "REQ-0022",
+   "prompt": "My backpack from order SO-10528 is not what I expected. Please refund it. My account is aisha.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10528",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0023": {
+   "id": "REQ-0023",
+   "prompt": "My ceramic mug set from order SO-10840 is not what I expected. Please refund it. My account is kenji.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10840",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0024": {
+   "id": "REQ-0024",
+   "prompt": "I want to dispute the charge for order SO-10161. My account is yuki.3@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10161",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0025": {
+   "id": "REQ-0025",
+   "prompt": "Where is order SO-10675? My account is yuki.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10675",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0026": {
+   "id": "REQ-0026",
+   "prompt": "Where is order SO-10642? My account is aisha.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10642",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0027": {
+   "id": "REQ-0027",
+   "prompt": "My running shoes from order SO-10653 is not what I expected. Please refund it. My account is kenji.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10653",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0028": {
+   "id": "REQ-0028",
+   "prompt": "My ceramic mug set from order SO-10522 is not what I expected. Please refund it. My account is freya.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10522",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0029": {
+   "id": "REQ-0029",
+   "prompt": "My ceramic mug set from order SO-10261 is not what I expected. Please refund it. My account is yuki.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10261",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0030": {
+   "id": "REQ-0030",
+   "prompt": "Where is order SO-10022? My account is aisha.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10022",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0031": {
+   "id": "REQ-0031",
+   "prompt": "My yoga mat from order SO-10835 is not what I expected. Please refund it. My account is freya.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10835",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0032": {
+   "id": "REQ-0032",
+   "prompt": "I want to dispute the charge for order SO-10291. My account is daniel.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10291",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0033": {
+   "id": "REQ-0033",
+   "prompt": "My kettle from order SO-10202 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10202",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0034": {
+   "id": "REQ-0034",
+   "prompt": "My bluetooth speaker from order SO-10632 is not what I expected. Please refund it. My account is priya.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10632",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0035": {
+   "id": "REQ-0035",
+   "prompt": "I want to dispute the charge for order SO-10430. My account is luca.1@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10430",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0036": {
+   "id": "REQ-0036",
+   "prompt": "My kettle from order SO-10360 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10360",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0037": {
+   "id": "REQ-0037",
+   "prompt": "Where is order SO-10446? My account is aisha.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10446",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0038": {
+   "id": "REQ-0038",
+   "prompt": "My notebook bundle from order SO-10737 is not what I expected. Please refund it. My account is sofia.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10737",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0039": {
+   "id": "REQ-0039",
+   "prompt": "My notebook bundle from order SO-10199 is not what I expected. Please refund it. My account is aisha.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10199",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0040": {
+   "id": "REQ-0040",
+   "prompt": "My yoga mat from order SO-10368 is not what I expected. Please refund it. My account is ingrid.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10368",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0041": {
+   "id": "REQ-0041",
+   "prompt": "Where is order SO-10267? My account is luca.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10267",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0042": {
+   "id": "REQ-0042",
+   "prompt": "Where is order SO-10422? My account is luca.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10422",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0043": {
+   "id": "REQ-0043",
+   "prompt": "My backpack from order SO-10373 is not what I expected. Please refund it. My account is jonas.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10373",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0044": {
+   "id": "REQ-0044",
+   "prompt": "Where is order SO-10785? My account is tomas.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10785",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0045": {
+   "id": "REQ-0045",
+   "prompt": "Where is order SO-10791? My account is elena.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10791",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0046": {
+   "id": "REQ-0046",
+   "prompt": "My backpack from order SO-10468 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10468",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0047": {
+   "id": "REQ-0047",
+   "prompt": "My running shoes from order SO-10744 is not what I expected. Please refund it. My account is jonas.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10744",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0048": {
+   "id": "REQ-0048",
+   "prompt": "My bluetooth speaker from order SO-10466 is not what I expected. Please refund it. My account is yuki.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10466",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0049": {
+   "id": "REQ-0049",
+   "prompt": "Where is order SO-10088? My account is luca.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10088",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0050": {
+   "id": "REQ-0050",
+   "prompt": "My yoga mat from order SO-10760 is not what I expected. Please refund it. My account is priya.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10760",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0051": {
+   "id": "REQ-0051",
+   "prompt": "Where is order SO-10800? My account is ingrid.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10800",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0052": {
+   "id": "REQ-0052",
+   "prompt": "My desk lamp from order SO-10134 is not what I expected. Please refund it. My account is jonas.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10134",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0053": {
+   "id": "REQ-0053",
+   "prompt": "My backpack from order SO-10148 is not what I expected. Please refund it. My account is elena.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10148",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0054": {
+   "id": "REQ-0054",
+   "prompt": "Where is order SO-10386? My account is omar.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10386",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0055": {
+   "id": "REQ-0055",
+   "prompt": "My bluetooth speaker from order SO-10328 is not what I expected. Please refund it. My account is omar.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10328",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0056": {
+   "id": "REQ-0056",
+   "prompt": "My notebook bundle from order SO-10231 is not what I expected. Please refund it. My account is elena.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10231",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0057": {
+   "id": "REQ-0057",
+   "prompt": "My yoga mat from order SO-10898 is not what I expected. Please refund it. My account is kenji.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10898",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0058": {
+   "id": "REQ-0058",
+   "prompt": "My ceramic mug set from order SO-10829 is not what I expected. Please refund it. My account is yuki.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10829",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0059": {
+   "id": "REQ-0059",
+   "prompt": "Where is order SO-10662? My account is daniel.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10662",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0060": {
+   "id": "REQ-0060",
+   "prompt": "My bluetooth speaker from order SO-10313 is not what I expected. Please refund it. My account is daniel.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10313",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0061": {
+   "id": "REQ-0061",
+   "prompt": "My wool scarf from order SO-10611 is not what I expected. Please refund it. My account is tomas.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10611",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0062": {
+   "id": "REQ-0062",
+   "prompt": "My linen shirt from order SO-10193 is not what I expected. Please refund it. My account is elena.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10193",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0063": {
+   "id": "REQ-0063",
+   "prompt": "My bluetooth speaker from order SO-10303 is not what I expected. Please refund it. My account is aisha.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10303",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0064": {
+   "id": "REQ-0064",
+   "prompt": "Where is order SO-10050? My account is maya.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10050",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0065": {
+   "id": "REQ-0065",
+   "prompt": "My desk lamp from order SO-10232 is not what I expected. Please refund it. My account is omar.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10232",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0066": {
+   "id": "REQ-0066",
+   "prompt": "My kettle from order SO-10140 is not what I expected. Please refund it. My account is omar.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10140",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0067": {
+   "id": "REQ-0067",
+   "prompt": "My linen shirt from order SO-10442 is not what I expected. Please refund it. My account is sofia.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10442",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0068": {
+   "id": "REQ-0068",
+   "prompt": "Where is order SO-10656? My account is aisha.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10656",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0069": {
+   "id": "REQ-0069",
+   "prompt": "My kettle from order SO-10789 is not what I expected. Please refund it. My account is elena.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10789",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0070": {
+   "id": "REQ-0070",
+   "prompt": "My linen shirt from order SO-10463 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10463",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0071": {
+   "id": "REQ-0071",
+   "prompt": "Where is order SO-10537? My account is luca.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10537",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0072": {
+   "id": "REQ-0072",
+   "prompt": "Where is order SO-10485? My account is omar.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10485",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0073": {
+   "id": "REQ-0073",
+   "prompt": "Where is order SO-10750? My account is omar.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10750",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0074": {
+   "id": "REQ-0074",
+   "prompt": "I want to dispute the charge for order SO-10435. My account is tomas.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10435",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0075": {
+   "id": "REQ-0075",
+   "prompt": "My bluetooth speaker from order SO-10041 is not what I expected. Please refund it. My account is ingrid.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10041",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0076": {
+   "id": "REQ-0076",
+   "prompt": "I want to dispute the charge for order SO-10700. My account is jonas.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10700",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0077": {
+   "id": "REQ-0077",
+   "prompt": "Where is order SO-10806? My account is freya.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10806",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0078": {
+   "id": "REQ-0078",
+   "prompt": "Where is order SO-10389? My account is elena.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10389",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0079": {
+   "id": "REQ-0079",
+   "prompt": "My ceramic mug set from order SO-10878 is not what I expected. Please refund it. My account is jonas.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10878",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0080": {
+   "id": "REQ-0080",
+   "prompt": "My ceramic mug set from order SO-10682 is not what I expected. Please refund it. My account is tomas.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10682",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0081": {
+   "id": "REQ-0081",
+   "prompt": "My desk lamp from order SO-10580 is not what I expected. Please refund it. My account is maya.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10580",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0082": {
+   "id": "REQ-0082",
+   "prompt": "Where is order SO-10678? My account is freya.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10678",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0083": {
+   "id": "REQ-0083",
+   "prompt": "My notebook bundle from order SO-10768 is not what I expected. Please refund it. My account is aisha.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10768",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0084": {
+   "id": "REQ-0084",
+   "prompt": "Where is order SO-10286? My account is daniel.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10286",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0085": {
+   "id": "REQ-0085",
+   "prompt": "My yoga mat from order SO-10306 is not what I expected. Please refund it. My account is jonas.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10306",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0086": {
+   "id": "REQ-0086",
+   "prompt": "My linen shirt from order SO-10755 is not what I expected. Please refund it. My account is kenji.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10755",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0087": {
+   "id": "REQ-0087",
+   "prompt": "My kettle from order SO-10091 is not what I expected. Please refund it. My account is priya.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10091",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0088": {
+   "id": "REQ-0088",
+   "prompt": "Where is order SO-10432? My account is ingrid.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10432",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0089": {
+   "id": "REQ-0089",
+   "prompt": "My ceramic mug set from order SO-10711 is not what I expected. Please refund it. My account is ingrid.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10711",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0090": {
+   "id": "REQ-0090",
+   "prompt": "My notebook bundle from order SO-10068 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10068",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0091": {
+   "id": "REQ-0091",
+   "prompt": "My backpack from order SO-10173 is not what I expected. Please refund it. My account is omar.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10173",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0092": {
+   "id": "REQ-0092",
+   "prompt": "My running shoes from order SO-10575 is not what I expected. Please refund it. My account is yuki.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10575",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0093": {
+   "id": "REQ-0093",
+   "prompt": "My notebook bundle from order SO-10591 is not what I expected. Please refund it. My account is tomas.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10591",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0094": {
+   "id": "REQ-0094",
+   "prompt": "My ceramic mug set from order SO-10598 is not what I expected. Please refund it. My account is elena.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10598",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0095": {
+   "id": "REQ-0095",
+   "prompt": "My bluetooth speaker from order SO-10375 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10375",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0096": {
+   "id": "REQ-0096",
+   "prompt": "My running shoes from order SO-10018 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10018",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0097": {
+   "id": "REQ-0097",
+   "prompt": "I want to dispute the charge for order SO-10570. My account is jonas.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10570",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0098": {
+   "id": "REQ-0098",
+   "prompt": "Where is order SO-10590? My account is priya.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10590",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0099": {
+   "id": "REQ-0099",
+   "prompt": "My yoga mat from order SO-10047 is not what I expected. Please refund it. My account is freya.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10047",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0100": {
+   "id": "REQ-0100",
+   "prompt": "I want to dispute the charge for order SO-10363. My account is daniel.6@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10363",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0101": {
+   "id": "REQ-0101",
+   "prompt": "Where is order SO-10685? My account is ingrid.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10685",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0102": {
+   "id": "REQ-0102",
+   "prompt": "My wool scarf from order SO-10138 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10138",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0103": {
+   "id": "REQ-0103",
+   "prompt": "My notebook bundle from order SO-10104 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10104",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0104": {
+   "id": "REQ-0104",
+   "prompt": "Where is order SO-10758? My account is omar.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10758",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0105": {
+   "id": "REQ-0105",
+   "prompt": "My linen shirt from order SO-10133 is not what I expected. Please refund it. My account is tomas.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10133",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0106": {
+   "id": "REQ-0106",
+   "prompt": "My kettle from order SO-10215 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10215",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0107": {
+   "id": "REQ-0107",
+   "prompt": "Where is order SO-10099? My account is ingrid.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10099",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0108": {
+   "id": "REQ-0108",
+   "prompt": "My backpack from order SO-10481 is not what I expected. Please refund it. My account is priya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10481",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0109": {
+   "id": "REQ-0109",
+   "prompt": "I want to dispute the charge for order SO-10127. My account is maya.3@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10127",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0110": {
+   "id": "REQ-0110",
+   "prompt": "Where is order SO-10538? My account is omar.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10538",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0111": {
+   "id": "REQ-0111",
+   "prompt": "I want to dispute the charge for order SO-10668. My account is tomas.3@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10668",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0112": {
+   "id": "REQ-0112",
+   "prompt": "My ceramic mug set from order SO-10434 is not what I expected. Please refund it. My account is elena.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10434",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0113": {
+   "id": "REQ-0113",
+   "prompt": "I want to dispute the charge for order SO-10063. My account is sofia.6@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10063",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0114": {
+   "id": "REQ-0114",
+   "prompt": "Where is order SO-10153? My account is maya.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10153",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0115": {
+   "id": "REQ-0115",
+   "prompt": "My desk lamp from order SO-10364 is not what I expected. Please refund it. My account is yuki.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10364",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0116": {
+   "id": "REQ-0116",
+   "prompt": "My bluetooth speaker from order SO-10897 is not what I expected. Please refund it. My account is daniel.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10897",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0117": {
+   "id": "REQ-0117",
+   "prompt": "My bluetooth speaker from order SO-10888 is not what I expected. Please refund it. My account is maya.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10888",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0118": {
+   "id": "REQ-0118",
+   "prompt": "My bluetooth speaker from order SO-10635 is not what I expected. Please refund it. My account is sofia.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10635",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0119": {
+   "id": "REQ-0119",
+   "prompt": "My bluetooth speaker from order SO-10312 is not what I expected. Please refund it. My account is luca.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10312",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0120": {
+   "id": "REQ-0120",
+   "prompt": "Where is order SO-10240? My account is jonas.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10240",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0121": {
+   "id": "REQ-0121",
+   "prompt": "My running shoes from order SO-10689 is not what I expected. Please refund it. My account is jonas.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10689",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0122": {
+   "id": "REQ-0122",
+   "prompt": "My running shoes from order SO-10505 is not what I expected. Please refund it. My account is daniel.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10505",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0123": {
+   "id": "REQ-0123",
+   "prompt": "I want to dispute the charge for order SO-10380. My account is sofia.8@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10380",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0124": {
+   "id": "REQ-0124",
+   "prompt": "My kettle from order SO-10788 is not what I expected. Please refund it. My account is aisha.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10788",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0125": {
+   "id": "REQ-0125",
+   "prompt": "My ceramic mug set from order SO-10681 is not what I expected. Please refund it. My account is kenji.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10681",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0126": {
+   "id": "REQ-0126",
+   "prompt": "Where is order SO-10896? My account is omar.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10896",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0127": {
+   "id": "REQ-0127",
+   "prompt": "My bluetooth speaker from order SO-10872 is not what I expected. Please refund it. My account is tomas.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10872",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0128": {
+   "id": "REQ-0128",
+   "prompt": "I want to dispute the charge for order SO-10346. My account is yuki.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10346",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0129": {
+   "id": "REQ-0129",
+   "prompt": "My kettle from order SO-10268 is not what I expected. Please refund it. My account is kenji.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10268",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0130": {
+   "id": "REQ-0130",
+   "prompt": "Where is order SO-10029? My account is yuki.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10029",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0131": {
+   "id": "REQ-0131",
+   "prompt": "Where is order SO-10028? My account is jonas.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10028",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0132": {
+   "id": "REQ-0132",
+   "prompt": "Where is order SO-10454? My account is aisha.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10454",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0133": {
+   "id": "REQ-0133",
+   "prompt": "My linen shirt from order SO-10175 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10175",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0134": {
+   "id": "REQ-0134",
+   "prompt": "My notebook bundle from order SO-10639 is not what I expected. Please refund it. My account is omar.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10639",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0135": {
+   "id": "REQ-0135",
+   "prompt": "My notebook bundle from order SO-10349 is not what I expected. Please refund it. My account is kenji.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10349",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0136": {
+   "id": "REQ-0136",
+   "prompt": "I want to dispute the charge for order SO-10629. My account is elena.5@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10629",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0137": {
+   "id": "REQ-0137",
+   "prompt": "My running shoes from order SO-10745 is not what I expected. Please refund it. My account is priya.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10745",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0138": {
+   "id": "REQ-0138",
+   "prompt": "Where is order SO-10228? My account is freya.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10228",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0139": {
+   "id": "REQ-0139",
+   "prompt": "Where is order SO-10404? My account is freya.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10404",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0140": {
+   "id": "REQ-0140",
+   "prompt": "My backpack from order SO-10893 is not what I expected. Please refund it. My account is sofia.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10893",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0141": {
+   "id": "REQ-0141",
+   "prompt": "My wool scarf from order SO-10776 is not what I expected. Please refund it. My account is aisha.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10776",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0142": {
+   "id": "REQ-0142",
+   "prompt": "My ceramic mug set from order SO-10158 is not what I expected. Please refund it. My account is daniel.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10158",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0143": {
+   "id": "REQ-0143",
+   "prompt": "My desk lamp from order SO-10417 is not what I expected. Please refund it. My account is tomas.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10417",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0144": {
+   "id": "REQ-0144",
+   "prompt": "Where is order SO-10098? My account is luca.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10098",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0145": {
+   "id": "REQ-0145",
+   "prompt": "My running shoes from order SO-10748 is not what I expected. Please refund it. My account is yuki.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10748",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0146": {
+   "id": "REQ-0146",
+   "prompt": "Where is order SO-10801? My account is sofia.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10801",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0147": {
+   "id": "REQ-0147",
+   "prompt": "Where is order SO-10567? My account is tomas.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10567",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0148": {
+   "id": "REQ-0148",
+   "prompt": "My backpack from order SO-10257 is not what I expected. Please refund it. My account is aisha.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10257",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0149": {
+   "id": "REQ-0149",
+   "prompt": "I want to dispute the charge for order SO-10248. My account is kenji.8@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10248",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0150": {
+   "id": "REQ-0150",
+   "prompt": "My bluetooth speaker from order SO-10839 is not what I expected. Please refund it. My account is tomas.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10839",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0151": {
+   "id": "REQ-0151",
+   "prompt": "I want to dispute the charge for order SO-10864. My account is sofia.6@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10864",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0152": {
+   "id": "REQ-0152",
+   "prompt": "Where is order SO-10265? My account is kenji.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10265",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0153": {
+   "id": "REQ-0153",
+   "prompt": "My running shoes from order SO-10276 is not what I expected. Please refund it. My account is luca.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10276",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0154": {
+   "id": "REQ-0154",
+   "prompt": "My backpack from order SO-10701 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10701",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0155": {
+   "id": "REQ-0155",
+   "prompt": "My running shoes from order SO-10297 is not what I expected. Please refund it. My account is jonas.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10297",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0156": {
+   "id": "REQ-0156",
+   "prompt": "My backpack from order SO-10802 is not what I expected. Please refund it. My account is jonas.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10802",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0157": {
+   "id": "REQ-0157",
+   "prompt": "My running shoes from order SO-10508 is not what I expected. Please refund it. My account is elena.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10508",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0158": {
+   "id": "REQ-0158",
+   "prompt": "My kettle from order SO-10438 is not what I expected. Please refund it. My account is omar.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10438",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0159": {
+   "id": "REQ-0159",
+   "prompt": "I want to dispute the charge for order SO-10230. My account is kenji.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10230",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0160": {
+   "id": "REQ-0160",
+   "prompt": "My desk lamp from order SO-10075 is not what I expected. Please refund it. My account is daniel.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10075",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0161": {
+   "id": "REQ-0161",
+   "prompt": "My wool scarf from order SO-10262 is not what I expected. Please refund it. My account is ingrid.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10262",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0162": {
+   "id": "REQ-0162",
+   "prompt": "Where is order SO-10042? My account is luca.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10042",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0163": {
+   "id": "REQ-0163",
+   "prompt": "My notebook bundle from order SO-10887 is not what I expected. Please refund it. My account is jonas.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10887",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0164": {
+   "id": "REQ-0164",
+   "prompt": "Where is order SO-10393? My account is aisha.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10393",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0165": {
+   "id": "REQ-0165",
+   "prompt": "My linen shirt from order SO-10814 is not what I expected. Please refund it. My account is daniel.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10814",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0166": {
+   "id": "REQ-0166",
+   "prompt": "My running shoes from order SO-10845 is not what I expected. Please refund it. My account is tomas.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10845",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0167": {
+   "id": "REQ-0167",
+   "prompt": "Where is order SO-10636? My account is luca.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10636",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0168": {
+   "id": "REQ-0168",
+   "prompt": "I want to dispute the charge for order SO-10739. My account is tomas.4@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10739",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0169": {
+   "id": "REQ-0169",
+   "prompt": "I want to dispute the charge for order SO-10176. My account is sofia.6@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10176",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0170": {
+   "id": "REQ-0170",
+   "prompt": "My running shoes from order SO-10504 is not what I expected. Please refund it. My account is priya.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10504",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0171": {
+   "id": "REQ-0171",
+   "prompt": "My desk lamp from order SO-10287 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10287",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0172": {
+   "id": "REQ-0172",
+   "prompt": "I want to dispute the charge for order SO-10217. My account is freya.6@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10217",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0173": {
+   "id": "REQ-0173",
+   "prompt": "My kettle from order SO-10546 is not what I expected. Please refund it. My account is yuki.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10546",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0174": {
+   "id": "REQ-0174",
+   "prompt": "Where is order SO-10535? My account is priya.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10535",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0175": {
+   "id": "REQ-0175",
+   "prompt": "I want to dispute the charge for order SO-10115. My account is luca.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10115",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0176": {
+   "id": "REQ-0176",
+   "prompt": "Where is order SO-10659? My account is freya.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10659",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0177": {
+   "id": "REQ-0177",
+   "prompt": "My wool scarf from order SO-10294 is not what I expected. Please refund it. My account is ingrid.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10294",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0178": {
+   "id": "REQ-0178",
+   "prompt": "Where is order SO-10743? My account is kenji.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10743",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0179": {
+   "id": "REQ-0179",
+   "prompt": "My ceramic mug set from order SO-10854 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10854",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0180": {
+   "id": "REQ-0180",
+   "prompt": "I want to dispute the charge for order SO-10871. My account is kenji.4@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10871",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0181": {
+   "id": "REQ-0181",
+   "prompt": "My yoga mat from order SO-10560 is not what I expected. Please refund it. My account is daniel.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10560",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0182": {
+   "id": "REQ-0182",
+   "prompt": "Where is order SO-10387? My account is freya.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10387",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0183": {
+   "id": "REQ-0183",
+   "prompt": "Where is order SO-10543? My account is luca.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10543",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0184": {
+   "id": "REQ-0184",
+   "prompt": "Where is order SO-10722? My account is tomas.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10722",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0185": {
+   "id": "REQ-0185",
+   "prompt": "My bluetooth speaker from order SO-10222 is not what I expected. Please refund it. My account is elena.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10222",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0186": {
+   "id": "REQ-0186",
+   "prompt": "I want to dispute the charge for order SO-10309. My account is freya.3@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10309",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0187": {
+   "id": "REQ-0187",
+   "prompt": "I want to dispute the charge for order SO-10207. My account is kenji.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10207",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0188": {
+   "id": "REQ-0188",
+   "prompt": "My kettle from order SO-10065 is not what I expected. Please refund it. My account is priya.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10065",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0189": {
+   "id": "REQ-0189",
+   "prompt": "My notebook bundle from order SO-10673 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10673",
+   "release": "1.6.0",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0190": {
+   "id": "REQ-0190",
+   "prompt": "My notebook bundle from order SO-10424 is not what I expected. Please refund it. My account is jonas.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10424",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0191": {
+   "id": "REQ-0191",
+   "prompt": "My yoga mat from order SO-10579 is not what I expected. Please refund it. My account is ingrid.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10579",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0192": {
+   "id": "REQ-0192",
+   "prompt": "My yoga mat from order SO-10602 is not what I expected. Please refund it. My account is aisha.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10602",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0193": {
+   "id": "REQ-0193",
+   "prompt": "My bluetooth speaker from order SO-10679 is not what I expected. Please refund it. My account is daniel.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10679",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0194": {
+   "id": "REQ-0194",
+   "prompt": "My bluetooth speaker from order SO-10241 is not what I expected. Please refund it. My account is tomas.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10241",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0195": {
+   "id": "REQ-0195",
+   "prompt": "Where is order SO-10623? My account is priya.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10623",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0196": {
+   "id": "REQ-0196",
+   "prompt": "My desk lamp from order SO-10472 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10472",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0197": {
+   "id": "REQ-0197",
+   "prompt": "Where is order SO-10146? My account is daniel.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10146",
+   "release": "1.6.0",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0198": {
+   "id": "REQ-0198",
+   "prompt": "My running shoes from order SO-10705 is not what I expected. Please refund it. My account is freya.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10705",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0199": {
+   "id": "REQ-0199",
+   "prompt": "My linen shirt from order SO-10141 is not what I expected. Please refund it. My account is elena.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10141",
+   "release": "1.6.0",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0200": {
+   "id": "REQ-0200",
+   "prompt": "I want to dispute the charge for order SO-10365. My account is yuki.2@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10365",
+   "release": "1.6.0",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0201": {
+   "id": "REQ-0201",
+   "prompt": "My ceramic mug set from order SO-10205 is not what I expected. Please refund it. My account is omar.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10205",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0202": {
+   "id": "REQ-0202",
+   "prompt": "My notebook bundle from order SO-10688 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10688",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0203": {
+   "id": "REQ-0203",
+   "prompt": "My kettle from order SO-10585 is not what I expected. Please refund it. My account is maya.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10585",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0204": {
+   "id": "REQ-0204",
+   "prompt": "I want to dispute the charge for order SO-10109. My account is aisha.3@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10109",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0205": {
+   "id": "REQ-0205",
+   "prompt": "My backpack from order SO-10025 is not what I expected. Please refund it. My account is tomas.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10025",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0206": {
+   "id": "REQ-0206",
+   "prompt": "My desk lamp from order SO-10848 is not what I expected. Please refund it. My account is freya.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10848",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0207": {
+   "id": "REQ-0207",
+   "prompt": "My desk lamp from order SO-10581 is not what I expected. Please refund it. My account is daniel.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10581",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0208": {
+   "id": "REQ-0208",
+   "prompt": "Where is order SO-10870? My account is freya.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10870",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0209": {
+   "id": "REQ-0209",
+   "prompt": "My backpack from order SO-10517 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10517",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0210": {
+   "id": "REQ-0210",
+   "prompt": "My linen shirt from order SO-10200 is not what I expected. Please refund it. My account is omar.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10200",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0211": {
+   "id": "REQ-0211",
+   "prompt": "Where is order SO-10658? My account is elena.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10658",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0212": {
+   "id": "REQ-0212",
+   "prompt": "My linen shirt from order SO-10371 is not what I expected. Please refund it. My account is freya.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10371",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0213": {
+   "id": "REQ-0213",
+   "prompt": "My notebook bundle from order SO-10164 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10164",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0214": {
+   "id": "REQ-0214",
+   "prompt": "My bluetooth speaker from order SO-10851 is not what I expected. Please refund it. My account is tomas.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10851",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0215": {
+   "id": "REQ-0215",
+   "prompt": "My kettle from order SO-10318 is not what I expected. Please refund it. My account is kenji.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10318",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 2
+  },
+  "REQ-0216": {
+   "id": "REQ-0216",
+   "prompt": "My wool scarf from order SO-10370 is not what I expected. Please refund it. My account is kenji.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10370",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0217": {
+   "id": "REQ-0217",
+   "prompt": "My linen shirt from order SO-10841 is not what I expected. Please refund it. My account is aisha.6@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10841",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0218": {
+   "id": "REQ-0218",
+   "prompt": "My backpack from order SO-10874 is not what I expected. Please refund it. My account is ingrid.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10874",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0219": {
+   "id": "REQ-0219",
+   "prompt": "I want to dispute the charge for order SO-10754. My account is elena.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10754",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0220": {
+   "id": "REQ-0220",
+   "prompt": "My desk lamp from order SO-10605 is not what I expected. Please refund it. My account is jonas.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10605",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": true,
+   "items": 3
+  },
+  "REQ-0221": {
+   "id": "REQ-0221",
+   "prompt": "My wool scarf from order SO-10597 is not what I expected. Please refund it. My account is yuki.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10597",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0222": {
+   "id": "REQ-0222",
+   "prompt": "Where is order SO-10719? My account is luca.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10719",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0223": {
+   "id": "REQ-0223",
+   "prompt": "Where is order SO-10154? My account is maya.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10154",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0224": {
+   "id": "REQ-0224",
+   "prompt": "I want to dispute the charge for order SO-10162. My account is jonas.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10162",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0225": {
+   "id": "REQ-0225",
+   "prompt": "I want to dispute the charge for order SO-10033. My account is omar.1@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10033",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0226": {
+   "id": "REQ-0226",
+   "prompt": "Where is order SO-10530? My account is tomas.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10530",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0227": {
+   "id": "REQ-0227",
+   "prompt": "My bluetooth speaker from order SO-10804 is not what I expected. Please refund it. My account is elena.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10804",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0228": {
+   "id": "REQ-0228",
+   "prompt": "Where is order SO-10049? My account is tomas.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10049",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0229": {
+   "id": "REQ-0229",
+   "prompt": "I want to dispute the charge for order SO-10092. My account is priya.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10092",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0230": {
+   "id": "REQ-0230",
+   "prompt": "Where is order SO-10780? My account is freya.7@example.org.",
+   "kind": "status",
+   "order_id": "SO-10780",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0231": {
+   "id": "REQ-0231",
+   "prompt": "I want to dispute the charge for order SO-10807. My account is ingrid.8@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10807",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0232": {
+   "id": "REQ-0232",
+   "prompt": "My yoga mat from order SO-10665 is not what I expected. Please refund it. My account is ingrid.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10665",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0233": {
+   "id": "REQ-0233",
+   "prompt": "My wool scarf from order SO-10159 is not what I expected. Please refund it. My account is aisha.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10159",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0234": {
+   "id": "REQ-0234",
+   "prompt": "My desk lamp from order SO-10135 is not what I expected. Please refund it. My account is priya.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10135",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0235": {
+   "id": "REQ-0235",
+   "prompt": "I want to dispute the charge for order SO-10633. My account is luca.7@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10633",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0236": {
+   "id": "REQ-0236",
+   "prompt": "My running shoes from order SO-10532 is not what I expected. Please refund it. My account is omar.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10532",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0237": {
+   "id": "REQ-0237",
+   "prompt": "Where is order SO-10396? My account is daniel.2@example.org.",
+   "kind": "status",
+   "order_id": "SO-10396",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0238": {
+   "id": "REQ-0238",
+   "prompt": "Where is order SO-10670? My account is ingrid.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10670",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0239": {
+   "id": "REQ-0239",
+   "prompt": "Where is order SO-10831? My account is yuki.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10831",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0240": {
+   "id": "REQ-0240",
+   "prompt": "My ceramic mug set from order SO-10272 is not what I expected. Please refund it. My account is sofia.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10272",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0241": {
+   "id": "REQ-0241",
+   "prompt": "My bluetooth speaker from order SO-10582 is not what I expected. Please refund it. My account is kenji.4@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10582",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0242": {
+   "id": "REQ-0242",
+   "prompt": "Where is order SO-10131? My account is elena.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10131",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0243": {
+   "id": "REQ-0243",
+   "prompt": "Where is order SO-10335? My account is maya.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10335",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0244": {
+   "id": "REQ-0244",
+   "prompt": "Where is order SO-10117? My account is jonas.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10117",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0245": {
+   "id": "REQ-0245",
+   "prompt": "I want to dispute the charge for order SO-10130. My account is sofia.1@example.org.",
+   "kind": "dispute",
+   "order_id": "SO-10130",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0246": {
+   "id": "REQ-0246",
+   "prompt": "Where is order SO-10347? My account is tomas.3@example.org.",
+   "kind": "status",
+   "order_id": "SO-10347",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 3
+  },
+  "REQ-0247": {
+   "id": "REQ-0247",
+   "prompt": "Where is order SO-10707? My account is elena.5@example.org.",
+   "kind": "status",
+   "order_id": "SO-10707",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0248": {
+   "id": "REQ-0248",
+   "prompt": "My bluetooth speaker from order SO-10183 is not what I expected. Please refund it. My account is tomas.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10183",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0249": {
+   "id": "REQ-0249",
+   "prompt": "My yoga mat from order SO-10876 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10876",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0250": {
+   "id": "REQ-0250",
+   "prompt": "Where is order SO-10147? My account is yuki.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10147",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0251": {
+   "id": "REQ-0251",
+   "prompt": "My running shoes from order SO-10317 is not what I expected. Please refund it. My account is omar.3@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10317",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0252": {
+   "id": "REQ-0252",
+   "prompt": "My notebook bundle from order SO-10842 is not what I expected. Please refund it. My account is maya.2@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10842",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": true,
+   "items": 1
+  },
+  "REQ-0253": {
+   "id": "REQ-0253",
+   "prompt": "My bluetooth speaker from order SO-10495 is not what I expected. Please refund it. My account is aisha.8@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10495",
+   "release": "1.6.1",
+   "currency": "GBP",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0254": {
+   "id": "REQ-0254",
+   "prompt": "Where is order SO-10087? My account is ingrid.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10087",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0255": {
+   "id": "REQ-0255",
+   "prompt": "Where is order SO-10180? My account is daniel.8@example.org.",
+   "kind": "status",
+   "order_id": "SO-10180",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0256": {
+   "id": "REQ-0256",
+   "prompt": "Where is order SO-10877? My account is ingrid.6@example.org.",
+   "kind": "status",
+   "order_id": "SO-10877",
+   "release": "1.6.1",
+   "currency": "JPY",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0257": {
+   "id": "REQ-0257",
+   "prompt": "My kettle from order SO-10112 is not what I expected. Please refund it. My account is jonas.1@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10112",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 2
+  },
+  "REQ-0258": {
+   "id": "REQ-0258",
+   "prompt": "Where is order SO-10278? My account is yuki.1@example.org.",
+   "kind": "status",
+   "order_id": "SO-10278",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0259": {
+   "id": "REQ-0259",
+   "prompt": "Where is order SO-10221? My account is sofia.4@example.org.",
+   "kind": "status",
+   "order_id": "SO-10221",
+   "release": "1.6.1",
+   "currency": "USD",
+   "refunded": false,
+   "items": 1
+  },
+  "REQ-0260": {
+   "id": "REQ-0260",
+   "prompt": "My yoga mat from order SO-10899 is not what I expected. Please refund it. My account is ingrid.7@example.org.",
+   "kind": "refund",
+   "order_id": "SO-10899",
+   "release": "1.6.1",
+   "currency": "EUR",
+   "refunded": false,
+   "items": 1
+  }
+ }
+}

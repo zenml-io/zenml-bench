@@ -300,3 +300,519 @@ The same `reward.json` serves two consumers with opposite needs. The benchmark w
 - **Smoke and full run (docker runtime, Codex 0.147.0 on `gpt-5.4-mini`, OpenAI endpoint):** b10 scored 1.0 with the verifier's extra metrics recorded (`agent_runs`, `seeded_runs_seen`, …) in 93 s; the full 18×1 run is in `results/prime-evals.md`. The transcript is in the episode's trace graph (`nodes`/`calls`), not a flat message list; `traces.jsonl` carried no key values (the config records only the env-var *name*).
 - **Reward key depends on how `test.sh` reports.** verifiers names each reward after the reward function unless the task's `reward.json` carries a `reward` key: b3, b7 and b9 write `reward.txt`, so their score lands under `solved`; the other 15 write `reward.json {"reward": ...}` and land under `reward`. `trace.reward` sums all named rewards, so both are worth the same; anything that reads `rewards["reward"]` alone undercounts. The full 18×1 run scored 17/18 (b6 0; no Harbor sample of gpt-5.4-mini on b6 to compare), 17 min wall clock at 4 concurrent, ~US$3–5.
 
+
+## 2026-11-20 — setup for the Kitaru set: tool versions, model budget, running on Modal
+
+**Versions.** Harbor `0.26.0` (from `0.22.0`), installed as `uv tool install 'harbor[modal]==0.26.0'`: without the `modal` extra, `harbor run --env modal` stops with `MissingExtraError: The 'modal' package is required`. Prime CLI `0.22.1` (from `0.17.0`), Modal client `1.6.4`, `hf` CLI `2.4.0` (`uv tool install huggingface_hub`). Latest on PyPI today: Kitaru `0.27.7`, `kitaru-pydantic-ai` `0.4.0`, `kitaru-evaluator` `0.3.0`, `kitaru-langgraph` `0.3.1`, verifiers `0.4.1`. The v0.1 results were produced on Harbor `0.22.0`; `b3-stale-cache` still passes its oracle and grader on `0.26.0`, the other 17 tasks were not re-run.
+
+**Model budget.** The 2026-09-10 ban on Anthropic-model trials is lifted (Alex: credits arrived). The person starting a run checks the key first; `CLAUDE.md` has the one-line check.
+
+**Runs happen on Modal**, workspace `zenml-io`, environment `dev`. Observed with a copy of `b3-stale-cache` whose Dockerfile had the base image's lines pasted in above the task's own:
+
+- *How the image gets there.* For a one-container task Harbor calls Modal's `Image.from_dockerfile(<task>/environment/Dockerfile)`, so Modal builds the image itself and keeps it for the next run (first run 3m22s, later runs about 1m). The `FROM` line is pulled by Modal, so it must name an image on a registry; `FROM zenml-bench/base:0.96.4` exists only in the laptop's Docker and cannot work. If `task.toml` sets `docker_image`, Harbor calls `Image.from_registry` instead (a private registry needs a Modal Secret, passed as the `registry_secret` environment kwarg). A Modal Volume holding image archives helps only tasks that ship a `docker-compose.yaml`, where Harbor runs Docker inside the sandbox.
+- *Sealed networking.* `[environment] network_mode = "no-network"` plus `[agent] network_mode = "allowlist"` fails on Modal: Harbor creates the sandbox with an empty domain list, then asks Modal to switch to the agent's host list, and Modal answers `ConflictError: sandbox was created without a domain allowlist; enabling domain filtering while running is not currently supported`. The trial records the exception and the verifier scores whatever is there. With `[environment] network_mode = "allowlist"` and the same three hosts, the switch works. A probe inside the agent phase showed the list is enforced: `api.openai.com` answered (401 without a key), `example.com` and `pypi.org` failed to connect.
+- *Agents.* On that image, one trial each of `codex` + `gpt-5.4-mini` (US$0.04) and `claude-code` + `claude-haiku-5-5` (US$0.01) scored 1.0.
+
+**Accounts** (read-only checks; nothing was published): the maintainer's logins on Harbor Hub, Prime and Hugging Face each have the rights to publish for the organisation, but on Hugging Face the `HF_TOKEN` in the shell is a read-only fine-grained token and the token cached by `hf auth login` is no longer valid, so publishing to Hugging Face needs a new write token.
+
+## 2026-11-20 — Kitaru set: four design decisions (Alex)
+
+1. **One container.** Postgres, the Kitaru server, the worker and the agent under test share one container, so Modal builds it from the Dockerfile and the set can go on both Hubs. The agent can reach the database, so graders re-run the agent's work on inputs it never saw; locking the database behind a second Unix user is tried as a spike.
+2. **Scripted model.** The example agents that Kitaru replays use a Python function in place of a model. Planted faults live in tools, formatters and configuration, not prompt wording.
+3. **New stories.** The public set gets newly written companies. The existing private fixtures stay unpublished as the held-out set.
+4. **Base image: public on GHCR, behind a leak scan.** Alex is open to `ghcr.io/zenml-io/…` only if nothing secret can be in the image. The gate, to be built with the base image and run before every push: build from a clean `git worktree` export with a `.dockerignore` that keeps `.env`, `jobs/` and `design/` out of the build context; no secret ever passed as a build `ARG` or `ENV` (both are stored in the image's history); scan the image's full file system and `docker history --no-trunc` for key-shaped strings, home paths and emails, counts only (extend `scripts/check_public.sh`); push private first, scan the pushed digest, and only then flip it public, with Alex confirming each public step.
+
+Carried over from the proposal without a new question: the tasks live in a `kitaru/` directory of this repo. Deferred to publishing time: whether the diagnosis family appears on a public leaderboard.
+
+## 2026-11-20 — Kitaru spike 1 (and part of spike 4): one container on Modal, started by the healthcheck, agent as a second user
+
+Task dir: `kitaru/spikes/one-container-two-users/`. Run: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/one-container-two-users --agent oracle --env modal -o jobs`. Kitaru `0.27.7`, Python 3.13, Debian's PostgreSQL 17, Harbor `0.26.0`. Reward 1.0 on Modal.
+
+**What starts the three processes.** Harbor replaces the image's entrypoint with a keep-alive, so nothing in the image starts by itself. `task.toml` has `[environment.healthcheck] command = "/opt/kitaru-bench/start.sh"`: Harbor runs that command as root after the sandbox is up and before the agent, again and again until it exits 0. The script starts whatever is missing (Postgres with `pg_ctlcluster`, the server with `python -m uvicorn kitaru.server.api.main:app --factory`, one worker with `kitaru worker start`), each detached with `setsid nohup`, and exits 0 only when `pg_isready`, `/health/live` and `kitaru worker list` all answer. No entrypoint, supervisor or sidecar is involved, so the same task should start the same way on any Harbor runtime (only Modal was run).
+
+**How long.** From the script's first call: Postgres up at 3.2 s, server healthy at 6.8 s (it creates the database and runs its migrations itself), worker registered at 12.0 s. Whole trial with a cached image: 1m18s.
+
+**The processes survive.** The same three process ids were alive in the agent phase and in the verifier phase. The server ran with `KITARU_SERVER_AUTH_SCHEME=none`; the client needs only `KITARU_API_URL` and any `KITARU_API_KEY`. A default worker claims four job kinds: agent, evaluator, importer, analyzer.
+
+**The agent as a second Unix user.** By default the agent phase runs as root (`id` printed `uid=0`). With `[agent] user = "agent"` (a user the Dockerfile creates) it ran as `uid=1000`, while the healthcheck and the verifier stayed root. As `agent`, each of these failed: reading `/etc/kitaru-bench/server.env` (mode 600), `psql` over TCP with the default password and with none, `psql` over the Unix socket (peer authentication), listing the Postgres data directory, reading the server's `/proc/<pid>/environ`, killing the worker, `su postgres`; `sudo` is not installed. The Kitaru CLI over HTTP worked. So on Modal the database can be closed to the agent inside one container.
+
+**Not settled here.** (1) The verifiers runner (Prime) was not run. (2) Under `AUTH_SCHEME=none` the agent is still the admin over REST; what it can forge there is the rest of spike 4. (3) The worker ran as root, so the agent could not restart it; the operate tasks need the worker under the agent's user or a restart script the agent may call. (4) The spike's database password is a constant in a public repo, so a model could know it; the real base image must have `start.sh` pick a random password on first start. (5) A real agent CLI (Codex, Claude Code) running as `agent` was not tried.
+
+## 2026-11-20 — Kitaru spike 3: a scripted model replays identically, 100 times out of 100
+
+Task dir: `kitaru/spikes/replay-scripted-model/` (`environment/spike_agent/agent.py` is the agent, `environment/run_spike.py` the driver). Run on Modal with the network sealed to the three model hosts: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/replay-scripted-model --agent oracle --env modal -o jobs`. Kitaru `0.27.7`, `kitaru-pydantic-ai` `0.4.0`. Reward 1.0.
+
+**The agent.** A real PydanticAI `Agent` wrapped in the real `KitaruAgent`, whose model is PydanticAI's `FunctionModel`: a Python function that reads the conversation so far and returns the next message. For "Refund order A-7" it calls `lookup_order`, then `issue_refund`, then answers. Two tools were built to expose a live call: `lookup_order` returns the current time in nanoseconds, and `issue_refund` appends a row to a ledger file and returns a random receipt. Orders divisible by 5 look the order up twice with the same arguments; orders divisible by 4 are "not found" and get no refund.
+
+**What was run.** 20 sessions recorded by running the script directly (21 s; 15 ledger rows, because 5 orders were not found). Then five rounds, each replaying all 20 with `kitaru replay create <session> --evaluator refund-count@1 --agent spike-agent@1 --tool-policy '{"default":{"type":"history","scope":"baseline","on_miss":"fail"}}'`. Each replay's result session was reduced to its final answer, every tool call with arguments and result, and every model reply with token counts, and compared with the recording.
+
+**Result.** 100 of 100 replays completed and matched their recording exactly, including the recorded timestamp and receipt in the final answer. The ledger stayed at 15 rows. The repeated identical lookup was answered in order (first replayed call got the first recorded result, the second the second). One control replay with no `--tool-policy` did what the docs warn about: it ran the live tools, added a 16th ledger row, and produced a different receipt and timestamp. So the comparison can tell a recording from a live call, and the default policy really does repeat side effects.
+
+**Facts a grader will depend on.**
+- A session recorded by running the script directly has `agent_version_id: null`, so `replay create` needs `--agent <name>@<version>`.
+- A replay needs at least one evaluator. A script evaluator with no dependencies runs with the worker's own Python, so it worked with the network sealed (`kitaru evaluator register <name> --script f.py --entrypoint evaluate`).
+- Evaluations written by that run carry `evaluator_version_id` and `task_id`, as the proposal's table expected.
+- Speed: 20 replays took about 57 s with one worker at `--concurrency 4` on 2 CPUs, so roughly 3 s each. A grader that replays 60 hidden sessions needs about 3 minutes; size verifier timeouts and worker concurrency from that.
+- The model shows up in Kitaru as `function:scripted_model:` with no cost (price lookup fails, recorded as `cost: null`), so cost-based tasks cannot use sessions recorded this way without setting cost another way.
+- The CLI masks every usage key ending in `tokens` inside a model reply's payload (`cache_read_tokens: "***"`), while the node's own `tokens` field is readable.
+
+**Not covered.** A replay against a *changed* agent version (the fix-and-replay case, where new arguments miss the recording), experiments over a cohort, and `cohort_version` or `agent` scope.
+
+## 2026-11-20 — Kitaru spike 2: built-in evaluators and the JSONL importer run with the network sealed
+
+Task dir: `kitaru/spikes/builtin-plugins-offline/` (`environment/run_spike2.py` is the driver). Run on Modal, network sealed to the three model hosts: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/builtin-plugins-offline --agent oracle --env modal -o jobs`. Kitaru `0.27.7`, uv `0.13.9`. Reward 1.0; `pypi.org` was unreachable from inside the task.
+
+**Why there is a problem at all.** A built-in evaluator, importer or analyzer is not code inside the server. The server stores a package requirement and an entrypoint, for example `kitaru-evaluator==0.3.0` + `kitaru_evaluator.basic:tool_call_patterns`. When a worker claims the job it runs `uv run --no-project --with kitaru-evaluator==0.3.0 python -m kitaru.task …`, and uv downloads the package at that moment. With the network cut, the task fails: `Evaluator process exited with code 2 … Failed to fetch: https://pypi.org/simple/kitaru-evaluator/` (observed in a local container before the fix).
+
+**What 0.27.7 registers** (from `kitaru <kind> version get <name>@1`): 13 evaluators, all `kitaru-evaluator==0.3.0`; 7 importers: `kitaru-jsonl-importer==0.2.0`, `kitaru-langfuse-importer==0.5.0`, `kitaru-langsmith-importer==0.4.0`, `kitaru-phoenix-importer==0.4.0`, `kitaru-braintrust-importer==0.4.0`, `kitaru-logfire-importer==0.4.1`, `kitaru-mlflow-importer==0.1.0`; 3 analyzers, of which only `kitaru/post-import-insights` (`kitaru-post-import-insights==0.4.0`) needs no provider key.
+
+**The fix that works.** At image build, `pip download --only-binary=:all: -d /opt/kitaru-wheels` for `kitaru[cli,server,worker]==0.27.7` and those nine packages (52 wheels, 25 MB). Then a system-wide uv config, `/etc/uv/uv.toml`:
+
+```
+no-index = true
+find-links = ["/opt/kitaru-wheels"]
+```
+
+Every `uv` call in the container, by the worker or by the agent, then resolves from that folder only.
+
+**The fix that does not work.** Kitaru's own CI sets `UV_FIND_LINKS` and `UV_NO_INDEX=1`. With uv `0.13.9`, `uv run` ignored `UV_NO_INDEX` (both `1` and `true`) and still went to PyPI; the `--no-index` flag, `UV_OFFLINE=1`, and the config file each worked. The config file is used because it does not depend on which process inherited which variable. Pin uv in the base image, because this behaviour may differ between uv versions.
+
+**Result on Modal.** `kitaru session evaluate --all --evaluator kitaru/tool-call-patterns@1 --evaluator kitaru/session-diagnostics@1 --wait` over 3 recorded sessions: 33 evaluations in 7.7 s, all 33 with `evaluator_version_id` and `task_id`. `kitaru session import sessions.jsonl --importer kitaru/kitaru-jsonl@latest --agent spike-agent@1 --media-type application/x-ndjson --wait`: 6 sessions in 6.3 s, all 6 with `import_id` and `task_id`.
+
+**Open.** The analyzer was requested on the import (`--analyzer kitaru/post-import-insights@1`) and no insights were stored. With 3 imported sessions its task was `skipped`: the analyzer has `min_sessions: 5`. With 6 sessions the run did not record whether it ran and found nothing or had not finished when the driver read the list. Check before building task I4, which depends on `import analyze`. `kitaru job list` does not exist (only `get`, `watch`, `cancel`); find a job id from the command that created it or from `kitaru import list`.
+
+## 2026-11-20 — Kitaru spike: replaying recordings against a fixed agent version
+
+Task dir: `kitaru/spikes/replay-changed-agent/` (`environment/run_spike4.py` is the driver). Run on Modal, network sealed: `MODAL_ENVIRONMENT=dev harbor run -p kitaru/spikes/replay-changed-agent --agent oracle --env modal -o jobs`. Reward 1.0.
+
+**Setup.** Version 1 of the scripted agent has a planted fault: for a euro order it calls `issue_refund` with 100 times the amount (order A-3: amount 13, refund 1300). Version 2 is the same command and directory with `--env SPIKE_FIX=1` in its run spec (`kitaru agent version register spike-agent --command … --working-dir /app --env SPIKE_FIX=1`), which turns the fix on. 12 sessions were recorded with version 1: 3 euro refunds (wrong), 6 dollar refunds (right), 3 orders not found. The evaluator `refund-amount` passes when every refund equals the amount the lookup returned.
+
+**What each replay of the 12 did.**
+
+| agent version | tool policy | replays | evaluator | ledger rows added |
+|---|---|---|---|---|
+| 1 | every tool from the recording, miss = fail | 12 completed | 9 pass, 3 fail | 0 |
+| 2 | every tool from the recording, miss = fail | 9 completed, **3 failed** | 9 pass | 0 |
+| 2 | every tool from the recording, miss = error result | 12 completed | 12 pass | 0 |
+| 2 | lookups from the recording, `issue_refund` answered by a fixed `static` result | 12 completed | 12 pass | 0 |
+
+- Row 1 is the reproduction: the old version replays to the old answers, and the evaluator finds the three bad refunds.
+- Row 2 is the trap task F4 is built on. The fixed agent calls `issue_refund(amount=13)`. The recording only holds `issue_refund(amount=1300)`. Kitaru matches a recorded call by tool name plus arguments, finds nothing, and the agent process exits with `ToolPolicyMissError: No history result for tool 'issue_refund'`. A fix that changes a tool's arguments can never be replayed with "everything from the recording, fail on a miss".
+- Row 3: the agent receives `{"error": "No history result for tool 'issue_refund'"}` as the tool's result and carries on. The replay completes and this evaluator passes, because it reads the arguments, not the result. An evaluator that checks the refund succeeded would fail here.
+- Row 4 is the reference answer for F2–F4: keep lookups on the recording, give the side-effect tool a `static` answer (`{"type":"static","on_miss":"fail","cases":[{"match_mode":"subset","match":{},"result":{…}}]}`). Nothing real is refunded and the fix is measured.
+
+**Experiments over a cohort** (`kitaru cohort create recorded-12 --agent spike-agent --sessions-file ids.txt`, `kitaru experiment create <name> --agent spike-agent --evaluator refund-amount@1 --tool-policy …`, `kitaru experiment run start <name> --cohort-version <id> --agent spike-agent@2 --wait`): with the row-2 policy the run's status is `failed` (progress: 9 completed, 3 failed) and the CLI exits with an error; with the row-4 policy it is `completed` (12 of 12). So one failed replay does fail the whole run, as F4 assumes. `--all` on a cohort would also sweep in replay result sessions, so the cohort was built from an explicit id file.
+
+**An agent version does not hold code.** A version is a run spec: a command, a directory, environment variables. With the fix switched on by a file on disk (standing in for "someone edited the code in place"), a replay against *version 1* produced the fixed answer (13, not 1300). Consequences for graders: "replay against version 1.6.1" means "run whatever is in that directory now"; a baseline comparison is only meaningful if the old code still exists somewhere the old version points at; and a grader that wants to test the agent's fix must replay against the version the agent registered *and* check which directory and command that version names, or copy the code first. The fix-and-replay tasks should give each version its own directory (or git worktree) and say so in the instruction.
+
+**Speed on Modal:** 12 replays in about 41 s.
+
+**Not covered:** where an experiment run stores baseline and result pass rates (F2 needs "higher than baseline"); `cohort_version` and `agent` history scope.
+
+## 2026-11-20 — Kitaru Level 1: base image, the storefront world, task C2
+
+Layout and commands: `kitaru/README.md`.
+
+**Base image (`kitaru/base/`).** Python 3.13, PostgreSQL 17, `kitaru[cli,server,worker,mcp]==0.27.7`, `kitaru-pydantic-ai==0.4.0`, uv `0.13.9`, Claude Code `2.1.329` and Codex `0.171.0` baked in, the plugin wheels and `/etc/uv/uv.toml` from spike 2, Kitaru's `docs/book` at tag `python/kitaru/v0.27.7` in `/opt/kitaru-docs`. Three Unix accounts: root (Postgres control, the server, the grader), `agent` (the agent under test and the worker it may restart), `grader` (the worker the grader starts). The reason for the third account: an evaluator the agent registers is code, and a worker runs it. A worker running as root would hand the agent root.
+
+**`start.sh` picks a new database password every time it starts the server** and writes it to a root-only file, so no password is in the repository or fixed in the image.
+
+**No registry yet, so each task's `environment/` is self-contained.** `kitaru/scripts/sync_env.sh` writes `environment/Dockerfile` as base + world + task sections and copies the files in. When the base image is on GHCR (behind the leak scan), the base section becomes one `FROM` line. Cost today: the first Modal build of a task takes longer than Harbor's default 10-minute build limit (`EnvironmentStartTimeoutError` on the first try), so `task.toml` sets `[environment] build_timeout_sec = 1800`.
+
+**World `storefront`.** `story.py` plans 3,056 conversations of a shop's returns assistant from 1 June to 30 July 2026 across three releases, as Kitaru JSONL. `load.py` imports them through the real JSONL importer while the image is built (46 s; every session gets an `import_id` and a `task_id`; session numbers follow start time) and stops the build if the server's counts differ from the plan. Planted so far: from release 1.4.0, a euro refund to a card is confirmed with 100 times the amount (170 conversations). The other problems in the proposal's table are added when their tasks are built.
+
+**A bug worth remembering.** The first builds never got the server up. `start.sh` asks "is the server running?" with `pgrep -f "uvicorn kitaru.server"`. The Dockerfile `RUN` line that called it also contained `pkill -f "uvicorn kitaru.server"` for the clean-up, so the build shell's own command line matched, and `start.sh` concluded the server was already running. The stop logic now lives in `stop.sh`, and no `RUN` line names those processes.
+
+**Task C2 (`kitaru/tasks/c2-finding-to-check/`).** The agent must register an evaluator named `refund-confirmation-amount` that fails conversations whose reply states 100 times the refunded amount. The grader stops the agent's processes, starts its own worker, imports 120 hidden conversations (40 affected), runs the latest registered version on them and computes precision and recall; reward 1 when both are at least 0.9 (Alex confirmed this bar on 2026-11-20) and the workspace is intact. The hidden set is labeled by what the reply says, and is built to break rules that never read the reply: the fault also appears on store-credit refunds and on a release the agent never saw, 30 euro refunds are correct, some correct partial refunds have an order total exactly 100 times the refund, and there are yen and large dollar refunds.
+
+Local four checks (`kitaru/scripts/grade_local.sh`):
+
+| script | evaluator failed | precision | recall | reward |
+|---|---|---|---|---|
+| reference | 40 | 1.00 | 1.00 | 1 |
+| alternative: any mismatch, two versions, backfill | 40 | 1.00 | 1.00 | 1 |
+| nothing | (none registered) | | | 0 |
+| shortcut: fail every euro refund | 70 | 0.57 | 1.00 | 0 |
+| shortcut: euro + card + release after 1.3.0 | 51 | 0.65 | 0.83 | 0 |
+| shortcut: recognise known session ids | 0 | 0 | 0 | 0 |
+| shortcut: manual labels, nothing registered | (none registered) | | | 0 |
+| shortcut: write to PostgreSQL | (none registered) | | | 0 |
+
+**Kitaru facts found while building it.**
+- `kitaru session evaluate` refuses more than 100 session-evaluator pairs in one request ("Evaluation request holds 120 pairs, the cap is 100"). Graders batch with `--sessions-file`. An agent backfilling 3,056 sessions hits the same wall; tasks C1 and C4 can use it.
+- Importing the same file twice creates nothing the second time: sessions are deduplicated on `external_id` plus importer per agent. A grader's hidden sessions therefore need external ids the agent could not have imported first.
+- `kitaru agent register` requires `--command` even for an agent whose sessions are only ever imported.
+- `kitaru session list --sort` accepts only `created:asc` and `created:desc`.
+- On failure the CLI prints its JSON on stderr, not stdout.
+- A worker stopped without a clean exit still lists as `live` for a short while.
+
+## 2026-11-20 — C2: the four checks pass on Modal; two corrections
+
+`MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py kitaru/tasks/c2-finding-to-check --env modal -n 5 --job-prefix kverify`: reference 5 of 5 at reward 1 (precision 1.00, recall 1.00 each time), `nop` 0, all five shortcuts 0 with the same numbers as the local table, the alternative 1. Wall time 18 minutes with the image already built; a single trial is about 7 minutes, of which the grader takes 2.5 (import 120 sessions, evaluate them, read the results).
+
+Modal's image builder left `/app` owned by root even though an earlier `RUN` had given it to `agent` and the files were copied with `--chown`; `git init` as `agent` then failed with `/app/.git: Permission denied`. Local Docker did not show this. `Dockerfile.world` now runs `chown -R agent:agent /app` in the same `RUN` as the `git init`.
+
+Corrections to earlier entries, from the issues filed on `zenml-io/kitaru` (#1545–#1552):
+- Spike 2 said uv `0.13.9` ignores `UV_NO_INDEX`. `UV_NO_INDEX` is not a uv setting in any version (#1545); Kitaru's CI recipe never did what it appeared to. The `/etc/uv/uv.toml` fix stands.
+- Spike 2's open analyzer question: `kitaru session import --wait` does not report whether the analyzers it was given ran, were skipped or failed (#1551).
+
+## 2026-11-20 — telemetry off, and a variable that was doing nothing
+
+Alex: telemetry must be off for the Kitaru work and for the ZenML tasks.
+
+**Found.** Every Kitaru image built today set `KITARU_ANALYTICS_OPT_IN=false`. That variable does not exist. Kitaru's client checks `KITARU_DISABLE_CLIENT_ANALYTICS` and `DO_NOT_TRACK` (`src/kitaru/client/config.py`), so client analytics were on. The server switch, `KITARU_SERVER_ANALYTICS_OPT_IN=false`, was correct throughout. Harbor reports each command and job to PostHog unless `HARBOR_TELEMETRY` is `off` (`harbor/telemetry.py`); it was not set for today's runs.
+
+**What was sent today.** Runs on Modal were sealed to three model hosts, so nothing from Kitaru's client left those sandboxes. The local Docker containers used to work out commands had open network, so their `kitaru` CLI calls could report usage events. The `harbor` CLI on the host reported its command and job events. No ZenML client ran outside an image that already had `ZENML_ANALYTICS_OPT_IN=false`.
+
+**Now.** `kitaru/base/Dockerfile` sets `KITARU_DISABLE_CLIENT_ANALYTICS=1`, `DO_NOT_TRACK=1`, and Claude Code's `DISABLE_TELEMETRY=1`, `DISABLE_ERROR_REPORTING=1`, `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1`; the four spikes are corrected; `scripts/verify_task.py` and `scripts/run_baselines.py` default `HARBOR_TELEMETRY=off`; `CLAUDE.md` lists the host-side exports. Not verified: whether the Codex CLI has a telemetry switch (inside a task it can only reach the model hosts on the allowlist), and whether the `prime` and `modal` CLIs report usage.
+
+## 2026-11-20 — Kitaru base image on GHCR (private), behind the leak scan
+
+`ghcr.io/zenml-io/kitaru-bench-base:0.27.7-1`, index digest `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9` (`linux/amd64` and `linux/arm64`), built from a `git archive` of `kitaru/base` at commit `66fad59` (label `org.opencontainers.image.revision` holds the exact commit). Visibility: **private**. Procedure: `kitaru/README.md`, "Publishing the base image".
+
+**The scan (`kitaru/scripts/scan_image.py`) and what it found.**
+- Control first: an image with a fake key planted in a file that a later step deleted, the same key in base64, a `.env` file and a line containing the home path. The scan flagged all four, including the deleted file (it reads each layer, not the final file system).
+- First scan of the real image: none of the 45 secret values on this machine, no identity strings, no credential files. The pattern scanner flagged two real things: `/etc/ssl/private/ssl-cert-snakeoil.key`, a private key Debian generates when PostgreSQL is installed, and npm's download cache under `/root/.npm`. Neither is one of our secrets, but a private key has no business in a public image. The Dockerfile now turns Postgres TLS off (it listens on 127.0.0.1 only) and deletes the key in the same `RUN` as the install, and clears the npm cache in the same `RUN` as the install. C2's reference still scores 1 on the rebuilt image.
+- Second scan, both CPU types, before the push and again on the copies pulled back from GHCR: clean. About 68 pattern hits remain inside third-party packages (example keys in their tests and docs); they do not block.
+- Speed: macOS `grep -F` with 70 strings over 4 GB had not finished after 17 minutes; `rg` does it in seconds. The whole scan takes about 40 seconds.
+
+**Not done until the image is public:** tasks still build everything from their own Dockerfile. Modal cannot pull a private GHCR image without a stored credential, and outside users could not pull it at all. After Alex flips the package to public, `sync_env.sh` writes `FROM ghcr.io/zenml-io/kitaru-bench-base:0.27.7-1` in place of the base section, and C2 is re-verified on Modal.
+
+## 2026-11-20 — C2's grader had a hole: the agent's evaluator could read the answer key. Plus: what the API refuses.
+
+**The hole.** The grader runs the evaluator the agent registered, through the grader's worker, as user `grader`. Harbor has by then copied `tests/` to `/tests`, and `hidden_labels.json` was readable by every user. A shortcut whose evaluator globs `/tests/**/*.json` for a file shaped like an answer key and answers from it scored reward 1, precision 1.00, recall 1.00. The earlier five shortcuts all attacked during the agent's turn; this one attacks during grading, with code the grader itself runs.
+
+**The fix.** `kitaru_checks.lock_grader_files()` runs `chmod -R go-rwx` on `/tests`, `/solution` and `/logs` before the grader's worker starts; `start_grader_worker()` calls it first. The shortcut `tests/shortcuts/read_grader_labels.sh` is kept: it now scores 0 (its evaluator finds 0 answer-key entries), and every later task that runs agent code during grading gets the same shortcut. Rule for `kitaru/README.md`: code the agent registered runs during grading on the same disk as the answer key.
+
+**What the Kitaru API refused when asked as the agent** (authentication off, so every request is the admin):
+- A new version of a built-in importer or evaluator: `403: Default plugin 'kitaru/kitaru-jsonl' is read-only`. So the grader's `kitaru/kitaru-jsonl@latest` cannot be swapped for the agent's code. (The CLI reports "Created the importer parent but did not complete registration" on that path, which reads like a half-finished write; not investigated.)
+- `evaluator_version_id` and `task_id` on a manual evaluation, `import_id` and `task_id` on a created session: rejected as unknown fields. Those fields are set by the server only, so over HTTP the proposal's "fields an agent cannot fake" table holds.
+- There is no `kitaru session delete` and no `kitaru importer delete`; `kitaru agent delete` exists (a soft delete), which is why the grader checks the agent still has its three versions.
+- On disk, as `agent`: no write access to `/opt/kitaru-wheels`, `/etc/uv/uv.toml`, `/home/grader`, Kitaru's installed package or `/usr/local/bin`.
+
+**Still possible, and accepted:** the agent can register a worker of its own through the API (the grader kills every process of user `agent` before grading), and code it registers can call the API as admin while the grader runs it. In C2 that buys nothing, because the labels are not in Kitaru. A task whose right answer is the same for every hidden input would be exposed to it; such a task must not let agent code run during grading.
+
+Confirmed on Modal the same day (`--job-prefix kverify2`, 34 minutes including a fresh image build): reference 5 of 5, `nop` 0, all six shortcuts 0 including `read_grader_labels.sh` (its evaluator ran on all 120 hidden sessions and failed none), the alternative 1. None of the 15 baseline trajectories touched the grader's files, so the baseline table stands.
+
+## 2026-11-20 — Kitaru Level 2, first three: C1, C3, C4 on `storefront`
+
+All four `storefront` tasks share one image (their `environment/` folders are byte-identical), so Modal builds it once.
+
+**New in the world** (`story.py`; 2,997 conversations): 131 with more than three `lookup_order` calls (the order service times out and the assistant retries; the failed calls are recorded as failed tool calls); 143 idle timeouts (the assistant asks for more detail, the customer never returns; `metadata.end_reason = idle_timeout`; 30% are phrased as a request, not a question); 19 curt replies in finished conversations (short statements, questions, and long statements). Every other finished reply now ends with one of three closing courtesies. Registered at build: `polite-closing` v1 (fails any reply without a closing, so it fails the idle timeouts too) and `refund-issued-once` v1 and v2. `sync_env.sh` now writes the world's full answer key to each task's `tests/fixtures/ground_truth.json` (tests only).
+
+**C1, a rule from the built-ins.** Check "no more than three `lookup_order` calls" on the week from 24 July (359 conversations, 22 rule-breakers) with a built-in evaluator. Graded from stored evaluations only: every conversation in the week has a built-in result whose `passed` matches the rule (latest result wins), and at most 50 older conversations carry built-in results. Reference: `kitaru/tool-policy@1` with `{"max_calls_per_tool": {"lookup_order": 3}}`, 100 sessions per request. Shortcuts: `kitaru/tool-call-patterns` (describes only, `passed` stays empty), a maximum of 2 (16 wrong), the week plus 150 older, only the first 100, a hand-written evaluator.
+
+**C3, the evaluator is wrong.** `polite-closing` fails about 1 in 18. The agent must see that most failures are idle timeouts, and register a corrected version. Graded like C2: the latest version (must be 2 or higher) runs on 120 hidden conversations (24 curt, 24 idle, 72 polite), precision and recall of at least 0.9 on the curt ones. The hidden set breaks the surface rules: "pass if it ends with a question" (a third of curt replies are questions, a third of idle ones are not), "pass long replies" (a third of curt replies are long), "only judge conversations with a refund". Doing nothing scores 0 twice over: no new version, and v1's precision is 0.5.
+
+**C4, backfill one release.** Evaluate the 464 conversations of release 1.4.1 with `refund-issued-once@2`. Graded from stored evaluations: full coverage, at most 30 older conversations, at most 1,400 version-2 results in total. Selecting by agent version or by start date both work (the alternative uses the date). Shortcuts: version 1, the release plus 100 older, the first 100 only, the whole backfill four times.
+
+**Tolerances are in the instructions.** An agent that tries an evaluator on a few old conversations first is behaving well; "exactly these sessions and no others" would punish it. So each scoped task states an allowance (50, 30) and the alternatives use it.
+
+**Local four checks:** 31 scripts across C1–C4, all as expected (C2 re-checked because the world changed under it).
+
+**Kitaru facts found.**
+- Filter operators are `eq, ne, lt, le, gt, ge, in, is_null, startswith, endswith, contains`. `gte` is rejected with "--filter must be a valid JSON filter expression", which does not say what is wrong. Filterable session fields include `started_at`, `agent_version_id`, `tag`, `has_evaluation`, `tool_call_count`, `cost`; `metadata.*` is not filterable. `{"and": [...]}` combines conditions.
+- An evaluation row stores `evaluator_name`, `evaluator_version` and `evaluator_params`.
+- `kitaru/tool-policy` returns `per_tool_maximums` with a real pass or fail; `kitaru/tool-call-patterns` returns `passed: null`.
+- Local speed: about 360 evaluations in 40 seconds with one worker at concurrency 4.
+- zsh's `echo` turns `\n` inside a variable into a line break. Scripts generated with `echo "$VAR"` came out with broken Python string literals; generate task scripts with Python or `printf '%s\n'`.
+
+## 2026-11-20 — base image also in Google Artifact Registry (private); GHCR cannot go public
+
+Making a GHCR package public needs an org-wide GitHub setting that ZenML keeps off (Hamza, via Alex). Alex chose Google Artifact Registry in project `zenml-core` instead.
+
+- Repository `kitaru-bench` (Docker format, location `us`), created by Alex's login, which is an owner of the project. The project's `iam.allowedPolicyMemberDomains` policy allows any member, so a public reader binding is possible. No repository in `zenml-core` is public today; this would be the first.
+- Image `us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1`, index digest `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`: the same digest as the GHCR copy that passed the leak scan before the push and after a pull, so the bytes are the same. A registry-to-registry copy (`docker buildx imagetools create`) failed part-way; `docker tag` + `docker push` from the local copy worked. Login used a one-hour token (`gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin us-docker.pkg.dev`), not a stored credential helper.
+- **Still private.** The step that makes it public is `gcloud artifacts repositories add-iam-policy-binding kitaru-bench --project zenml-core --location us --member allUsers --role roles/artifactregistry.reader`. It waits for Alex's explicit yes. To weigh: anyone can then pull it, and download traffic is billed to `zenml-core` (the image is about 400 MB compressed per CPU type; Modal keeps a copy after its first pull).
+- After it is public: `sync_env.sh` writes `FROM us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1` in place of the base section, and the tasks are re-verified on Modal.
+
+## 2026-11-20 — the Kitaru base image is public (Artifact Registry); tasks build from it
+
+Alex said to make it public. `gcloud artifacts repositories add-iam-policy-binding kitaru-bench --project zenml-core --location us --member allUsers --role roles/artifactregistry.reader`. Checked with no credentials: the manifest for `us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1` downloads, and its digest is `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`, the digest that passed the leak scan.
+
+`kitaru/base/IMAGE` holds the reference, pinned by digest. `sync_env.sh` now writes `FROM <that reference>` and no longer pastes `base/Dockerfile` into every task. A change to `base/` means: build, scan, push under a new revision, update `base/IMAGE`, re-sync and re-check every task. The GHCR copy stays private and unused.
+
+## 2026-11-20 — Artifact Registry is a stopgap for the base image
+
+Alex: fine to keep the image public there for our own runs now, but he does not want to pay for other people's downloads. Before any of this is merged or published the image moves somewhere pulls are free for the publisher, most likely Docker Hub. Tracked in `kitaru/README.md`, "Before this work is merged or published".
+
+## 2026-11-20 — Kitaru C5 and C6; the checks family is complete
+
+**New in the world.** 27 late refunds (issued more than 30 days after delivery), a near-miss group refunded on days 28 to 30 (allowed), 17 conversations refunded twice. A cohort `reviewed-july` of 40 conversations carries the reviewers' verdicts as manual evaluations named `human_review` with a one-sentence reason (14 failed: 7 late refunds, 7 wrong amounts). `checks.txt` in the workspace lists the release checks (`refund-issued-once@2`).
+
+**Adding to a world without reshuffling it.** The first extension (retried lookups, idle timeouts) drew from the story's one random stream and changed every conversation. This one draws new attributes from a second stream seeded by each session's own id, and keeps every existing draw in its place: 84 of 2,997 conversations changed, the ones that gained a planted attribute. The first attempt still shifted the stream, because a draw that used to happen for most sessions was skipped when a planted value replaced it; the fix is to make the draw exactly when it always was and then override the value. Check after any world change: generate the old and new history and count byte-identical sessions.
+
+**C5, agree with the reviewers.** Register `matches-review` so it reaches the reviewers' verdicts. The two rules are readable from the reviewers' reasons. Graded by running the latest version on 120 hidden conversations judged by the same rules (20 late, 20 wrong amount, 12 refunded on day 29 or 30, 10 declined returns at 44 days, 58 ordinary) and on the 40: precision and recall of 0.9 on the hidden set and agreement of 0.9 on the 40. Shortcuts: one rule without the other (recall 0.5), "30 days or more" (precision 0.82: day 30 is allowed), "any order older than 30 days" whether refunded or not (precision 0.69), the 40 verdicts copied in by session id (perfect on the 40, nothing on the hidden set), and the answer-key reader.
+
+**C6, check before merge.** Write `bin/check.sh <cohort>`: run the evaluators in `checks.txt` on the cohort through Kitaru, exit 0 at 90% or more passing, 1 below, 2 if it could not run. The grader imports 520 hidden conversations, makes four cohorts of 130 with random names (100%, 70%, 92.3% and 87.7% passing), runs the script on each as user `agent` with the grader's worker, and requires the right exit status and stored results from the listed evaluator for all 130. The two cohorts either side of the bar defeat "fail if anything fails" and "always succeed"; 130 is above Kitaru's 100-per-request limit, so a script that evaluates only the first 100 leaves 30 without results; a script that counts refunds itself gets every exit status right and still scores 0 because Kitaru holds no evaluator results. Verifier timeout 1800 s.
+
+**Kitaru facts found.** `kitaru cohort get <name>` returns the cohort with `latest_version` as a number; the version's id comes from `kitaru cohort version get <name>@<n>`. `kitaru session evaluate --cohort` wants `<name>@<version>`, not a bare name. Sessions of a cohort version: `--filter '{"field":"cohort_version_id","op":"eq","value":"<id>"}'`. `kitaru session evaluate --wait` returns each task's results inline (`item.tasks[].results[]`), so a caller need not list evaluations afterwards.
+
+**Local four checks:** 48 scripts across C1 to C6, all as expected.
+
+## 2026-11-21 — C1 to C6: the four checks pass on Modal, built from the public base image
+
+`uv run scripts/verify_task.py kitaru/tasks/<task> --env modal -n 5 --job-prefix kv4`, every task's `environment/` starting `FROM` the Artifact Registry image. All six: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+| task | shortcuts at 0 | alternatives at 1 |
+|---|---|---|
+| `c1-rule-from-builtins` | 5 | 1 |
+| `c2-finding-to-check` | 6 | 1 |
+| `c3-evaluator-is-wrong` | 5 | 1 |
+| `c4-backfill-one-release` | 4 | 1 |
+| `c5-agree-with-reviewers` | 6 | 1 |
+| `c6-check-before-merge` | 4 | 1 |
+
+## 2026-11-21 — Kitaru diagnosis tasks D6, D7, D9: the answer is a cohort
+
+**What a diagnosis task asks for.** The agent records its answer in Kitaru as a cohort (a named, versioned set of sessions). The grader reads the members of the cohort's latest version and compares them with the planted sessions: precision and recall of at least 0.9, stated in the instruction. Where a cause or a date is asked, it goes in `/app/answer.json` from a closed list. The grader runs none of the agent's code and refuses an answer file that is a link (it runs as root and the link could point at the answer key). Helpers `cohort_external_ids`, `score_cohort`, `read_answer_file` are in `kitaru/checks/kitaru_checks.py`.
+
+**The world gains four problems, behind a switch.** `story.py history --plants diagnosis` adds them; a task opts in with a file `plants`. Without the switch the history is byte-identical to before (checked), so the six checks tasks keep their images, their Modal checks and their baseline. With it, 424 of the 2,997 conversations change (exactly the planted ones) and 120 are added. The price: two images for one world. They can be merged later by giving every task the `plants` file and re-running checks and baselines.
+
+| planted | what happened | size |
+|---|---|---|
+| `over_refund` | 15 to 28 June: a full refund paid back the order total plus a shipping fee; `issue_refund` got more than `lookup_order` said the order cost | 38 |
+| `model_swap` | 9 July 14:00 to 18 July: model calls record `model` `gpt-5.4-mini-2026-07-08` while `requested_model` stays `gpt-5.4-mini`, and take about twice as long; a third of conversations for four days, then all | 355 of the 466 in that period |
+| `cost_spike_1` | 21 June 10:00 to 20:00: the order service was down, every conversation retried the lookup four to six times | 32 of that day's 47 |
+| `cost_spike_2` | 4 July: a promotion email brought 120 extra conversations of ordinary cost (`metadata.campaign`) | 120 of that day's 172 |
+
+**D6, refunded too much.** Cohort `over-refunds`. The decoy is the louder problem already in the world: 195 replies that state 100 times the refund, where the refund itself was right. Shortcuts at 0: that decoy (no overlap at all), every refund of the fortnight (precision 0.10), the first five found (recall 0.13), "at least the total" (every full refund, precision 0.02), an empty cohort.
+
+**D7, slower with no release.** Cohort `slower-replies` plus cause and first affected day. Shortcuts at 0: everything in the slow period (precision 0.76, because the change reached only some conversations at first), only the fully affected days (recall 0.82 and the wrong day), long conversations (timed-out lookups and idle customers are long too: precision 0.48), blaming release 1.4.1, the right cohort with the wrong day, the right cohort with the wrong cause.
+
+**D9, retries or traffic.** Cohorts `cost-spike-1` and `cost-spike-2` plus a date and cause for each. Shortcuts at 0: the whole day in each cohort (0.68 and 0.70), the causes swapped, the 40 most expensive conversations of each day (right for the retry loop, wrong for traffic), one spike only, both called retry loops. The alternative takes "any timed-out lookup that day" for spike 1, a looser reading that still clears the bar (precision 0.91).
+
+**Kitaru facts found.** `KitaruAPIClient` (async, `from kitaru.client`) reads a session with its nodes in about 3 ms: the whole history in under 15 s, against about half a second per `kitaru session nodes` call. `kitaru cohort create` takes `--sessions-file`; a second version comes from `kitaru cohort version create <name> --add-session <id> --remove-session <id>`, one flag per id (several ids after one flag are refused although the help shows `UUID...`; sent to the issues session). A cohort created with no sessions has `latest_version` 0.
+
+**Local four checks:** 22 scripts across the three tasks, all as expected.
+
+## 2026-11-21 — Kitaru D8: the answer is an investigation with verdicts
+
+**D8, six to read.** Open an investigation `week-30-review` linking three to six conversations of 24 to 30 July in which the assistant got something wrong, of at least two kinds, each with the verdict `problematic`. What counts as wrong is what the workspace already says: the README's return window, the two evaluators, the reviewers' reasons on `reviewed-july`. In that week the world holds 47 replies stating the wrong amount, 4 curt replies, 1 late refund, 1 double refund, and 18 customers who never answered, which the `polite-closing` check fails although nothing went wrong. The grader reads the newest investigation of that name (names are not unique in Kitaru) and each linked session's verdict.
+
+Shortcuts at 0: the politeness check's first six failures (all idle customers), six of one kind, the right conversations without verdicts, seven conversations, real mistakes from earlier weeks, the right conversations marked `acceptable`. The alternative first opens an investigation of the same name with the wrong content, then a second one with the minimum that qualifies, verdicts set to `uncertain` and then corrected.
+
+**Kitaru facts found.** `kitaru investigation create` refuses a linked session that has no `--session-question <session>:<key>=<text>`; `investigation get` takes an id only; `name` is not a filterable field for investigations; two investigations may share a name. Sent to the issues session.
+
+**Local four checks:** 9 scripts, all as expected.
+
+## 2026-11-21 — Kitaru world `exports` and I3, write an importer
+
+**The world.** Tidewater Couriers' dispatch assistant writes its own trace log: one JSON line per event (`start`, `llm`, `tool`, `end`), times in epoch seconds, cost in millionths of a dollar, spans that name their parent. `workspace/docs/trace-format.md` describes it; `workspace/logs/sample.log.jsonl` is 60 conversations. The image registers the agent `dispatch-agent` and imports nothing, so it builds in seconds. `story.py` plans conversations once and renders them twice: as log lines, and as what Kitaru should hold after a correct import (the grader's answer key).
+
+**What the log does that an importer must cope with,** each present in the visible sample as well as the hidden file: conversations overlap, so their lines are interleaved; a tool call made by another tool call; cached input tokens present on some model calls and the key absent on others; failed tool calls; conversations ending in error or with no `end` line at all; a few lines cut off mid-write.
+
+**I3.** Write an importer and register it as `tw-trace`. The instruction lists the six things Kitaru must hold afterwards. The grader starts its own worker, imports a hidden log of 150 conversations (seed 7341) through the latest registered version, reads every stored session with its nodes, and compares status, times to the millisecond, message and reply, each model call's model, tokens and cost, each tool call's name and status, and each node's parent. All 150 must be right. A root span above the top-level calls is accepted. The importer is the agent's code, so the grader's files are locked first.
+
+Shortcuts at 0: no parent links; cached tokens ignored (78 of 150 wrong); no handling of a broken line (the import job fails); lines filed under the most recent `start` (fails on interleaving); unfinished conversations dropped (6 missing) or stored as completed; cost left in millionths; an importer that parses the repository's sample whatever it is given; converting by hand and importing through the built-in JSONL importer (no `tw-trace` registered). The alternative registers a first version without parent links, imports the sample as a trial, then registers a second version that is right and adds a root span.
+
+**Kitaru facts found.** The custom importer guide's example imports `ParsedSession` and `ParsedNode` from `kitaru.task.importer`; in 0.27.7 those names do not exist (`ImportError`). `kitaru importer scaffold` writes the right ones, `ImportedSession` and `ImportedNode`. `kitaru importer test <script> --entrypoint parse --payload <file>` reports sessions and failures without a server. An `ImportFailure` yielded by the parser shows up as a warning on `session import` and in the importer task's result (`failed`, `failures[]`); the job still completes.
+
+**Local four checks:** 12 scripts, all as expected.
+
+## 2026-11-21 — D6 to D9 and I3: the four checks pass on Modal
+
+`uv run scripts/verify_task.py kitaru/tasks/<task> --env modal -n 5 --job-prefix kv5`. All five: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+| task | shortcuts at 0 | alternatives at 1 |
+|---|---|---|
+| `d6-refunded-too-much` | 5 | 1 |
+| `d7-slower-no-release` | 6 | 1 |
+| `d8-six-to-read` | 6 | 1 |
+| `d9-retries-or-traffic` | 5 | 1 |
+| `i3-write-an-importer` | 9 | 1 |
+
+## 2026-11-21 — after the first baseline: D6's answer key corrected, C6's instruction states the cohort size
+
+**D6.** "Refunded more than the order cost" now means the total the conversation paid back. The key grows from 38 to 49 (11 orders refunded twice in full); `planted.over_refund_shipping_fee` keeps the 38. The instruction says "in total". New shortcut `single_refund_calls_only.sh` (the old reading, recall 0.78). Four checks re-run on Modal (`--job-prefix kv6`): reference 5 of 5, `nop` 0, six shortcuts 0, alternative 1. Baseline re-run as `kbaseline2-d6-*`. How it was found is in `docs/findings.md`.
+
+**C6.** One sentence added to the instruction: cohorts hold a few hundred conversations. The grader and the four checks are unchanged. Baseline re-run as `kbaseline2-c6-*`; the first run's rows are kept in `results/kitaru-c6-check-before-merge-first-instruction.jsonl`.
+
+**Difficulty estimates** are set in each `task.toml` from this baseline (`results/kitaru-level2.md`).
+
+## 2026-11-21 — Kitaru import tasks I1, I2, I4, I5; a task can now lay files over its world and prepare Kitaru's state
+
+**Two additions to `kitaru/scripts/sync_env.sh`,** both optional, so every earlier task's `environment/` is byte for byte what it was:
+
+- `tasks/<task>/workspace/` is copied over the world's workspace. The import tasks need different files in `/app` (an export, a script, a README that describes them) on the same world.
+- `tasks/<task>/setup/` is copied to `environment/setup/`, and the task's `Dockerfile.task` runs `setup/setup.sh` against a live server and worker while the image is built. I2, I4 and I5 start from state that has to exist in Kitaru before the agent arrives (an agent, earlier imports, a cohort, a registered importer).
+
+**A second assistant on the `exports` world.** `kitaru/worlds/exports/support.py` writes Langfuse-shaped export files for Tidewater's support assistant (a ticket is one to four turns; Langfuse recorded each turn as one trace) and what Kitaru should hold after a correct import. No Langfuse is involved. The files were tried against the real `kitaru/langfuse` importer (0.5.0) before any task was written.
+
+**What a setup step records for the grader.** I4 and I5 write the ids of what existed before the agent started (sessions, the cohort, the importer version) to `/etc/kitaru-bench/<task>.json`, mode 600, owner root. The agent's user cannot read it; the grader uses it to tell "the same session" from "a deleted and re-imported copy".
+
+| task | what the agent must do | what is graded | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|
+| `i1-import-an-export` | register an agent with two releases; import a Langfuse trace export so each ticket lands under the release that produced it, with the Langfuse project as source identity | sessions under the agent: external ids, version, call counts, cost, created by a Langfuse import | 7 | 1 |
+| `i2-one-ticket-one-session` | write `bin/import_tickets.sh` so one session is one ticket; the export's `sessionId` is the chat widget visit, the ticket id is in metadata, probes have no ticket | the given export's sessions, then the script run on a hidden export | 7 | 1 |
+| `i4-nightly-import-twice` | a nightly script began naming the import's source after the file, so two nights created strays; repair the script and the store without losing the sessions that were right | the store against the nightly files and the recorded ids; the cohort; two runs of the script on the next night's file | 7 | 1 |
+| `i5-invoice-does-not-match` | Kitaru's cost for August is a third below the bill; the team's importer drops calls made by tools and never reads cached tokens; register a corrected version and get August right | August's 450 sessions node by node, then a hidden log through the latest version; version 1 still registered | 7 | 1 |
+
+Four checks on Modal (`--job-prefix kv7`): all four tasks, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Left out of I4.** The proposal's I4 also asked that insights be refreshed with `kitaru import analyze`. That part is not in the task: "insights were refreshed" has no outcome a grader can read without judging text, and the identity repair is already a full task.
+
+**Kitaru facts found** (sent to the issues session):
+
+- An import in which every record fails still reports `ok: true`, job `completed`, exit 0; the failures are a `warnings` list. I1's shortcut `no_identity.sh` is that case.
+- No CLI command deletes a session. `DELETE /api/v1/sessions/{id}` and `client.sessions.delete(id)` do, and refuse (409) a session that a cohort version, investigation or replay refers to. I4 and I5 both depend on this: a re-import skips a session that exists and does not refresh it, so a wrong session has to be deleted before it can be imported again.
+- `kitaru agent delete NAME --force` hides the agent and leaves its sessions and cohorts in place under the old agent id; the name can be registered again and gets a new, empty agent.
+- With `--join-on`, a trace that has no value at the pointer fails by itself and the rest import. With the default grouping the Langfuse importer groups by `sessionId` and falls back to the trace id.
+
+## 2026-11-21 — four harder variants: I3h, C1h, C7, D8h; and what happened to them
+
+The Level 2 done bar says a task at 100 % on every model "gets a harder variant or moves to a regression list". After the first baseline that was C1, C2, C3, C4, D8 and I3 for the two large models. Four variants were built, each with one stated reason it should be harder.
+
+| variant | of | what is added | why it was expected to be harder | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|---|
+| `i3h-messy-log` | I3 | model calls made by a tool; batch calls with no cost on the line (price list in the format document); lines written twice; in the hidden log only, times as ISO 8601 with a UTC offset | the hidden log uses a form the format document describes and the sample never shows | 10 | 1 |
+| `c1h-two-rules-from-builtins` | C1 | a second rule: every model call served by exactly `gpt-5.4-mini`; the week of 9 to 15 July, on the history with the diagnosis plants | `kitaru/model-policy` with `require_requested_model_match` reports a hold (`passed` empty) for a dated variant; only `allowed_models` states a failure | 8 | 1 |
+| `c7-fix-check-then-backfill` | C3 and C4 | both tasks in one, the release's stored verdicts must be right, and at most 1,400 results from `polite-closing` counting every version | exploring with the old version over the history uses the cap up before the fix exists | 8 | 1 |
+| `d8h-triage-check-failures` | D8 | link all 23 conversations of the week that `polite-closing` or `refund-issued-once@2` fails, with `problematic` or `acceptable` on each | every flagged conversation, not three to six of the agent's choice; two checks; 359 conversations to evaluate, 100 per request | 8 | 1 |
+
+`exports/story.py` gained `--plants invoice` (I5) and `--plants messy` (I3h). Without the option every file it writes is byte for byte what it was; this was checked with `cmp` against I3's and I5's committed files after each change.
+
+C2 has no variant: its harder form is C5 (a rule that has to hold on unseen conversations), which already separates the models.
+
+**Four checks on Modal** (`--job-prefix kv7`): all four variants: reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1. C7's last check (the alternative) had written no result when I looked, and I took the run for dead because `ps` showed no Harbor process. `ps` is restricted in the shell these runs are started from and shows nothing either way (`pgrep` works), so the run may only have been slow. I ran that one check again by hand under the same job name; the result on disk is reward 1.
+
+**Baseline** (`results/kitaru-level2.md`, "Second round"): both large models passed all four variants, 5 of 5 each; `gpt-5.4-mini` 1, 1, 0, 0. So the variants are not harder for the models they were built for, and by the same rule all four go on the regression list beside the tasks they came from. They stay in the set: each caught the small model.
+
+**A shortcut that was removed.** D8h had `stale_refund_check.sh`: run version 1 of `refund-issued-once`, which counts rejected refund calls, not the version `checks.txt` names. It scored 1. The `storefront` history has no conversation with a rejected refund call followed by an issued one, so the two versions fail the same conversations and the "shortcut" gives the right answer. The README's sentence about version 1 describes a case the history never plants. Follow-up, not done: plant that case in `storefront/story.py`; it changes the history, so C1 to C6 and D6 to D9 would need their checks re-run.
+
+**What a next variant should be built on.** The three properties that did separate the large models in the first round: a rule inferred from human verdicts that must hold on unseen cases (C5), a platform limit that only bites at a size the workspace does not hold (C6), and "find every one" over the whole history (D6, D7, D9). None of the four variants has one of these.
+
+## 2026-11-21 — I4h: I4 plus a stray-removal script graded on about 1,900 sessions
+
+Built after the second round showed that longer tasks and documented details do not separate the large models. I4h uses the property that did in C6: a platform limit that only bites at a size the workspace does not hold. Here the limit is the page size of a session listing (20 by default, 1,000 at most).
+
+- **Task.** I4's state, instruction and grader, plus requirement 4: `bin/remove_strays.sh` deletes every session under `support-assistant` whose external id does not start with `tidewater-support:` and nothing else; "the team will run it on the production workspace, where `support-assistant` has a few thousand sessions".
+- **Grader.** After I4's checks it writes two export files with the world's own generator (`tests/support_story.py` is a copy of `worlds/exports/support.py`; 9 MB of fixtures would otherwise sit in the repository), imports 500 tickets under the identity `support-2026-09-01` and then 1,200 under `tidewater-support`, and runs the script as the agent's user. Strays go in first, so they are the oldest and a single page of the newest sessions holds none. Reward needs I4's reward, exit 0, no stray left, no good session lost, the cohort still there. Verifier timeout raised to 1,800 s.
+- **Shortcuts at 0 (6):** I4's reference with no removal script; one page of 1,000; the default page of 20 in a loop; only the two stray identities seen in the workspace; delete everything Kitaru allows; both scripts right and the store never repaired. **Alternative at 1:** CLI listing 200 per page with the cursor followed, deletes over REST.
+- **Four checks on Modal** (`--job-prefix kv8`): reference 5 of 5, `nop` 0, six shortcuts 0, alternative 1.
+- **Baseline:** 4, 4, 0 of 5. Both large-model failures read the REST cursor from the CLI's field name (`results/kitaru-level2.md`, "Third round").
+- **Kitaru fact found:** `kitaru session list -o json` returns the next cursor as `page.next_cursor`; `GET /api/v1/sessions` returns it as top-level `next_cursor`.
+
+
+## 2026-11-21 — Kitaru world `clinic` and diagnosis tasks D1 to D5
+
+**World.** `kitaru/worlds/clinic/`: Fernhill Vets, ten clinics, an appointment assistant (`booking-agent`, releases 1.1.0, 1.2.0, 1.3.0). `story.py` plans 3,211 conversations from 1 June to 20 July 2026 from one seed; the snapshot date is 20 July. All five tasks read the same history, with every plant in it, so one image serves all five. Nothing is taken from the private fixtures: the company, the tools, the numbers and the code are new; only the plan's one-line trap for each task is carried over.
+
+**The workspace is a repository with dated history.** `load.py` commits the workspace in five steps (1.1.0, 1.2.0, a prompt wording change, the configuration change, 1.3.0) with fixed dates, and writes the head commit and the configuration commit to `/etc/kitaru-bench/clinic.json`, root only. D3's grader reads the configuration commit from there; every grader uses the head to check that the agent committed nothing and changed no tracked file ("no changes to the agent's repository" in the proposal).
+
+| task | cohort | what belongs in it | also asked | the trap | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|---|---|
+| `d1-wrong-clinic` | `wrong-clinic-bookings` | 269 conversations where `book_appointment` was sent one clinic and came back confirmed at its similarly named neighbour | | the 13 complaints are other conversations; the reply repeats the clinic the customer asked for | 5 | 1 |
+| `d2-was-it-the-release` | `cost-rise` | 207 new-patient conversations a partner's portal has sent since 22 June | cause, from its own closed list of six | release 1.2.0 rolled out on the same days and costs what 1.1.0 did | 6 | 1 |
+| `d3-answers-cut-off` | `cut-off-answers` | 288 conversations whose reply hit the token limit, from 1 July | the commit, and the first day | no release; a configuration commit lowered `max_tokens` from 400 to 120 | 5 | 1 |
+| `d4-what-broke` | `failed-calls` | 67 conversations where `book_appointment` refused more than three animals, 4 of them before the offer | cause, from its own closed list of six | nothing broke; timeouts were always there at the same rate; a prompt commit landed the day before the offer; "fixing" the limit in the repository scores 0 | 6 | 1 |
+| `d5-did-the-hotfix-work` | `wrong-clinic-after-1-3-0` | the 98 of D1's conversations that release 1.3.0 served | | the release fixed the clinic search (two searches became one) and not the booking; an empty cohort is legal and wrong | 5 | 1 |
+
+**Kitaru fact confirmed:** the CLI prints a node's `model_params.max_tokens` as `***`; `GET /api/v1/sessions/{id}/nodes` returns the number. D3 can still be solved from the CLI (the reply's ending, output tokens of exactly 120), but the setting itself is only readable over REST or the Python client.
+
+**Local four checks:** 42 scripts across the five tasks, all as expected. A helper fix on the way: `kitaru cohort create` refuses an empty `--sessions-file`; a cohort with no members is created with no selection at all.
+
+## 2026-11-21 — D1 to D5: two tasks corrected after their first baselines; four checks and baseline on Modal
+
+**D2, first baseline.** Five of ten large-model trials built exactly the right cohort and named the cause `new_release`. They had a reason: the changelog said release 1.2.0 added "new patients sent by a partner's portal can register and book in one conversation", which credits the release with the conversations that raised the cost. The data said otherwise (1.1.0 served new patients too while it was live), but a changelog that contradicts the data makes the label a matter of opinion. Changed: that changelog line and the commit subject no longer mention new patients. Re-run: 5 of 5 and 5 of 5.
+
+**D4, first and second baselines.** Three of five `gpt-5.6-terra` trials built the right cohort and named a prompt change; one earlier trial named a traffic change. Both had a reason. The shared list of eight labels held `traffic_mix_changed`, which is also true of D4 (a new kind of request arrived). And the first rejected group booking in the history came the day after a prompt commit that mentions the offer, so nothing in the data could show whether the assistant had always behaved this way. Changed: D2 and D4 each have their own list of six labels with a one-line meaning per label, and the history now holds four group bookings refused before the prompt commit (7, 17, 22 and 26 June), which is the evidence that the tool always refused them. Re-run: `gpt-5.6-terra` 5 of 5.
+
+**What the fixes cost.** Each changed the image for all five tasks, so all five were re-checked and re-baselined each time. Kept: 75 trials, US$15.28. Discarded from the two earlier rounds: 131 trials, US$25.84.
+
+**A mistake of mine in running them.** After the first launch I saw no results for ten minutes and no Harbor process in `ps`, concluded the runs had died, and started a second set. They had not died: Modal was building the new image, and `ps` shows nothing in the shell these runs are started from. Two sets ran against the same job folders for about twenty minutes before I found out with `pgrep`, stopped both, and started one clean set. Rule for this repo: check for running jobs with `pgrep -fl "harbor run"`, never `ps`.
+
+**Four checks on Modal** (`--job-prefix kv9`, on the final image): all five tasks, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level2.md`, "Fourth round"): `claude-sonnet-5-5` 22 of 25, `gpt-5.6-terra` 24 of 25, `gpt-5.4-mini` 0 of 25.
+
+
+## 2026-11-21 — Kitaru Level 3 starts: world `helpdesk-live` and tasks F1 to F4
+
+**Why a fourth world.** Kitaru's replay finds a recorded tool result by the tool's name and arguments, and guarantees a match only when the recording and the replay come from the same adapter. So the history here is not invented: `load.py` runs the assistant once per request while the image is built, through the real `kitaru-pydantic-ai` adapter (260 conversations in about a minute).
+
+**The assistant** (`kitaru/worlds/helpdesk-live/workspace/releases/<version>/helpdesk/`) is a PydanticAI agent whose model is a Python function (`planner.py`), so a request gives the same conversation every time, with no network and no cost. Six tools: four that read, and `issue_refund` and `escalate_to_human`, which call a finance service.
+
+**Each release has its own directory**, and each agent version points at one. Spike 4 showed that an agent version is a command and a directory, not a copy of the code: with one shared directory, "replay against 1.6.1" would run whatever is on disk. Tasks that ask for a fix ask for it in a new directory and check that the old ones are untouched.
+
+**The finance service is how a side effect becomes measurable.** `old/ledger_service.py` listens on `127.0.0.1:8091`, appends every refund and escalation to a file under a root-only directory, and offers no way to delete or read a row. The world's `start.sh` replaces the base image's (kept as `start-base.sh`) so the healthcheck, `grade_local.sh` and the graders start it without knowing about it. A replay under Kitaru's default tool policy calls the live tool, and the grader sees one more row. The count at build time is in `/etc/kitaru-bench/helpdesk.json` (root only) with the agent, version, session and cohort ids.
+
+**What is planted** is in the assistant's code, not in prompts, because a scripted model does not read a prompt: `money.to_major` treats the euro as a currency with no minor unit (euro refunds 100 times too large; the obvious fix, dividing everything by 100, breaks yen); the planner reads an order twice when it has more than one item; some orders time out on the first read and some parcels have no scan on the first ask (useful repeats, for F5).
+
+**Hidden conversations are recorded by the grader.** For F2 and F3 the grader first checks that releases 1.6.0 and 1.6.1 are untouched, then runs release 1.6.1 itself on 24 refund requests about orders the history never touched (8 in euros, 6 dollars, 4 pounds, 6 yen), as user `grader`. Those runs are live and are the grader's own; it counts them separately. It then replays the 24 against the agent's newest version on its own worker, with lookups from the recording and the two finance tools stubbed, and judges with its own copy of the amount evaluator.
+
+| task | what the agent must do | what is graded | shortcuts at 0 | alternatives at 1 |
+|---|---|---|---|---|
+| `f1-replay-without-refunding` | replay a cohort of 32 recorded refunds against release 1.6.1 | a completed replay per conversation against version 2 with the `issue_refund` call in its result; no new finance call; repository untouched | 6 | 1 |
+| `f2-fix-euro-with-evidence` | fix the euro fault in `releases/1.6.2`, register it, and run an experiment over at least 20 refunds | version 1.6.2 from its own directory; a completed run whose results pass more often than its baselines; no new finance call; hidden replays right in every currency | 7 | 1 |
+| `f3-refunds-far-too-large` | symptom only; same fix, no experiment asked for | as F2 without the experiment | 5 | 1 |
+| `f4-experiment-keeps-failing` | the fix exists and its experiment fails every time; get a completed run | a completed run of version 3 over the same cohort, all 58 passing; no new finance call; in that run the refund tool could not have run live | 7 | 1 |
+
+**Kitaru facts found.**
+
+- An experiment that has runs cannot have its tool policy changed: `kitaru experiment update <name> --tool-policy …` answers 409 "has runs and its replay config cannot be changed". F4's fix is therefore a new experiment.
+- `on_miss: error_result` did not rescue F4 in this world: the assistant gets a tool error for `issue_refund`, asks again, misses again, and the replay fails. In spike 4 it completed because that agent carried on after an error. Whether `error_result` helps depends on what the agent does with an error, so it is a shortcut here, not an alternative.
+- An experiment run records its status and progress and nothing about pass rates. The grader works them out from the run's replays: the newest verdict of the named evaluator on each baseline session and on each result session.
+- `client.sessions.iter()` and `kitaru session list` do not return a session's `outputs`; `session get` and `get_with_nodes` do.
+
+**Local four checks:** F1 9 scripts, F2 10, F3 8, F4 10, all as expected.
+
+**Four checks on Modal** (`--job-prefix kv10`): F1 to F4, reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level3.md`): both large models 20 of 20; `gpt-5.4-mini` 4 of 20. In F1 the small model paid every customer in the cohort again in four trials of five.
+
+## 2026-11-21 — Kitaru world `helpdesk-services` and tasks F5 to F8, O1 to O4
+
+**Alex's call (2026-11-21):** build all eight remaining Level 3 tasks, each designed hard from the start, baseline one first and adjust if it saturates.
+
+**Why a fifth world.** F5 and F6 are about what the assistant asks its services, and `helpdesk-live` has nothing that counts or limits a lookup. `helpdesk-services` adds an order service (`old/order_service.py`, `127.0.0.1:8092`): a quarter of a second per answer, four requests at a time and a 429 for the fifth, its data and its request log under a root-only directory. The history is 420 conversations of release 2.0.0, recorded through the real adapter while the image is built. `helpdesk-live` and its four tasks are unchanged.
+
+**What is planted.** The planner repeats a lookup in seven places. For four of them the second answer differs in some recordings (in 6, 4 and 3 conversations for the three rarest), for three it never does. The planner also has a low-effort branch that ends 96 of the 420 conversations differently. F8 uses a second history (`plants` = `partial`) with requests for one item of an order.
+
+| task | the trap | what the grader measures |
+|---|---|---|
+| F5 | judging a repeat from a sample, or by reasoning about the code, gets the rare cases wrong | hidden requests through 2.0.0 and the new release: same answers and payments, no needed lookup missing, no unneeded one left |
+| F6 | everything at once is refused by the order service; fewer calls is not the same calls | hidden requests, per conversation: same calls, the order and customer reads overlap, many-order requests take under half the time, no 429 |
+| F7 | predicting instead of replaying; a history scope that borrows answers from other conversations; editing the planner | the cohort against the known 324 and 96; one completed run whose 300-odd results end as recorded; no new finance call |
+| F8 | each colleague's own experiment; a cohort that includes requests nobody was paid for | one cohort version with a completed, evaluated run for each candidate; the release chosen; hidden requests |
+| O1 | adding one claim to the script; pinning the worker to today's version | the script is run again as another user: waiting and new work completes, also for a version registered afterwards, and an import is left waiting |
+| O2, O4 | recording that works only with an agent id in the environment; a version that records and cannot replay | hidden orders through the entry points as another user, then replays under a history policy |
+| O3 | fixing one of the four faults (capabilities, working directory, arguments, a missing environment variable) | hidden requests by hand, then replays with the override and the policy on another user's worker |
+
+**Where this departs from the plan** (§9.4 and §9.5 of the Kitaru plan).
+- **F7 is about reasoning effort, not a cheaper model.** A scripted model has no cheaper sibling; an effort switch in the planner gives the same question (where does the cheap setting change the outcome?) with an exact answer key.
+- **O1 excludes imports, not analyses.** "This machine's work" is agent runs for every version, and evaluations; an import must be left for another machine. An importer job is the one kind the grader can create and watch stay pending.
+- **O4 installs `kitaru-langgraph` 0.3.1 from PyPI when the task image is built** (`Dockerfile.task`); the base image does not carry it.
+
+**Kitaru facts found.**
+- PydanticAI runs the tool calls of one model response at the same time, and Kitaru's recorded node times overlap, so a grader can tell from the recording whether two lookups ran together.
+- A `model_params` override on a replay replaces the agent's model settings and reaches a `FunctionModel` (`info.model_settings`), so a scripted model can behave differently at `low`.
+- A history tool policy returns repeated identical calls in the order they were recorded (scope `baseline`). Scope `cohort_version` answers from any session in the cohort.
+- An explicit worker `--claim` replaces the default claims (`agent`, `evaluator`, `importer`, `analyzer`); `agent=<version id>` pins to one version. `KITARU_WORKER_SCOPE__CLAIMS` sets the same from the environment.
+- Agent versions: `register` needs `--command` unless `--spec file.yaml` is given, and `--spec` cannot be combined with the direct options; there is no CLI `version update`, and `client.agent_versions.update(id, AgentVersionUpdateRequest(run_spec=…))` works. A version whose `runtime_capabilities` are false gets a 422 at replay creation; a working directory that does not exist gets "Task runner failed: [Errno 2]" at run time.
+- A `KitaruAgent` run outside a worker needs an agent id ("Session names no agent and no task to infer one from").
+- `kitaru-langgraph`: `KitaruGraphRunner(graph)` records and cannot replay from history (`UnsupportedCapabilityError … substitute_tool_result`); `KitaruGraphRunner.from_agent_factory(create_agent, factory_kwargs=…)` can. `stream()` is refused.
+- `kitaru session read --sessions-file <ids> --full -o json` reads every session with its payloads in one call. `session evaluate` returns its job id at `item.job.id`. `session import --tag` needs `--wait`. `session nodes` and `session list` include payloads only with `--include-payloads`.
+
+**After the first baseline of F7 and F8** both instructions were tightened (see `results/kitaru-level3.md`): F8 defines a request for one item by example and F7 says the tools answer from the same conversation and the releases stay untouched. F7 gained the shortcuts `any_recording_will_do` and `low_made_like_high`, and its agent limit went from 30 to 45 minutes.
+
+**Four checks on Modal:** `--job-prefix kv11` for F5, F6 and O1 to O4; `kv12` for the revised F7 and F8. Reference 5 of 5, `nop` 0, every shortcut 0, every alternative 1.
+
+**Baseline** (`results/kitaru-level3.md`): Sonnet 39 of 40, terra 39 of 40, `gpt-5.4-mini` 2 of 40.
+
+**Grader fix after the baseline.** In two small-model trials the F6 and F8 graders crashed without a metrics file (a release that hangs; a registered directory that does not exist); the score was 0 either way. `run_assistant` in `kitaru/checks/kitaru_checks.py` now returns such a run as failed with the reason, and stops starting conversations after one hangs for 300 seconds, so a hanging release costs five minutes and not the verifier's whole limit. F6's grader no longer needs the order service's request log to exist, and both graders write any other exception to `metrics.json` as the reason. F5 uses the same helper and got the same copy. Checked locally with a release that sleeps for ever and a release directory deleted after registering (both 0, with `run_errors`), then the four checks on Modal again for F5, F6 and F8 (`--job-prefix kv13`).
+
+**Open.** The harder direction this round points at is work that must be run and takes time, as in F7. Two more candidates for a next round, neither built or run (Alex, 2026-11-21: note them, no need to run anything now):
+- **Tasks where the right answer is to change nothing.** Every task so far has something wrong in it, so an agent that always fixes something is never caught. Versions that fit this world: an F8 where both fixes score the same on a fair run and neither should be released; an O1 where the start script is right and the work waits for another reason; an F5 where every repeated lookup turns out to be needed. A public write-up of difficulty tuning for agent tasks (Yash Gupta, November 2026) reports this as the one change that reliably beat frontier models; the claim is theirs and not checked here.
+- **Report the separate criteria beside the 0-or-1 score.** Each grader already writes them to `metrics.json` (version right, cohort complete, cohort clean, nobody paid again). A table of those would show how far a failing trial got without changing any task.
+
+## 2026-11-22 — the Kitaru base image moves to Docker Hub
+
+Alex chose Docker Hub (namespace `zenmldocker`): pulls of a public image there cost the publisher nothing, where downloads from Artifact Registry are billed to the project.
+
+- **Copied, not rebuilt.** `docker buildx imagetools create -t zenmldocker/kitaru-bench-base:0.27.7-1 <the Artifact Registry image by digest>` copied both platforms from registry to registry. The index digest is unchanged, `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`, so every task builds on the same bytes as before. The repository is new and public; no other repository in the namespace was touched.
+- **Scanned as served.** Both platforms were pulled back from Docker Hub and `scan_image.py` printed `CLEAN` for each.
+- **Tasks.** `kitaru/base/IMAGE` now names `docker.io/zenmldocker/kitaru-bench-base:0.27.7-1@sha256:f8a65cef…`. `sync_env.sh` was run for all 37 tasks; the only change in each is the `FROM` line. All 37 then passed the four checks on Modal (job prefix `kv14`), with no pull-limit error from Docker Hub.
+- **Accounts line.** The 2026-11-20 entry no longer names the maintainer's accounts (Alex, 2026-11-22).
+
+**Old copies.** On Alex's word (2026-11-22) both are deleted. The Artifact Registry copy was first made private again (the `allUsers` binding removed) and then deleted with its repository: `gcloud artifacts repositories delete kitaru-bench --project zenml-core --location us`. It held only this image. Alex deleted the private GHCR package `kitaru-bench-base`. Docker Hub is now the only copy.

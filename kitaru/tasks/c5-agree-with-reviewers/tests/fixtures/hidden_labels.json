@@ -1,0 +1,842 @@
+{
+ "hx-e7dd87a0ff": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-37e245ded6": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-191b52a719": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-c76b723128": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-ba47606e45": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-7db11cb690": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-99cde2557f": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-49b9359759": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-6a6757bc9b": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-b05b40996d": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 32,
+  "kind": "refund"
+ },
+ "hx-8d0667a075": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-9a7d8026de": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-8958dfcdbc": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-e0788128e6": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-4a1939a754": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-0d0a312a66": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-3492dfef71": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-9755dacae5": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-771fca0d17": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-905d151ff3": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-ae3f3062f5": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 44,
+  "kind": "refund"
+ },
+ "hx-19d808984e": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-93e7e052d6": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-33411c50cf": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-3f218c1f51": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-37c06ae1f6": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-557c10a77c": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-2158febf74": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-32a47db7bf": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-5fe7244f22": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 48,
+  "kind": "refund"
+ },
+ "hx-6bfba477e7": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-b5c813caee": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 29,
+  "kind": "refund"
+ },
+ "hx-5476c1c05d": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-3d9719df07": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-093ab4bb55": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-c141ac2782": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-f81e0ba92d": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-01030e1b4d": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-fd2fabd2c5": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-5e901ae4b5": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-7d07be20d2": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-b80037e135": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-3182fae282": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 60,
+  "kind": "refund"
+ },
+ "hx-cb48017ef7": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-d37ee9fb66": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-1b1275e795": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 39,
+  "kind": "refund"
+ },
+ "hx-94e2fad19b": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-9818290ed2": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-eb3a45f7f9": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-73f7b97e33": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-c78c846b82": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-2323b041dc": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 31,
+  "kind": "refund"
+ },
+ "hx-baeebffe78": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-5ca157fe60": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-7690d38463": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-09620f9826": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-ce46811b96": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-f54f97671e": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-00083beea4": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-4a8d3243e8": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-9a5462cb69": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 46,
+  "kind": "refund"
+ },
+ "hx-1c1b544538": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-e04a94650d": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-0f40e2f786": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 36,
+  "kind": "refund"
+ },
+ "hx-904bcc0bd4": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-0aa3e7a130": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-5042150cf3": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 29,
+  "kind": "refund"
+ },
+ "hx-65a60ab3de": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-119b9e7efa": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-52f8e1a9e8": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-23f79563f8": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-1f5871049c": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-17b14eaa59": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-389dfdfb1a": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-fb300de00e": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-c293493bc5": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 52,
+  "kind": "refund"
+ },
+ "hx-b83647ae69": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-47c5052046": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-d8f944d72f": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 59,
+  "kind": "refund"
+ },
+ "hx-8c249fd960": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 45,
+  "kind": "refund"
+ },
+ "hx-3e47e01f12": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-a42019b4e2": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-246e7cdb2e": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-51f5fae0b4": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-4809b91590": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-ff525046d2": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 43,
+  "kind": "refund"
+ },
+ "hx-ae2fe3a455": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-c92cb72247": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 37,
+  "kind": "refund"
+ },
+ "hx-1b2d399995": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 55,
+  "kind": "refund"
+ },
+ "hx-61f538a4ae": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-4c21b61e96": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-835b0352ac": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 53,
+  "kind": "refund"
+ },
+ "hx-dde2180b89": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-aea161331c": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-7668662b70": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-79fb79315e": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 57,
+  "kind": "refund"
+ },
+ "hx-b1b58d53e0": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-f6f62e623e": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-d153617f8a": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-7ef0b50b4a": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-32cd81b0c1": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "status"
+ },
+ "hx-393f6858b5": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-d926e92f61": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 30,
+  "kind": "refund"
+ },
+ "hx-31c28eb861": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-83c31029c4": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": 29,
+  "kind": "refund"
+ },
+ "hx-829098c28d": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-e6135ccf1e": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 38,
+  "kind": "refund"
+ },
+ "hx-ba5ba201a7": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-83c0ab0a5a": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-30def3fc55": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-4646ad1ab0": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-ec3d368a38": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-8b261c6bd4": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-09764fbd71": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-4ec3a48e3b": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 41,
+  "kind": "refund"
+ },
+ "hx-fa1a0da66d": {
+  "should_fail": true,
+  "late_refund": false,
+  "wrong_amount": true,
+  "days": null,
+  "kind": "refund"
+ },
+ "hx-08fbd5a649": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 34,
+  "kind": "refund"
+ },
+ "hx-441eb15044": {
+  "should_fail": true,
+  "late_refund": true,
+  "wrong_amount": false,
+  "days": 50,
+  "kind": "refund"
+ },
+ "hx-c6fca5c3d4": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "denied"
+ },
+ "hx-e7ca3c0cfe": {
+  "should_fail": false,
+  "late_refund": false,
+  "wrong_amount": false,
+  "days": null,
+  "kind": "refund"
+ }
+}

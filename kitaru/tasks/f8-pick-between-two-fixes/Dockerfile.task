@@ -1,0 +1,7 @@
+
+# ---- task: f8-pick-between-two-fixes ----
+# Registers the `refund-amount` evaluator and the two candidates as versions 2 and 3, and runs each author's own experiment: Ana's completes, Ben's fails. The setup files are deleted afterwards.
+COPY setup/ /opt/setup/
+RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
+    bash /opt/setup/setup.sh; /opt/kitaru-bench/stop.sh; \
+    rm -rf /opt/setup /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*

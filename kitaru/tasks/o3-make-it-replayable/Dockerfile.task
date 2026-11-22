@@ -1,0 +1,7 @@
+
+# ---- task: o3-make-it-replayable ----
+# Leaves the assistant the way the team runs it (through bin/assistant.sh, region from the environment, a message required) and version 1 the way another team registered it on another host. The setup files are deleted afterwards.
+COPY setup/ /opt/setup/
+RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
+    bash /opt/setup/setup.sh; /opt/kitaru-bench/stop.sh; \
+    rm -rf /opt/setup /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*

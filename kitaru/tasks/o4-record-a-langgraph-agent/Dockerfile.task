@@ -1,0 +1,5 @@
+
+# ---- task: o4-record-a-langgraph-agent ----
+# Kitaru's LangGraph adapter with LangGraph and LangChain, which the base image does not carry. Installed while the image is
+# built, from PyPI; the running machine has no internet access.
+RUN pip install --no-cache-dir --index-url https://pypi.org/simple kitaru-langgraph==0.3.1 langchain==1.5.2 langchain-core==1.8.4 langgraph==1.2.24 langgraph-prebuilt==1.1.3 langgraph-checkpoint==4.3.2 && python -c "import kitaru_langgraph, langchain.agents"

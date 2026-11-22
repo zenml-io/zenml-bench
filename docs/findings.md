@@ -114,3 +114,77 @@ Full tables and confounds in `results/level3-comparison.md`. What changed the pi
 - **Opus showed no metric difference but a behaviour difference:** in-loop search with 3–5 seeds in the bare variant, off-loop search with 1–2 seeds in the ZenML variant. With a pipeline in front of it, opus treats runs as bookkeeping; with a bare script, runs are the experiment. R2's three-seed rule is what turns that bookkeeping into evidence; R1 does not require it and neither variant produced it.
 - **Training-slice check from the store: 20/20 trials recorded 1050 rows, 0 violations.** The new `n_train_rows` / `train_rows_digest` outputs survived every agent's edits to `train` (all 20 kept the outputs; several re-implemented `build_model` wholesale around them), so the record-based rule costs the honest agent nothing and closes the loophole the pilot could only read trajectories for.
 - **Runner:** `run_baselines.py --job-prefix cmp`; `analyse_trajectories.py` now reports `scripts`, `agent_minutes`, `first_run_s`, which is where the behaviour difference above shows without reading trajectories.
+
+## 2026-11-20 — Kitaru C2 (finding to check), first baseline: sonnet-5.5 5/5, gpt-5.6-terra 4/5, gpt-5.4-mini 0/5
+
+Table and failure notes in `results/kitaru-level1.md`. What it points at:
+
+- **Nothing in the docs shows how to read a tool call's arguments in an evaluator.** `guides/write-an-evaluator.md` uses `n.node_type` and `n.tool_name` and stops; the small model then guessed `node.input`, `node.payload`, or matched text in `str(node.inputs)`. A sentence and one line of code (`n.inputs["amount"]`, `n.outputs`) in that guide, and the same in a skill, is the candidate fix. Re-run this cell after it lands.
+- **The small model registers and stops.** `kitaru evaluator test` exists, and `kitaru session evaluate <id> --evaluator … --wait` prints the verdict, yet 2 of 5 trials ran neither and none checked a known-affected session. An "after you register, run it on one session you know should fail" line in the guide or skill targets this directly.
+- **The planted near-miss does its job.** Two trials (one per Codex model) failed only on correct partial refunds whose order total is 100 times the refund. Keep it in every generated instance of this family.
+- **The agent's closing message is no evidence.** Every failed trial ended with "registered and working". The grader's re-run on unseen sessions is what found the six failures.
+- **Infrastructure:** Codex and Claude Code both ran as the non-root `agent` user in the sealed Modal sandbox with the CLIs baked into the image; no trial had an infrastructure exception.
+
+## 2026-11-21 — Kitaru Level 2 baseline, ten tasks: sonnet-5.5 41/50, gpt-5.6-terra 39/50, gpt-5.4-mini 4/50
+
+Table and per-task failure notes in `results/kitaru-level2.md`. What it points at:
+
+- **A baseline is also a check on the answer key.** D6's key held 38 conversations; eight of nine strong-model trials that produced a cohort returned the same 49. The extra 11 were orders refunded twice in full, which do pay back more than the order cost. The four checks could not catch this, because the reference solution shared the key's reading. Rule: when several strong trials agree with each other and disagree with the key in the same way, read the disagreement before counting it as failure.
+- **Agents do not test at the size they are told to expect.** C6 says a cohort holds a few hundred conversations; 13 of 15 scripts were tried only on the 40-conversation cohort in the workspace and then failed on 130, at Kitaru's limit of 100 session-evaluator pairs per request. The limit is in the docs. Saying the size in the instruction changed 1 of 15 into 2 of 15.
+- **The small model stops one step before the work is recorded.** C3: file edited, never registered (3 of 5). I3: importer written, never registered (2 of 5). D8: sessions linked, verdicts not set. C1: an evaluator that gives no verdict. Each final message says done. Same pattern as C2.
+- **"Agrees with the examples" is not "learned the rule".** C5: every gpt-5.6-terra evaluator matched all 40 reviewed conversations and failed on unseen ones at day 30 of the return window, which the README states is allowed.
+- **"First affected" is read as "when it became obvious".** D7: three trials named the right cause and dated the start to the day most conversations were affected, not the first one.
+- **Same result, ten times the wall clock.** D7 and D6: Sonnet under Claude Code took 13 to 22 minutes (two D6 trials ran out of time) where gpt-5.6-terra under Codex took 1 to 3. Not yet read from the trajectories why; the Python client reads every session with its nodes in seconds, one CLI call per session takes half a second each.
+- **For Kitaru's docs:** which built-in evaluators give a pass or fail and which only describe (C1); the 100-pair limit next to `--cohort` in `session evaluate --help` (C6).
+
+## 2026-11-21 — Kitaru Level 2, second round (four import tasks, four harder variants): sonnet-5.5 40/40, gpt-5.6-terra 40/40, gpt-5.4-mini 3/40
+
+Table and per-task failure notes in `results/kitaru-level2.md`, "Second round". What it points at:
+
+- **More steps and documented details do not make a task hard for a large model.** Four variants were built to be harder than C1, C3 and C4, D8 and I3: two rules with a parameter trap, fix-then-backfill under a cap, 23 conversations to triage, a log format with a form the sample never shows. Both large models passed all of them, 30 of 30. What has separated them so far is narrower: a rule inferred from human verdicts (C5), a limit that only bites at a size the workspace does not hold (C6), and "find every one" over the whole history (D6, D7, D9). A next harder variant should be built on one of those three, not on length.
+- **A hold is not a failure, and the parameter's name hides that.** `kitaru/model-policy` with `require_requested_model_match` leaves `passed` empty when the served model is a dated variant of the requested one. Seven of ten large-model C1h trials passed that parameter; all ten also passed `allowed_models`, which is what states the failure. The docs say to use the allowlist for this; the other parameter's name suggests it would do.
+- **The small model reports checks it did not make.** I1: "verified the final state has 90 sessions under each version" with all 90 under one. I1 again: a second import that skipped all 90 tickets was read as proof of no duplicates, not as "nothing went under the second release". Same family as C2's "registered and working".
+- **Nothing in Kitaru's CLI or import guides says how to replace an imported session.** A re-import skips a session that exists and does not refresh it; the only way to correct one is to delete it first, and deleting exists in REST and the Python client only. Both large models found `DELETE /api/v1/sessions/{id}` or `client.sessions.delete` in every I4 and I5 trial; the small model deleted nothing in ten trials. Sent to the issues session, with two more: an import in which every record fails reports success, and `agent delete --force` leaves the agent's sessions behind.
+- **A shortcut that scores 1 can mean the data lacks the case.** D8h's "ran the stale version of the check" shortcut passed, because the history holds no conversation in which a refund call was rejected and then repeated, so versions 1 and 2 of `refund-issued-once` fail the same conversations. The shortcut was dropped and the gap is recorded in `docs/decisions.md`; the README's sentence about version 1 describes a case the `storefront` history never plants.
+
+## 2026-11-21 — I4h, a variant graded at a size the workspace does not hold: sonnet-5.5 4/5, gpt-5.6-terra 4/5, gpt-5.4-mini 0/5
+
+Details in `results/kitaru-level2.md`, "Third round".
+
+- **Size the agent cannot see is the lever that works twice.** C6 (100 evaluations per request) and now I4h (1,000 sessions per page) are the only tasks where a large model's script passes its author's own test and fails the grader. Both state the size in the instruction; in neither did a failing trial build a store that large to try the script on.
+- **A paging loop is not proof of paging.** Both large-model failures have a correct-looking `while` loop over pages. It reads the cursor from `.page.next_cursor`, the CLI's shape; the REST response puts `next_cursor` at the top level, so the loop runs once. With 216 sessions there is nothing to show the difference. Sent to the issues session: the CLI and the REST API name the same cursor differently.
+- **Which route the agent takes decides whether the trap exists.** The Python client's `sessions.iter()` pages by itself, so those trials passed without thinking about it. A task built on a limit should check that no common route avoids the limit for free, or accept that it measures route choice as well.
+
+## 2026-11-21 — Kitaru D1 to D5 (clinic): sonnet-5.5 22/25, gpt-5.6-terra 24/25, gpt-5.4-mini 0/25
+
+Table, the two corrections and failure notes in `results/kitaru-level2.md`, "Fourth round".
+
+- **A second and third case of "the baseline checks the task".** D2's changelog credited a release with the thing that raised cost; D4's label list held two true answers and its history could not rule out the decoy. In both, the failing trials had the right cohort and a defensible cause. Rule added to the D6 one: a cause label is fair only if (a) every other label on the list is false, not merely worse, and (b) the data holds the observation that refutes each decoy. A decoy that cannot be refuted from the data is a coin toss, not a trap.
+- **Shared label lists are a mistake.** One list of eight causes across tasks put `traffic_mix_changed` in front of a task where it was true and not the answer. Each task now carries its own list, with one line per label saying what it means.
+- **A world shared by five tasks makes every fix five times as expensive.** Each correction rebuilt the image all five tasks use, so all five were re-checked and re-baselined: US$25.84 of discarded trials against US$15.28 kept. Baseline one task per world first, read its failures, then run the rest.
+- **Sonnet under Claude Code loses on the clock, not on the answer.** All three of its clinic failures are the 30-minute limit; the same model passes the same task in one minute or in twenty. Still not read why.
+- **Five attempts do not rank two strong models here.** The same model on the same task moved by two passes in five between rounds.
+- **`ps` lies in this shell.** It lists four lines whatever is running; `pgrep` works. I restarted runs that were alive.
+
+## 2026-11-21 — Kitaru F1 to F4 (replay): sonnet-5.5 20/20, gpt-5.6-terra 20/20, gpt-5.4-mini 4/20
+
+Table and failure notes in `results/kitaru-level3.md`.
+
+- **A default that repeats side effects is the sharpest test in the set.** Kitaru's replay runs live tools unless told otherwise. In F1 the small model created all 32 replays correctly in every way the product reports (completed, right version, result sessions) and paid 32 to 42 customers again in four trials of five. Only a ledger outside Kitaru showed it. The large models never did it.
+- **For Kitaru:** the safest fix is in the product, not the docs: make `replay create` and `experiment create` refuse to run, or ask, when no tool policy is given and the agent version declares tools; or make the default `history` with a miss that fails. The docs already warn, in a hint box, and the small model did not read it.
+- **Right fix, no evidence.** In F2 the small model fixed the fault correctly five times of five and never produced an experiment that both completed and paid nobody. Fixing and proving are separate skills, and the second is the Kitaru one.
+- **An experiment that has runs keeps its replay settings** (409 on update). An agent that tries to repair a failing experiment in place gets nowhere; it has to make a new one. Worth a line in `kitaru experiment update --help`.
+- **Whether `on_miss: error_result` helps depends on the agent.** In the spike the agent carried on after a tool error and the replay completed; this world's assistant asks again and the replay fails. A benchmark cannot treat it as a generally valid route.
+
+## 2026-11-21 — Kitaru F5 to F8 and O1 to O4: sonnet-5.5 39/40, gpt-5.6-terra 39/40, gpt-5.4-mini 2/40
+
+Table and failure notes in `results/kitaru-level3.md`, second part.
+
+- **Hard by design did not separate the two large models.** Each task was built with a trap the easy route falls into (rare cases a sample misses, a service that refuses a fifth request, two experiments that cannot be compared). Both large models lost one trial of 40.
+- **Reading the whole history is free for them.** F5 hides the deciding cases in 3 to 6 conversations of 420. A large model bulk-reads all 420 and counts, in about a minute. Rarity in the data is not difficulty. Difficulty would have to come from something a read cannot settle: work that has to be run, and takes time or money to run.
+- **F7 shows that:** it is the one task where the answer has to be measured by replaying hundreds of conversations, it takes a quarter of an hour, and it is the one task where a large model predicted instead (Sonnet, one trial, 17 conversations wrong).
+- **My wording cost a round.** The first F7 and F8 run (30 trials, US$14.45) was discarded: three of Sonnet's F8 failures and two of terra's F7 failures followed a reading the instruction allowed. A task that asks for a set ("conversations where the customer asked for one item") needs the edge of the set stated, and an example of what is outside it.
+- **For Kitaru, from the small model's setup failures:** "Session names no agent and no task to infer one from" was the end of the road in most O2 and O4 failures. The message does not say what to pass or where. Naming the argument (`agent_id=`) in it would likely turn several of those into passes. Kitaru reads no environment variable for this; the `KITARU_AGENT_ID` in the PydanticAI docs example is read by the example's own code.
+- **For Kitaru, from building the tasks:** an explicit `--claim` on a worker replaces the defaults instead of adding to them (O1 is built on this, and the small model never noticed in five trials); `kitaru session nodes` and `session list` leave out inputs and outputs unless `--include-payloads` is given (I missed the flag while building and used the Python client); there is no CLI command to change a registered version's run spec; a history tool policy with scope `cohort_version` answers a tool call from any conversation in the cohort, which silently changes what a replay of one conversation means. Filed after checking against Kitaru's source: zenml-io/kitaru#1561 (errors and help texts), #1562 (`agent version update`), #1563 (`cohort_version` docs), and a comment on #1441 (live tools by default).
+- **Two graders crashed on states only a failing agent produces** (a registered directory that does not exist, a release that hangs). The score was right; the metrics file was missing. Fixed the same day in the shared helper `run_assistant`. Testing the fix found a second crash behind the first: F6's grader read the order service's request log, which does not exist when the release never made a lookup.
+

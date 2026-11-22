@@ -1,0 +1,502 @@
+{"conv":"tw-00001","kind":"start","ts":1785736806.134117,"customer_msg":"Why is TW42367483 late?","channel":"sms"}
+{"conv":"tw-00001","kind":"llm","span":"s1","parent":null,"ts_start":1785736806.134117,"ts_end":1785736807.768493,"model":"gpt-5.4-mini","usage":{"in":1035,"out":36,"cached":0},"cost_microusd":331}
+{"conv":"tw-00001","kind":"tool","span":"s2","parent":"s1","ts_start":1785736807.768493,"ts_end":1785736808.000134,"tool":"find_parcel","ok":true,"args":{"parcel":"TW42367483"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00001","kind":"llm","span":"s3","parent":null,"ts_start":1785736808.000134,"ts_end":1785736809.375403,"model":"gpt-5.4-mini","usage":{"in":594,"out":71,"cached":0},"cost_microusd":290}
+{"conv":"tw-00001","kind":"tool","span":"s4","parent":"s3","ts_start":1785736809.375403,"ts_end":1785736809.912114,"tool":"plan_route","ok":true,"args":{"parcel":"TW42367483"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00002","kind":"start","ts":1785736810.049601,"customer_msg":"Where is parcel TW89145679?","channel":"app"}
+{"conv":"tw-00002","kind":"llm","span":"s1","parent":null,"ts_start":1785736810.049601,"ts_end":1785736811.847749,"model":"gpt-5.4-mini","usage":{"in":706,"out":38,"cached":0},"cost_microusd":252}
+{"conv":"tw-00001","kind":"llm","span":"s5","parent":"s4","ts_start":1785736809.912114,"ts_end":1785736812.126845,"model":"gpt-5.4","usage":{"in":3250,"out":275,"cached":1600}}
+{"conv":"tw-00002","kind":"tool","span":"s2","parent":"s1","ts_start":1785736811.847749,"ts_end":1785736812.294109,"tool":"find_parcel","ok":false,"args":{"parcel":"TW89145679"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00001","kind":"tool","span":"s6","parent":"s4","ts_start":1785736812.126845,"ts_end":1785736812.46951,"tool":"geocode","ok":true,"args":{"parcel":"TW42367483"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00001","kind":"tool","span":"s7","parent":"s4","ts_start":1785736812.46951,"ts_end":1785736812.86471,"tool":"geocode","ok":true,"args":{"parcel":"TW42367483"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00002","kind":"llm","span":"s3","parent":null,"ts_start":1785736812.294109,"ts_end":1785736813.559202,"model":"gpt-5.4-mini","usage":{"in":1091,"out":129},"cost_microusd":531}
+{"conv":"tw-00002","kind":"tool","span":"s4","parent":"s3","ts_start":1785736813.559202,"ts_end":1785736813.872127,"tool":"plan_route","ok":true,"args":{"parcel":"TW89145679"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00001","kind":"llm","span":"s8","parent":null,"ts_start":1785736812.86471,"ts_end":1785736814.171887,"model":"gpt-5.4-mini","usage":{"in":382,"out":130,"cached":128},"cost_microusd":330}
+{"conv":"tw-00001","kind":"end","ts":1785736814.371887,"outcome":"resolved","reply":"Parcel TW42367483: handled."}
+{"conv":"tw-00003","kind":"start","ts":1785736814.86988,"customer_msg":"Where is parcel TW24736039?","channel":"web"}
+{"conv":"tw-00002","kind":"llm","span":"s5","parent":"s4","ts_start":1785736813.872127,"ts_end":1785736815.281481,"model":"gpt-5.4","usage":{"in":2250,"out":100,"cached":0}}
+{"conv":"tw-00002","kind":"tool","span":"s6","parent":"s4","ts_start":1785736815.281481,"ts_end":1785736815.362045,"tool":"geocode","ok":true,"args":{"parcel":"TW89145679"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00003","kind":"llm","span":"s1","parent":null,"ts_start":1785736814.86988,"ts_end":1785736816.355392,"model":"gpt-5.4-mini","usage":{"in":788,"out":158},"cost_microusd":513}
+{"conv":"tw-00003","kind":"tool","span":"s2","parent":"s1","ts_start":1785736816.355392,"ts_end":1785736816.503851,"tool":"find_parcel","ok":true,"args":{"parcel":"TW24736039"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00002","kind":"llm","span":"s7","parent":null,"ts_start":1785736815.362045,"ts_end":1785736817.204782,"model":"gpt-5.4-mini","usage":{"in":1275,"out":115,"cached":576},"cost_microusd":434}
+{"conv":"tw-00002","kind":"end","ts":1785736817.404782,"outcome":"resolved","reply":"Parcel TW89145679: handled."}
+{"conv":"tw-00003","kind":"llm","span":"s3","parent":null,"ts_start":1785736816.503851,"ts_end":1785736817.844205,"model":"gpt-5.4-mini","usage":{"in":1038,"out":85,"cached":0},"cost_microusd":430}
+{"conv":"tw-00003","kind":"llm","span":"s1","parent":null,"ts_start":1785736814.86988,"ts_end":1785736816.355392,"model":"gpt-5.4-mini","usage":{"in":788,"out":158},"cost_microusd":513}
+{"conv":"tw-00003","kind":"tool","span":"s4","parent":"s3","ts_start":1785736817.844205,"ts_end":1785736818.175617,"tool":"notify_customer","ok":true,"args":{"parcel":"TW24736039"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00004","kind":"start","ts":1785736818.705394,"customer_msg":"Why is TW55513360 late?","channel":"web"}
+{"conv":"tw-00003","kind":"llm","span":"s5","parent":null,"ts_start":1785736818.175617,"ts_end":1785736819.037035,"model":"gpt-5.4-mini","usage":{"in":1256,"out":60},"cost_microusd":434}
+{"conv":"tw-00003","kind":"end","ts":1785736819.237035,"outcome":"resolved","reply":"Parcel TW24736039: handled."}
+{"conv":"tw-00004","kind":"llm","span":"s1","parent":null,"ts_start":1785736818.705394,"ts_end":1785736819.922882,"model":"gpt-5.4-mini","usage":{"in":1215,"out":21},"cost_microusd":346}
+{"conv":"tw-00004","kind":"tool","span":"s2","parent":"s1","ts_start":1785736819.922882,"ts_end":1785736819.996948,"tool":"find_parcel","ok":true,"args":{"parcel":"TW55513360"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00004","kind":"llm","span":"s3","parent":null,"ts_start":1785736819.996948,"ts_end":1785736821.996797,"model":"gpt-5.4-mini","usage":{"in":570,"out":143,"cached":256},"cost_microusd":377}
+{"conv":"tw-00004","kind":"end","ts":1785736822.196797,"outcome":"resolved","reply":"Parcel TW55513360: handled."}
+{"conv":"tw-00005","kind":"start","ts":1785736823.62222,"customer_msg":"Where is parcel TW43008732?","channel":"web"}
+{"conv":"tw-00005","kind":"llm","span":"s1","parent":null,"ts_start":1785736823.62222,"ts_end":1785736824.671773,"model":"gpt-5.4-mini","usage":{"in":1295,"out":43,"cached":0},"cost_microusd":410}
+{"conv":"tw-00005","kind":"tool","span":"s2","parent":"s1","ts_start":1785736824.671773,"ts_end":1785736824.801224,"tool":"find_parcel","ok":true,"args":{"parcel":"TW43008732"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00005","kind":"llm","span":"s3","parent":null,"ts_start":1785736824.801224,"ts_end":1785736826.202009,"model":"gpt-5.4-mini","usage":{"in":1008,"out":49},"cost_microusd":350}
+{"conv":"tw-00005","kind":"tool","span":"s4","parent":"s3","ts_start":1785736826.202009,"ts_end":1785736826.653827,"tool":"notify_customer","ok":true,"args":{"parcel":"TW43008732"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00005","kind":"llm","span":"s5","parent":null,"ts_start":1785736826.653827,"ts_end":1785736827.251017,"model":"gpt-5.4-mini","usage":{"in":636,"out":104},"cost_microusd":367}
+{"conv":"tw-00005","kind":"end","ts":1785736827.451017,"outcome":"resolved","reply":"Parcel TW43008732: handled."}
+{"conv":"tw-00006","kind":"start","ts":1785736828.089145,"customer_msg":"Why is TW48284110 late?","channel":"app"}
+{"conv":"tw-00005","kind":"tool","span":"s4","parent":"s3","ts_start":1785736826.202009,"ts_end":1785736826.653827,"tool":"notify_customer","ok":true,"args":{"parcel":"TW43008732"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00006","kind":"llm","span":"s1","parent":null,"ts_start":1785736828.089145,"ts_end":1785736829.591709,"model":"gpt-5.4-mini","usage":{"in":440,"out":46,"cached":0},"cost_microusd":202}
+{"conv":"tw-00006","kind":"tool","span":"s2","parent":"s1","ts_start":1785736829.591709,"ts_end":1785736829.821274,"tool":"find_parcel","ok":true,"args":{"parcel":"TW48284110"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00006","kind":"llm","span":"s3","parent":null,"ts_start":1785736829.821274,"ts_end":1785736831.267105,"model":"gpt-5.4-mini","usage":{"in":748,"out":43,"cached":0},"cost_microusd":273}
+{"conv":"tw-00006","kind":"tool","span":"s4","parent":"s3","ts_start":1785736831.267105,"ts_end":1785736831.647743,"tool":"plan_route","ok":true,"args":{"parcel":"TW48284110"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00006","kind":"llm","span":"s5","parent":"s4","ts_start":1785736831.647743,"ts_end":1785736833.477154,"model":"gpt-5.4","usage":{"in":1650,"out":175}}
+{"conv":"tw-00006","kind":"tool","span":"s6","parent":"s4","ts_start":1785736833.477154,"ts_end":1785736834.005868,"tool":"geocode","ok":true,"args":{"parcel":"TW48284110"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00007","kind":"start","ts":1785736834.948042,"customer_msg":"Why is TW46852626 late?","channel":"app"}
+{"conv":"tw-00007","kind":"llm","span":"s1","parent":null,"ts_start":1785736834.948042,"ts_end":1785736835.545327,"model":"gpt-5.4-mini","usage":{"in":304,"out":39},"cost_microusd":154}
+{"conv":"tw-00006","kind":"llm","span":"s7","parent":null,"ts_start":1785736834.005868,"ts_end":1785736835.915215,"model":"gpt-5.4-mini","usage":{"in":1296,"out":78,"cached":640},"cost_microusd":352}
+{"conv":"tw-00007","kind":"tool","span":"s2","parent":"s1","ts_start":1785736835.545327,"ts_end":1785736835.998216,"tool":"find_parcel","ok":true,"args":{"parcel":"TW46852626"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00006","kind":"end","ts":1785736836.115215,"outcome":"resolved","reply":"Parcel TW48284110: handled."}
+{"conv":"tw-00007","kind":"llm","span":"s3","parent":null,"ts_start":1785736835.998216,"ts_end":1785736837.857043,"model":"gpt-5.4-mini","usage":{"in":1143,"out":106,"cached":512},"cost_microusd":395}
+{"conv":"tw-00007","kind":"tool","span":"s4","parent":"s3","ts_start":1785736837.857043,"ts_end":1785736838.206949,"tool":"notify_customer","ok":true,"args":{"parcel":"TW46852626"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00007","kind":"llm","span":"s3","parent":null,"ts_start":1785736835.998216,"ts_end":1785736837.857043,"model":"gpt-5.4-mini","usage":{"in":1143,"out":106,"cached":512},"cost_microusd":395}
+{"conv":"tw-00007","kind":"llm","span":"s5","parent":null,"ts_start":1785736838.206949,"ts_end":1785736840.173293,"model":"gpt-5.4-mini","usage":{"in":1127,"out":84,"cached":0},"cost_microusd":450}
+{"conv":"tw-00007","kind":"end","ts":1785736840.373293,"outcome":"resolved","reply":"Parcel TW46852626: handled."}
+{"conv":"tw-00008","kind":"start","ts":1785736841.608855,"customer_msg":"Where is parcel TW34509870?","channel":"app"}
+{"conv":"tw-00008","kind":"llm","span":"s1","parent":null,"ts_start":1785736841.608855,"ts_end":1785736843.385741,"model":"gpt-5.4-mini","usage":{"in":1082,"out":31},"cost_microusd":332}
+{"conv":"tw-00008","kind":"tool","span":"s2","parent":"s1","ts_start":1785736843.385741,"ts_end":1785736843.494307,"tool":"find_parcel","ok":false,"args":{"parcel":"TW34509870"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00008","kind":"llm","span":"s3","parent":null,"ts_start":1785736843.494307,"ts_end":1785736844.376336,"model":"gpt-5.4-mini","usage":{"in":679,"out":86,"cached":320},"cost_microusd":278}
+{"conv":"tw-00008","kind":"tool","span":"s4","parent":"s3","ts_start":1785736844.376336,"ts_end":1785736844.716675,"tool":"notify_customer","ok":true,"args":{"parcel":"TW34509870"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00008","kind":"llm","span":"s5","parent":null,"ts_start":1785736844.716675,"ts_end":1785736846.399602,"model":"gpt-5.4-mini","usage":{"in":445,"out":22,"cached":0},"cost_microusd":155}
+{"conv":"tw-00008","kind":"end","ts":1785736846.599602,"outcome":"resolved","reply":"Parcel TW34509870: handled."}
+{"conv":"tw-00009","kind":"start","ts":1785736846.659405,"customer_msg":"Can you redeliver TW65470112 tomorrow?","channel":"app"}
+{"conv":"tw-00009","kind":"llm","span":"s1","parent":null,"ts_start":1785736846.659405,"ts_end":1785736847.919117,"model":"gpt-5.4-mini","usage":{"in":933,"out":50},"cost_microusd":333}
+{"conv":"tw-00009","kind":"tool","span":"s2","parent":"s1","ts_start":1785736847.919117,"ts_end":1785736848.076677,"tool":"find_parcel","ok":true,"args":{"parcel":"TW65470112"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00009","kind":"llm","span":"s3","parent":null,"ts_start":1785736848.076677,"ts_end":1785736849.734642,"model":"gpt-5.4-mini","usage":{"in":880,"out":25,"cached":384},"cost_microusd":193}
+{"conv":"tw-00010","kind":"start","ts":1785736849.933114,"customer_msg":"Parcel TW86653238 arrived damaged, what now?","channel":"sms"}
+{"conv":"tw-00009","kind":"end","ts":1785736849.934642,"outcome":"resolved","reply":"Parcel TW65470112: handled."}
+{"conv":"tw-00010","kind":"llm","span":"s1","parent":null,"ts_start":1785736849.933114,"ts_end":1785736851.478925,"model":"gpt-5.4-mini","usage":{"in":1354,"out":144,"cached":640},"cost_microusd":498}
+{"conv":"tw-00010","kind":"tool","span":"s2","parent":"s1","ts_start":1785736851.478925,"ts_end":1785736851.866909,"tool":"find_parcel","ok":true,"args":{"parcel":"TW86653238"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00010","kind":"llm","span":"s3","parent":null,"ts_start":1785736851.866909,"ts_end":1785736853.819574,"model":"gpt-5.4-mini","usage":{"in":1168,"out":152},"cost_microusd":596}
+{"conv":"tw-00010","kind":"tool","span":"s4","parent":"s3","ts_start":1785736853.819574,"ts_end":1785736854.069019,"tool":"plan_route","ok":true,"args":{"parcel":"TW86653238"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00011","kind":"start","ts":1785736856.141214,"customer_msg":"Where is parcel TW92733489?","channel":"app"}
+{"conv":"tw-00012","kind":"start","ts":1785736856.769717,"customer_msg":"Parcel TW99331733 arrived damaged, what now?","channel":"app"}
+{"conv":"tw-00010","kind":"llm","span":"s5","parent":"s4","ts_start":1785736854.069019,"ts_end":1785736857.034654,"model":"gpt-5.4","usage":{"in":2900,"out":195,"cached":1450}}
+{"conv":"tw-00010","kind":"tool","span":"s6","parent":"s4","ts_start":1785736857.034654,"ts_end":1785736857.601797,"tool":"geocode","ok":true,"args":{"parcel":"TW86653238"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00010","kind":"tool","span":"s7","parent":"s4","ts_start":1785736857.601797,"ts_end":1785736857.810265,"tool":"geocode","ok":true,"args":{"parcel":"TW86653238"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00011","kind":"llm","span":"s1","parent":null,"ts_start":1785736856.141214,"ts_end":1785736857.913147,"model":"gpt-5.4-mini","usage":{"in":418,"out":109},"cost_microusd":322}
+{"conv":"tw-00011","kind":"tool","span":"s2","parent":"s1","ts_start":1785736857.913147,"ts_end":1785736858.135525,"tool":"find_parcel","ok":true,"args":{"parcel":"TW92733489"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00012","kind":"llm","span":"s1","parent":null,"ts_start":1785736856.769717,"ts_end":1785736858.227807,"model":"gpt-5.4-mini","usage":{"in":370,"out":26,"cached":0},"cost_microusd":144}
+{"conv":"tw-00012","kind":"tool","span":"s2","parent":"s1","ts_start":1785736858.227807,"ts_end":1785736858.787539,"tool":"find_parcel","ok":false,"args":{"parcel":"TW99331733"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00012","kind":"tool","sp
+{"conv":"tw-00010","kind":"llm","span":"s8","parent":null,"ts_start":1785736857.810265,"ts_end":1785736859.580314,"model":"gpt-5.4-mini","usage":{"in":807,"out":20,"cached":0},"cost_microusd":242}
+{"conv":"tw-00010","kind":"tool","span":"s9","parent":"s8","ts_start":1785736859.580314,"ts_end":1785736859.715993,"tool":"notify_customer","ok":true,"args":{"parcel":"TW86653238"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00011","kind":"llm","span":"s1","parent":null,"ts_start":1785736856.141214,"ts_end":1785736857.913147,"model":"gpt-5.4-mini","usage":{"in":418,"out":109},"cost_microusd":322}
+{"conv":"tw-00012","kind":"llm","span":"s3","parent":null,"ts_start":1785736858.787539,"ts_end":1785736860.106938,"model":"gpt-5.4-mini","usage":{"in":1112,"out":107,"cached":512},"cost_microusd":390}
+{"conv":"tw-00011","kind":"llm","span":"s3","parent":null,"ts_start":1785736858.135525,"ts_end":1785736860.115903,"model":"gpt-5.4-mini","usage":{"in":447,"out":146,"cached":0},"cost_microusd":404}
+{"conv":"tw-00011","kind":"tool","span":"s4","parent":"s3","ts_start":1785736860.115903,"ts_end":1785736860.336204,"tool":"plan_route","ok":true,"args":{"parcel":"TW92733489"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00012","kind":"tool","span":"s4","parent":"s3","ts_start":1785736860.106938,"ts_end":1785736860.466054,"tool":"notify_customer","ok":true,"args":{"parcel":"TW99331733"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00013","kind":"start","ts":1785736861.032384,"customer_msg":"Can you redeliver TW46224404 tomorrow?","channel":"app"}
+{"conv":"tw-00010","kind":"llm","span":"s10","parent":null,"ts_start":1785736859.715993,"ts_end":1785736861.228658,"model":"gpt-5.4-mini","usage":{"in":1318,"out":87},"cost_microusd":504}
+{"conv":"tw-00012","kind":"llm","span":"s5","parent":null,"ts_start":1785736860.466054,"ts_end":1785736861.327684,"model":"gpt-5.4-mini","usage":{"in":1253,"out":87,"cached":576},"cost_microusd":372}
+{"conv":"tw-00010","kind":"end","ts":1785736861.428658,"outcome":"resolved","reply":"Parcel TW86653238: handled."}
+{"conv":"tw-00012","kind":"end","ts":1785736861.527684,"outcome":"resolved","reply":"Parcel TW99331733: handled."}
+{"conv":"tw-00013","kind":"llm","span":"s1","parent":null,"ts_start":1785736861.032384,"ts_end":1785736861.737911,"model":"gpt-5.4-mini","usage":{"in":1060,"out":82,"cached":512},"cost_microusd":327}
+{"conv":"tw-00013","kind":"tool","span":"s2","parent":"s1","ts_start":1785736861.737911,"ts_end":1785736861.833403,"tool":"find_parcel","ok":true,"args":{"parcel":"TW46224404"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00013","kind":"llm","span":"s3","parent":null,"ts_start":1785736861.833403,"ts_end":1785736863.027167,"model":"gpt-5.4-mini","usage":{"in":672,"out":30},"cost_microusd":228}
+{"conv":"tw-00011","kind":"llm","span":"s5","parent":"s4","ts_start":1785736860.336204,"ts_end":1785736863.072428,"model":"gpt-5.4","usage":{"in":3600,"out":120}}
+{"conv":"tw-00013","kind":"tool","span":"s4","parent":"s3","ts_start":1785736863.027167,"ts_end":1785736863.135662,"tool":"plan_route","ok":true,"args":{"parcel":"TW46224404"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00011","kind":"tool","span":"s6","parent":"s4","ts_start":1785736863.072428,"ts_end":1785736863.660454,"tool":"geocode","ok":false,"args":{"parcel":"TW92733489"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00011","kind":"llm","span":"s7","parent":null,"ts_start":1785736863.660454,"ts_end":1785736865.121257,"model":"gpt-5.4-mini","usage":{"in":712,"out":95,"cached":0},"cost_microusd":368}
+{"conv":"tw-00011","kind":"end","ts":1785736865.321257,"outcome":"error","error":"dispatch assistant crashed: KeyError 'depot'"}
+{"conv":"tw-00013","kind":"llm","span":"s5","parent":"s4","ts_start":1785736863.135662,"ts_end":1785736865.354146,"model":"gpt-5.4","usage":{"in":3950,"out":125,"cached":0}}
+{"conv":"tw-00013","kind":"tool","span":"s6","parent":"s4","ts_start":1785736865.354146,"ts_end":1785736865.724089,"tool":"geocode","ok":true,"args":{"parcel":"TW46224404"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00014","kind":"start","ts":1785736867.074647,"customer_msg":"Why is TW17130850 late?","channel":"sms"}
+{"conv":"tw-00013","kind":"llm","span":"s7","parent":null,"ts_start":1785736865.724089,"ts_end":1785736867.385995,"model":"gpt-5.4-mini","usage":{"in":590,"out":81},"cost_microusd":310}
+{"conv":"tw-00013","kind":"end","ts":1785736867.585995,"outcome":"resolved","reply":"Parcel TW46224404: handled."}
+{"conv":"tw-00014","kind":"llm","span":"s1","parent":null,"ts_start":1785736867.074647,"ts_end":1785736868.457416,"model":"gpt-5.4-mini","usage":{"in":316,"out":152},"cost_microusd":383}
+{"conv":"tw-00014","kind":"tool","span":"s2","parent":"s1","ts_start":1785736868.457416,"ts_end":1785736868.771294,"tool":"find_parcel","ok":true,"args":{"parcel":"TW17130850"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00014","kind":"llm","span":"s3","parent":null,"ts_start":1785736868.771294,"ts_end":1785736870.522972,"model":"gpt-5.4-mini","usage":{"in":420,"out":107,"cached":0},"cost_microusd":319}
+{"conv":"tw-00014","kind":"tool","span":"s4","parent":"s3","ts_start":1785736870.522972,"ts_end":1785736870.805809,"tool":"plan_route","ok":true,"args":{"parcel":"TW17130850"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00014","kind":"llm","span":"s3","parent":null,"ts_start":1785736868.771294,"ts_end":1785736870.522972,"model":"gpt-5.4-mini","usage":{"in":420,"out":107,"cached":0},"cost_microusd":319}
+{"conv":"tw-00015","kind":"start","ts":1785736872.347048,"customer_msg":"Why is TW33350765 late?","channel":"app"}
+{"conv":"tw-00014","kind":"llm","span":"s5","parent":"s4","ts_start":1785736870.805809,"ts_end":1785736873.602968,"model":"gpt-5.4","usage":{"in":1550,"out":285}}
+{"conv":"tw-00014","kind":"tool","span":"s6","parent":"s4","ts_start":1785736873.602968,"ts_end":1785736873.679131,"tool":"geocode","ok":true,"args":{"parcel":"TW17130850"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00015","kind":"llm","span":"s1","parent":null,"ts_start":1785736872.347048,"ts_end":1785736873.885298,"model":"gpt-5.4-mini","usage":{"in":452,"out":130,"cached":0},"cost_microusd":373}
+{"conv":"tw-00015","kind":"tool","span":"s2","parent":"s1","ts_start":1785736873.885298,"ts_end":1785736874.235222,"tool":"find_parcel","ok":true,"args":{"parcel":"TW33350765"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00016","kind":"start","ts":1785736874.257618,"customer_msg":"Parcel TW36532007 arrived damaged, what now?","channel":"sms"}
+{"conv":"tw-00014","kind":"llm","span":"s7","parent":null,"ts_start":1785736873.679131,"ts_end":1785736874.346004,"model":"gpt-5.4-mini","usage":{"in":1399,"out":100},"cost_microusd":550}
+{"conv":"tw-00014","kind":"tool","span":"s8","parent":"s7","ts_start":1785736874.346004,"ts_end":1785736874.84883,"tool":"notify_customer","ok":true,"args":{"parcel":"TW17130850"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00015","kind":"llm","span":"s3","parent":null,"ts_start":1785736874.235222,"ts_end":1785736875.541456,"model":"gpt-5.4-mini","usage":{"in":1286,"out":109,"cached":640},"cost_microusd":412}
+{"conv":"tw-00014","kind":"llm","span":"s9","parent":null,"ts_start":1785736874.84883,"ts_end":1785736875.556825,"model":"gpt-5.4-mini","usage":{"in":691,"out":57},"cost_microusd":287}
+{"conv":"tw-00015","kind":"tool","span":"s4","parent":"s3","ts_start":1785736875.541456,"ts_end":1785736875.632515,"tool":"plan_route","ok":true,"args":{"parcel":"TW33350765"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00016","kind":"llm","span":"s1","parent":null,"ts_start":1785736874.257618,"ts_end":1785736875.664027,"model":"gpt-5.4-mini","usage":{"in":878,"out":97},"cost_microusd":414}
+{"conv":"tw-00014","kind":"end","ts":1785736875.756825,"outcome":"resolved","reply":"Parcel TW17130850: handled."}
+{"conv":"tw-00016","kind":"tool","span":"s2","parent":"s1","ts_start":1785736875.664027,"ts_end":1785736875.841306,"tool":"find_parcel","ok":true,"args":{"parcel":"TW36532007"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00015","kind":"llm","span":"s5","parent":"s4","ts_start":1785736875.632515,"ts_end":1785736876.791868,"model":"gpt-5.4","usage":{"in":2350,"out":285,"cached":1150}}
+{"conv":"tw-00015","kind":"tool","span":"s6","parent":"s4","ts_start":1785736876.791868,"ts_end":1785736877.03819,"tool":"geocode","ok":true,"args":{"parcel":"TW33350765"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00016","kind":"llm","span":"s3","parent":null,"ts_start":1785736875.841306,"ts_end":1785736877.197351,"model":"gpt-5.4-mini","usage":{"in":1066,"out":94,"cached":0},"cost_microusd":454}
+{"conv":"tw-00016","kind":"end","ts":1785736877.397351,"outcome":"resolved","reply":"Parcel TW36532007: handled."}
+{"conv":"tw-00015","kind":"llm","span":"s7","parent":null,"ts_start":1785736877.03819,"ts_end":1785736878.417337,"model":"gpt-5.4-mini","usage":{"in":799,"out":76},"cost_microusd":352}
+{"conv":"tw-00015","kind":"tool","span":"s4","parent":"s3","ts_start":1785736875.541456,"ts_end":1785736875.632515,"tool":"plan_route","ok":true,"args":{"parcel":"TW33350765"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00015","kind":"end","ts":1785736878.617337,"outcome":"resolved","reply":"Parcel TW33350765: handled."}
+{"conv":"tw-00017","kind":"start","ts":1785736881.098327,"customer_msg":"Where is parcel TW54170352?","channel":"web"}
+{"conv":"tw-00017","kind":"llm","span":"s1","parent":null,"ts_start":1785736881.098327,"ts_end":1785736882.672553,"model":"gpt-5.4-mini","usage":{"in":397,"out":131},"cost_microusd":361}
+{"conv":"tw-00017","kind":"tool","span":"s2","parent":"s1","ts_start":1785736882.672553,"ts_end":1785736882.773541,"tool":"find_parcel","ok":true,"args":{"parcel":"TW54170352"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00017","kind":"llm","span":"s3","parent":null,"ts_start":1785736882.773541,"ts_end":1785736884.399097,"model":"gpt-5.4-mini","usage":{"in":898,"out":31,"cached":0},"cost_microusd":286}
+{"conv":"tw-00017","kind":"tool","span":"s4","parent":"s3","ts_start":1785736884.399097,"ts_end":1785736884.845587,"tool":"notify_customer","ok":true,"args":{"parcel":"TW54170352"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00017","kind":"llm","span":"s5","parent":null,"ts_start":1785736884.845587,"ts_end":1785736885.833822,"model":"gpt-5.4-mini","usage":{"in":1380,"out":111,"cached":0},"cost_microusd":567}
+{"conv":"tw-00017","kind":"end","ts":1785736886.033822,"outcome":"resolved","reply":"Parcel TW54170352: handled."}
+{"conv":"tw-00018","kind":"start","ts":1785736887.199759,"customer_msg":"Why is TW28391906 late?","channel":"sms"}
+{"conv":"tw-00018","kind":"llm","span":"s1","parent":null,"ts_start":1785736887.199759,"ts_end":1785736887.801353,"model":"gpt-5.4-mini","usage":{"in":904,"out":97},"cost_microusd":420}
+{"conv":"tw-00018","kind":"tool","span":"s2","parent":"s1","ts_start":1785736887.801353,"ts_end":1785736888.071275,"tool":"find_parcel","ok":true,"args":{"parcel":"TW28391906"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00018","kind":"llm","span":"s3","parent":null,"ts_start":1785736888.071275,"ts_end":1785736888.630716,"model":"gpt-5.4-mini","usage":{"in":1268,"out":151,"cached":576},"cost_microusd":504}
+{"conv":"tw-00018","kind":"tool","span":"s4","parent":"s3","ts_start":1785736888.630716,"ts_end":1785736888.76563,"tool":"notify_customer","ok":true,"args":{"parcel":"TW28391906"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00018","kind":"llm","span":"s5","parent":null,"ts_start":1785736888.76563,"ts_end":1785736890.277369,"model":"gpt-5.4-mini","usage":{"in":610,"out":152,"cached":0},"cost_microusd":456}
+{"conv":"tw-00018","kind":"end","ts":1785736890.477369,"outcome":"resolved","reply":"Parcel TW28391906: handled."}
+{"conv":"tw-00018","kind":"llm","span":"s5","parent":null,"ts_start":1785736888.76563,"ts_end":1785736890.277369,"model":"gpt-5.4-mini","usage":{"in":610,"out":152,"cached":0},"cost_microusd":456}
+{"conv":"tw-00019","kind":"start","ts":1785736893.395291,"customer_msg":"Can you redeliver TW20645145 tomorrow?","channel":"web"}
+{"conv":"tw-00019","kind":"llm","span":"s1","parent":null,"ts_start":1785736893.395291,"ts_end":1785736894.188317,"model":"gpt-5.4-mini","usage":{"in":353,"out":41},"cost_microusd":170}
+{"conv":"tw-00019","kind":"tool","span":"s2","parent":"s1","ts_start":1785736894.188317,"ts_end":1785736894.501409,"tool":"find_parcel","ok":true,"args":{"parcel":"TW20645145"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00019","kind":"llm","span":"s3","parent":null,"ts_start":1785736894.501409,"ts_end":1785736896.411653,"model":"gpt-5.4-mini","usage":{"in":1016,"out":42},"cost_microusd":338}
+{"conv":"tw-00019","kind":"tool","span":"s4","parent":"s3","ts_start":1785736896.411653,"ts_end":1785736896.784008,"tool":"notify_customer","ok":true,"args":{"parcel":"TW20645145"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00019","kind":"llm","span":"s5","parent":null,"ts_start":1785736896.784008,"ts_end":1785736897.987957,"model":"gpt-5.4-mini","usage":{"in":578,"out":91,"cached":0},"cost_microusd":326}
+{"conv":"tw-00019","kind":"end","ts":1785736898.187957,"outcome":"resolved","reply":"Parcel TW20645145: handled."}
+{"conv":"tw-00020","kind":"start","ts":1785736900.318882,"customer_msg":"Where is parcel TW14954890?","channel":"app"}
+{"conv":"tw-00020","kind":"llm","span":"s1","parent":null,"ts_start":1785736900.318882,"ts_end":1785736901.545121,"model":"gpt-5.4-mini","usage":{"in":1344,"out":37},"cost_microusd":410}
+{"conv":"tw-00020","kind":"tool","span":"s2","parent":"s1","ts_start":1785736901.545121,"ts_end":1785736902.094118,"tool":"find_parcel","ok":true,"args":{"parcel":"TW14954890"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00020","kind":"llm","span":"s3","parent":null,"ts_start":1785736902.094118,"ts_end":1785736902.901148,"model":"gpt-5.4-mini","usage":{"in":1126,"out":143},"cost_microusd":568}
+{"conv":"tw-00020","kind":"tool","span":"s4","parent":"s3","ts_start":1785736902.901148,"ts_end":1785736903.296548,"tool":"notify_customer","ok":true,"args":{"parcel":"TW14954890"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00021","kind":"start","ts":1785736903.719501,"customer_msg":"Where is parcel TW14668382?","channel":"web"}
+{"conv":"tw-00020","kind":"llm","span":"s5","parent":null,"ts_start":1785736903.296548,"ts_end":1785736904.493745,"model":"gpt-5.4-mini","usage":{"in":697,"out":45,"cached":320},"cost_microusd":200}
+{"conv":"tw-00022","kind":"start","ts":1785736904.565507,"customer_msg":"Parcel TW69962406 arrived damaged, what now?","channel":"sms"}
+{"conv":"tw-00020","kind":"end","ts":1785736904.693745,"outcome":"resolved","reply":"Parcel TW14954890: handled."}
+{"conv":"tw-00022","kind":"llm","span":"s1","parent":null,"ts_start":1785736904.565507,"ts_end":1785736905.343051,"model":"gpt-5.4-mini","usage":{"in":562,"out":20},"cost_microusd":180}
+{"conv":"tw-00021","kind":"llm","span":"s1","parent":null,"ts_start":1785736903.719501,"ts_end":1785736905.461149,"model":"gpt-5.4-mini","usage":{"in":993,"out":135,"cached":0},"cost_microusd":518}
+{"conv":"tw-00021","kind":"tool","span":"s2","parent":"s1","ts_start":1785736905.461149,"ts_end":1785736905.52998,"tool":"find_parcel","ok":true,"args":{"parcel":"TW14668382"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00022","kind":"tool","span":"s2","parent":"s1","ts_start":1785736905.343051,"ts_end":1785736905.936716,"tool":"find_parcel","ok":true,"args":{"parcel":"TW69962406"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00021","kind":"llm","span":"s3","parent":null,"ts_start":1785736905.52998,"ts_end":1785736907.191868,"model":"gpt-5.4-mini","usage":{"in":1258,"out":101,"cached":576},"cost_microusd":401}
+{"conv":"tw-00021","kind":"tool","span":"s4","parent":"s3","ts_start":1785736907.191868,"ts_end":1785736907.386729,"tool":"plan_route","ok":true,"args":{"parcel":"TW14668382"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00022","kind":"llm","span":"s3","parent":null,"ts_start":1785736905.936716,"ts_end":1785736907.507141,"model":"gpt-5.4-mini","usage":{"in":529,"out":150,"cached":0},"cost_microusd":432}
+{"conv":"tw-00023","kind":"start","ts":1785736907.7361,"customer_msg":"Change the address for TW35764275 please.","channel":"web"}
+{"conv":"tw-00022","kind":"tool","span":"s4","parent":"s3","ts_start":1785736907.507141,"ts_end":1785736908.106495,"tool":"plan_route","ok":true,"args":{"parcel":"TW69962406"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00021","kind":"llm","span":"s5","parent":"s4","ts_start":1785736907.386729,"ts_end":1785736908.789184,"model":"gpt-5.4","usage":{"in":1800,"out":245,"cached":900}}
+{"conv":"tw-00021","kind":"tool","span":"s6","parent":"s4","ts_start":1785736908.789184,"ts_end":1785736909.201778,"tool":"geocode","ok":true,"args":{"parcel":"TW14668382"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00023","kind":"llm","span":"s1","parent":null,"ts_start":1785736907.7361,"ts_end":1785736909.405916,"model":"gpt-5.4-mini","usage":{"in":388,"out":136,"cached":0},"cost_microusd":369}
+{"conv":"tw-00022","kind":"llm","span":"s5","parent":"s4","ts_start":1785736908.106495,"ts_end":1785736909.612141,"model":"gpt-5.4","usage":{"in":2200,"out":180}}
+{"conv":"tw-00023","kind":"tool","span":"s2","parent":"s1","ts_start":1785736909.405916,"ts_end":1785736909.832348,"tool":"find_parcel","ok":true,"args":{"parcel":"TW35764275"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00024","kind":"start","ts":1785736910.001114,"customer_msg":"Why is TW44880616 late?","channel":"web"}
+{"conv":"tw-00022","kind":"tool","span":"s6","parent":"s4","ts_start":1785736909.612141,"ts_end":1785736910.045659,"tool":"geocode","ok":true,"args":{"parcel":"TW69962406"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00022","kind":"tool","span":"s7","parent":"s4","ts_start":1785736910.045659,"ts_end":1785736910.433726,"tool":"geocode","ok":true,"args":{"parcel":"TW69962406"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00024","kind":"llm","span":"s1","parent":null,"ts_start":1785736910.001114,"ts_end":1785736910.94727,"model":"gpt-5.4-mini","usage":{"in":616,"out":105,"cached":0},"cost_microusd":364}
+{"conv":"tw-00021","kind":"llm","span":"s7","parent":null,"ts_start":1785736909.201778,"ts_end":1785736911.121994,"model":"gpt-5.4-mini","usage":{"in":575,"out":126},"cost_microusd":396}
+{"conv":"tw-00021","kind":"end","ts":1785736911.321994,"outcome":"resolved","reply":"Parcel TW14668382: handled."}
+{"conv":"tw-00023","kind":"llm","span":"s3","parent":null,"ts_start":1785736909.832348,"ts_end":1785736911.421151,"model":"gpt-5.4-mini","usage":{"in":1004,"out":46},"cost_microusd":343}
+{"conv":"tw-00024","kind":"tool","span":"s2","parent":"s1","ts_start":1785736910.94727,"ts_end":1785736911.502784,"tool":"find_parcel","ok":true,"args":{"parcel":"TW44880616"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00022","kind":"llm","span":"s8","parent":null,"ts_start":1785736910.433726,"ts_end":1785736911.759711,"model":"gpt-5.4-mini","usage":{"in":567,"out":92},"cost_microusd":326}
+{"conv":"tw-00023","kind":"tool","span":"s4","parent":"s3","ts_start":1785736911.421151,"ts_end":1785736912.017253,"tool":"plan_route","ok":true,"args":{"parcel":"TW35764275"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00024","kind":"llm","span":"s3","parent":null,"ts_start":1785736911.502784,"ts_end":1785736912.690849,"model":"gpt-5.4-mini","usage":{"in":857,"out":20},"cost_microusd":254}
+{"conv":"tw-00024","kind":"tool","span":"s4","parent":"s3","ts_start":1785736912.690849,"ts_end":1785736912.854581,"tool":"plan_route","ok":true,"args":{"parcel":"TW44880616"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00023","kind":"llm","span":"s5","parent":"s4","ts_start":1785736912.017253,"ts_end":1785736913.556107,"model":"gpt-5.4","usage":{"in":3250,"out":115,"cached":1600}}
+{"conv":"tw-00023","kind":"tool","span":"s6","parent":"s4","ts_start":1785736913.556107,"ts_end":1785736914.146507,"tool":"geocode","ok":true,"args":{"parcel":"TW35764275"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00023","kind":"tool","span":"s7","parent":"s4","ts_start":1785736914.146507,"ts_end":1785736914.641228,"tool":"geocode","ok":true,"args":{"parcel":"TW35764275"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00025","kind":"start","ts":1785736914.713193,"customer_msg":"Change the address for TW91881325 please.","channel":"app"}
+{"conv":"tw-00025","kind":"llm","span":"s1","parent":null,"ts_start":1785736914.713193,"ts_end":1785736915.221927,"model":"gpt-5.4-mini","usage":{"in":1345,"out":66},"cost_microusd":468}
+{"conv":"tw-00025","kind":"tool","span":"s2","parent":"s1","ts_start":1785736915.221927,"ts_end":1785736915.375896,"tool":"find_parcel","ok":true,"args":{"parcel":"TW91881325"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00023","kind":"llm","span":"s8","parent":null,"ts_start":1785736914.641228,"ts_end":1785736915.426545,"model":"gpt-5.4-mini","usage":{"in":485,"out":35},"cost_microusd":191}
+{"conv":"tw-00024","kind":"llm","span":"s5","parent":"s4","ts_start":1785736912.854581,"ts_end":1785736915.498415,"model":"gpt-5.4","usage":{"in":2150,"out":205,"cached":0}}
+{"conv":"tw-00023","kind":"end","ts":1785736915.626545,"outcome":"resolved","reply":"Parcel TW35764275: handled."}
+{"conv":"tw-00024","kind":"tool","span":"s6","parent":"s4","ts_start":1785736915.498415,"ts_end":1785736915.773928,"tool":"geocode","ok":true,"args":{"parcel":"TW44880616"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00025","kind":"llm","span":"s3","parent":null,"ts_start":1785736915.375896,"ts_end":1785736916.57748,"model":"gpt-5.4-mini","usage":{"in":710,"out":143},"cost_microusd":464}
+{"conv":"tw-00024","kind":"llm","span":"s7","parent":null,"ts_start":1785736915.773928,"ts_end":1785736916.678354,"model":"gpt-5.4-mini","usage":{"in":917,"out":153,"cached":0},"cost_microusd":535}
+{"conv":"tw-00025","kind":"end","ts":1785736916.77748,"outcome":"resolved","reply":"Parcel TW91881325: handled."}
+{"conv":"tw-00024","kind":"end","ts":1785736916.878354,"outcome":"resolved","reply":"Parcel TW44880616: handled."}
+{"conv":"tw-00026","kind":"start","ts":1785736919.545046,"customer_msg":"Can you redeliver TW94516738 tomorrow?","channel":"app"}
+{"conv":"tw-00026","kind":"llm","span":"s1","parent":null,"ts_start":1785736919.545046,"ts_end":1785736921.134613,"model":"gpt-5.4-mini","usage":{"in":1297,"out":74},"cost_microusd":472}
+{"conv":"tw-00026","kind":"tool","span":"s2","parent":"s1","ts_start":1785736921.134613,"ts_end":1785736921.449911,"tool":"find_parcel","ok":true,"args":{"parcel":"TW94516738"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00027","kind":"start","ts":1785736922.492819,"customer_msg":"Where is parcel TW84178581?","channel":"sms"}
+{"conv":"tw-00026","kind":"llm","span":"s3","parent":null,"ts_start":1785736921.449911,"ts_end":1785736923.320607,"model":"gpt-5.4-mini","usage":{"in":837,"out":80,"cached":0},"cost_microusd":369}
+{"conv":"tw-00027","kind":"llm","span":"s1","parent":null,"ts_start":1785736922.492819,"ts_end":1785736923.496412,"model":"gpt-5.4-mini","usage":{"in":835,"out":43,"cached":384},"cost_microusd":218}
+{"conv":"tw-00027","kind":"tool","span":"s2","parent":"s1","ts_start":1785736923.496412,"ts_end":1785736923.637677,"tool":"find_parcel","ok":true,"args":{"parcel":"TW84178581"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00026","kind":"tool","span":"s4","parent":"s3","ts_start":1785736923.320607,"ts_end":1785736923.701041,"tool":"plan_route","ok":true,"args":{"parcel":"TW94516738"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00027","kind":"llm","span":"s3","parent":null,"ts_start":1785736923.637677,"ts_end":1785736924.682579,"model":"gpt-5.4-mini","usage":{"in":773,"out":76},"cost_microusd":345}
+{"conv":"tw-00027","kind":"end","ts":1785736924.882579,"outcome":"resolved","reply":"Parcel TW84178581: handled."}
+{"conv":"tw-00028","kind":"start","ts":1785736925.006999,"customer_msg":"Where is parcel TW77316721?","channel":"app"}
+{"conv":"tw-00026","kind":"llm","span":"s5","parent":"s4","ts_start":1785736923.701041,"ts_end":1785736925.493518,"model":"gpt-5.4","usage":{"in":2250,"out":135,"cached":0}}
+{"conv":"tw-00026","kind":"tool","span":"s6","parent":"s4","ts_start":1785736925.493518,"ts_end":1785736925.927092,"tool":"geocode","ok":true,"args":{"parcel":"TW94516738"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00028","kind":"llm","span":"s1","parent":null,"ts_start":1785736925.006999,"ts_end":1785736926.708635,"model":"gpt-5.4-mini","usage":{"in":973,"out":44},"cost_microusd":331}
+{"conv":"tw-00028","kind":"tool","span":"s2","parent":"s1","ts_start":1785736926.708635,"ts_end":1785736926.948116,"tool":"find_parcel","ok":true,"args":{"parcel":"TW77316721"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00026","kind":"llm","span":"s7","parent":null,"ts_start":1785736925.927092,"ts_end":1785736927.189835,"model":"gpt-5.4-mini","usage":{"in":624,"out":62,"cached":256},"cost_microusd":229}
+{"conv":"tw-00026","kind":"tool","span":"s8","parent":"s7","ts_start":1785736927.189835,"ts_end":1785736927.630746,"tool":"notify_customer","ok":true,"args":{"parcel":"TW94516738"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00028","kind":"llm","span":"s3","parent":null,"ts_start":1785736926.948116,"ts_end":1785736928.668273,"model":"gpt-5.4-mini","usage":{"in":660,"out":130},"cost_microusd":425}
+{"conv":"tw-00029","kind":"start","ts":1785736928.735893,"customer_msg":"Parcel TW65343203 arrived damaged, what now?","channel":"app"}
+{"conv":"tw-00028","kind":"end","ts":1785736928.868273,"outcome":"resolved","reply":"Parcel TW77316721: handled."}
+{"conv":"tw-00026","kind":"llm","span":"s9","parent":null,"ts_start":1785736927.630746,"ts_end":1785736929.519774,"model":"gpt-5.4-mini","usage":{"in":1356,"out":80},"cost_microusd":499}
+{"conv":"tw-00026","kind":"end","ts":1785736929.719774,"outcome":"resolved","reply":"Parcel TW94516738: handled."}
+{"conv":"tw-00029","kind":"llm","span":"s1","parent":null,"ts_start":1785736928.735893,"ts_end":1785736929.993421,"model":"gpt-5.4-mini","usage":{"in":1380,"out":85},"cost_microusd":515}
+{"conv":"tw-00029","kind":"tool","span":"s2","parent":"s1","ts_start":1785736929.993421,"ts_end":1785736930.210416,"tool":"find_parcel","ok":true,"args":{"parcel":"TW65343203"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00030","kind":"start","ts":1785736930.525632,"customer_msg":"Where is parcel TW77973511?","channel":"web"}
+{"conv":"tw-00029","kind":"llm","span":"s3","parent":null,"ts_start":1785736930.210416,"ts_end":1785736931.1381,"model":"gpt-5.4-mini","usage":{"in":403,"out":93},"cost_microusd":287}
+{"conv":"tw-00030","kind":"llm","span":"s1","parent":null,"ts_start":1785736930.525632,"ts_end":1785736931.707228,"model":"gpt-5.4-mini","usage":{"in":1302,"out":36,"cached":640},"cost_microusd":270}
+{"conv":"tw-00029","kind":"tool","span":"s4","parent":"s3","ts_start":1785736931.1381,"ts_end":1785736931.730394,"tool":"plan_route","ok":true,"args":{"parcel":"TW65343203"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00030","kind":"tool","span":"s2","parent":"s1","ts_start":1785736931.707228,"ts_end":1785736931.868098,"tool":"find_parcel","ok":true,"args":{"parcel":"TW77973511"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00030","kind":"llm","span":"s3","parent":null,"ts_start":1785736931.868098,"ts_end":1785736932.927508,"model":"gpt-5.4-mini","usage":{"in":584,"out":25,"cached":0},"cost_microusd":196}
+{"conv":"tw-00030","kind":"tool","span":"s4","parent":"s3","ts_start":1785736932.927508,"ts_end":1785736933.469429,"tool":"plan_route","ok":true,"args":{"parcel":"TW77973511"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00029","kind":"llm","span":"s5","parent":"s4","ts_start":1785736931.730394,"ts_end":1785736933.672746,"model":"gpt-5.4","usage":{"in":2800,"out":110}}
+{"conv":"tw-00029","kind":"tool","span":"s6","parent":"s4","ts_start":1785736933.672746,"ts_end":1785736934.046514,"tool":"geocode","ok":true,"args":{"parcel":"TW65343203"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00029","kind":"tool","span":"s7","parent":"s4","ts_start":1785736934.046514,"ts_end":1785736934.399776,"tool":"geocode","ok":true,"args":{"parcel":"TW65343203"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00031","kind":"start","ts":1785736934.549854,"customer_msg":"Can you redeliver TW36288179 tomorrow?","channel":"sms"}
+{"conv":"tw-00030","kind":"llm","span":"s5","parent":"s4","ts_start":1785736933.469429,"ts_end":1785736934.90772,"model":"gpt-5.4","usage":{"in":3650,"out":245,"cached":0}}
+{"conv":"tw-00030","kind":"tool","span":"s6","parent":"s4","ts_start":1785736934.90772,"ts_end":1785736935.074421,"tool":"geocode","ok":true,"args":{"parcel":"TW77973511"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00031","kind":"llm","span":"s1","parent":null,"ts_start":1785736934.549854,"ts_end":1785736935.221208,"model":"gpt-5.4-mini","usage":{"in":970,"out":86},"cost_microusd":414}
+{"conv":"tw-00030","kind":"tool","span":"s7","parent":"s4","ts_start":1785736935.074421,"ts_end":1785736935.647321,"tool":"geocode","ok":true,"args":{"parcel":"TW77973511"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00031","kind":"tool","span":"s2","parent":"s1","ts_start":1785736935.221208,"ts_end":1785736935.702433,"tool":"find_parcel","ok":true,"args":{"parcel":"TW36288179"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00029","kind":"llm","span":"s8","parent":null,"ts_start":1785736934.399776,"ts_end":1785736936.278896,"model":"gpt-5.4-mini","usage":{"in":1364,"out":39},"cost_microusd":419}
+{"conv":"tw-00029","kind":"tool","span":"s9","parent":"s8","ts_start":1785736936.278896,"ts_end":1785736936.506499,"tool":"notify_customer","ok":true,"args":{"parcel":"TW65343203"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00031","kind":"llm","span":"s3","parent":null,"ts_start":1785736935.702433,"ts_end":1785736936.854636,"model":"gpt-5.4-mini","usage":{"in":602,"out":102},"cost_microusd":354}
+{"conv":"tw-00030","kind":"llm","span":"s8","parent":null,"ts_start":1785736935.647321,"ts_end":1785736936.879749,"model":"gpt-5.4-mini","usage":{"in":1166,"out":60,"cached":576},"cost_microusd":296}
+{"conv":"tw-00031","kind":"tool","span":"s4","parent":"s3","ts_start":1785736936.854636,"ts_end":1785736936.993247,"tool":"plan_route","ok":true,"args":{"parcel":"TW36288179"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00029","kind":"llm","span":"s10","parent":null,"ts_start":1785736936.506499,"ts_end":1785736937.319134,"model":"gpt-5.4-mini","usage":{"in":328,"out":111},"cost_microusd":304}
+{"conv":"tw-00031","kind":"llm","span":"s5","parent":"s4","ts_start":1785736936.993247,"ts_end":1785736938.740809,"model":"gpt-5.4","usage":{"in":2850,"out":205,"cached":1400}}
+{"conv":"tw-00031","kind":"tool","span":"s6","parent":"s4","ts_start":1785736938.740809,"ts_end":1785736939.081104,"tool":"geocode","ok":true,"args":{"parcel":"TW36288179"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00031","kind":"tool","span":"s7","parent":"s4","ts_start":1785736939.081104,"ts_end":1785736939.337337,"tool":"geocode","ok":true,"args":{"parcel":"TW36288179"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00032","kind":"start","ts":1785736939.636178,"customer_msg":"Can you redeliver TW58303445 tomorrow?","channel":"web"}
+{"conv":"tw-00031","kind":"llm","span":"s8","parent":null,"ts_start":1785736939.337337,"ts_end":1785736940.930042,"model":"gpt-5.4-mini","usage":{"in":1395,"out":131},"cost_microusd":611}
+{"conv":"tw-00031","kind":"end","ts":1785736941.130042,"outcome":"resolved","reply":"Parcel TW36288179: handled."}
+{"conv":"tw-00032","kind":"llm","span":"s1","parent":null,"ts_start":1785736939.636178,"ts_end":1785736941.188025,"model":"gpt-5.4-mini","usage":{"in":694,"out":84},"cost_microusd":342}
+{"conv":"tw-00032","kind":"tool","span":"s2","parent":"s1","ts_start":1785736941.188025,"ts_end":1785736941.426191,"tool":"find_parcel","ok":true,"args":{"parcel":"TW58303445"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00032","kind":"llm","span":"s3","parent":null,"ts_start":1785736941.426191,"ts_end":1785736942.077506,"model":"gpt-5.4-mini","usage":{"in":1188,"out":86},"cost_microusd":469}
+{"conv":"tw-00032","kind":"end","ts":1785736942.277506,"outcome":"resolved","reply":"Parcel TW58303445: handled."}
+{"conv":"tw-00033","kind":"start","ts":1785736944.10591,"customer_msg":"Change the address for TW92804089 please.","channel":"web"}
+{"conv":"tw-00033","kind":"llm","span":"s1","parent":null,"ts_start":1785736944.10591,"ts_end":1785736945.952251,"model":"gpt-5.4-mini","usage":{"in":851,"out":63,"cached":384},"cost_microusd":262}
+{"conv":"tw-00033","kind":"tool","span":"s2","parent":"s1","ts_start":1785736945.952251,"ts_end":1785736946.089075,"tool":"find_parcel","ok":true,"args":{"parcel":"TW92804089"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00034","kind":"start","ts":1785736946.705062,"customer_msg":"Change the address for TW64286387 please.","channel":"app"}
+{"conv":"tw-00033","kind":"llm","span":"s3","parent":null,"ts_start":1785736946.089075,"ts_end":1785736947.175391,"model":"gpt-5.4-mini","usage":{"in":330,"out":150,"cached":0},"cost_microusd":382}
+{"conv":"tw-00033","kind":"tool","span":"s4","parent":"s3","ts_start":1785736947.175391,"ts_end":1785736947.387159,"tool":"plan_route","ok":true,"args":{"parcel":"TW92804089"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00035","kind":"start","ts":1785736947.857255,"customer_msg":"Why is TW86872540 late?","channel":"sms"}
+{"conv":"tw-00034","kind":"llm","span":"s1","parent":null,"ts_start":1785736946.705062,"ts_end":1785736948.173688,"model":"gpt-5.4-mini","usage":{"in":1147,"out":72,"cached":512},"cost_microusd":328}
+{"conv":"tw-00034","kind":"tool","span":"s2","parent":"s1","ts_start":1785736948.173688,"ts_end":1785736948.378549,"tool":"find_parcel","ok":true,"args":{"parcel":"TW64286387"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00035","kind":"llm","span":"s1","parent":null,"ts_start":1785736947.857255,"ts_end":1785736948.521135,"model":"gpt-5.4-mini","usage":{"in":353,"out":113,"cached":0},"cost_microusd":314}
+{"conv":"tw-00035","kind":"tool","span":"s2","parent":"s1","ts_start":1785736948.521135,"ts_end":1785736949.086896,"tool":"find_parcel","ok":true,"args":{"parcel":"TW86872540"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00034","kind":"llm","span":"s3","parent":null,"ts_start":1785736948.378549,"ts_end":1785736949.280774,"model":"gpt-5.4-mini","usage":{"in":606,"out":91,"cached":256},"cost_microusd":282}
+{"conv":"tw-00033","kind":"llm","span":"s5","parent":"s4","ts_start":1785736947.387159,"ts_end":1785736949.384338,"model":"gpt-5.4","usage":{"in":3350,"out":80}}
+{"conv":"tw-00034","kind":"tool","span":"s4","parent":"s3","ts_start":1785736949.280774,"ts_end":1785736949.397691,"tool":"plan_route","ok":true,"args":{"parcel":"TW64286387"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00033","kind":"tool","span":"s6","parent":"s4","ts_start":1785736949.384338,"ts_end":1785736949.656232,"tool":"geocode","ok":false,"args":{"parcel":"TW92804089"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00033","kind":"tool","span":"s7","parent":"s4","ts_start":1785736949.656232,"ts_end":1785736949.908731,"tool":"geocode","ok":true,"args":{"parcel":"TW92804089"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00034","kind":"llm","span":"s5","parent":"s4","ts_start":1785736949.397691,"ts_end":1785736950.411551,"model":"gpt-5.4","usage":{"in":2000,"out":235,"cached":1000}}
+{"conv":"tw-00034","kind":"tool","span":"s6","parent":"s4","ts_start":1785736950.411551,"ts_end":1785736950.580354,"tool":"geocode","ok":true,"args":{"parcel":"TW64286387"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00036","kind":"start","ts":1785736950.927284,"customer_msg":"Can you redeliver TW27147727 tomorrow?","channel":"sms"}
+{"conv":"tw-00033","kind":"llm","span":"s8","parent":null,"ts_start":1785736949.908731,"ts_end":1785736950.929484,"model":"gpt-5.4-mini","usage":{"in":376,"out":59},"cost_microusd":212}
+{"conv":"tw-00035","kind":"llm","span":"s3","parent":null,"ts_start":1785736949.086896,"ts_end":1785736951.077255,"model":"gpt-5.4-mini","usage":{"in":953,"out":75},"cost_microusd":388}
+{"conv":"tw-00033","kind":"end","ts":1785736951.129484,"outcome":"error","error":"dispatch assistant crashed: KeyError 'depot'"}
+{"conv":"tw-00036","kind":"llm","span":"s1","parent":null,"ts_start":1785736950.927284,"ts_end":1785736951.460859,"model":"gpt-5.4-mini","usage":{"in":405,"out":124,"cached":0},"cost_microusd":349}
+{"conv":"tw-00036","kind":"tool","span":"s2","parent":"s1","ts_start":1785736951.460859,"ts_end":1785736951.596083,"tool":"find_parcel","ok":true,"args":{"parcel":"TW27147727"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00035","kind":"tool","span":"s4","parent":"s3","ts_start":1785736951.077255,"ts_end":1785736951.618908,"tool":"plan_route","ok":true,"args":{"parcel":"TW86872540"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00034","kind":"llm","span":"s7","parent":null,"ts_start":1785736950.580354,"ts_end":1785736952.224285,"model":"gpt-5.4-mini","usage":{"in":1067,"out":121},"cost_microusd":509}
+{"conv":"tw-00036","kind":"tool","span":"s2","parent":"s1","ts_start":1785736951.460859,"ts_end":1785736951.596083,"tool":"find_parcel","ok":true,"args":{"parcel":"TW27147727"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00034","kind":"tool","span":"s8","parent":"s7","ts_start":1785736952.224285,"ts_end":1785736952.67912,"tool":"notify_customer","ok":true,"args":{"parcel":"TW64286387"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00035","kind":"llm","span":"s5","parent":"s4","ts_start":1785736951.618908,"ts_end":1785736953.27884,"model":"gpt-5.4","usage":{"in":3700,"out":160,"cached":1850}}
+{"conv":"tw-00035","kind":"tool","span":"s6","parent":"s4","ts_start":1785736953.27884,"ts_end":1785736953.408108,"tool":"geocode","ok":true,"args":{"parcel":"TW86872540"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00036","kind":"llm","span":"s3","parent":null,"ts_start":1785736951.596083,"ts_end":1785736953.507054,"model":"gpt-5.4-mini","usage":{"in":1364,"out":138,"cached":0},"cost_microusd":617}
+{"conv":"tw-00036","kind":"tool","span":"s4","parent":"s3","ts_start":1785736953.507054,"ts_end":1785736953.670305,"tool":"plan_route","ok":true,"args":{"parcel":"TW27147727"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00035","kind":"tool","span":"s7","parent":"s4","ts_start":1785736953.408108,"ts_end":1785736953.968814,"tool":"geocode","ok":true,"args":{"parcel":"TW86872540"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00037","kind":"start","ts":1785736954.252407,"customer_msg":"Where is parcel TW73815798?","channel":"app"}
+{"conv":"tw-00034","kind":"llm","span":"s9","parent":null,"ts_start":1785736952.67912,"ts_end":1785736954.575742,"model":"gpt-5.4-mini","usage":{"in":1384,"out":85,"cached":0},"cost_microusd":516}
+{"conv":"tw-00034","kind":"end","ts":1785736954.775742,"outcome":"resolved","reply":"Parcel TW64286387: handled."}
+{"conv":"tw-00037","kind":"llm","span":"s1","parent":null,"ts_start":1785736954.252407,"ts_end":1785736955.181553,"model":"gpt-5.4-mini","usage":{"in":1123,"out":35,"cached":512},"cost_microusd":248}
+{"conv":"tw-00037","kind":"tool","span":"s2","parent":"s1","ts_start":1785736955.181553,"ts_end":1785736955.76853,"tool":"find_parcel","ok":true,"args":{"parcel":"TW73815798"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00035","kind":"llm","span":"s8","parent":null,"ts_start":1785736953.968814,"ts_end":1785736955.866663,"model":"gpt-5.4-mini","usage":{"in":459,"out":153},"cost_microusd":421}
+{"conv":"tw-00035","kind":"end","ts":1785736956.066663,"outcome":"resolved","reply":"Parcel TW86872540: handled."}
+{"conv":"tw-00036","kind":"llm","span":"s5","parent":"s4","ts_start":1785736953.670305,"ts_end":1785736956.099753,"model":"gpt-5.4","usage":{"in":2450,"out":290,"cached":1200}}
+{"conv":"tw-00036","kind":"tool","span":"s6","parent":"s4","ts_start":1785736956.099753,"ts_end":1785736956.693592,"tool":"geocode","ok":true,"args":{"parcel":"TW27147727"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00037","kind":"llm","span":"s3","parent":null,"ts_start":1785736955.76853,"ts_end":1785736956.72184,"model":"gpt-5.4-mini","usage":{"in":1301,"out":157},"cost_microusd":639}
+{"conv":"tw-00037","kind":"tool","span":"s4","parent":"s3","ts_start":1785736956.72184,"ts_end":1785736957.110981,"tool":"plan_route","ok":true,"args":{"parcel":"TW73815798"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00036","kind":"llm","span":"s7","parent":null,"ts_start":1785736956.693592,"ts_end":1785736958.572091,"model":"gpt-5.4-mini","usage":{"in":1399,"out":89,"cached":640},"cost_microusd":400}
+{"conv":"tw-00036","kind":"tool","span":"s8","parent":"s7","ts_start":1785736958.572091,"ts_end":1785736958.829566,"tool":"notify_customer","ok":true,"args":{"parcel":"TW27147727"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00038","kind":"start","ts":1785736959.549435,"customer_msg":"Where is parcel TW61287787?","channel":"sms"}
+{"conv":"tw-00038","kind"
+{"conv":"tw-00036","kind":"llm","span":"s9","parent":null,"ts_start":1785736958.829566,"ts_end":1785736959.737976,"model":"gpt-5.4-mini","usage":{"in":1339,"out":44,"cached":640},"cost_microusd":295}
+{"conv":"tw-00036","kind":"end","ts":1785736959.937976,"outcome":"error","error":"dispatch assistant crashed: KeyError 'depot'"}
+{"conv":"tw-00037","kind":"llm","span":"s5","parent":"s4","ts_start":1785736957.110981,"ts_end":1785736959.967476,"model":"gpt-5.4","usage":{"in":3700,"out":265}}
+{"conv":"tw-00037","kind":"tool","span":"s6","parent":"s4","ts_start":1785736959.967476,"ts_end":1785736960.181949,"tool":"geocode","ok":true,"args":{"parcel":"TW73815798"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00038","kind":"llm","span":"s1","parent":null,"ts_start":1785736959.549435,"ts_end":1785736960.361655,"model":"gpt-5.4-mini","usage":{"in":763,"out":110},"cost_microusd":411}
+{"conv":"tw-00038","kind":"tool","span":"s2","parent":"s1","ts_start":1785736960.361655,"ts_end":1785736960.917121,"tool":"find_parcel","ok":true,"args":{"parcel":"TW61287787"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00037","kind":"llm","span":"s7","parent":null,"ts_start":1785736960.181949,"ts_end":1785736961.10255,"model":"gpt-5.4-mini","usage":{"in":361,"out":57,"cached":0},"cost_microusd":204}
+{"conv":"tw-00037","kind":"tool","span":"s8","parent":"s7","ts_start":1785736961.10255,"ts_end":1785736961.281144,"tool":"notify_customer","ok":true,"args":{"parcel":"TW73815798"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00039","kind":"start","ts":1785736962.015858,"customer_msg":"Why is TW11028224 late?","channel":"web"}
+{"conv":"tw-00038","kind":"llm","span":"s3","parent":null,"ts_start":1785736960.917121,"ts_end":1785736962.089455,"model":"gpt-5.4-mini","usage":{"in":988,"out":98,"cached":0},"cost_microusd":443}
+{"conv":"tw-00038","kind":"end","ts":1785736962.289455,"outcome":"resolved","reply":"Parcel TW61287787: handled."}
+{"conv":"tw-00037","kind":"llm","span":"s9","parent":null,"ts_start":1785736961.281144,"ts_end":1785736963.109468,"model":"gpt-5.4-mini","usage":{"in":1234,"out":80,"cached":0},"cost_microusd":468}
+{"conv":"tw-00037","kind":"end","ts":1785736963.309468,"outcome":"resolved","reply":"Parcel TW73815798: handled."}
+{"conv":"tw-00039","kind":"llm","span":"s1","parent":null,"ts_start":1785736962.015858,"ts_end":1785736963.914335,"model":"gpt-5.4-mini","usage":{"in":994,"out":28},"cost_microusd":304}
+{"conv":"tw-00039","kind":"tool","span":"s2","parent":"s1","ts_start":1785736963.914335,"ts_end":1785736963.978244,"tool":"find_parcel","ok":true,"args":{"parcel":"TW11028224"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00040","kind":"start","ts":1785736964.344895,"customer_msg":"Why is TW83372404 late?","channel":"sms"}
+{"conv":"tw-00039","kind":"llm","span":"s3","parent":null,"ts_start":1785736963.978244,"ts_end":1785736964.705626,"model":"gpt-5.4-mini","usage":{"in":1043,"out":29,"cached":0},"cost_microusd":319}
+{"conv":"tw-00039","kind":"end","ts":1785736964.905626,"outcome":"resolved","reply":"Parcel TW11028224: handled."}
+{"conv":"tw-00040","kind":"llm","span":"s1","parent":null,"ts_start":1785736964.344895,"ts_end":1785736965.051356,"model":"gpt-5.4-mini","usage":{"in":1118,"out":61},"cost_microusd":402}
+{"conv":"tw-00040","kind":"tool","span":"s2","parent":"s1","ts_start":1785736965.051356,"ts_end":1785736965.36307,"tool":"find_parcel","ok":true,"args":{"parcel":"TW83372404"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00040","kind":"llm","span":"s3","parent":null,"ts_start":1785736965.36307,"ts_end":1785736966.403371,"model":"gpt-5.4-mini","usage":{"in":1324,"out":104},"cost_microusd":539}
+{"conv":"tw-00040","kind":"end","ts":1785736966.603371,"outcome":"resolved","reply":"Parcel TW83372404: handled."}
+{"conv":"tw-00041","kind":"start","ts":1785736969.642507,"customer_msg":"Parcel TW60760710 arrived damaged, what now?","channel":"app"}
+{"conv":"tw-00041","kind":"llm","span":"s1","parent":null,"ts_start":1785736969.642507,"ts_end":1785736970.236576,"model":"gpt-5.4-mini","usage":{"in":636,"out":93},"cost_microusd":345}
+{"conv":"tw-00041","kind":"tool","span":"s2","parent":"s1","ts_start":1785736970.236576,"ts_end":1785736970.466646,"tool":"find_parcel","ok":true,"args":{"parcel":"TW60760710"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00041","kind":"llm","span":"s3","parent":null,"ts_start":1785736970.466646,"ts_end":1785736971.688375,"model":"gpt-5.4-mini","usage":{"in":1096,"out":124,"cached":512},"cost_microusd":420}
+{"conv":"tw-00041","kind":"tool","span":"s4","parent":"s3","ts_start":1785736971.688375,"ts_end":1785736972.215102,"tool":"notify_customer","ok":true,"args":{"parcel":"TW60760710"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00041","kind":"llm","span":"s5","parent":null,"ts_start":1785736972.215102,"ts_end":1785736973.848607,"model":"gpt-5.4-mini","usage":{"in":782,"out":119},"cost_microusd":434}
+{"conv":"tw-00041","kind":"end","ts":1785736974.048607,"outcome":"resolved","reply":"Parcel TW60760710: handled."}
+{"conv":"tw-00042","kind":"start","ts":1785736974.393976,"customer_msg":"Can you redeliver TW80730710 tomorrow?","channel":"app"}
+{"conv":"tw-00042","kind":"llm","span":"s1","parent":null,"ts_start":1785736974.393976,"ts_end":1785736976.120459,"model":"gpt-5.4-mini","usage":{"in":1072,"out":79,"cached":512},"cost_microusd":324}
+{"conv":"tw-00042","kind":"tool","span":"s2","parent":"s1","ts_start":1785736976.120459,"ts_end":1785736976.71707,"tool":"find_parcel","ok":true,"args":{"parcel":"TW80730710"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00042","kind":"llm","span":"s3","parent":null,"ts_start":1785736976.71707,"ts_end":1785736978.710988,"model":"gpt-5.4-mini","usage":{"in":440,"out":76,"cached":192},"cost_microusd":224}
+{"conv":"tw-00042","kind":"tool","span":"s4","parent":"s3","ts_start":1785736978.710988,"ts_end":1785736979.143571,"tool":"plan_route","ok":true,"args":{"parcel":"TW80730710"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00042","kind":"llm","span":"s5","parent":"s4","ts_start":1785736979.143571,"ts_end":1785736980.651745,"model":"gpt-5.4","usage":{"in":3950,"out":235,"cached":0}}
+{"conv":"tw-00042","kind":"tool","span":"s6","parent":"s4","ts_start":1785736980.651745,"ts_end":1785736980.769381,"tool":"geocode","ok":true,"args":{"parcel":"TW80730710"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00042","kind":"tool","span":"s7","parent":"s4","ts_start":1785736980.769381,"ts_end":1785736980.840079,"tool":"geocode","ok":true,"args":{"parcel":"TW80730710"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00043","kind":"start","ts":1785736980.876512,"customer_msg":"Change the address for TW62718788 please.","channel":"app"}
+{"conv":"tw-00042","kind":"llm","span":"s8","parent":null,"ts_start":1785736980.840079,"ts_end":1785736982.135575,"model":"gpt-5.4-mini","usage":{"in":1226,"out":113,"cached":576},"cost_microusd":417}
+{"conv":"tw-00042","kind":"tool","span":"s9","parent":"s8","ts_start":1785736982.135575,"ts_end":1785736982.350051,"tool":"notify_customer","ok":true,"args":{"parcel":"TW80730710"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00043","kind":"llm","span":"s1","parent":null,"ts_start":1785736980.876512,"ts_end":1785736982.709759,"model":"gpt-5.4-mini","usage":{"in":1269,"out":56},"cost_microusd":429}
+{"conv":"tw-00043","kind":"tool","span":"s2","parent":"s1","ts_start":1785736982.709759,"ts_end":1785736982.869005,"tool":"find_parcel","ok":true,"args":{"parcel":"TW62718788"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00042","kind":"llm","span":"s10","parent":null,"ts_start":1785736982.350051,"ts_end":1785736984.11064,"model":"gpt-5.4-mini","usage":{"in":1125,"out":153,"cached":512},"cost_microusd":485}
+{"conv":"tw-00042","kind":"end","ts":1785736984.31064,"outcome":"resolved","reply":"Parcel TW80730710: handled."}
+{"conv":"tw-00043","kind":"llm","span":"s3","parent":null,"ts_start":1785736982.869005,"ts_end":1785736984.360563,"model":"gpt-5.4-mini","usage":{"in":876,"out":131},"cost_microusd":481}
+{"conv":"tw-00043","kind":"end","ts":1785736984.560563,"outcome":"resolved","reply":"Parcel TW62718788: handled."}
+{"conv":"tw-00044","kind":"start","ts":1785736985.058083,"customer_msg":"Change the address for TW54583638 please.","channel":"web"}
+{"conv":"tw-00044","kind":"llm","span":"s1","parent":null,"ts_start":1785736985.058083,"ts_end":1785736986.073845,"model":"gpt-5.4-mini","usage":{"in":798,"out":25,"cached":384},"cost_microusd":173}
+{"conv":"tw-00044","kind":"tool","span":"s2","parent":"s1","ts_start":1785736986.073845,"ts_end":1785736986.127835,"tool":"find_parcel","ok":true,"args":{"parcel":"TW54583638"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00044","kind":"llm","span":"s3","parent":null,"ts_start":1785736986.127835,"ts_end":1785736986.714932,"model":"gpt-5.4-mini","usage":{"in":1034,"out":134},"cost_microusd":526}
+{"conv":"tw-00044","kind":"end","ts":1785736986.914932,"outcome":"error","error":"dispatch assistant crashed: KeyError 'depot'"}
+{"conv":"tw-00045","kind":"start","ts":1785736988.518118,"customer_msg":"Change the address for TW55310706 please.","channel":"app"}
+{"conv":"tw-00045","kind":"llm","span":"s1","parent":null,"ts_start":1785736988.518118,"ts_end":1785736989.820228,"model":"gpt-5.4-mini","usage":{"in":670,"out":66},"cost_microusd":300}
+{"conv":"tw-00045","kind":"tool","span":"s2","parent":"s1","ts_start":1785736989.820228,"ts_end":1785736990.005636,"tool":"find_parcel","ok":false,"args":{"parcel":"TW55310706"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00045","kind":"llm","span":"s3","parent":null,"ts_start":1785736990.005636,"ts_end":1785736991.789152,"model":"gpt-5.4-mini","usage":{"in":551,"out":122},"cost_microusd":382}
+{"conv":"tw-00045","kind":"tool","span":"s4","parent":"s3","ts_start":1785736991.789152,"ts_end":1785736991.911594,"tool":"plan_route","ok":true,"args":{"parcel":"TW55310706"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00045","kind":"tool","span":"s4","parent":"s3","ts_start":1785736991.789152,"ts_end":1785736991.911594,"tool":"plan_route","ok":true,"args":{"parcel":"TW55310706"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00046","kind":"start","ts":1785736993.239006,"customer_msg":"Why is TW80364793 late?","channel":"sms"}
+{"conv":"tw-00047","kind":"start","ts":1785736994.407295,"customer_msg":"Parcel TW99434294 arrived damaged, what now?","channel":"sms"}
+{"conv":"tw-00045","kind":"llm","span":"s5","parent":"s4","ts_start":1785736991.911594,"ts_end":1785736994.642915,"model":"gpt-5.4","usage":{"in":3400,"out":80,"cached":1700}}
+{"conv":"tw-00045","kind":"tool","span":"s6","parent":"s4","ts_start":1785736994.642915,"ts_end":1785736994.711146,"tool":"geocode","ok":true,"args":{"parcel":"TW55310706"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00046","kind":"llm","span":"s1","parent":null,"ts_start":1785736993.239006,"ts_end":1785736995.127182,"model":"gpt-5.4-mini","usage":{"in":632,"out":82,"cached":0},"cost_microusd":322}
+{"conv":"tw-00046","kind":"tool","span":"s2","parent":"s1","ts_start":1785736995.127182,"ts_end":1785736995.453588,"tool":"find_parcel","ok":true,"args":{"parcel":"TW80364793"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00047","kind":"llm","span":"s1","parent":null,"ts_start":1785736994.407295,"ts_end":1785736995.515798,"model":"gpt-5.4-mini","usage":{"in":1013,"out":101,"cached":448},"cost_microusd":366}
+{"conv":"tw-00047","kind":"tool","span":"s2","parent":"s1","ts_start":1785736995.515798,"ts_end":1785736995.655423,"tool":"find_parcel","ok":true,"args":{"parcel":"TW99434294"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00045","kind":"llm","span":"s7","parent":null,"ts_start":1785736994.711146,"ts_end":1785736996.187251,"model":"gpt-5.4-mini","usage":{"in":415,"out":152,"cached":192},"cost_microusd":369}
+{"conv":"tw-00045","kind":"tool","span":"s8","parent":"s7","ts_start":1785736996.187251,"ts_end":1785736996.72338,"tool":"notify_customer","ok":true,"args":{"parcel":"TW55310706"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00046","kind":"llm","span":"s3","parent":null,"ts_start":1785736995.453588,"ts_end":1785736996.88649,"model":"gpt-5.4-mini","usage":{"in":397,"out":100},"cost_microusd":299}
+{"conv":"tw-00047","kind":"llm","span":"s3","parent":null,"ts_start":1785736995.655423,"ts_end":1785736997.056161,"model":"gpt-5.4-mini","usage":{"in":397,"out":118},"cost_microusd":335}
+{"conv":"tw-00046","kind":"end","ts":1785736997.08649,"outcome":"resolved","reply":"Parcel TW80364793: handled."}
+{"conv":"tw-00047","kind":"end","ts":1785736997.256161,"outcome":"resolved","reply":"Parcel TW99434294: handled."}
+{"conv":"tw-00045","kind":"llm","span":"s9","parent":null,"ts_start":1785736996.72338,"ts_end":1785736998.009005,"model":"gpt-5.4-mini","usage":{"in":901,"out":27},"cost_microusd":279}
+{"conv":"tw-00045","kind":"end","ts":1785736998.209005,"outcome":"resolved","reply":"Parcel TW55310706: handled."}
+{"conv":"tw-00048","kind":"start","ts":1785736999.052999,"customer_msg":"Change the address for TW49015689 please.","channel":"app"}
+{"conv":"tw-00048","kind":"llm","span":"s1","parent":null,"ts_start":1785736999.052999,"ts_end":1785736999.979754,"model":"gpt-5.4-mini","usage":{"in":921,"out":115},"cost_microusd":460}
+{"conv":"tw-00048","kind":"tool","span":"s2","parent":"s1","ts_start":1785736999.979754,"ts_end":1785737000.036586,"tool":"find_parcel","ok":true,"args":{"parcel":"TW49015689"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00048","kind":"llm","span":"s3","parent":null,"ts_start":1785737000.036586,"ts_end":1785737001.250971,"model":"gpt-5.4-mini","usage":{"in":1058,"out":90,"cached":512},"cost_microusd":342}
+{"conv":"tw-00048","kind":"tool","span":"s4","parent":"s3","ts_start":1785737001.250971,"ts_end":1785737001.473962,"tool":"plan_route","ok":true,"args":{"parcel":"TW49015689"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00048","kind":"llm","span":"s5","parent":"s4","ts_start":1785737001.473962,"ts_end":1785737003.015655,"model":"gpt-5.4","usage":{"in":2300,"out":285,"cached":0}}
+{"conv":"tw-00048","kind":"tool","span":"s6","parent":"s4","ts_start":1785737003.015655,"ts_end":1785737003.307129,"tool":"geocode","ok":true,"args":{"parcel":"TW49015689"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00048","kind":"llm","span":"s7","parent":null,"ts_start":1785737003.307129,"ts_end":1785737004.06641,"model":"gpt-5.4-mini","usage":{"in":605,"out":30,"cached":0},"cost_microusd":211}
+{"conv":"tw-00049","kind":"start","ts":1785737004.551834,"customer_msg":"Can you redeliver TW30817508 tomorrow?","channel":"web"}
+{"conv":"tw-00048","kind":"tool","span":"s8","parent":"s7","ts_start":1785737004.06641,"ts_end":1785737004.614249,"tool":"notify_customer","ok":true,"args":{"parcel":"TW49015689"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00049","kind":"llm","span":"s1","parent":null,"ts_start":1785737004.551834,"ts_end":1785737006.302964,"model":"gpt-5.4-mini","usage":{"in":982,"out":53},"cost_microusd":352}
+{"conv":"tw-00049","kind":"tool","span":"s2","parent":"s1","ts_start":1785737006.302964,"ts_end":1785737006.438039,"tool":"find_parcel","ok":true,"args":{"parcel":"TW30817508"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00048","kind":"llm","span":"s9","parent":null,"ts_start":1785737004.614249,"ts_end":1785737006.54168,"model":"gpt-5.4-mini","usage":{"in":794,"out":60},"cost_microusd":318}
+{"conv":"tw-00048","kind":"end","ts":1785737006.74168,"outcome":"resolved","reply":"Parcel TW49015689: handled."}
+{"conv":"tw-00049","kind":"llm","span":"s3","parent":null,"ts_start":1785737006.438039,"ts_end":1785737007.652102,"model":"gpt-5.4-mini","usage":{"in":366,"out":64,"cached":0},"cost_microusd":220}
+{"conv":"tw-00049","kind":"end","ts":1785737007.852102,"outcome":"resolved","reply":"Parcel TW30817508: handled."}
+{"conv":"tw-00050","kind":"start","ts":1785737009.783453,"customer_msg":"Parcel TW53682255 arrived damaged, what now?","channel":"web"}
+{"conv":"tw-00050","kind":"llm","span":"s1","parent":null,"ts_start":1785737009.783453,"ts_end":1785737011.457579,"model":"gpt-5.4-mini","usage":{"in":1375,"out":102,"cached":640},"cost_microusd":420}
+{"conv":"tw-00050","kind":"tool","span":"s2","parent":"s1","ts_start":1785737011.457579,"ts_end":1785737011.599393,"tool":"find_parcel","ok":true,"args":{"parcel":"TW53682255"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00050","kind":"llm","span":"s3","parent":null,"ts_start":1785737011.599393,"ts_end":1785737013.403721,"model":"gpt-5.4-mini","usage":{"in":1003,"out":132,"cached":0},"cost_microusd":515}
+{"conv":"tw-00050","kind":"tool","span":"s4","parent":"s3","ts_start":1785737013.403721,"ts_end":1785737013.79997,"tool":"plan_route","ok":true,"args":{"parcel":"TW53682255"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00051","kind":"start","ts":1785737014.014448,"customer_msg":"Why is TW34056017 late?","channel":"sms"}
+{"conv":"tw-00051","kind":"llm","span":"s1","parent":null,"ts_start":1785737014.014448,"ts_end":1785737015.319959,"model":"gpt-5.4-mini","usage":{"in":778,"out":38,"cached":0},"cost_microusd":270}
+{"conv":"tw-00051","kind":"tool","span":"s2","parent":"s1","ts_start":1785737015.319959,"ts_end":1785737015.496092,"tool":"find_parcel","ok":true,"args":{"parcel":"TW34056017"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00050","kind":"llm","span":"s5","parent":"s4","ts_start":1785737013.79997,"ts_end":1785737016.416197,"model":"gpt-5.4","usage":{"in":2000,"out":170,"cached":0}}
+{"conv":"tw-00051","kind":"llm","span":"s3","parent":null,"ts_start":1785737015.496092,"ts_end":1785737016.424709,"model":"gpt-5.4-mini","usage":{"in":1073,"out":30},"cost_microusd":328}
+{"conv":"tw-00050","kind":"tool","span":"s6","parent":"s4","ts_start":1785737016.416197,"ts_end":1785737016.573398,"tool":"geocode","ok":true,"args":{"parcel":"TW53682255"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00050","kind":"tool","span":"s7","parent":"s4","ts_start":1785737016.573398,"ts_end":1785737016.889774,"tool":"geocode","ok":true,"args":{"parcel":"TW53682255"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00051","kind":"tool","span":"s4","parent":"s3","ts_start":1785737016.424709,"ts_end":1785737016.92213,"tool":"plan_route","ok":true,"args":{"parcel":"TW34056017"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00050","kind":"llm","span":"s8","parent":null,"ts_start":1785737016.889774,"ts_end":1785737018.525718,"model":"gpt-5.4-mini","usage":{"in":626,"out":82},"cost_microusd":320}
+{"conv":"tw-00051","kind":"llm","span":"s5","parent":"s4","ts_start":1785737016.92213,"ts_end":1785737019.490903,"model":"gpt-5.4","usage":{"in":2900,"out":275,"cached":0}}
+{"conv":"tw-00051","kind":"tool","span":"s6","parent":"s4","ts_start":1785737019.490903,"ts_end":1785737020.07749,"tool":"geocode","ok":false,"args":{"parcel":"TW34056017"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00051","kind":"tool","span":"s7","parent":"s4","ts_start":1785737020.07749,"ts_end":1785737020.219447,"tool":"geocode","ok":true,"args":{"parcel":"TW34056017"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00052","kind":"start","ts":1785737020.919593,"customer_msg":"Where is parcel TW80200710?","channel":"sms"}
+{"conv":"tw-00051","kind":"llm","span":"s8","parent":null,"ts_start":1785737020.219447,"ts_end":1785737021.762934,"model":"gpt-5.4-mini","usage":{"in":915,"out":100},"cost_microusd":429}
+{"conv":"tw-00051","kind":"end","ts":1785737021.962934,"outcome":"resolved","reply":"Parcel TW34056017: handled."}
+{"conv":"tw-00052","kind":"llm","span":"s1","parent":null,"ts_start":1785737020.919593,"ts_end":1785737022.887468,"model":"gpt-5.4-mini","usage":{"in":512,"out":38,"cached":256},"cost_microusd":153}
+{"conv":"tw-00052","kind":"tool","span":"s2","parent":"s1","ts_start":1785737022.887468,"ts_end":1785737023.240933,"tool":"find_parcel","ok":true,"args":{"parcel":"TW80200710"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00052","kind":"llm","span":"s3","parent":null,"ts_start":1785737023.240933,"ts_end":1785737024.104092,"model":"gpt-5.4-mini","usage":{"in":1133,"out":124},"cost_microusd":531}
+{"conv":"tw-00052","kind":"tool","span":"s4","parent":"s3","ts_start":1785737024.104092,"ts_end":1785737024.651114,"tool":"plan_route","ok":true,"args":{"parcel":"TW80200710"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00053","kind":"start","ts":1785737025.889777,"customer_msg":"Where is parcel TW26036077?","channel":"web"}
+{"conv":"tw-00053","kind":"llm","span":"s1","parent":null,"ts_start":1785737025.889777,"ts_end":1785737026.566874,"model":"gpt-5.4-mini","usage":{"in":910,"out":44,"cached":0},"cost_microusd":316}
+{"conv":"tw-00053","kind":"tool","span":"s2","parent":"s1","ts_start":1785737026.566874,"ts_end":1785737027.149578,"tool":"find_parcel","ok":true,"args":{"parcel":"TW26036077"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00052","kind":"llm","span":"s5","parent":"s4","ts_start":1785737024.651114,"ts_end":1785737027.329751,"model":"gpt-5.4","usage":{"in":2250,"out":95,"cached":1100}}
+{"conv":"tw-00052","kind":"tool","span":"s6","parent":"s4","ts_start":1785737027.329751,"ts_end":1785737027.655482,"tool":"geocode","ok":true,"args":{"parcel":"TW80200710"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00053","kind":"llm","span":"s3","parent":null,"ts_start":1785737027.149578,"ts_end":1785737029.11392,"model":"gpt-5.4-mini","usage":{"in":692,"out":41},"cost_microusd":255}
+{"conv":"tw-00052","kind":"llm","span":"s7","parent":null,"ts_start":1785737027.655482,"ts_end":1785737029.325535,"model":"gpt-5.4-mini","usage":{"in":1184,"out":88},"cost_microusd":472}
+{"conv":"tw-00053","kind":"tool","span":"s4","parent":"s3","ts_start":1785737029.11392,"ts_end":1785737029.447271,"tool":"plan_route","ok":true,"args":{"parcel":"TW26036077"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00052","kind":"end","ts":1785737029.525535,"outcome":"resolved","reply":"Parcel TW80200710: handled."}
+{"conv":"tw-00054","kind":"start","ts":1785737030.850062,"customer_msg":"Can you redeliver TW25807716 tomorrow?","channel":"web"}
+{"conv":"tw-00055","kind":"start","ts":1785737031.480489,"customer_msg":"Change the address for TW14915766 please.","channel":"web"}
+{"conv":"tw-00053","kind":"llm","span":"s5","parent":"s4","ts_start":1785737029.447271,"ts_end":1785737031.522045,"model":"gpt-5.4","usage":{"in":1900,"out":205,"cached":0}}
+{"conv":"tw-00053","kind":"tool","span":"s6","parent":"s4","ts_start":1785737031.522045,"ts_end":1785737031.857314,"tool":"geocode","ok":true,"args":{"parcel":"TW26036077"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00054","kind":"llm","span":"s1","parent":null,"ts_start":1785737030.850062,"ts_end":1785737031.969684,"model":"gpt-5.4-mini","usage":{"in":1352,"out":107},"cost_microusd":552}
+{"conv":"tw-00054","kind":"tool","span":"s2","parent":"s1","ts_start":1785737031.969684,"ts_end":1785737032.231288,"tool":"find_parcel","ok":true,"args":{"parcel":"TW25807716"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00053","kind":"tool","span":"s7","parent":"s4","ts_start":1785737031.857314,"ts_end":1785737032.310667,"tool":"geocode","ok":true,"args":{"parcel":"TW26036077"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00055","kind":"llm","span":"s1","parent":null,"ts_start":1785737031.480489,"ts_end":1785737032.520959,"model":"gpt-5.4-mini","usage":{"in":859,"out":151},"cost_microusd":517}
+{"conv":"tw-00055","kind":"tool","span":"s2","parent":"s1","ts_start":1785737032.520959,"ts_end":1785737032.900504,"tool":"find_parcel","ok":true,"args":{"parcel":"TW14915766"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00054","kind":"llm","span":"s3","parent":null,"ts_start":1785737032.231288,"ts_end":1785737032.913333,"model":"gpt-5.4-mini","usage":{"in":805,"out":146},"cost_microusd":493}
+{"conv":"tw-00054","kind":"tool","span":"s4","parent":"s3","ts_start":1785737032.913333,"ts_end":1785737033.187939,"tool":"notify_customer","ok":true,"args":{"parcel":"TW25807716"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00053","kind":"llm","span":"s8","parent":null,"ts_start":1785737032.310667,"ts_end":1785737033.669184,"model":"gpt-5.4-mini","usage":{"in":1177,"out":122},"cost_microusd":538}
+{"conv":"tw-00054","kind":"llm","span":"s1","parent":null,"ts_start":1785737030.850062,"ts_end":1785737031.969684,"model":"gpt-5.4-mini","usage":{"in":1352,"out":107},"cost_microusd":552}
+{"conv":"tw-00053","kind":"end","ts":1785737033.869184,"outcome":"resolved","reply":"Parcel TW26036077: handled."}
+{"conv":"tw-00055","kind":"llm","span":"s3","parent":null,"ts_start":1785737032.900504,"ts_end":1785737033.917639,"model":"gpt-5.4-mini","usage":{"in":1269,"out":119,"cached":0},"cost_microusd":555}
+{"conv":"tw-00055","kind":"tool","span":"s4","parent":"s3","ts_start":1785737033.917639,"ts_end":1785737034.121472,"tool":"plan_route","ok":true,"args":{"parcel":"TW14915766"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00054","kind":"llm","span":"s5","parent":null,"ts_start":1785737033.187939,"ts_end":1785737034.465518,"model":"gpt-5.4-mini","usage":{"in":1048,"out":73},"cost_microusd":408}
+{"conv":"tw-00054","kind":"end","ts":1785737034.665518,"outcome":"resolved","reply":"Parcel TW25807716: handled."}
+{"conv":"tw-00056","kind":"start","ts":1785737035.47928,"customer_msg":"Where is parcel TW99149096?","channel":"sms"}
+{"conv":"tw-00055","kind":"llm","span":"s5","parent":"s4","ts_start":1785737034.121472,"ts_end":1785737035.552786,"model":"gpt-5.4","usage":{"in":2000,"out":175,"cached":1000}}
+{"conv":"tw-00055","kind":"tool","span":"s6","parent":"s4","ts_start":1785737035.552786,"ts_end":1785737035.656095,"tool":"geocode","ok":true,"args":{"parcel":"TW14915766"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00056","kind":"llm","span":"s1","parent":null,"ts_start":1785737035.47928,"ts_end":1785737036.354449,"model":"gpt-5.4-mini","usage":{"in":498,"out":22,"cached":0},"cost_microusd":168}
+{"conv":"tw-00056","kind":"tool","span":"s2","parent":"s1","ts_start":1785737036.354449,"ts_end":1785737036.814715,"tool":"find_parcel","ok":true,"args":{"parcel":"TW99149096"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00055","kind":"llm","span":"s7","parent":null,"ts_start":1785737035.656095,"ts_end":1785737036.822768,"model":"gpt-5.4-mini","usage":{"in":1105,"out":44},"cost_microusd":364}
+{"conv":"tw-00055","kind":"tool","span":"s8","parent":"s7","ts_start":1785737036.822768,"ts_end":1785737037.287385,"tool":"notify_customer","ok":true,"args":{"parcel":"TW14915766"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00055","kind":"llm","span":"s9","parent":null,"ts_start":1785737037.287385,"ts_end":1785737038.00851,"model":"gpt-5.4-mini","usage":{"in":388,"out":107,"cached":192},"cost_microusd":273}
+{"conv":"tw-00055","kind":"end","ts":1785737038.20851,"outcome":"resolved","reply":"Parcel TW14915766: handled."}
+{"conv":"tw-00057","kind":"start","ts":1785737038.230458,"customer_msg":"Change the address for TW49899145 please.","channel":"sms"}
+{"conv":"tw-00056","kind":"llm","span":"s3","parent":null,"ts_start":1785737036.814715,"ts_end":1785737038.672621,"model":"gpt-5.4-mini","usage":{"in":1219,"out":131,"cached":0},"cost_microusd":567}
+{"conv":"tw-00056","kind":"tool","span":"s4","parent":"s3","ts_start":1785737038.672621,"ts_end":1785737039.269594,"tool":"plan_route","ok":true,"args":{"parcel":"TW99149096"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00057","kind":"llm","span":"s1","parent":null,"ts_start":1785737038.230458,"ts_end":1785737040.094205,"model":"gpt-5.4-mini","usage":{"in":1133,"out":24,"cached":512},"cost_microusd":229}
+{"conv":"tw-00057","kind":"tool","span":"s2","parent":"s1","ts_start":1785737040.094205,"ts_end":1785737040.461904,"tool":"find_parcel","ok":false,"args":{"parcel":"TW49899145"},"result":{"error":"upstream timeout"}}
+{"conv":"tw-00058","kind":"start","ts":1785737040.774191,"customer_msg":"Change the address for TW47689031 please.","channel":"web"}
+{"conv":"tw-00059","kind":"start","ts":1785737041.306937,"customer_msg":"Why is TW21610385 late?","channel":"sms"}
+{"conv":"tw-00058","kind":"llm","span":"s1","parent":null,"ts_start":1785737040.774191,"ts_end":1785737041.559307,"model":"gpt-5.4-mini","usage":{"in":1357,"out":59,"cached":640},"cost_microusd":329}
+{"conv":"tw-00057","kind":"llm","span":"s3","parent":null,"ts_start":1785737040.461904,"ts_end":1785737041.774396,"model":"gpt-5.4-mini","usage":{"in":362,"out":126},"cost_microusd":342}
+{"conv":"tw-00058","kind":"tool","span":"s2","parent":"s1","ts_start":1785737041.559307,"ts_end":1785737041.844872,"tool":"find_parcel","ok":true,"args":{"parcel":"TW47689031"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00057","kind":"end","ts":1785737041.974396,"outcome":"resolved","reply":"Parcel TW49899145: handled."}
+{"conv":"tw-00056","kind":"llm","span":"s5","parent":"s4","ts_start":1785737039.269594,"ts_end":1785737042.04253,"model":"gpt-5.4","usage":{"in":3850,"out":185,"cached":1900}}
+{"conv":"tw-00059","kind":"llm","span":"s1","parent":null,"ts_start":1785737041.306937,"ts_end":1785737042.124951,"model":"gpt-5.4-mini","usage":{"in":1348,"out":127},"cost_microusd":591}
+{"conv":"tw-00056","kind":"tool","span":"s6","parent":"s4","ts_start":1785737042.04253,"ts_end":1785737042.31374,"tool":"geocode","ok":true,"args":{"parcel":"TW99149096"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00059","kind":"tool","span":"s2","parent":"s1","ts_start":1785737042.124951,"ts_end":1785737042.394402,"tool":"find_parcel","ok":true,"args":{"parcel":"TW21610385"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00058","kind":"llm","span":"s3","parent":null,"ts_start":1785737041.844872,"ts_end":1785737042.568472,"model":"gpt-5.4-mini","usage":{"in":784,"out":117},"cost_microusd":430}
+{"conv":"tw-00058","kind":"tool","span":"s4","parent":"s3","ts_start":1785737042.568472,"ts_end":1785737042.716478,"tool":"plan_route","ok":true,"args":{"parcel":"TW47689031"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00059","kind":"llm","span":"s3","parent":null,"ts_start":1785737042.394402,"ts_end":1785737043.045381,"model":"gpt-5.4-mini","usage":{"in":1338,"out":113},"cost_microusd":560}
+{"conv":"tw-00060","kind":"start","ts":1785737043.102123,"customer_msg":"Can you redeliver TW69985590 tomorrow?","channel":"app"}
+{"conv":"tw-00059","kind":"tool","span":"s4","parent":"s3","ts_start":1785737043.045381,"ts_end":1785737043.129521,"tool":"plan_route","ok":true,"args":{"parcel":"TW21610385"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00056","kind":"llm","span":"s7","parent":null,"ts_start":1785737042.31374,"ts_end":1785737044.174518,"model":"gpt-5.4-mini","usage":{"in":1180,"out":152},"cost_microusd":599}
+{"conv":"tw-00058","kind":"llm","span":"s5","parent":"s4","ts_start":1785737042.716478,"ts_end":1785737044.200552,"model":"gpt-5.4","usage":{"in":2400,"out":135,"cached":0}}
+{"conv":"tw-00056","kind":"end","ts":1785737044.374518,"outcome":"error","error":"dispatch assistant crashed: KeyError 'depot'"}
+{"conv":"tw-00058","kind":"tool","span":"s6","parent":"s4","ts_start":1785737044.200552,"ts_end":1785737044.497839,"tool":"geocode","ok":true,"args":{"parcel":"TW47689031"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00060","kind":"llm","span":"s1","parent":null,"ts_start":1785737043.102123,"ts_end":1785737044.812286,"model":"gpt-5.4-mini","usage":{"in":1016,"out":35,"cached":0},"cost_microusd":324}
+{"conv":"tw-00060","kind":"tool","span":"s2","parent":"s1","ts_start":1785737044.812286,"ts_end":1785737045.167716,"tool":"find_parcel","ok":true,"args":{"parcel":"TW69985590"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00059","kind":"llm","span":"s5","parent":"s4","ts_start":1785737043.129521,"ts_end":1785737045.21828,"model":"gpt-5.4","usage":{"in":2500,"out":210,"cached":1250}}
+{"conv":"tw-00059","kind":"tool","span":"s6","parent":"s4","ts_start":1785737045.21828,"ts_end":1785737045.469707,"tool":"geocode","ok":true,"args":{"parcel":"TW21610385"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00058","kind":"llm","span":"s7","parent":null,"ts_start":1785737044.497839,"ts_end":1785737045.72619,"model":"gpt-5.4-mini","usage":{"in":602,"out":75,"cached":256},"cost_microusd":249}
+{"conv":"tw-00059","kind":"tool","span":"s7","parent":"s4","ts_start":1785737045.469707,"ts_end":1785737045.743856,"tool":"geocode","ok":true,"args":{"parcel":"TW21610385"},"result":{"depot":"Quayside"}}
+{"conv":"tw-00058","kind":"tool","span":"s8","parent":"s7","ts_start":1785737045.72619,"ts_end":1785737046.252181,"tool":"notify_customer","ok":true,"args":{"parcel":"TW47689031"},"result":{"depot":"Mill Lane"}}
+{"conv":"tw-00060","kind":"llm","span":"s3","parent":null,"ts_start":1785737045.167716,"ts_end":1785737046.571593,"model":"gpt-5.4-mini","usage":{"in":1046,"out":72},"cost_microusd":406}
+{"conv":"tw-00060","kind":"tool","span":"s4","parent":"s3","ts_start":1785737046.571593,"ts_end":1785737046.672811,"tool":"plan_route","ok":true,"args":{"parcel":"TW69985590"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00059","kind":"llm","span":"s8","parent":null,"ts_start":1785737045.743856,"ts_end":1785737046.947791,"model":"gpt-5.4-mini","usage":{"in":868,"out":32},"cost_microusd":281}
+{"conv":"tw-00059","kind":"end","ts":1785737047.147791,"outcome":"resolved","reply":"Parcel TW21610385: handled."}
+{"conv":"tw-00060","kind":"tool","span":"s4","parent":"s3","ts_start":1785737046.571593,"ts_end":1785737046.672811,"tool":"plan_route","ok":true,"args":{"parcel":"TW69985590"},"result":{"depot":"Harbour Road"}}
+{"conv":"tw-00058","kind":"llm","span":"s9","parent":null,"ts_start":1785737046.252181,"ts_end":1785737047.704818,"model":"gpt-5.4-mini","usage":{"in":579,"out":137},"cost_microusd":419}
+{"conv":"tw-00058","kind":"end","ts":1785737047.904818,"outcome":"resolved","reply":"Parcel TW47689031: handled."}
+{"conv":"tw-00060","kind":"llm","span":"s5","parent":"s4","ts_start":1785737046.672811,"ts_end":1785737048.486546,"model":"gpt-5.4","usage":{"in":2300,"out":155}}
+{"conv":"tw-00060","kind":"tool","span":"s6","parent":"s4","ts_start":1785737048.486546,"ts_end":1785737048.852383,"tool":"geocode","ok":true,"args":{"parcel":"TW69985590"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00060","kind":"tool","span":"s7","parent":"s4","ts_start":1785737048.852383,"ts_end":1785737049.281349,"tool":"geocode","ok":true,"args":{"parcel":"TW69985590"},"result":{"depot":"Northgate"}}
+{"conv":"tw-00060","kind":"llm","span":"s8","parent":null,"ts_start":1785737049.281349,"ts_end":1785737050.472914,"model":"gpt-5.4-mini","usage":{"in":455,"out":154,"cached":192},"cost_microusd":383}
+{"conv":"tw-00060","kind":"end","ts":1785737050.672914,"outcome":"resolved","reply":"Parcel TW69985590: handled."}

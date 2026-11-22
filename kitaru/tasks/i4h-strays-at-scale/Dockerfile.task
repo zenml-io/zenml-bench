@@ -1,0 +1,7 @@
+
+# ---- task: i4h-strays-at-scale ----
+# Imports five nights correctly, makes the reviewed cohort, then imports two nights with the changed script. The setup files are deleted afterwards.
+COPY setup/ /opt/setup/
+RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
+    bash /opt/setup/setup.sh; /opt/kitaru-bench/stop.sh; \
+    rm -rf /opt/setup /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*

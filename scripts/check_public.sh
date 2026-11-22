@@ -16,12 +16,14 @@ bad=0
 report() { local n="$1" what="$2"; printf '%-58s %s\n' "$what" "$n"; [ "$n" -gt 0 ] && bad=1; }
 report "$(git grep -lE "$KEY" 2>/dev/null | xargs -r grep -LE "$ALLOW" 2>/dev/null | wc -l | tr -d ' ')" "tracked files with key-shaped strings (placeholder allowed)"
 report "$(git grep -lE "$ENVVAL" 2>/dev/null | wc -l | tr -d ' ')" "tracked files with a key env var + value"
-report "$(git grep -lE "$PERSONAL" 2>/dev/null | wc -l | tr -d ' ')" "tracked files with home paths or emails"
+# Addresses at example.org / example.com are not anyone's: RFC 2606 reserves those domains for made-up data (the helpdesk world's customers).
+EXAMPLE='@example\.(org|com)$'
+report "$(git grep -hoE "$PERSONAL" 2>/dev/null | grep -vcE "$EXAMPLE" | tr -d ' ')" "home paths or emails in tracked files (reserved example domains allowed)"
 report "$(git grep -hoE "$KEY" $(git rev-list --all) 2>/dev/null | grep -vcE "$ALLOW" | tr -d ' ')" "history matches of key-shaped strings (placeholder allowed)"
 report "$(git log --all --oneline -- .env design .skills-cache jobs 2>/dev/null | wc -l | tr -d ' ')" "commits touching .env/design/jobs/.skills-cache"
 for j in "$@"; do
   report "$(grep -rIlE "$KEY" "$j" 2>/dev/null | xargs -r grep -LE "$ALLOW" 2>/dev/null | wc -l | tr -d ' ')" "$j: files with key-shaped strings (placeholder allowed)"
   report "$(grep -rIlE "$ENVVAL" "$j" 2>/dev/null | wc -l | tr -d ' ')" "$j: files with a key env var + value"
-  report "$(grep -rIlE "$PERSONAL" "$j" 2>/dev/null | wc -l | tr -d ' ')" "$j: files with home paths or emails"
+  report "$(grep -rIhoE "$PERSONAL" "$j" 2>/dev/null | grep -vcE "$EXAMPLE" | tr -d ' ')" "$j: home paths or emails (reserved example domains allowed)"
 done
 [ "$bad" -eq 0 ] && echo "clean" || { echo "FOUND something: inspect with the same regexes before publishing"; exit 1; }

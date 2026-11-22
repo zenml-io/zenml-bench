@@ -1,0 +1,202 @@
+[
+ {
+  "external_id": "sf-01279",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 33 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-01349",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01361",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 58 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-01399",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01407",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01468",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01476",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01524",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01531",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01608",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 60 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-01618",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01646",
+  "passed": false,
+  "explanation": "The reply tells the customer 2.510,00 \u20ac; the refund was 25,10 \u20ac."
+ },
+ {
+  "external_id": "sf-01653",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 46 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-01670",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01777",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01800",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01809",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01890",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01894",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01907",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-01911",
+  "passed": false,
+  "explanation": "The reply tells the customer 10.579,00 \u20ac; the refund was 105,79 \u20ac."
+ },
+ {
+  "external_id": "sf-02400",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02401",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02489",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02490",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 51 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-02517",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02522",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02540",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02572",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02635",
+  "passed": false,
+  "explanation": "The reply tells the customer \u20ac6,005.00; the refund was \u20ac60.05."
+ },
+ {
+  "external_id": "sf-02637",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 41 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-02641",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02666",
+  "passed": false,
+  "explanation": "The reply tells the customer \u20ac688.00; the refund was \u20ac6.88."
+ },
+ {
+  "external_id": "sf-02721",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02743",
+  "passed": false,
+  "explanation": "The reply tells the customer \u20ac435.00; the refund was \u20ac4.35."
+ },
+ {
+  "external_id": "sf-02744",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02859",
+  "passed": true,
+  "explanation": "Handled correctly."
+ },
+ {
+  "external_id": "sf-02882",
+  "passed": false,
+  "explanation": "The reply tells the customer \u20ac7,807.00; the refund was \u20ac78.07."
+ },
+ {
+  "external_id": "sf-02955",
+  "passed": false,
+  "explanation": "Refunded although the order was delivered 40 days ago; the return window is 30 days."
+ },
+ {
+  "external_id": "sf-02972",
+  "passed": false,
+  "explanation": "The reply tells the customer \u20ac5,519.00; the refund was \u20ac55.19."
+ }
+]

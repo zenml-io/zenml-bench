@@ -1,0 +1,955 @@
+[
+ {
+  "id": "HID-0001",
+  "kind": "refund",
+  "orders": [
+   "SO-70009"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70009 arrived damaged. Please refund the order. My account is aisha.5@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0002",
+  "kind": "refund",
+  "orders": [
+   "SO-70018"
+  ],
+  "guest": true,
+  "item": null,
+  "prompt": "My bluetooth speaker from order SO-70018 is not what I expected. Please refund it. I checked out as a guest.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 12685,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0003",
+  "kind": "dispute",
+  "orders": [
+   "SO-70024"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70024. My account is ingrid.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0004",
+  "kind": "refund",
+  "orders": [
+   "SO-70031"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My yoga mat from order SO-70031 is not what I expected. Please refund it. My account is priya.7@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0005",
+  "kind": "status",
+  "orders": [
+   "SO-70040",
+   "SO-70047",
+   "SO-70051",
+   "SO-70060"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where are orders SO-70040, SO-70047, SO-70051 and SO-70060? My account is kenji.2@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0006",
+  "kind": "status",
+  "orders": [
+   "SO-70067"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70067? My account is freya.6@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0007",
+  "kind": "refund",
+  "orders": [
+   "SO-70071"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70071 arrived damaged. Please refund the order. My account is freya.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 22376,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0008",
+  "kind": "status",
+  "orders": [
+   "SO-70073"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70073? My account is aisha.8@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0009",
+  "kind": "status",
+  "orders": [
+   "SO-70077"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70077? My account is jonas.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0010",
+  "kind": "dispute",
+  "orders": [
+   "SO-70084"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70084. My account is priya.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0011",
+  "kind": "status",
+  "orders": [
+   "SO-70086"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70086? My account is freya.6@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0012",
+  "kind": "refund",
+  "orders": [
+   "SO-70088"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70088 arrived damaged. Please refund the order. My account is sofia.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 20669,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0013",
+  "kind": "refund",
+  "orders": [
+   "SO-70092"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My backpack from order SO-70092 is not what I expected. Please refund it. My account is tomas.6@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0014",
+  "kind": "dispute",
+  "orders": [
+   "SO-70097"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70097. My account is sofia.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0015",
+  "kind": "status",
+  "orders": [
+   "SO-70099",
+   "SO-70106",
+   "SO-70112",
+   "SO-70119"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where are orders SO-70099, SO-70106, SO-70112 and SO-70119? My account is aisha.4@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0016",
+  "kind": "dispute",
+  "orders": [
+   "SO-70127"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70127. My account is sofia.3@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0017",
+  "kind": "status",
+  "orders": [
+   "SO-70129",
+   "SO-70136",
+   "SO-70139",
+   "SO-70147",
+   "SO-70156",
+   "SO-70160"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where are orders SO-70129, SO-70136, SO-70139, SO-70147, SO-70156 and SO-70160? My account is kenji.7@example.org.",
+  "expected": {
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-70139",
+    "SO-70160"
+   ]
+  }
+ },
+ {
+  "id": "HID-0018",
+  "kind": "refund",
+  "orders": [
+   "SO-70168"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My desk lamp from order SO-70168 is not what I expected. Please refund it. My account is elena.2@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0019",
+  "kind": "refund",
+  "orders": [
+   "SO-70176"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My linen shirt from order SO-70176 is not what I expected. Please refund it. My account is freya.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 4997,
+   "currency": "EUR",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0020",
+  "kind": "refund",
+  "orders": [
+   "SO-70182"
+  ],
+  "guest": true,
+  "item": null,
+  "prompt": "My kettle from order SO-70182 is not what I expected. Please refund it. I checked out as a guest.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 724,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0021",
+  "kind": "dispute",
+  "orders": [
+   "SO-70187"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70187. My account is daniel.2@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0022",
+  "kind": "refund",
+  "orders": [
+   "SO-70196"
+  ],
+  "guest": true,
+  "item": null,
+  "prompt": "My kettle from order SO-70196 is not what I expected. Please refund it. I checked out as a guest.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 8285,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0023",
+  "kind": "dispute",
+  "orders": [
+   "SO-70205"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70205. My account is yuki.3@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0024",
+  "kind": "refund",
+  "orders": [
+   "SO-70207"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My desk lamp from order SO-70207 is not what I expected. Please refund it. My account is tomas.2@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 32212,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0025",
+  "kind": "status",
+  "orders": [
+   "SO-70209"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70209? My account is daniel.7@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0026",
+  "kind": "status",
+  "orders": [
+   "SO-70212"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70212? My account is freya.6@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0027",
+  "kind": "status",
+  "orders": [
+   "SO-70214"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70214? My account is ingrid.6@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0028",
+  "kind": "status",
+  "orders": [
+   "SO-70221"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70221? My account is priya.7@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0029",
+  "kind": "status",
+  "orders": [
+   "SO-70226",
+   "SO-70235",
+   "SO-70243",
+   "SO-70247",
+   "SO-70254",
+   "SO-70260"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where are orders SO-70226, SO-70235, SO-70243, SO-70247, SO-70254 and SO-70260? My account is jonas.5@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0030",
+  "kind": "refund",
+  "orders": [
+   "SO-70266"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My notebook bundle from order SO-70266 is not what I expected. Please refund it. My account is omar.7@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 7230,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0031",
+  "kind": "status",
+  "orders": [
+   "SO-70271"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70271? My account is luca.1@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0032",
+  "kind": "status",
+  "orders": [
+   "SO-70276"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70276? My account is maya.6@example.org.",
+  "expected": {
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-70276"
+   ]
+  }
+ },
+ {
+  "id": "HID-0033",
+  "kind": "refund",
+  "orders": [
+   "SO-70282"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70282 arrived damaged. Please refund the order. My account is kenji.7@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0034",
+  "kind": "dispute",
+  "orders": [
+   "SO-70283"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70283. My account is aisha.3@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0035",
+  "kind": "refund",
+  "orders": [
+   "SO-70286"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My yoga mat from order SO-70286 is not what I expected. Please refund it. My account is elena.7@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 34711,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0036",
+  "kind": "refund",
+  "orders": [
+   "SO-70295"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My running shoes from order SO-70295 is not what I expected. Please refund it. My account is yuki.1@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0037",
+  "kind": "status",
+  "orders": [
+   "SO-70301"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70301? My account is luca.3@example.org.",
+  "expected": {
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-70301"
+   ]
+  }
+ },
+ {
+  "id": "HID-0038",
+  "kind": "refund",
+  "orders": [
+   "SO-70307"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My yoga mat from order SO-70307 is not what I expected. Please refund it. My account is kenji.4@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0039",
+  "kind": "refund",
+  "orders": [
+   "SO-70311"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My bluetooth speaker from order SO-70311 is not what I expected. Please refund it. My account is tomas.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 11923,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0040",
+  "kind": "refund",
+  "orders": [
+   "SO-70320"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70320 arrived damaged. Please refund the order. My account is sofia.3@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0041",
+  "kind": "refund",
+  "orders": [
+   "SO-70322"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My kettle from order SO-70322 is not what I expected. Please refund it. My account is elena.7@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0042",
+  "kind": "status",
+  "orders": [
+   "SO-70325"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70325? My account is maya.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0043",
+  "kind": "refund",
+  "orders": [
+   "SO-70326"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70326 arrived damaged. Please refund the order. My account is freya.3@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0044",
+  "kind": "dispute",
+  "orders": [
+   "SO-70330"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70330. My account is ingrid.7@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0045",
+  "kind": "refund",
+  "orders": [
+   "SO-70337"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70337 arrived damaged. Please refund the order. My account is priya.5@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 10268,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0046",
+  "kind": "refund",
+  "orders": [
+   "SO-70342"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My bluetooth speaker from order SO-70342 is not what I expected. Please refund it. My account is daniel.1@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 35981,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0047",
+  "kind": "dispute",
+  "orders": [
+   "SO-70350"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70350. My account is jonas.5@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0048",
+  "kind": "refund",
+  "orders": [
+   "SO-70356"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70356 arrived damaged. Please refund the order. My account is omar.3@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 7799,
+   "currency": "EUR",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0049",
+  "kind": "dispute",
+  "orders": [
+   "SO-70359"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70359. My account is priya.1@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0050",
+  "kind": "status",
+  "orders": [
+   "SO-70365"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70365? My account is yuki.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0051",
+  "kind": "refund",
+  "orders": [
+   "SO-70371"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70371 arrived damaged. Please refund the order. My account is omar.6@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 712,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0052",
+  "kind": "refund",
+  "orders": [
+   "SO-70377"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My ceramic mug set from order SO-70377 is not what I expected. Please refund it. My account is luca.5@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0053",
+  "kind": "refund",
+  "orders": [
+   "SO-70378"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70378 arrived damaged. Please refund the order. My account is ingrid.7@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0054",
+  "kind": "refund",
+  "orders": [
+   "SO-70383"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My backpack from order SO-70383 is not what I expected. Please refund it. My account is maya.3@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 20402,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0055",
+  "kind": "dispute",
+  "orders": [
+   "SO-70385"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "I want to dispute the charge for order SO-70385. My account is priya.6@example.org.",
+  "expected": {
+   "escalated": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0056",
+  "kind": "refund",
+  "orders": [
+   "SO-70390"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My running shoes from order SO-70390 is not what I expected. Please refund it. My account is ingrid.8@example.org.",
+  "expected": {
+   "refunded": true,
+   "refund_minor": 5816,
+   "currency": "JPY",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  }
+ },
+ {
+  "id": "HID-0057",
+  "kind": "status",
+  "orders": [
+   "SO-70392"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70392? My account is luca.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0058",
+  "kind": "refund",
+  "orders": [
+   "SO-70400"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "My desk lamp from order SO-70400 is not what I expected. Please refund it. My account is elena.1@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ },
+ {
+  "id": "HID-0059",
+  "kind": "status",
+  "orders": [
+   "SO-70407"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Where is order SO-70407? My account is sofia.3@example.org.",
+  "expected": {
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ },
+ {
+  "id": "HID-0060",
+  "kind": "refund",
+  "orders": [
+   "SO-70408"
+  ],
+  "guest": false,
+  "item": null,
+  "prompt": "Order SO-70408 arrived damaged. Please refund the order. My account is tomas.8@example.org.",
+  "expected": {
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  }
+ }
+]

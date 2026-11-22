@@ -1,0 +1,5 @@
+# Model settings for the appointment assistant. Merged changes apply at once.
+model: gpt-5.4-mini
+temperature: 0.2
+max_tokens: 120
+timeout_seconds: 30

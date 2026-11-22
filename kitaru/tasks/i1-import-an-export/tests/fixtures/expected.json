@@ -1,0 +1,1191 @@
+{
+ "project": "tidewater-support",
+ "tickets": {
+  "TK-30001": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "f3e17452398dea53b5caa4ab1958a78b"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001953,
+   "started_at": "2026-08-01T13:06:02.458Z"
+  },
+  "TK-30002": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "1894109f4f5f02766e82a4d160c8e204",
+    "343505a9410442fc18fd3cd9208c65b4"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002149,
+   "started_at": "2026-08-01T12:22:23.295Z"
+  },
+  "TK-30003": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "bf9670d3da4039e5d7c387fb343e38ce",
+    "8ca02eddd012ba0df4a040a697e8392c"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003423,
+   "started_at": "2026-08-01T11:11:21.525Z"
+  },
+  "TK-30004": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "97e8ce58a68edd2b093397acc3f4c869",
+    "71c739fa5b97e7cd19d14ecddb3133d9"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001898,
+   "started_at": "2026-08-01T07:49:22.079Z"
+  },
+  "TK-30005": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "f8ee573f9989e36a067c2ecc94d9b04c"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001585,
+   "started_at": "2026-08-01T16:50:16.970Z"
+  },
+  "TK-30006": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "aed25f70add8749581043b27c494a1d6"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001321,
+   "started_at": "2026-08-01T10:51:50.464Z"
+  },
+  "TK-30007": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "8062b3c1c15d35896c8d0224819fb1d6"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000805,
+   "started_at": "2026-08-01T10:34:35.816Z"
+  },
+  "TK-30008": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "4b223875695ef6e675ba57b52e8badc3"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001174,
+   "started_at": "2026-08-01T11:18:34.832Z"
+  },
+  "TK-30009": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "a826955f9cb05d467dbe6e1f418b2afe"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001732,
+   "started_at": "2026-08-01T12:14:10.228Z"
+  },
+  "TK-30010": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "f2bb290cef8620fd575943f3ad37337b",
+    "5b84596f0cfce8ea1cca069eb5f43a36",
+    "fd0e219d6f721b66afa3a666ff303140"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.002038,
+   "started_at": "2026-08-01T11:33:45.329Z"
+  },
+  "TK-30011": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "c2cf5ba3c887086a50505da8478a9ed0",
+    "7e154e1b667ab1c6638021f614df9a47",
+    "d40caecf68e40a9341e0b99fad60e217"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 2,
+   "failed_tool_calls": 1,
+   "cost": 0.002661,
+   "started_at": "2026-08-01T09:47:52.488Z"
+  },
+  "TK-30012": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "cd3a6372ea0c90ee20c10ccdd97d25e9"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000617,
+   "started_at": "2026-08-01T11:42:52.202Z"
+  },
+  "TK-30013": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "ccae9f9e12b8defdcbdbf491acc00564"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001242,
+   "started_at": "2026-08-01T17:33:45.046Z"
+  },
+  "TK-30014": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "92fad73f234544f73d3994f1a50d4261",
+    "c9793e02a7be10a34c81b000e2f6e5c2",
+    "5a811d77a8999668ef53b6fdb2e99fa6",
+    "286ed3854352e92551bcfbbebeb6cbe7"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.0041,
+   "started_at": "2026-08-01T08:34:58.059Z"
+  },
+  "TK-30015": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "d2585ff00c1f1719950ba88f2460f9dd",
+    "77cc68ff357493d0b0f22a1b8c6629b4"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000768,
+   "started_at": "2026-08-01T11:03:30.732Z"
+  },
+  "TK-30016": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "b86047c8c5f8e95535420cb9b42bd931",
+    "695568e47e659aa5a669ef85f5a80ed8",
+    "14d87435d79d485d89ec5c22090036ff",
+    "da8fb3066ae14108d22755171b99af34"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.001855,
+   "started_at": "2026-08-01T09:05:57.821Z"
+  },
+  "TK-30017": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "582b7152aec572d7ad09b0175fbd71e1",
+    "9af14fe85f1feb9ac5de0ae0cf4c06cc"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000961,
+   "started_at": "2026-08-01T11:12:16.750Z"
+  },
+  "TK-30018": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "4124e048c4cbe322b3d5971a090c679c"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000502,
+   "started_at": "2026-08-01T10:00:12.040Z"
+  },
+  "TK-30019": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "d1b32debe0d780f7f8bcb677b5712200",
+    "ddef9943f9484e307a8c569ca3a74d03"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002048,
+   "started_at": "2026-08-01T15:38:13.564Z"
+  },
+  "TK-30020": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "918f744c9e9f645bdb67e6b3926a17cf",
+    "83fe98f603d1cd2d8151a0ebdeed7807",
+    "2d1f0997bbf8ec008823215a4f9c7ab9"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.003853,
+   "started_at": "2026-08-01T07:19:44.938Z"
+  },
+  "TK-30021": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "efebe992f8fa18cafb7ebac3c9b3ea31",
+    "d32274a93b85493fab3ea096bb7c6ddb"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 1,
+   "cost": 0.002264,
+   "started_at": "2026-08-01T16:37:49.674Z"
+  },
+  "TK-30022": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "c9bba6e11ac2cadb92e8819c95c9bdc3",
+    "f8b79dfc00b3f498813607d257d1a5f3"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001007,
+   "started_at": "2026-08-01T09:32:04.006Z"
+  },
+  "TK-30023": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "2180d68d6dd6d28747f270d2dab060b8",
+    "98c71d256b8ee26f880003b6e589c5da"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001266,
+   "started_at": "2026-08-01T09:16:30.166Z"
+  },
+  "TK-30024": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "bac375a7ace8c2b706a6a0624bb4c16e"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001083,
+   "started_at": "2026-08-01T13:12:44.491Z"
+  },
+  "TK-30025": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "531c67b92e741753d67dcf398a77c069"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000521,
+   "started_at": "2026-08-01T15:40:29.751Z"
+  },
+  "TK-30026": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "64e6960367ce6e6ef0a2080996f266ac",
+    "df2ff6bff0cb52e93dfa00f41086fa9e",
+    "b040c5509e50b664d0ca2d8c3a0eb7fb"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 3,
+   "failed_tool_calls": 1,
+   "cost": 0.003011,
+   "started_at": "2026-08-01T12:04:45.403Z"
+  },
+  "TK-30027": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "1542dd22436ea9701116043a08528abd",
+    "22226f80be69515a302c4cc2f1087203",
+    "560483df65a28a4e56aea5e464f075e1",
+    "808ccc089885793ce1d3a1f6b15ca3d3"
+   ],
+   "llm_calls": 10,
+   "tool_calls": 6,
+   "failed_tool_calls": 0,
+   "cost": 0.00521,
+   "started_at": "2026-08-01T17:26:30.234Z"
+  },
+  "TK-30028": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "8b36ba8333908928d535450d61ccc100",
+    "1ba87ad77366dcda30c492cbbb116274",
+    "bd1bb87212c3aa95bcb5b5c6a54d9eea",
+    "7fac7305998d7b42e82cf45ec451abc3"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.003645,
+   "started_at": "2026-08-01T08:17:54.354Z"
+  },
+  "TK-30029": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "8885097ab3162085f7214bb9343a506d",
+    "c6571d13d0b3eba4d303b924fe1f131f"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001928,
+   "started_at": "2026-08-01T09:58:35.451Z"
+  },
+  "TK-30030": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "8a368871af637b23f5e91c152f731a0e",
+    "0511b783623bba4cc9bda63317afa7d4",
+    "b217f63e77aa77a2e5af51420f6c5a95",
+    "67bf7d357188dad6a57c9129624b3075"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.003872,
+   "started_at": "2026-08-01T17:02:04.758Z"
+  },
+  "TK-30031": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "2f52e3d1e1daa31678ad79e6e9e73566"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000599,
+   "started_at": "2026-08-01T16:16:52.527Z"
+  },
+  "TK-30032": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "d18dbb6a7892232158f7483bfa5ae57c",
+    "27113ee1f6cc60b17cd7b3982e0e76c0"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002346,
+   "started_at": "2026-08-01T12:21:17.238Z"
+  },
+  "TK-30033": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "d25a1b4ce86c9a6e72bdb2f2f5b12f70",
+    "e9e341f3cfd05f7b1b908108df6d4ab6"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.002781,
+   "started_at": "2026-08-01T14:30:38.771Z"
+  },
+  "TK-30034": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "30e21ef0d47bf70ad4cc465c59f45fb7",
+    "591d45aa4edf950afc188d272eb3bfea"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002038,
+   "started_at": "2026-08-01T16:54:23.859Z"
+  },
+  "TK-30035": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "b30cb3ec7e7f2d57d1ec218b57689438",
+    "07a20ea10f2f4cc734f4cf8aa06a508a",
+    "699d43d630f081f3959a809771e4626f",
+    "bae1db4be51817fd034430da711fede3"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.003573,
+   "started_at": "2026-08-01T11:01:43.009Z"
+  },
+  "TK-30036": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "425f5a003e3819aca10bcd6207a6f5ec",
+    "62adefe22cb0797ab1456a8a8835b94c",
+    "b5b42f08128e2b263e94f81adb468b7d",
+    "23d21d9ff8aa6dda42c9a5230603b863"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003433,
+   "started_at": "2026-08-01T17:31:29.561Z"
+  },
+  "TK-30037": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "18df745a9a7f99639e0ef4fc9ced5341"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001024,
+   "started_at": "2026-08-01T10:43:17.800Z"
+  },
+  "TK-30038": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "c1937f2e5d52105a15a99a3b40e2cb05",
+    "e4119496a34e09b8ebdb84e2c9eb7e5d"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001102,
+   "started_at": "2026-08-01T10:47:16.786Z"
+  },
+  "TK-30039": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "c9227578f4d2cb407885a27f605be1e9"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001122,
+   "started_at": "2026-08-01T10:10:05.645Z"
+  },
+  "TK-30040": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "86375f78ac3f142ff91f3ef8e52591d2",
+    "268be9cb230229227a198ec55ccc3a09",
+    "506dec64c3a7dcc2d63bdab740cec5f5",
+    "0c008f38263b9228fbd823a95811ebae"
+   ],
+   "llm_calls": 9,
+   "tool_calls": 5,
+   "failed_tool_calls": 0,
+   "cost": 0.003965,
+   "started_at": "2026-08-01T08:39:39.581Z"
+  },
+  "TK-30041": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "cdb681831fb0ef52176106f0f6826902"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000359,
+   "started_at": "2026-08-01T11:11:38.096Z"
+  },
+  "TK-30042": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "1083a87809a02799cf17a3474b6d0962"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000736,
+   "started_at": "2026-08-01T15:17:12.570Z"
+  },
+  "TK-30043": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "56212f74f0b5088eb72513c28302627c",
+    "667cc9a0de8737bb40b07cb8d2b3f2f9",
+    "5dca15b9d6bf1e2083a990cd743e63e0",
+    "31caa8b51ec443f15317ba5804323175"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.00412,
+   "started_at": "2026-08-01T13:56:09.860Z"
+  },
+  "TK-30044": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "a23f6ff4132cad7875625fe90bfe716e",
+    "90a276759b11f44611c081282220bb0c"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002236,
+   "started_at": "2026-08-01T13:45:19.480Z"
+  },
+  "TK-30045": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "6b1e92b1a5e289ba4725063bd0db31a6"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000819,
+   "started_at": "2026-08-01T14:16:54.387Z"
+  },
+  "TK-30046": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "bf273f4ce0facfd18f26b72fd350ee28",
+    "b72442f6efef843b7d1adf72167b0cb7"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001322,
+   "started_at": "2026-08-01T07:56:28.043Z"
+  },
+  "TK-30047": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "1c3046fc36d6576fce1bf39b9b7024e7",
+    "33f412429a931f8a9a88f528dd940658"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001537,
+   "started_at": "2026-08-01T17:27:37.177Z"
+  },
+  "TK-30048": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "1444486eefd292331c90e77998bbef64"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001161,
+   "started_at": "2026-08-01T07:20:46.503Z"
+  },
+  "TK-30049": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "4597e59790dd3ddff4ef051decd1140b"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000516,
+   "started_at": "2026-08-01T12:00:17.393Z"
+  },
+  "TK-30050": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "19522db867ecde61113c09aaea1fd149",
+    "d25d97d3692abb201984630d33a19f81",
+    "e7b495f8c53ff7d411f3b2c10de76e5f",
+    "39e6a4dec871f460d8eed261ad59093e"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003738,
+   "started_at": "2026-08-01T10:57:47.488Z"
+  },
+  "TK-30051": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "499a860f94e8bf9bb86e76226307d45c",
+    "885d46b4de56472cb6d05d433368d5f0",
+    "6f45854c892c3231c8ab1c489307ac13",
+    "603a8bdea5602554dfdf564b97cca409"
+   ],
+   "llm_calls": 9,
+   "tool_calls": 5,
+   "failed_tool_calls": 0,
+   "cost": 0.003799,
+   "started_at": "2026-08-01T11:47:51.544Z"
+  },
+  "TK-30052": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "10f99ce5dcf30e3790c93dffef5ee0bd",
+    "c91023048c75b1cc78d2418e6ef14f41"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001906,
+   "started_at": "2026-08-01T12:53:39.075Z"
+  },
+  "TK-30053": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "e0f4e2dc402970f25b60344cc0d780de",
+    "a399b1a01ba0fde6e0a1b0fdc409187a"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.001226,
+   "started_at": "2026-08-01T09:20:30.224Z"
+  },
+  "TK-30054": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "76e9548d685397d1a5ebaa412fd4c0a4",
+    "299a9a4435524fed46149955806b784e"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002239,
+   "started_at": "2026-08-01T12:40:24.682Z"
+  },
+  "TK-30055": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "d5254a40e7839ea895eb6dfbef0968b6",
+    "dc9c2220608a50899aa1007d1b6d606f"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 1,
+   "cost": 0.001166,
+   "started_at": "2026-08-01T09:33:51.884Z"
+  },
+  "TK-30056": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "632db6141ca6d02326cf8806ca1bb4ea",
+    "7d895a95eedd0675de5f8d4b0481d960"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001477,
+   "started_at": "2026-08-01T16:05:30.029Z"
+  },
+  "TK-30057": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "9487b926ddac940f9207f2cfeb797fb3",
+    "5bf84349806cd6a5aa59ae8774b2c439"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002281,
+   "started_at": "2026-08-01T11:43:34.088Z"
+  },
+  "TK-30058": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "f258b3a806a8ad68548c9cc156cfb118",
+    "ef83a2687e3e094ce7a0f2cc32c0d284"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001857,
+   "started_at": "2026-08-01T17:43:38.117Z"
+  },
+  "TK-30059": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "20137429024cfa471f2c0b9d3e68b512"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001256,
+   "started_at": "2026-08-01T17:58:44.653Z"
+  },
+  "TK-30060": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "c883895559655a61666c1f344b333635",
+    "a2852e5ffa6c4206b53039ad58de66c1"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 1,
+   "cost": 0.002934,
+   "started_at": "2026-08-01T11:13:06.522Z"
+  },
+  "TK-30061": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "e56ea0fc89fa0c72ec7c53a5005df158",
+    "811620968669994c7ae56d11f784fee2"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 1,
+   "cost": 0.002049,
+   "started_at": "2026-08-01T10:00:34.428Z"
+  },
+  "TK-30062": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "1dbc685739a61650036bb3c9360aa72f"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000317,
+   "started_at": "2026-08-01T08:09:43.904Z"
+  },
+  "TK-30063": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "1bc10bd7ccd4cb70ed20d26e1e6679d0",
+    "428c66b13c430bc988a75d49486e9587",
+    "57a3fb4fdd67dbd60f4f94d3a409845c"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002531,
+   "started_at": "2026-08-01T16:36:03.141Z"
+  },
+  "TK-30064": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "20d5dea47595c61653c40e20643d4216"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.00117,
+   "started_at": "2026-08-01T08:44:48.981Z"
+  },
+  "TK-30065": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "a49aff416bc74051adf0137b86eea75f",
+    "47368c6985fcb12dd89d81fe1fd892a7"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.00283,
+   "started_at": "2026-08-01T16:28:16.098Z"
+  },
+  "TK-30066": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "904c817e85a97781883f81d751b217a8"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000807,
+   "started_at": "2026-08-01T08:24:43.941Z"
+  },
+  "TK-30067": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "a53eb8f9b6c290c090ad63a2fd07933d",
+    "15df8efbebd8516184e3578f33bf4b6a"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002165,
+   "started_at": "2026-08-01T17:30:20.716Z"
+  },
+  "TK-30068": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "0d3268e4b284a671487bc259110aa464"
+   ],
+   "llm_calls": 1,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000407,
+   "started_at": "2026-08-01T16:12:15.283Z"
+  },
+  "TK-30069": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "6d894b2107932465f4a0221770c76fe5"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001276,
+   "started_at": "2026-08-01T14:55:05.811Z"
+  },
+  "TK-30070": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "8c6ab64402486843756b2695f7a5e055",
+    "18b894ed352782f265cff201f0926103",
+    "12064d1f553ddf94e1dee62e37c6610e",
+    "ccef476ecd97a1fbc0f3da2066ab7a7c"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003835,
+   "started_at": "2026-08-01T11:38:41.965Z"
+  },
+  "TK-30071": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "5647a455bda9ee579cb22a10e827087b",
+    "5fec0ea9307f044a6236c755258d2844",
+    "59b2f554dc9d55a068df3d3115b37f23"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.001919,
+   "started_at": "2026-08-01T14:16:03.813Z"
+  },
+  "TK-30072": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "74c9661d3d45c9bf5e28984ac40726fc",
+    "b1a8ed7548ad34ec6fae20c3222f9f2e",
+    "64576d3ab23f4dda77825c96a8416d11"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003382,
+   "started_at": "2026-08-01T12:13:59.330Z"
+  },
+  "TK-30073": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "255f1c3dd655402973e0eb1e03a7d217",
+    "dd3aa92ca62d39e9af21933379ae0bbc",
+    "ff0ffb6cfce89ee36bc6909b63eaf472"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003277,
+   "started_at": "2026-08-01T08:18:57.246Z"
+  },
+  "TK-30074": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "8696cc7b22f7435e6cf58e9d53e1b44c",
+    "c2f2f054d7e7bb0f14ecd6921a5d85f8"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002439,
+   "started_at": "2026-08-01T10:37:21.572Z"
+  },
+  "TK-30075": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "1fbd9ac57dabc7935cad16b991600a85",
+    "3478e5a28305e6e0e09ebe827ae8ee37"
+   ],
+   "llm_calls": 4,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002139,
+   "started_at": "2026-08-01T11:08:53.862Z"
+  },
+  "TK-30076": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "4b41f7a2575d9d432b1e3a712b285e39",
+    "d2597da3ef548c15a1264262c9f39093",
+    "8560a32f8d893ae3218c727e4046ba46"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002907,
+   "started_at": "2026-08-01T13:04:20.600Z"
+  },
+  "TK-30077": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "a658606c98b5cacfd81953e8b833e453",
+    "32d283316aa8ad7fa7d30f2e71e61914"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.001071,
+   "started_at": "2026-08-01T11:07:47.731Z"
+  },
+  "TK-30078": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "5ba89f15819e8b70587e4278d70c5e36",
+    "ca3756a82ec932f2cdb1ccaecda3dc47"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002063,
+   "started_at": "2026-08-01T13:24:29.992Z"
+  },
+  "TK-30079": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "5c0dee8e2593ec331117153ed8fff366",
+    "3b24ffaf3a21b3f79d522d132909f893",
+    "cb41227faa2066e43b1d5c54df1bc790"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 5,
+   "failed_tool_calls": 1,
+   "cost": 0.003747,
+   "started_at": "2026-08-01T13:47:30.721Z"
+  },
+  "TK-30080": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "5edb4aa4ac463964cfa601d3f70110ca",
+    "93d21f312b65224fadc09e2803d2f793",
+    "fab505a144d14cebe4fbe89562339d2f",
+    "ad37af6f97573a2eaf0d967951a228a4"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002571,
+   "started_at": "2026-08-01T11:44:32.850Z"
+  },
+  "TK-30081": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "95f360ef979336d4e6e000f058c2907d",
+    "518d619eb11be5245bf81a84850a8121",
+    "a668a2d1fab81ba9ba8f4c7b8153d854",
+    "075eeaa6a509f775596adf96fb0bef57"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.002812,
+   "started_at": "2026-08-01T14:38:04.490Z"
+  },
+  "TK-30082": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "ddc4e98dbcc42a64f8242e4846f9a787",
+    "9985514f8e8ace3fc2a0be70a9a28a1b"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 1,
+   "cost": 0.002746,
+   "started_at": "2026-08-01T13:38:00.753Z"
+  },
+  "TK-30083": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "7dc703627fb5600249120767b5518642",
+    "698d4bfb24a52b75e24e208656857a37",
+    "1139d0cc406c7cc0c12b3c045bd71381",
+    "a5f82aa9a33c3224305401deb08e2d26"
+   ],
+   "llm_calls": 8,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.003869,
+   "started_at": "2026-08-01T09:18:56.887Z"
+  },
+  "TK-30084": {
+   "release": "1.4.0",
+   "day": 0,
+   "traces": [
+    "556d9a9f64764da76d5caddb7015a9e3",
+    "79e3f3b608afe4d6bbb7e296d359fcb7"
+   ],
+   "llm_calls": 6,
+   "tool_calls": 4,
+   "failed_tool_calls": 0,
+   "cost": 0.002816,
+   "started_at": "2026-08-01T08:49:53.533Z"
+  },
+  "TK-30085": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "4329e52157ccea5aecfdd46fad5b8d0e"
+   ],
+   "llm_calls": 3,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.001247,
+   "started_at": "2026-08-01T16:03:18.424Z"
+  },
+  "TK-30086": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "60fed5fbf74d5b73e92705f1c04188ff",
+    "16473e5e1a0a3d6f45ea83f007054b54",
+    "28e424a831f3f80d34463195e859ab50",
+    "9162de93e389f65d2d5ec1414d38024b"
+   ],
+   "llm_calls": 7,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.003569,
+   "started_at": "2026-08-01T15:39:14.418Z"
+  },
+  "TK-30087": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "81491e66029c479ec9c92bfc266d1243"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 1,
+   "failed_tool_calls": 0,
+   "cost": 0.000732,
+   "started_at": "2026-08-01T10:53:41.499Z"
+  },
+  "TK-30088": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "dd3fa7125a1d8e7ec35e151cfde2cf18",
+    "7e6f0462af54fd602f87d84e28f58489"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 3,
+   "failed_tool_calls": 0,
+   "cost": 0.00235,
+   "started_at": "2026-08-01T07:23:41.095Z"
+  },
+  "TK-30089": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "56ee02750d6be3bd87d34eb442cd9919",
+    "f5b8c5333b49e184b911d5f1b3786e4b"
+   ],
+   "llm_calls": 2,
+   "tool_calls": 0,
+   "failed_tool_calls": 0,
+   "cost": 0.000896,
+   "started_at": "2026-08-01T16:33:16.791Z"
+  },
+  "TK-30090": {
+   "release": "1.5.0",
+   "day": 0,
+   "traces": [
+    "62c5e7ff6a2d8da8cb254aabc42ee090",
+    "4199179532f43982c13d428613e7c72a",
+    "f9f0acc197d976351a4efd77e307a8a6"
+   ],
+   "llm_calls": 5,
+   "tool_calls": 2,
+   "failed_tool_calls": 0,
+   "cost": 0.002284,
+   "started_at": "2026-08-01T09:28:36.523Z"
+  }
+ }
+}

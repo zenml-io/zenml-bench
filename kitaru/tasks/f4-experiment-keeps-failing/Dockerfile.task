@@ -1,0 +1,7 @@
+
+# ---- task: f4-experiment-keeps-failing ----
+# Registers release 1.6.2 as version 3, the `refund-amount` evaluator, the cohort and the experiment, and runs the experiment once so that it has failed. The setup files are deleted afterwards.
+COPY setup/ /opt/setup/
+RUN set -e; for i in $(seq 60); do WORKER_NAME=world-loader /opt/kitaru-bench/start.sh && break; sleep 2; done; \
+    bash /opt/setup/setup.sh; /opt/kitaru-bench/stop.sh; \
+    rm -rf /opt/setup /var/log/kitaru-bench/* /etc/kitaru-bench/server.env /tmp/*

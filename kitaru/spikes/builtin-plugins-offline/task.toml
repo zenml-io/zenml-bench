@@ -1,0 +1,28 @@
+schema_version = "1.4"
+
+[task]
+name = "zenml/kitaru-spike-builtin-plugins-offline"
+version = "0.0.1"
+description = "Spike, not a benchmark task: run a built-in evaluator, the JSONL importer and the built-in analyzer with the network sealed."
+
+[verifier]
+timeout_sec = 300.0
+
+[environment]
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]
+cpus = 2
+memory_mb = 4096
+
+[environment.healthcheck]
+command = "/opt/kitaru-bench/start.sh"
+interval_sec = 3.0
+start_interval_sec = 3.0
+start_period_sec = 120.0
+timeout_sec = 60.0
+retries = 3
+
+[agent]
+timeout_sec = 600.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com", "api.openai.com", "chatgpt.com"]

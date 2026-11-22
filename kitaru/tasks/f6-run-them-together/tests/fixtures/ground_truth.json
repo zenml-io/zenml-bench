@@ -1,0 +1,5875 @@
+{
+ "sessions": 420,
+ "by_version": {
+  "2.0.0": 420
+ },
+ "by_kind": {
+  "refund": 225,
+  "status": 114,
+  "dispute": 81,
+  "partial": 0
+ },
+ "refunds_recorded": 98,
+ "escalations_recorded": 81,
+ "credit_lands": [
+  "REQ-0065",
+  "REQ-0091",
+  "REQ-0201",
+  "REQ-0293",
+  "REQ-0315",
+  "REQ-0349"
+ ],
+ "arrives_now": [
+  "REQ-0010",
+  "REQ-0098",
+  "REQ-0333",
+  "REQ-0411"
+ ],
+ "not_same_at_low_effort": [
+  "REQ-0003",
+  "REQ-0010",
+  "REQ-0019",
+  "REQ-0023",
+  "REQ-0027",
+  "REQ-0028",
+  "REQ-0044",
+  "REQ-0045",
+  "REQ-0056",
+  "REQ-0057",
+  "REQ-0062",
+  "REQ-0065",
+  "REQ-0073",
+  "REQ-0077",
+  "REQ-0081",
+  "REQ-0091",
+  "REQ-0092",
+  "REQ-0098",
+  "REQ-0102",
+  "REQ-0107",
+  "REQ-0110",
+  "REQ-0112",
+  "REQ-0115",
+  "REQ-0116",
+  "REQ-0118",
+  "REQ-0126",
+  "REQ-0131",
+  "REQ-0133",
+  "REQ-0140",
+  "REQ-0143",
+  "REQ-0147",
+  "REQ-0148",
+  "REQ-0152",
+  "REQ-0153",
+  "REQ-0154",
+  "REQ-0158",
+  "REQ-0161",
+  "REQ-0175",
+  "REQ-0179",
+  "REQ-0183",
+  "REQ-0190",
+  "REQ-0201",
+  "REQ-0207",
+  "REQ-0215",
+  "REQ-0216",
+  "REQ-0218",
+  "REQ-0221",
+  "REQ-0223",
+  "REQ-0224",
+  "REQ-0226",
+  "REQ-0229",
+  "REQ-0232",
+  "REQ-0244",
+  "REQ-0245",
+  "REQ-0246",
+  "REQ-0250",
+  "REQ-0261",
+  "REQ-0262",
+  "REQ-0269",
+  "REQ-0274",
+  "REQ-0284",
+  "REQ-0293",
+  "REQ-0295",
+  "REQ-0297",
+  "REQ-0298",
+  "REQ-0299",
+  "REQ-0300",
+  "REQ-0301",
+  "REQ-0303",
+  "REQ-0313",
+  "REQ-0314",
+  "REQ-0315",
+  "REQ-0321",
+  "REQ-0323",
+  "REQ-0329",
+  "REQ-0331",
+  "REQ-0332",
+  "REQ-0333",
+  "REQ-0334",
+  "REQ-0338",
+  "REQ-0343",
+  "REQ-0347",
+  "REQ-0349",
+  "REQ-0358",
+  "REQ-0366",
+  "REQ-0375",
+  "REQ-0376",
+  "REQ-0379",
+  "REQ-0380",
+  "REQ-0382",
+  "REQ-0396",
+  "REQ-0397",
+  "REQ-0399",
+  "REQ-0411",
+  "REQ-0415",
+  "REQ-0419"
+ ],
+ "requests": {
+  "REQ-0001": {
+   "id": "REQ-0001",
+   "kind": "refund",
+   "orders": [
+    "SO-20009"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-20009 is not what I expected. Please refund it. My account is tomas.1@example.org.",
+   "refunded": true,
+   "refund_minor": 14628,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0002": {
+   "id": "REQ-0002",
+   "kind": "status",
+   "orders": [
+    "SO-20016"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20016? My account is priya.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0003": {
+   "id": "REQ-0003",
+   "kind": "dispute",
+   "orders": [
+    "SO-20019"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20019. My account is sofia.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0004": {
+   "id": "REQ-0004",
+   "kind": "status",
+   "orders": [
+    "SO-20022"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20022? My account is ingrid.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0005": {
+   "id": "REQ-0005",
+   "kind": "refund",
+   "orders": [
+    "SO-20024"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20024 arrived damaged. Please refund the order. My account is omar.3@example.org.",
+   "refunded": true,
+   "refund_minor": 5848,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0006": {
+   "id": "REQ-0006",
+   "kind": "refund",
+   "orders": [
+    "SO-20033"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-20033 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 10539,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0007": {
+   "id": "REQ-0007",
+   "kind": "refund",
+   "orders": [
+    "SO-20035"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20035 is not what I expected. Please refund it. My account is elena.4@example.org.",
+   "refunded": true,
+   "refund_minor": 9639,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0008": {
+   "id": "REQ-0008",
+   "kind": "refund",
+   "orders": [
+    "SO-20044"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20044 is not what I expected. Please refund it. My account is maya.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0009": {
+   "id": "REQ-0009",
+   "kind": "refund",
+   "orders": [
+    "SO-20047"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20047 arrived damaged. Please refund the order. My account is yuki.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0010": {
+   "id": "REQ-0010",
+   "kind": "status",
+   "orders": [
+    "SO-20051"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20051? My account is omar.2@example.org.",
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-20051"
+   ]
+  },
+  "REQ-0011": {
+   "id": "REQ-0011",
+   "kind": "refund",
+   "orders": [
+    "SO-20052"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20052 arrived damaged. Please refund the order. My account is yuki.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0012": {
+   "id": "REQ-0012",
+   "kind": "refund",
+   "orders": [
+    "SO-20058"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20058 is not what I expected. Please refund it. My account is omar.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0013": {
+   "id": "REQ-0013",
+   "kind": "refund",
+   "orders": [
+    "SO-20066"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-20066 is not what I expected. Please refund it. My account is aisha.5@example.org.",
+   "refunded": true,
+   "refund_minor": 37089,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0014": {
+   "id": "REQ-0014",
+   "kind": "refund",
+   "orders": [
+    "SO-20071"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20071 arrived damaged. Please refund the order. My account is maya.4@example.org.",
+   "refunded": true,
+   "refund_minor": 36285,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0015": {
+   "id": "REQ-0015",
+   "kind": "refund",
+   "orders": [
+    "SO-20077"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20077 arrived damaged. Please refund the order. My account is yuki.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0016": {
+   "id": "REQ-0016",
+   "kind": "refund",
+   "orders": [
+    "SO-20079"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20079 arrived damaged. Please refund the order. My account is tomas.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0017": {
+   "id": "REQ-0017",
+   "kind": "status",
+   "orders": [
+    "SO-20080",
+    "SO-20082"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20080 and SO-20082? My account is elena.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0018": {
+   "id": "REQ-0018",
+   "kind": "refund",
+   "orders": [
+    "SO-20086"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20086 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "refunded": true,
+   "refund_minor": 2538,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0019": {
+   "id": "REQ-0019",
+   "kind": "dispute",
+   "orders": [
+    "SO-20091"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20091. My account is sofia.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0020": {
+   "id": "REQ-0020",
+   "kind": "status",
+   "orders": [
+    "SO-20096"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20096? My account is jonas.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0021": {
+   "id": "REQ-0021",
+   "kind": "status",
+   "orders": [
+    "SO-20098",
+    "SO-20105"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20098 and SO-20105? My account is sofia.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0022": {
+   "id": "REQ-0022",
+   "kind": "status",
+   "orders": [
+    "SO-20112"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20112? My account is jonas.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0023": {
+   "id": "REQ-0023",
+   "kind": "dispute",
+   "orders": [
+    "SO-20117"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20117. My account is freya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0024": {
+   "id": "REQ-0024",
+   "kind": "refund",
+   "orders": [
+    "SO-20119"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20119 arrived damaged. Please refund the order. My account is ingrid.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0025": {
+   "id": "REQ-0025",
+   "kind": "status",
+   "orders": [
+    "SO-20126"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20126? My account is omar.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0026": {
+   "id": "REQ-0026",
+   "kind": "refund",
+   "orders": [
+    "SO-20132"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20132 is not what I expected. Please refund it. My account is luca.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0027": {
+   "id": "REQ-0027",
+   "kind": "dispute",
+   "orders": [
+    "SO-20135"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20135. My account is daniel.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0028": {
+   "id": "REQ-0028",
+   "kind": "dispute",
+   "orders": [
+    "SO-20144"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20144. My account is omar.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0029": {
+   "id": "REQ-0029",
+   "kind": "refund",
+   "orders": [
+    "SO-20152"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20152 arrived damaged. Please refund the order. My account is freya.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0030": {
+   "id": "REQ-0030",
+   "kind": "refund",
+   "orders": [
+    "SO-20155"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20155 is not what I expected. Please refund it. My account is sofia.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0031": {
+   "id": "REQ-0031",
+   "kind": "status",
+   "orders": [
+    "SO-20162"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20162? My account is omar.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0032": {
+   "id": "REQ-0032",
+   "kind": "refund",
+   "orders": [
+    "SO-20171"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20171 is not what I expected. Please refund it. My account is aisha.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0033": {
+   "id": "REQ-0033",
+   "kind": "status",
+   "orders": [
+    "SO-20173"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20173? My account is kenji.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0034": {
+   "id": "REQ-0034",
+   "kind": "refund",
+   "orders": [
+    "SO-20182"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20182 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0035": {
+   "id": "REQ-0035",
+   "kind": "status",
+   "orders": [
+    "SO-20190"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20190? My account is elena.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0036": {
+   "id": "REQ-0036",
+   "kind": "refund",
+   "orders": [
+    "SO-20191"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20191 is not what I expected. Please refund it. My account is yuki.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0037": {
+   "id": "REQ-0037",
+   "kind": "refund",
+   "orders": [
+    "SO-20194"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20194 arrived damaged. Please refund the order. My account is aisha.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0038": {
+   "id": "REQ-0038",
+   "kind": "status",
+   "orders": [
+    "SO-20203",
+    "SO-20207"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20203 and SO-20207? My account is sofia.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0039": {
+   "id": "REQ-0039",
+   "kind": "status",
+   "orders": [
+    "SO-20211"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20211? My account is luca.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0040": {
+   "id": "REQ-0040",
+   "kind": "refund",
+   "orders": [
+    "SO-20212"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20212 arrived damaged. Please refund the order. My account is kenji.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0041": {
+   "id": "REQ-0041",
+   "kind": "refund",
+   "orders": [
+    "SO-20221"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20221 arrived damaged. Please refund the order. My account is maya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0042": {
+   "id": "REQ-0042",
+   "kind": "refund",
+   "orders": [
+    "SO-20227"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20227 arrived damaged. Please refund the order. My account is priya.6@example.org.",
+   "refunded": true,
+   "refund_minor": 9893,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0043": {
+   "id": "REQ-0043",
+   "kind": "status",
+   "orders": [
+    "SO-20231"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20231? My account is priya.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0044": {
+   "id": "REQ-0044",
+   "kind": "dispute",
+   "orders": [
+    "SO-20235"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20235. My account is daniel.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0045": {
+   "id": "REQ-0045",
+   "kind": "dispute",
+   "orders": [
+    "SO-20243"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20243. My account is jonas.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0046": {
+   "id": "REQ-0046",
+   "kind": "refund",
+   "orders": [
+    "SO-20249"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20249 arrived damaged. Please refund the order. My account is daniel.8@example.org.",
+   "refunded": true,
+   "refund_minor": 41152,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0047": {
+   "id": "REQ-0047",
+   "kind": "status",
+   "orders": [
+    "SO-20253"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20253? My account is jonas.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0048": {
+   "id": "REQ-0048",
+   "kind": "status",
+   "orders": [
+    "SO-20254"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20254? My account is maya.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0049": {
+   "id": "REQ-0049",
+   "kind": "refund",
+   "orders": [
+    "SO-20255"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20255 arrived damaged. Please refund the order. My account is jonas.4@example.org.",
+   "refunded": true,
+   "refund_minor": 27226,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0050": {
+   "id": "REQ-0050",
+   "kind": "refund",
+   "orders": [
+    "SO-20261"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20261 is not what I expected. Please refund it. My account is aisha.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0051": {
+   "id": "REQ-0051",
+   "kind": "refund",
+   "orders": [
+    "SO-20263"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20263 is not what I expected. Please refund it. My account is maya.1@example.org.",
+   "refunded": true,
+   "refund_minor": 16212,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0052": {
+   "id": "REQ-0052",
+   "kind": "refund",
+   "orders": [
+    "SO-20268"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20268 is not what I expected. Please refund it. My account is kenji.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0053": {
+   "id": "REQ-0053",
+   "kind": "status",
+   "orders": [
+    "SO-20273"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20273? My account is omar.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0054": {
+   "id": "REQ-0054",
+   "kind": "refund",
+   "orders": [
+    "SO-20276"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20276 arrived damaged. Please refund the order. My account is tomas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0055": {
+   "id": "REQ-0055",
+   "kind": "refund",
+   "orders": [
+    "SO-20283"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20283 is not what I expected. Please refund it. My account is ingrid.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0056": {
+   "id": "REQ-0056",
+   "kind": "dispute",
+   "orders": [
+    "SO-20284"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20284. My account is elena.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0057": {
+   "id": "REQ-0057",
+   "kind": "dispute",
+   "orders": [
+    "SO-20285"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20285. My account is maya.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0058": {
+   "id": "REQ-0058",
+   "kind": "refund",
+   "orders": [
+    "SO-20288"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20288 arrived damaged. Please refund the order. My account is aisha.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0059": {
+   "id": "REQ-0059",
+   "kind": "status",
+   "orders": [
+    "SO-20293"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20293? My account is maya.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0060": {
+   "id": "REQ-0060",
+   "kind": "refund",
+   "orders": [
+    "SO-20299"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20299 arrived damaged. Please refund the order. My account is maya.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0061": {
+   "id": "REQ-0061",
+   "kind": "refund",
+   "orders": [
+    "SO-20308"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20308 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "refunded": true,
+   "refund_minor": 14852,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0062": {
+   "id": "REQ-0062",
+   "kind": "dispute",
+   "orders": [
+    "SO-20313"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20313. My account is omar.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0063": {
+   "id": "REQ-0063",
+   "kind": "refund",
+   "orders": [
+    "SO-20315"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20315 is not what I expected. Please refund it. My account is maya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0064": {
+   "id": "REQ-0064",
+   "kind": "refund",
+   "orders": [
+    "SO-20318"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20318 is not what I expected. Please refund it. My account is yuki.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0065": {
+   "id": "REQ-0065",
+   "kind": "refund",
+   "orders": [
+    "SO-20321"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20321 is not what I expected. Please refund it. My account is luca.2@example.org.",
+   "refunded": true,
+   "refund_minor": 1122,
+   "currency": "EUR",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0066": {
+   "id": "REQ-0066",
+   "kind": "refund",
+   "orders": [
+    "SO-20327"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20327 arrived damaged. Please refund the order. My account is jonas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0067": {
+   "id": "REQ-0067",
+   "kind": "status",
+   "orders": [
+    "SO-20332"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20332? My account is kenji.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0068": {
+   "id": "REQ-0068",
+   "kind": "refund",
+   "orders": [
+    "SO-20335"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20335 is not what I expected. Please refund it. My account is daniel.2@example.org.",
+   "refunded": true,
+   "refund_minor": 9553,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0069": {
+   "id": "REQ-0069",
+   "kind": "status",
+   "orders": [
+    "SO-20344"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20344? My account is freya.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0070": {
+   "id": "REQ-0070",
+   "kind": "refund",
+   "orders": [
+    "SO-20347"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20347 arrived damaged. Please refund the order. My account is kenji.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0071": {
+   "id": "REQ-0071",
+   "kind": "refund",
+   "orders": [
+    "SO-20350"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-20350 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0072": {
+   "id": "REQ-0072",
+   "kind": "refund",
+   "orders": [
+    "SO-20353"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-20353 is not what I expected. Please refund it. My account is kenji.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0073": {
+   "id": "REQ-0073",
+   "kind": "dispute",
+   "orders": [
+    "SO-20354"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20354. My account is tomas.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0074": {
+   "id": "REQ-0074",
+   "kind": "refund",
+   "orders": [
+    "SO-20362"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-20362 is not what I expected. Please refund it. My account is daniel.7@example.org.",
+   "refunded": true,
+   "refund_minor": 10955,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0075": {
+   "id": "REQ-0075",
+   "kind": "status",
+   "orders": [
+    "SO-20364"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20364? My account is kenji.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0076": {
+   "id": "REQ-0076",
+   "kind": "refund",
+   "orders": [
+    "SO-20366"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-20366 is not what I expected. Please refund it. My account is ingrid.8@example.org.",
+   "refunded": true,
+   "refund_minor": 13929,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0077": {
+   "id": "REQ-0077",
+   "kind": "dispute",
+   "orders": [
+    "SO-20371"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20371. My account is yuki.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0078": {
+   "id": "REQ-0078",
+   "kind": "status",
+   "orders": [
+    "SO-20374",
+    "SO-20379"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20374 and SO-20379? My account is omar.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0079": {
+   "id": "REQ-0079",
+   "kind": "status",
+   "orders": [
+    "SO-20384"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20384? My account is priya.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0080": {
+   "id": "REQ-0080",
+   "kind": "refund",
+   "orders": [
+    "SO-20385"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20385 arrived damaged. Please refund the order. My account is aisha.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0081": {
+   "id": "REQ-0081",
+   "kind": "dispute",
+   "orders": [
+    "SO-20387"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20387. My account is luca.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0082": {
+   "id": "REQ-0082",
+   "kind": "refund",
+   "orders": [
+    "SO-20391"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20391 arrived damaged. Please refund the order. My account is kenji.4@example.org.",
+   "refunded": true,
+   "refund_minor": 13761,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0083": {
+   "id": "REQ-0083",
+   "kind": "refund",
+   "orders": [
+    "SO-20394"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20394 arrived damaged. Please refund the order. My account is freya.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0084": {
+   "id": "REQ-0084",
+   "kind": "refund",
+   "orders": [
+    "SO-20402"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20402 arrived damaged. Please refund the order. My account is ingrid.7@example.org.",
+   "refunded": true,
+   "refund_minor": 7071,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0085": {
+   "id": "REQ-0085",
+   "kind": "refund",
+   "orders": [
+    "SO-20404"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20404 arrived damaged. Please refund the order. My account is freya.8@example.org.",
+   "refunded": true,
+   "refund_minor": 6813,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0086": {
+   "id": "REQ-0086",
+   "kind": "status",
+   "orders": [
+    "SO-20412"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20412? My account is aisha.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0087": {
+   "id": "REQ-0087",
+   "kind": "status",
+   "orders": [
+    "SO-20420",
+    "SO-20426"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20420 and SO-20426? My account is ingrid.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0088": {
+   "id": "REQ-0088",
+   "kind": "refund",
+   "orders": [
+    "SO-20430"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20430 is not what I expected. Please refund it. My account is aisha.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0089": {
+   "id": "REQ-0089",
+   "kind": "refund",
+   "orders": [
+    "SO-20437"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20437 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "refunded": true,
+   "refund_minor": 12681,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0090": {
+   "id": "REQ-0090",
+   "kind": "status",
+   "orders": [
+    "SO-20439"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20439? My account is sofia.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0091": {
+   "id": "REQ-0091",
+   "kind": "refund",
+   "orders": [
+    "SO-20447"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20447 arrived damaged. Please refund the order. My account is maya.2@example.org.",
+   "refunded": true,
+   "refund_minor": 19562,
+   "currency": "JPY",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0092": {
+   "id": "REQ-0092",
+   "kind": "dispute",
+   "orders": [
+    "SO-20454"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20454. My account is maya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0093": {
+   "id": "REQ-0093",
+   "kind": "status",
+   "orders": [
+    "SO-20462"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20462? My account is daniel.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0094": {
+   "id": "REQ-0094",
+   "kind": "refund",
+   "orders": [
+    "SO-20465"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-20465 is not what I expected. Please refund it. My account is omar.1@example.org.",
+   "refunded": true,
+   "refund_minor": 6129,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0095": {
+   "id": "REQ-0095",
+   "kind": "refund",
+   "orders": [
+    "SO-20469"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20469 arrived damaged. Please refund the order. My account is luca.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0096": {
+   "id": "REQ-0096",
+   "kind": "status",
+   "orders": [
+    "SO-20474"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20474? My account is daniel.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0097": {
+   "id": "REQ-0097",
+   "kind": "refund",
+   "orders": [
+    "SO-20477"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20477 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0098": {
+   "id": "REQ-0098",
+   "kind": "status",
+   "orders": [
+    "SO-20483"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20483? My account is omar.8@example.org.",
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-20483"
+   ]
+  },
+  "REQ-0099": {
+   "id": "REQ-0099",
+   "kind": "refund",
+   "orders": [
+    "SO-20491"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20491 arrived damaged. Please refund the order. My account is kenji.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0100": {
+   "id": "REQ-0100",
+   "kind": "refund",
+   "orders": [
+    "SO-20495"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20495 is not what I expected. Please refund it. My account is ingrid.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0101": {
+   "id": "REQ-0101",
+   "kind": "refund",
+   "orders": [
+    "SO-20500"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20500 arrived damaged. Please refund the order. My account is elena.3@example.org.",
+   "refunded": true,
+   "refund_minor": 13122,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0102": {
+   "id": "REQ-0102",
+   "kind": "dispute",
+   "orders": [
+    "SO-20502"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20502. My account is elena.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0103": {
+   "id": "REQ-0103",
+   "kind": "refund",
+   "orders": [
+    "SO-20511"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20511 is not what I expected. Please refund it. My account is freya.4@example.org.",
+   "refunded": true,
+   "refund_minor": 15681,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0104": {
+   "id": "REQ-0104",
+   "kind": "refund",
+   "orders": [
+    "SO-20512"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-20512 is not what I expected. Please refund it. My account is omar.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0105": {
+   "id": "REQ-0105",
+   "kind": "status",
+   "orders": [
+    "SO-20518"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20518? My account is elena.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0106": {
+   "id": "REQ-0106",
+   "kind": "refund",
+   "orders": [
+    "SO-20525"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20525 arrived damaged. Please refund the order. My account is maya.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0107": {
+   "id": "REQ-0107",
+   "kind": "dispute",
+   "orders": [
+    "SO-20528"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20528. My account is luca.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0108": {
+   "id": "REQ-0108",
+   "kind": "status",
+   "orders": [
+    "SO-20532"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20532? My account is luca.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0109": {
+   "id": "REQ-0109",
+   "kind": "refund",
+   "orders": [
+    "SO-20533"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20533 is not what I expected. Please refund it. My account is tomas.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0110": {
+   "id": "REQ-0110",
+   "kind": "dispute",
+   "orders": [
+    "SO-20542"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20542. My account is maya.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0111": {
+   "id": "REQ-0111",
+   "kind": "refund",
+   "orders": [
+    "SO-20551"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20551 arrived damaged. Please refund the order. My account is kenji.8@example.org.",
+   "refunded": true,
+   "refund_minor": 3606,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0112": {
+   "id": "REQ-0112",
+   "kind": "dispute",
+   "orders": [
+    "SO-20555"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20555. My account is aisha.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0113": {
+   "id": "REQ-0113",
+   "kind": "refund",
+   "orders": [
+    "SO-20558"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20558 is not what I expected. Please refund it. My account is ingrid.4@example.org.",
+   "refunded": true,
+   "refund_minor": 6463,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0114": {
+   "id": "REQ-0114",
+   "kind": "status",
+   "orders": [
+    "SO-20564"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20564? My account is jonas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0115": {
+   "id": "REQ-0115",
+   "kind": "dispute",
+   "orders": [
+    "SO-20573"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20573. My account is tomas.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0116": {
+   "id": "REQ-0116",
+   "kind": "dispute",
+   "orders": [
+    "SO-20579"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20579. My account is jonas.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0117": {
+   "id": "REQ-0117",
+   "kind": "refund",
+   "orders": [
+    "SO-20586"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-20586 is not what I expected. Please refund it. My account is ingrid.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0118": {
+   "id": "REQ-0118",
+   "kind": "dispute",
+   "orders": [
+    "SO-20590"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20590. My account is tomas.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0119": {
+   "id": "REQ-0119",
+   "kind": "refund",
+   "orders": [
+    "SO-20594"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20594 arrived damaged. Please refund the order. My account is kenji.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0120": {
+   "id": "REQ-0120",
+   "kind": "refund",
+   "orders": [
+    "SO-20603"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20603 is not what I expected. Please refund it. My account is luca.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0121": {
+   "id": "REQ-0121",
+   "kind": "refund",
+   "orders": [
+    "SO-20612"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20612 arrived damaged. Please refund the order. My account is elena.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0122": {
+   "id": "REQ-0122",
+   "kind": "refund",
+   "orders": [
+    "SO-20619"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-20619 is not what I expected. Please refund it. My account is jonas.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0123": {
+   "id": "REQ-0123",
+   "kind": "refund",
+   "orders": [
+    "SO-20626"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20626 arrived damaged. Please refund the order. My account is omar.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0124": {
+   "id": "REQ-0124",
+   "kind": "refund",
+   "orders": [
+    "SO-20633"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-20633 is not what I expected. Please refund it. My account is omar.1@example.org.",
+   "refunded": true,
+   "refund_minor": 25536,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0125": {
+   "id": "REQ-0125",
+   "kind": "refund",
+   "orders": [
+    "SO-20637"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20637 is not what I expected. Please refund it. My account is freya.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0126": {
+   "id": "REQ-0126",
+   "kind": "dispute",
+   "orders": [
+    "SO-20646"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20646. My account is sofia.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0127": {
+   "id": "REQ-0127",
+   "kind": "status",
+   "orders": [
+    "SO-20653"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20653? My account is luca.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0128": {
+   "id": "REQ-0128",
+   "kind": "status",
+   "orders": [
+    "SO-20654",
+    "SO-20661"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20654 and SO-20661? My account is kenji.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0129": {
+   "id": "REQ-0129",
+   "kind": "refund",
+   "orders": [
+    "SO-20665"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20665 arrived damaged. Please refund the order. My account is kenji.3@example.org.",
+   "refunded": true,
+   "refund_minor": 10419,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0130": {
+   "id": "REQ-0130",
+   "kind": "refund",
+   "orders": [
+    "SO-20670"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20670 is not what I expected. Please refund it. My account is priya.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0131": {
+   "id": "REQ-0131",
+   "kind": "dispute",
+   "orders": [
+    "SO-20673"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20673. My account is maya.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0132": {
+   "id": "REQ-0132",
+   "kind": "status",
+   "orders": [
+    "SO-20680"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20680? My account is aisha.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0133": {
+   "id": "REQ-0133",
+   "kind": "dispute",
+   "orders": [
+    "SO-20684"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20684. My account is priya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0134": {
+   "id": "REQ-0134",
+   "kind": "status",
+   "orders": [
+    "SO-20687"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20687? My account is freya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0135": {
+   "id": "REQ-0135",
+   "kind": "status",
+   "orders": [
+    "SO-20695"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20695? My account is sofia.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0136": {
+   "id": "REQ-0136",
+   "kind": "refund",
+   "orders": [
+    "SO-20698"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20698 is not what I expected. Please refund it. My account is kenji.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0137": {
+   "id": "REQ-0137",
+   "kind": "refund",
+   "orders": [
+    "SO-20707"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20707 is not what I expected. Please refund it. My account is aisha.6@example.org.",
+   "refunded": true,
+   "refund_minor": 716,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0138": {
+   "id": "REQ-0138",
+   "kind": "status",
+   "orders": [
+    "SO-20709",
+    "SO-20717"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-20709 and SO-20717? My account is priya.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0139": {
+   "id": "REQ-0139",
+   "kind": "refund",
+   "orders": [
+    "SO-20724"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20724 arrived damaged. Please refund the order. My account is daniel.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0140": {
+   "id": "REQ-0140",
+   "kind": "dispute",
+   "orders": [
+    "SO-20731"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20731. My account is yuki.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0141": {
+   "id": "REQ-0141",
+   "kind": "refund",
+   "orders": [
+    "SO-20737"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20737 arrived damaged. Please refund the order. My account is omar.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0142": {
+   "id": "REQ-0142",
+   "kind": "status",
+   "orders": [
+    "SO-20744"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20744? My account is jonas.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0143": {
+   "id": "REQ-0143",
+   "kind": "dispute",
+   "orders": [
+    "SO-20749"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20749. My account is freya.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0144": {
+   "id": "REQ-0144",
+   "kind": "refund",
+   "orders": [
+    "SO-20751"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-20751 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "refunded": true,
+   "refund_minor": 16144,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0145": {
+   "id": "REQ-0145",
+   "kind": "refund",
+   "orders": [
+    "SO-20759"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20759 arrived damaged. Please refund the order. My account is ingrid.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0146": {
+   "id": "REQ-0146",
+   "kind": "refund",
+   "orders": [
+    "SO-20762"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20762 arrived damaged. Please refund the order. My account is luca.4@example.org.",
+   "refunded": true,
+   "refund_minor": 15508,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0147": {
+   "id": "REQ-0147",
+   "kind": "refund",
+   "orders": [
+    "SO-20766"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-20766 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 16284,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  },
+  "REQ-0148": {
+   "id": "REQ-0148",
+   "kind": "dispute",
+   "orders": [
+    "SO-20769"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20769. My account is elena.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0149": {
+   "id": "REQ-0149",
+   "kind": "refund",
+   "orders": [
+    "SO-20773"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20773 arrived damaged. Please refund the order. My account is aisha.7@example.org.",
+   "refunded": true,
+   "refund_minor": 1778,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0150": {
+   "id": "REQ-0150",
+   "kind": "status",
+   "orders": [
+    "SO-20775"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20775? My account is daniel.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0151": {
+   "id": "REQ-0151",
+   "kind": "refund",
+   "orders": [
+    "SO-20782"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20782 arrived damaged. Please refund the order. My account is maya.4@example.org.",
+   "refunded": true,
+   "refund_minor": 29465,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0152": {
+   "id": "REQ-0152",
+   "kind": "dispute",
+   "orders": [
+    "SO-20784"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20784. My account is tomas.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0153": {
+   "id": "REQ-0153",
+   "kind": "dispute",
+   "orders": [
+    "SO-20790"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20790. My account is ingrid.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0154": {
+   "id": "REQ-0154",
+   "kind": "dispute",
+   "orders": [
+    "SO-20794"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20794. My account is ingrid.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0155": {
+   "id": "REQ-0155",
+   "kind": "refund",
+   "orders": [
+    "SO-20797"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-20797 is not what I expected. Please refund it. My account is omar.8@example.org.",
+   "refunded": true,
+   "refund_minor": 29147,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0156": {
+   "id": "REQ-0156",
+   "kind": "status",
+   "orders": [
+    "SO-20801"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20801? My account is yuki.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0157": {
+   "id": "REQ-0157",
+   "kind": "status",
+   "orders": [
+    "SO-20808"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20808? My account is priya.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0158": {
+   "id": "REQ-0158",
+   "kind": "dispute",
+   "orders": [
+    "SO-20813"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20813. My account is maya.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0159": {
+   "id": "REQ-0159",
+   "kind": "status",
+   "orders": [
+    "SO-20817"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20817? My account is priya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0160": {
+   "id": "REQ-0160",
+   "kind": "refund",
+   "orders": [
+    "SO-20822"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-20822 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 6846,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0161": {
+   "id": "REQ-0161",
+   "kind": "dispute",
+   "orders": [
+    "SO-20824"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20824. My account is freya.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0162": {
+   "id": "REQ-0162",
+   "kind": "refund",
+   "orders": [
+    "SO-20832"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20832 arrived damaged. Please refund the order. My account is freya.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0163": {
+   "id": "REQ-0163",
+   "kind": "status",
+   "orders": [
+    "SO-20841"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20841? My account is omar.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0164": {
+   "id": "REQ-0164",
+   "kind": "refund",
+   "orders": [
+    "SO-20847"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-20847 is not what I expected. Please refund it. My account is luca.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0165": {
+   "id": "REQ-0165",
+   "kind": "status",
+   "orders": [
+    "SO-20854"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20854? My account is jonas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0166": {
+   "id": "REQ-0166",
+   "kind": "refund",
+   "orders": [
+    "SO-20860"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-20860 is not what I expected. Please refund it. My account is maya.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0167": {
+   "id": "REQ-0167",
+   "kind": "refund",
+   "orders": [
+    "SO-20865"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20865 arrived damaged. Please refund the order. My account is aisha.5@example.org.",
+   "refunded": true,
+   "refund_minor": 6456,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0168": {
+   "id": "REQ-0168",
+   "kind": "refund",
+   "orders": [
+    "SO-20870"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20870 arrived damaged. Please refund the order. My account is aisha.3@example.org.",
+   "refunded": true,
+   "refund_minor": 10490,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0169": {
+   "id": "REQ-0169",
+   "kind": "refund",
+   "orders": [
+    "SO-20875"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-20875 is not what I expected. Please refund it. My account is yuki.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0170": {
+   "id": "REQ-0170",
+   "kind": "status",
+   "orders": [
+    "SO-20881"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20881? My account is priya.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0171": {
+   "id": "REQ-0171",
+   "kind": "refund",
+   "orders": [
+    "SO-20887"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20887 is not what I expected. Please refund it. My account is daniel.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0172": {
+   "id": "REQ-0172",
+   "kind": "refund",
+   "orders": [
+    "SO-20890"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20890 is not what I expected. Please refund it. My account is luca.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0173": {
+   "id": "REQ-0173",
+   "kind": "refund",
+   "orders": [
+    "SO-20899"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-20899 is not what I expected. Please refund it. My account is sofia.8@example.org.",
+   "refunded": true,
+   "refund_minor": 26826,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0174": {
+   "id": "REQ-0174",
+   "kind": "refund",
+   "orders": [
+    "SO-20900"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-20900 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0175": {
+   "id": "REQ-0175",
+   "kind": "dispute",
+   "orders": [
+    "SO-20903"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20903. My account is yuki.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0176": {
+   "id": "REQ-0176",
+   "kind": "refund",
+   "orders": [
+    "SO-20906"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-20906 is not what I expected. Please refund it. My account is sofia.8@example.org.",
+   "refunded": true,
+   "refund_minor": 13988,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0177": {
+   "id": "REQ-0177",
+   "kind": "refund",
+   "orders": [
+    "SO-20915"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20915 arrived damaged. Please refund the order. My account is aisha.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0178": {
+   "id": "REQ-0178",
+   "kind": "refund",
+   "orders": [
+    "SO-20923"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20923 is not what I expected. Please refund it. My account is aisha.5@example.org.",
+   "refunded": true,
+   "refund_minor": 11370,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0179": {
+   "id": "REQ-0179",
+   "kind": "dispute",
+   "orders": [
+    "SO-20928"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20928. My account is yuki.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0180": {
+   "id": "REQ-0180",
+   "kind": "status",
+   "orders": [
+    "SO-20934"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20934? My account is aisha.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0181": {
+   "id": "REQ-0181",
+   "kind": "refund",
+   "orders": [
+    "SO-20943"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-20943 is not what I expected. Please refund it. My account is kenji.4@example.org.",
+   "refunded": true,
+   "refund_minor": 14780,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0182": {
+   "id": "REQ-0182",
+   "kind": "refund",
+   "orders": [
+    "SO-20945"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20945 is not what I expected. Please refund it. My account is kenji.7@example.org.",
+   "refunded": true,
+   "refund_minor": 11219,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0183": {
+   "id": "REQ-0183",
+   "kind": "dispute",
+   "orders": [
+    "SO-20953"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20953. My account is yuki.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0184": {
+   "id": "REQ-0184",
+   "kind": "status",
+   "orders": [
+    "SO-20961"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20961? My account is sofia.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0185": {
+   "id": "REQ-0185",
+   "kind": "refund",
+   "orders": [
+    "SO-20970"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-20970 is not what I expected. Please refund it. My account is sofia.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0186": {
+   "id": "REQ-0186",
+   "kind": "refund",
+   "orders": [
+    "SO-20971"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-20971 is not what I expected. Please refund it. My account is omar.8@example.org.",
+   "refunded": true,
+   "refund_minor": 12857,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0187": {
+   "id": "REQ-0187",
+   "kind": "refund",
+   "orders": [
+    "SO-20973"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-20973 arrived damaged. Please refund the order. My account is elena.1@example.org.",
+   "refunded": true,
+   "refund_minor": 8668,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0188": {
+   "id": "REQ-0188",
+   "kind": "status",
+   "orders": [
+    "SO-20981"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-20981? My account is kenji.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0189": {
+   "id": "REQ-0189",
+   "kind": "refund",
+   "orders": [
+    "SO-20983"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-20983 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0190": {
+   "id": "REQ-0190",
+   "kind": "dispute",
+   "orders": [
+    "SO-20992"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-20992. My account is maya.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0191": {
+   "id": "REQ-0191",
+   "kind": "status",
+   "orders": [
+    "SO-21000"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21000? My account is tomas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0192": {
+   "id": "REQ-0192",
+   "kind": "status",
+   "orders": [
+    "SO-21005"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21005? My account is jonas.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0193": {
+   "id": "REQ-0193",
+   "kind": "refund",
+   "orders": [
+    "SO-21006"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21006 arrived damaged. Please refund the order. My account is elena.1@example.org.",
+   "refunded": true,
+   "refund_minor": 8456,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0194": {
+   "id": "REQ-0194",
+   "kind": "status",
+   "orders": [
+    "SO-21015"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21015? My account is jonas.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0195": {
+   "id": "REQ-0195",
+   "kind": "refund",
+   "orders": [
+    "SO-21024"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21024 arrived damaged. Please refund the order. My account is kenji.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0196": {
+   "id": "REQ-0196",
+   "kind": "refund",
+   "orders": [
+    "SO-21030"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21030 arrived damaged. Please refund the order. My account is aisha.2@example.org.",
+   "refunded": true,
+   "refund_minor": 6785,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0197": {
+   "id": "REQ-0197",
+   "kind": "refund",
+   "orders": [
+    "SO-21033"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21033 arrived damaged. Please refund the order. My account is priya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0198": {
+   "id": "REQ-0198",
+   "kind": "refund",
+   "orders": [
+    "SO-21035"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21035 arrived damaged. Please refund the order. My account is freya.8@example.org.",
+   "refunded": true,
+   "refund_minor": 11637,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0199": {
+   "id": "REQ-0199",
+   "kind": "status",
+   "orders": [
+    "SO-21036"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21036? My account is maya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0200": {
+   "id": "REQ-0200",
+   "kind": "refund",
+   "orders": [
+    "SO-21043"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21043 arrived damaged. Please refund the order. My account is freya.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0201": {
+   "id": "REQ-0201",
+   "kind": "refund",
+   "orders": [
+    "SO-21049"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21049 arrived damaged. Please refund the order. My account is luca.6@example.org.",
+   "refunded": true,
+   "refund_minor": 3091,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0202": {
+   "id": "REQ-0202",
+   "kind": "status",
+   "orders": [
+    "SO-21050",
+    "SO-21059"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21050 and SO-21059? My account is ingrid.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0203": {
+   "id": "REQ-0203",
+   "kind": "refund",
+   "orders": [
+    "SO-21061"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21061 is not what I expected. Please refund it. My account is maya.2@example.org.",
+   "refunded": true,
+   "refund_minor": 31517,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0204": {
+   "id": "REQ-0204",
+   "kind": "status",
+   "orders": [
+    "SO-21068"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21068? My account is freya.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0205": {
+   "id": "REQ-0205",
+   "kind": "refund",
+   "orders": [
+    "SO-21077"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21077 arrived damaged. Please refund the order. My account is aisha.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0206": {
+   "id": "REQ-0206",
+   "kind": "refund",
+   "orders": [
+    "SO-21080"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21080 arrived damaged. Please refund the order. My account is daniel.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0207": {
+   "id": "REQ-0207",
+   "kind": "dispute",
+   "orders": [
+    "SO-21088"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21088. My account is kenji.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0208": {
+   "id": "REQ-0208",
+   "kind": "refund",
+   "orders": [
+    "SO-21094"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-21094 is not what I expected. Please refund it. My account is maya.3@example.org.",
+   "refunded": true,
+   "refund_minor": 6408,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0209": {
+   "id": "REQ-0209",
+   "kind": "status",
+   "orders": [
+    "SO-21099",
+    "SO-21102"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21099 and SO-21102? My account is maya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0210": {
+   "id": "REQ-0210",
+   "kind": "status",
+   "orders": [
+    "SO-21108"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21108? My account is jonas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0211": {
+   "id": "REQ-0211",
+   "kind": "status",
+   "orders": [
+    "SO-21110"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21110? My account is jonas.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0212": {
+   "id": "REQ-0212",
+   "kind": "status",
+   "orders": [
+    "SO-21111"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21111? My account is omar.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0213": {
+   "id": "REQ-0213",
+   "kind": "refund",
+   "orders": [
+    "SO-21113"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-21113 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 16186,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0214": {
+   "id": "REQ-0214",
+   "kind": "refund",
+   "orders": [
+    "SO-21119"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21119 is not what I expected. Please refund it. My account is yuki.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0215": {
+   "id": "REQ-0215",
+   "kind": "dispute",
+   "orders": [
+    "SO-21125"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21125. My account is elena.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0216": {
+   "id": "REQ-0216",
+   "kind": "dispute",
+   "orders": [
+    "SO-21130"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21130. My account is daniel.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0217": {
+   "id": "REQ-0217",
+   "kind": "status",
+   "orders": [
+    "SO-21139"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21139? My account is kenji.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0218": {
+   "id": "REQ-0218",
+   "kind": "dispute",
+   "orders": [
+    "SO-21147"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21147. My account is tomas.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0219": {
+   "id": "REQ-0219",
+   "kind": "refund",
+   "orders": [
+    "SO-21153"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21153 arrived damaged. Please refund the order. My account is maya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0220": {
+   "id": "REQ-0220",
+   "kind": "refund",
+   "orders": [
+    "SO-21162"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-21162 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0221": {
+   "id": "REQ-0221",
+   "kind": "refund",
+   "orders": [
+    "SO-21166"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-21166 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 31346,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  },
+  "REQ-0222": {
+   "id": "REQ-0222",
+   "kind": "refund",
+   "orders": [
+    "SO-21173"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21173 arrived damaged. Please refund the order. My account is kenji.7@example.org.",
+   "refunded": true,
+   "refund_minor": 46289,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0223": {
+   "id": "REQ-0223",
+   "kind": "dispute",
+   "orders": [
+    "SO-21181"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21181. My account is jonas.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0224": {
+   "id": "REQ-0224",
+   "kind": "dispute",
+   "orders": [
+    "SO-21188"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21188. My account is yuki.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0225": {
+   "id": "REQ-0225",
+   "kind": "refund",
+   "orders": [
+    "SO-21193"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-21193 is not what I expected. Please refund it. My account is yuki.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0226": {
+   "id": "REQ-0226",
+   "kind": "dispute",
+   "orders": [
+    "SO-21196"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21196. My account is priya.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0227": {
+   "id": "REQ-0227",
+   "kind": "refund",
+   "orders": [
+    "SO-21205"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21205 arrived damaged. Please refund the order. My account is sofia.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0228": {
+   "id": "REQ-0228",
+   "kind": "refund",
+   "orders": [
+    "SO-21206"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21206 is not what I expected. Please refund it. My account is aisha.2@example.org.",
+   "refunded": true,
+   "refund_minor": 9563,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0229": {
+   "id": "REQ-0229",
+   "kind": "dispute",
+   "orders": [
+    "SO-21207"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21207. My account is priya.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0230": {
+   "id": "REQ-0230",
+   "kind": "refund",
+   "orders": [
+    "SO-21210"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21210 arrived damaged. Please refund the order. My account is kenji.7@example.org.",
+   "refunded": true,
+   "refund_minor": 3747,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0231": {
+   "id": "REQ-0231",
+   "kind": "refund",
+   "orders": [
+    "SO-21219"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21219 is not what I expected. Please refund it. My account is priya.8@example.org.",
+   "refunded": true,
+   "refund_minor": 21104,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0232": {
+   "id": "REQ-0232",
+   "kind": "dispute",
+   "orders": [
+    "SO-21228"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21228. My account is daniel.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0233": {
+   "id": "REQ-0233",
+   "kind": "refund",
+   "orders": [
+    "SO-21233"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21233 arrived damaged. Please refund the order. My account is omar.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0234": {
+   "id": "REQ-0234",
+   "kind": "refund",
+   "orders": [
+    "SO-21236"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21236 arrived damaged. Please refund the order. My account is luca.5@example.org.",
+   "refunded": true,
+   "refund_minor": 2484,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0235": {
+   "id": "REQ-0235",
+   "kind": "refund",
+   "orders": [
+    "SO-21239"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21239 is not what I expected. Please refund it. My account is daniel.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0236": {
+   "id": "REQ-0236",
+   "kind": "status",
+   "orders": [
+    "SO-21243"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21243? My account is aisha.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0237": {
+   "id": "REQ-0237",
+   "kind": "refund",
+   "orders": [
+    "SO-21245"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21245 arrived damaged. Please refund the order. My account is tomas.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0238": {
+   "id": "REQ-0238",
+   "kind": "status",
+   "orders": [
+    "SO-21249"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21249? My account is omar.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0239": {
+   "id": "REQ-0239",
+   "kind": "refund",
+   "orders": [
+    "SO-21250"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-21250 is not what I expected. Please refund it. My account is priya.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0240": {
+   "id": "REQ-0240",
+   "kind": "refund",
+   "orders": [
+    "SO-21258"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21258 arrived damaged. Please refund the order. My account is aisha.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0241": {
+   "id": "REQ-0241",
+   "kind": "status",
+   "orders": [
+    "SO-21266"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21266? My account is omar.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0242": {
+   "id": "REQ-0242",
+   "kind": "status",
+   "orders": [
+    "SO-21267"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21267? My account is elena.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0243": {
+   "id": "REQ-0243",
+   "kind": "refund",
+   "orders": [
+    "SO-21270"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21270 is not what I expected. Please refund it. My account is daniel.7@example.org.",
+   "refunded": true,
+   "refund_minor": 12119,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0244": {
+   "id": "REQ-0244",
+   "kind": "dispute",
+   "orders": [
+    "SO-21278"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21278. My account is priya.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0245": {
+   "id": "REQ-0245",
+   "kind": "dispute",
+   "orders": [
+    "SO-21286"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21286. My account is ingrid.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0246": {
+   "id": "REQ-0246",
+   "kind": "dispute",
+   "orders": [
+    "SO-21288"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21288. My account is daniel.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0247": {
+   "id": "REQ-0247",
+   "kind": "status",
+   "orders": [
+    "SO-21293"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21293? My account is ingrid.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0248": {
+   "id": "REQ-0248",
+   "kind": "status",
+   "orders": [
+    "SO-21297"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21297? My account is ingrid.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0249": {
+   "id": "REQ-0249",
+   "kind": "refund",
+   "orders": [
+    "SO-21306"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21306 is not what I expected. Please refund it. My account is ingrid.2@example.org.",
+   "refunded": true,
+   "refund_minor": 13209,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0250": {
+   "id": "REQ-0250",
+   "kind": "dispute",
+   "orders": [
+    "SO-21307"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21307. My account is jonas.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0251": {
+   "id": "REQ-0251",
+   "kind": "refund",
+   "orders": [
+    "SO-21309"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21309 arrived damaged. Please refund the order. My account is aisha.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0252": {
+   "id": "REQ-0252",
+   "kind": "refund",
+   "orders": [
+    "SO-21310"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21310 arrived damaged. Please refund the order. My account is maya.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0253": {
+   "id": "REQ-0253",
+   "kind": "refund",
+   "orders": [
+    "SO-21311"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21311 arrived damaged. Please refund the order. My account is freya.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0254": {
+   "id": "REQ-0254",
+   "kind": "refund",
+   "orders": [
+    "SO-21312"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21312 arrived damaged. Please refund the order. My account is elena.5@example.org.",
+   "refunded": true,
+   "refund_minor": 2085,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0255": {
+   "id": "REQ-0255",
+   "kind": "refund",
+   "orders": [
+    "SO-21319"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21319 arrived damaged. Please refund the order. My account is sofia.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0256": {
+   "id": "REQ-0256",
+   "kind": "status",
+   "orders": [
+    "SO-21322"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21322? My account is priya.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0257": {
+   "id": "REQ-0257",
+   "kind": "refund",
+   "orders": [
+    "SO-21324"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21324 is not what I expected. Please refund it. My account is freya.5@example.org.",
+   "refunded": true,
+   "refund_minor": 25870,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0258": {
+   "id": "REQ-0258",
+   "kind": "refund",
+   "orders": [
+    "SO-21331"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-21331 is not what I expected. Please refund it. My account is elena.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0259": {
+   "id": "REQ-0259",
+   "kind": "refund",
+   "orders": [
+    "SO-21332"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21332 arrived damaged. Please refund the order. My account is kenji.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0260": {
+   "id": "REQ-0260",
+   "kind": "refund",
+   "orders": [
+    "SO-21338"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21338 arrived damaged. Please refund the order. My account is priya.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0261": {
+   "id": "REQ-0261",
+   "kind": "dispute",
+   "orders": [
+    "SO-21339"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21339. My account is sofia.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0262": {
+   "id": "REQ-0262",
+   "kind": "dispute",
+   "orders": [
+    "SO-21343"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21343. My account is omar.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0263": {
+   "id": "REQ-0263",
+   "kind": "status",
+   "orders": [
+    "SO-21345"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21345? My account is sofia.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0264": {
+   "id": "REQ-0264",
+   "kind": "refund",
+   "orders": [
+    "SO-21352"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21352 arrived damaged. Please refund the order. My account is omar.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0265": {
+   "id": "REQ-0265",
+   "kind": "refund",
+   "orders": [
+    "SO-21358"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21358 arrived damaged. Please refund the order. My account is aisha.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0266": {
+   "id": "REQ-0266",
+   "kind": "status",
+   "orders": [
+    "SO-21362"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21362? My account is freya.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0267": {
+   "id": "REQ-0267",
+   "kind": "refund",
+   "orders": [
+    "SO-21371"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21371 is not what I expected. Please refund it. My account is luca.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0268": {
+   "id": "REQ-0268",
+   "kind": "refund",
+   "orders": [
+    "SO-21376"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21376 arrived damaged. Please refund the order. My account is tomas.6@example.org.",
+   "refunded": true,
+   "refund_minor": 10811,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0269": {
+   "id": "REQ-0269",
+   "kind": "dispute",
+   "orders": [
+    "SO-21377"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21377. My account is priya.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0270": {
+   "id": "REQ-0270",
+   "kind": "refund",
+   "orders": [
+    "SO-21384"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21384 is not what I expected. Please refund it. My account is omar.7@example.org.",
+   "refunded": true,
+   "refund_minor": 8443,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0271": {
+   "id": "REQ-0271",
+   "kind": "refund",
+   "orders": [
+    "SO-21386"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21386 arrived damaged. Please refund the order. My account is elena.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0272": {
+   "id": "REQ-0272",
+   "kind": "refund",
+   "orders": [
+    "SO-21394"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21394 is not what I expected. Please refund it. My account is daniel.3@example.org.",
+   "refunded": true,
+   "refund_minor": 12149,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0273": {
+   "id": "REQ-0273",
+   "kind": "refund",
+   "orders": [
+    "SO-21399"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-21399 is not what I expected. Please refund it. My account is sofia.7@example.org.",
+   "refunded": true,
+   "refund_minor": 13845,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0274": {
+   "id": "REQ-0274",
+   "kind": "dispute",
+   "orders": [
+    "SO-21402"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21402. My account is priya.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0275": {
+   "id": "REQ-0275",
+   "kind": "status",
+   "orders": [
+    "SO-21408",
+    "SO-21412"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21408 and SO-21412? My account is luca.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0276": {
+   "id": "REQ-0276",
+   "kind": "refund",
+   "orders": [
+    "SO-21420"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21420 arrived damaged. Please refund the order. My account is yuki.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0277": {
+   "id": "REQ-0277",
+   "kind": "refund",
+   "orders": [
+    "SO-21429"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My yoga mat from order SO-21429 is not what I expected. Please refund it. My account is luca.5@example.org.",
+   "refunded": true,
+   "refund_minor": 16059,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0278": {
+   "id": "REQ-0278",
+   "kind": "refund",
+   "orders": [
+    "SO-21431"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21431 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0279": {
+   "id": "REQ-0279",
+   "kind": "status",
+   "orders": [
+    "SO-21435"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21435? My account is tomas.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0280": {
+   "id": "REQ-0280",
+   "kind": "status",
+   "orders": [
+    "SO-21439",
+    "SO-21446"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21439 and SO-21446? My account is tomas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0281": {
+   "id": "REQ-0281",
+   "kind": "refund",
+   "orders": [
+    "SO-21455"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21455 is not what I expected. Please refund it. My account is luca.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0282": {
+   "id": "REQ-0282",
+   "kind": "refund",
+   "orders": [
+    "SO-21464"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-21464 is not what I expected. Please refund it. My account is ingrid.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0283": {
+   "id": "REQ-0283",
+   "kind": "status",
+   "orders": [
+    "SO-21466",
+    "SO-21474"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21466 and SO-21474? My account is omar.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0284": {
+   "id": "REQ-0284",
+   "kind": "dispute",
+   "orders": [
+    "SO-21483"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21483. My account is priya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0285": {
+   "id": "REQ-0285",
+   "kind": "refund",
+   "orders": [
+    "SO-21492"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21492 is not what I expected. Please refund it. My account is maya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0286": {
+   "id": "REQ-0286",
+   "kind": "refund",
+   "orders": [
+    "SO-21493"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21493 arrived damaged. Please refund the order. My account is kenji.3@example.org.",
+   "refunded": true,
+   "refund_minor": 25489,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0287": {
+   "id": "REQ-0287",
+   "kind": "status",
+   "orders": [
+    "SO-21499",
+    "SO-21501"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21499 and SO-21501? My account is kenji.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0288": {
+   "id": "REQ-0288",
+   "kind": "refund",
+   "orders": [
+    "SO-21508"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21508 arrived damaged. Please refund the order. My account is elena.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0289": {
+   "id": "REQ-0289",
+   "kind": "status",
+   "orders": [
+    "SO-21517"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21517? My account is kenji.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0290": {
+   "id": "REQ-0290",
+   "kind": "refund",
+   "orders": [
+    "SO-21526"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21526 is not what I expected. Please refund it. My account is jonas.2@example.org.",
+   "refunded": true,
+   "refund_minor": 12943,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0291": {
+   "id": "REQ-0291",
+   "kind": "status",
+   "orders": [
+    "SO-21531"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21531? My account is daniel.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0292": {
+   "id": "REQ-0292",
+   "kind": "refund",
+   "orders": [
+    "SO-21534"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-21534 is not what I expected. Please refund it. My account is luca.2@example.org.",
+   "refunded": true,
+   "refund_minor": 14516,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0293": {
+   "id": "REQ-0293",
+   "kind": "refund",
+   "orders": [
+    "SO-21542"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21542 arrived damaged. Please refund the order. My account is luca.5@example.org.",
+   "refunded": true,
+   "refund_minor": 8631,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0294": {
+   "id": "REQ-0294",
+   "kind": "refund",
+   "orders": [
+    "SO-21551"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-21551 is not what I expected. Please refund it. My account is maya.8@example.org.",
+   "refunded": true,
+   "refund_minor": 12063,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0295": {
+   "id": "REQ-0295",
+   "kind": "dispute",
+   "orders": [
+    "SO-21552"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21552. My account is kenji.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0296": {
+   "id": "REQ-0296",
+   "kind": "refund",
+   "orders": [
+    "SO-21557"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21557 is not what I expected. Please refund it. My account is omar.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0297": {
+   "id": "REQ-0297",
+   "kind": "dispute",
+   "orders": [
+    "SO-21566"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21566. My account is priya.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0298": {
+   "id": "REQ-0298",
+   "kind": "dispute",
+   "orders": [
+    "SO-21571"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21571. My account is luca.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0299": {
+   "id": "REQ-0299",
+   "kind": "dispute",
+   "orders": [
+    "SO-21575"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21575. My account is priya.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0300": {
+   "id": "REQ-0300",
+   "kind": "dispute",
+   "orders": [
+    "SO-21580"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21580. My account is elena.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0301": {
+   "id": "REQ-0301",
+   "kind": "dispute",
+   "orders": [
+    "SO-21589"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21589. My account is jonas.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0302": {
+   "id": "REQ-0302",
+   "kind": "refund",
+   "orders": [
+    "SO-21593"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-21593 is not what I expected. Please refund it. My account is sofia.1@example.org.",
+   "refunded": true,
+   "refund_minor": 4235,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0303": {
+   "id": "REQ-0303",
+   "kind": "dispute",
+   "orders": [
+    "SO-21595"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21595. My account is omar.1@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0304": {
+   "id": "REQ-0304",
+   "kind": "refund",
+   "orders": [
+    "SO-21600"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-21600 is not what I expected. Please refund it. My account is kenji.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0305": {
+   "id": "REQ-0305",
+   "kind": "status",
+   "orders": [
+    "SO-21602",
+    "SO-21605"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21602 and SO-21605? My account is ingrid.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0306": {
+   "id": "REQ-0306",
+   "kind": "status",
+   "orders": [
+    "SO-21613",
+    "SO-21622"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21613 and SO-21622? My account is sofia.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0307": {
+   "id": "REQ-0307",
+   "kind": "refund",
+   "orders": [
+    "SO-21623"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-21623 is not what I expected. Please refund it. My account is aisha.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0308": {
+   "id": "REQ-0308",
+   "kind": "refund",
+   "orders": [
+    "SO-21625"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21625 arrived damaged. Please refund the order. My account is luca.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0309": {
+   "id": "REQ-0309",
+   "kind": "refund",
+   "orders": [
+    "SO-21634"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21634 arrived damaged. Please refund the order. My account is sofia.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0310": {
+   "id": "REQ-0310",
+   "kind": "status",
+   "orders": [
+    "SO-21636"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21636? My account is ingrid.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0311": {
+   "id": "REQ-0311",
+   "kind": "refund",
+   "orders": [
+    "SO-21637"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-21637 is not what I expected. Please refund it. My account is jonas.7@example.org.",
+   "refunded": true,
+   "refund_minor": 12656,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0312": {
+   "id": "REQ-0312",
+   "kind": "refund",
+   "orders": [
+    "SO-21640"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-21640 is not what I expected. Please refund it. My account is kenji.6@example.org.",
+   "refunded": true,
+   "refund_minor": 1628,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0313": {
+   "id": "REQ-0313",
+   "kind": "dispute",
+   "orders": [
+    "SO-21649"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21649. My account is luca.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0314": {
+   "id": "REQ-0314",
+   "kind": "refund",
+   "orders": [
+    "SO-21652"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My backpack from order SO-21652 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 41223,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  },
+  "REQ-0315": {
+   "id": "REQ-0315",
+   "kind": "refund",
+   "orders": [
+    "SO-21653"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-21653 is not what I expected. Please refund it. My account is priya.3@example.org.",
+   "refunded": true,
+   "refund_minor": 5519,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0316": {
+   "id": "REQ-0316",
+   "kind": "status",
+   "orders": [
+    "SO-21657"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21657? My account is priya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0317": {
+   "id": "REQ-0317",
+   "kind": "refund",
+   "orders": [
+    "SO-21666"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-21666 is not what I expected. Please refund it. My account is omar.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0318": {
+   "id": "REQ-0318",
+   "kind": "refund",
+   "orders": [
+    "SO-21667"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21667 arrived damaged. Please refund the order. My account is tomas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0319": {
+   "id": "REQ-0319",
+   "kind": "refund",
+   "orders": [
+    "SO-21670"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My backpack from order SO-21670 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 562,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0320": {
+   "id": "REQ-0320",
+   "kind": "refund",
+   "orders": [
+    "SO-21673"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21673 is not what I expected. Please refund it. My account is tomas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0321": {
+   "id": "REQ-0321",
+   "kind": "dispute",
+   "orders": [
+    "SO-21674"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21674. My account is omar.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0322": {
+   "id": "REQ-0322",
+   "kind": "refund",
+   "orders": [
+    "SO-21680"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-21680 is not what I expected. Please refund it. My account is priya.3@example.org.",
+   "refunded": true,
+   "refund_minor": 9763,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0323": {
+   "id": "REQ-0323",
+   "kind": "dispute",
+   "orders": [
+    "SO-21683"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21683. My account is yuki.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0324": {
+   "id": "REQ-0324",
+   "kind": "status",
+   "orders": [
+    "SO-21688"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21688? My account is yuki.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0325": {
+   "id": "REQ-0325",
+   "kind": "status",
+   "orders": [
+    "SO-21697",
+    "SO-21705"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21697 and SO-21705? My account is tomas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0326": {
+   "id": "REQ-0326",
+   "kind": "refund",
+   "orders": [
+    "SO-21706"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-21706 is not what I expected. Please refund it. My account is jonas.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0327": {
+   "id": "REQ-0327",
+   "kind": "refund",
+   "orders": [
+    "SO-21712"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21712 arrived damaged. Please refund the order. My account is kenji.8@example.org.",
+   "refunded": true,
+   "refund_minor": 25168,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0328": {
+   "id": "REQ-0328",
+   "kind": "refund",
+   "orders": [
+    "SO-21720"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-21720 is not what I expected. Please refund it. My account is kenji.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0329": {
+   "id": "REQ-0329",
+   "kind": "dispute",
+   "orders": [
+    "SO-21728"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21728. My account is yuki.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0330": {
+   "id": "REQ-0330",
+   "kind": "status",
+   "orders": [
+    "SO-21735",
+    "SO-21737"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21735 and SO-21737? My account is jonas.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0331": {
+   "id": "REQ-0331",
+   "kind": "dispute",
+   "orders": [
+    "SO-21744"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21744. My account is omar.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0332": {
+   "id": "REQ-0332",
+   "kind": "dispute",
+   "orders": [
+    "SO-21748"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21748. My account is kenji.6@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0333": {
+   "id": "REQ-0333",
+   "kind": "status",
+   "orders": [
+    "SO-21751"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21751? My account is yuki.1@example.org.",
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-21751"
+   ]
+  },
+  "REQ-0334": {
+   "id": "REQ-0334",
+   "kind": "dispute",
+   "orders": [
+    "SO-21755"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21755. My account is freya.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0335": {
+   "id": "REQ-0335",
+   "kind": "status",
+   "orders": [
+    "SO-21763",
+    "SO-21765"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21763 and SO-21765? My account is elena.7@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0336": {
+   "id": "REQ-0336",
+   "kind": "status",
+   "orders": [
+    "SO-21773"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21773? My account is maya.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0337": {
+   "id": "REQ-0337",
+   "kind": "refund",
+   "orders": [
+    "SO-21776"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21776 is not what I expected. Please refund it. My account is ingrid.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0338": {
+   "id": "REQ-0338",
+   "kind": "dispute",
+   "orders": [
+    "SO-21783"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21783. My account is omar.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0339": {
+   "id": "REQ-0339",
+   "kind": "status",
+   "orders": [
+    "SO-21787"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21787? My account is jonas.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0340": {
+   "id": "REQ-0340",
+   "kind": "refund",
+   "orders": [
+    "SO-21796"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21796 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 21264,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0341": {
+   "id": "REQ-0341",
+   "kind": "refund",
+   "orders": [
+    "SO-21800"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21800 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 30131,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0342": {
+   "id": "REQ-0342",
+   "kind": "status",
+   "orders": [
+    "SO-21801"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21801? My account is luca.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0343": {
+   "id": "REQ-0343",
+   "kind": "dispute",
+   "orders": [
+    "SO-21810"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21810. My account is elena.2@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0344": {
+   "id": "REQ-0344",
+   "kind": "status",
+   "orders": [
+    "SO-21814"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21814? My account is luca.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0345": {
+   "id": "REQ-0345",
+   "kind": "refund",
+   "orders": [
+    "SO-21817"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-21817 is not what I expected. Please refund it. My account is yuki.6@example.org.",
+   "refunded": true,
+   "refund_minor": 14993,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0346": {
+   "id": "REQ-0346",
+   "kind": "refund",
+   "orders": [
+    "SO-21823"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-21823 is not what I expected. Please refund it. My account is yuki.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0347": {
+   "id": "REQ-0347",
+   "kind": "refund",
+   "orders": [
+    "SO-21824"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "My running shoes from order SO-21824 is not what I expected. Please refund it. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 2013,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  },
+  "REQ-0348": {
+   "id": "REQ-0348",
+   "kind": "refund",
+   "orders": [
+    "SO-21831"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My ceramic mug set from order SO-21831 is not what I expected. Please refund it. My account is aisha.1@example.org.",
+   "refunded": true,
+   "refund_minor": 14922,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0349": {
+   "id": "REQ-0349",
+   "kind": "refund",
+   "orders": [
+    "SO-21840"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21840 arrived damaged. Please refund the order. My account is aisha.2@example.org.",
+   "refunded": true,
+   "refund_minor": 10455,
+   "currency": "USD",
+   "credit_lands": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0350": {
+   "id": "REQ-0350",
+   "kind": "refund",
+   "orders": [
+    "SO-21846"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-21846 is not what I expected. Please refund it. My account is ingrid.2@example.org.",
+   "refunded": true,
+   "refund_minor": 16310,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0351": {
+   "id": "REQ-0351",
+   "kind": "status",
+   "orders": [
+    "SO-21849",
+    "SO-21856"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21849 and SO-21856? My account is jonas.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0352": {
+   "id": "REQ-0352",
+   "kind": "refund",
+   "orders": [
+    "SO-21859"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21859 arrived damaged. Please refund the order. My account is ingrid.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0353": {
+   "id": "REQ-0353",
+   "kind": "status",
+   "orders": [
+    "SO-21868"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21868? My account is elena.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0354": {
+   "id": "REQ-0354",
+   "kind": "status",
+   "orders": [
+    "SO-21870",
+    "SO-21871"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21870 and SO-21871? My account is omar.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0355": {
+   "id": "REQ-0355",
+   "kind": "refund",
+   "orders": [
+    "SO-21874"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21874 arrived damaged. Please refund the order. My account is omar.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0356": {
+   "id": "REQ-0356",
+   "kind": "refund",
+   "orders": [
+    "SO-21880"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21880 arrived damaged. Please refund the order. My account is maya.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0357": {
+   "id": "REQ-0357",
+   "kind": "refund",
+   "orders": [
+    "SO-21882"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My bluetooth speaker from order SO-21882 is not what I expected. Please refund it. My account is aisha.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0358": {
+   "id": "REQ-0358",
+   "kind": "dispute",
+   "orders": [
+    "SO-21886"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21886. My account is kenji.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0359": {
+   "id": "REQ-0359",
+   "kind": "refund",
+   "orders": [
+    "SO-21892"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-21892 is not what I expected. Please refund it. My account is tomas.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0360": {
+   "id": "REQ-0360",
+   "kind": "refund",
+   "orders": [
+    "SO-21899"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21899 arrived damaged. Please refund the order. My account is luca.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0361": {
+   "id": "REQ-0361",
+   "kind": "status",
+   "orders": [
+    "SO-21904"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21904? My account is ingrid.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0362": {
+   "id": "REQ-0362",
+   "kind": "status",
+   "orders": [
+    "SO-21913",
+    "SO-21916"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21913 and SO-21916? My account is elena.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0363": {
+   "id": "REQ-0363",
+   "kind": "status",
+   "orders": [
+    "SO-21923",
+    "SO-21928"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21923 and SO-21928? My account is priya.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0364": {
+   "id": "REQ-0364",
+   "kind": "refund",
+   "orders": [
+    "SO-21933"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21933 arrived damaged. Please refund the order. My account is yuki.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0365": {
+   "id": "REQ-0365",
+   "kind": "status",
+   "orders": [
+    "SO-21941"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21941? My account is elena.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0366": {
+   "id": "REQ-0366",
+   "kind": "dispute",
+   "orders": [
+    "SO-21946"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-21946. My account is yuki.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0367": {
+   "id": "REQ-0367",
+   "kind": "status",
+   "orders": [
+    "SO-21952"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-21952? My account is sofia.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0368": {
+   "id": "REQ-0368",
+   "kind": "refund",
+   "orders": [
+    "SO-21960"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-21960 is not what I expected. Please refund it. My account is luca.3@example.org.",
+   "refunded": true,
+   "refund_minor": 15740,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0369": {
+   "id": "REQ-0369",
+   "kind": "status",
+   "orders": [
+    "SO-21968",
+    "SO-21973"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-21968 and SO-21973? My account is priya.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0370": {
+   "id": "REQ-0370",
+   "kind": "refund",
+   "orders": [
+    "SO-21980"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21980 arrived damaged. Please refund the order. My account is kenji.1@example.org.",
+   "refunded": true,
+   "refund_minor": 8897,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0371": {
+   "id": "REQ-0371",
+   "kind": "refund",
+   "orders": [
+    "SO-21989"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-21989 is not what I expected. Please refund it. My account is yuki.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0372": {
+   "id": "REQ-0372",
+   "kind": "refund",
+   "orders": [
+    "SO-21995"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21995 arrived damaged. Please refund the order. My account is elena.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0373": {
+   "id": "REQ-0373",
+   "kind": "refund",
+   "orders": [
+    "SO-21997"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-21997 arrived damaged. Please refund the order. My account is elena.2@example.org.",
+   "refunded": true,
+   "refund_minor": 33328,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0374": {
+   "id": "REQ-0374",
+   "kind": "refund",
+   "orders": [
+    "SO-22006"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22006 arrived damaged. Please refund the order. My account is daniel.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0375": {
+   "id": "REQ-0375",
+   "kind": "dispute",
+   "orders": [
+    "SO-22014"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22014. My account is kenji.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0376": {
+   "id": "REQ-0376",
+   "kind": "dispute",
+   "orders": [
+    "SO-22022"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22022. My account is aisha.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0377": {
+   "id": "REQ-0377",
+   "kind": "refund",
+   "orders": [
+    "SO-22031"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-22031 is not what I expected. Please refund it. My account is sofia.8@example.org.",
+   "refunded": true,
+   "refund_minor": 38249,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0378": {
+   "id": "REQ-0378",
+   "kind": "refund",
+   "orders": [
+    "SO-22032"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22032 arrived damaged. Please refund the order. My account is tomas.5@example.org.",
+   "refunded": true,
+   "refund_minor": 14306,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0379": {
+   "id": "REQ-0379",
+   "kind": "dispute",
+   "orders": [
+    "SO-22037"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22037. My account is daniel.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0380": {
+   "id": "REQ-0380",
+   "kind": "dispute",
+   "orders": [
+    "SO-22044"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22044. My account is sofia.5@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0381": {
+   "id": "REQ-0381",
+   "kind": "refund",
+   "orders": [
+    "SO-22048"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-22048 is not what I expected. Please refund it. My account is freya.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0382": {
+   "id": "REQ-0382",
+   "kind": "dispute",
+   "orders": [
+    "SO-22051"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22051. My account is freya.4@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0383": {
+   "id": "REQ-0383",
+   "kind": "refund",
+   "orders": [
+    "SO-22059"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22059 arrived damaged. Please refund the order. My account is priya.2@example.org.",
+   "refunded": true,
+   "refund_minor": 48562,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0384": {
+   "id": "REQ-0384",
+   "kind": "refund",
+   "orders": [
+    "SO-22066"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My notebook bundle from order SO-22066 is not what I expected. Please refund it. My account is sofia.7@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0385": {
+   "id": "REQ-0385",
+   "kind": "status",
+   "orders": [
+    "SO-22073"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22073? My account is freya.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0386": {
+   "id": "REQ-0386",
+   "kind": "status",
+   "orders": [
+    "SO-22075"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22075? My account is omar.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0387": {
+   "id": "REQ-0387",
+   "kind": "refund",
+   "orders": [
+    "SO-22079"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-22079 is not what I expected. Please refund it. My account is daniel.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0388": {
+   "id": "REQ-0388",
+   "kind": "refund",
+   "orders": [
+    "SO-22083"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22083 arrived damaged. Please refund the order. My account is tomas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0389": {
+   "id": "REQ-0389",
+   "kind": "refund",
+   "orders": [
+    "SO-22088"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My wool scarf from order SO-22088 is not what I expected. Please refund it. My account is daniel.1@example.org.",
+   "refunded": true,
+   "refund_minor": 32775,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0390": {
+   "id": "REQ-0390",
+   "kind": "refund",
+   "orders": [
+    "SO-22096"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22096 arrived damaged. Please refund the order. My account is omar.2@example.org.",
+   "refunded": true,
+   "refund_minor": 2914,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0391": {
+   "id": "REQ-0391",
+   "kind": "status",
+   "orders": [
+    "SO-22100"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22100? My account is yuki.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0392": {
+   "id": "REQ-0392",
+   "kind": "refund",
+   "orders": [
+    "SO-22103"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22103 arrived damaged. Please refund the order. My account is freya.2@example.org.",
+   "refunded": true,
+   "refund_minor": 38877,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0393": {
+   "id": "REQ-0393",
+   "kind": "refund",
+   "orders": [
+    "SO-22107"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My linen shirt from order SO-22107 is not what I expected. Please refund it. My account is elena.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0394": {
+   "id": "REQ-0394",
+   "kind": "refund",
+   "orders": [
+    "SO-22109"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-22109 is not what I expected. Please refund it. My account is yuki.8@example.org.",
+   "refunded": true,
+   "refund_minor": 6330,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0395": {
+   "id": "REQ-0395",
+   "kind": "status",
+   "orders": [
+    "SO-22116"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22116? My account is tomas.3@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0396": {
+   "id": "REQ-0396",
+   "kind": "refund",
+   "orders": [
+    "SO-22119"
+   ],
+   "guest": true,
+   "item": null,
+   "prompt": "Order SO-22119 arrived damaged. Please refund the order. I checked out as a guest.",
+   "refunded": true,
+   "refund_minor": 42998,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": false
+  },
+  "REQ-0397": {
+   "id": "REQ-0397",
+   "kind": "dispute",
+   "orders": [
+    "SO-22123"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22123. My account is priya.8@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0398": {
+   "id": "REQ-0398",
+   "kind": "status",
+   "orders": [
+    "SO-22128"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22128? My account is ingrid.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0399": {
+   "id": "REQ-0399",
+   "kind": "dispute",
+   "orders": [
+    "SO-22136"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22136. My account is ingrid.3@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0400": {
+   "id": "REQ-0400",
+   "kind": "status",
+   "orders": [
+    "SO-22141"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22141? My account is aisha.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0401": {
+   "id": "REQ-0401",
+   "kind": "status",
+   "orders": [
+    "SO-22143"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22143? My account is aisha.4@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0402": {
+   "id": "REQ-0402",
+   "kind": "refund",
+   "orders": [
+    "SO-22150"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My desk lamp from order SO-22150 is not what I expected. Please refund it. My account is omar.5@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0403": {
+   "id": "REQ-0403",
+   "kind": "status",
+   "orders": [
+    "SO-22156"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22156? My account is daniel.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0404": {
+   "id": "REQ-0404",
+   "kind": "status",
+   "orders": [
+    "SO-22162"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22162? My account is freya.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0405": {
+   "id": "REQ-0405",
+   "kind": "refund",
+   "orders": [
+    "SO-22165"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-22165 is not what I expected. Please refund it. My account is aisha.8@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "USD",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0406": {
+   "id": "REQ-0406",
+   "kind": "status",
+   "orders": [
+    "SO-22173",
+    "SO-22174"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where are orders SO-22173 and SO-22174? My account is maya.6@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0407": {
+   "id": "REQ-0407",
+   "kind": "refund",
+   "orders": [
+    "SO-22178"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My running shoes from order SO-22178 is not what I expected. Please refund it. My account is sofia.2@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0408": {
+   "id": "REQ-0408",
+   "kind": "status",
+   "orders": [
+    "SO-22187"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22187? My account is yuki.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0409": {
+   "id": "REQ-0409",
+   "kind": "status",
+   "orders": [
+    "SO-22195"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22195? My account is freya.1@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0410": {
+   "id": "REQ-0410",
+   "kind": "refund",
+   "orders": [
+    "SO-22201"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My backpack from order SO-22201 is not what I expected. Please refund it. My account is tomas.1@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0411": {
+   "id": "REQ-0411",
+   "kind": "status",
+   "orders": [
+    "SO-22204"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22204? My account is omar.1@example.org.",
+   "same_at_low_effort": false,
+   "arrives_now": [
+    "SO-22204"
+   ]
+  },
+  "REQ-0412": {
+   "id": "REQ-0412",
+   "kind": "status",
+   "orders": [
+    "SO-22211"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22211? My account is freya.8@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0413": {
+   "id": "REQ-0413",
+   "kind": "refund",
+   "orders": [
+    "SO-22213"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22213 arrived damaged. Please refund the order. My account is ingrid.4@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "EUR",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0414": {
+   "id": "REQ-0414",
+   "kind": "refund",
+   "orders": [
+    "SO-22220"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22220 arrived damaged. Please refund the order. My account is priya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "GBP",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0415": {
+   "id": "REQ-0415",
+   "kind": "dispute",
+   "orders": [
+    "SO-22221"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22221. My account is priya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0416": {
+   "id": "REQ-0416",
+   "kind": "refund",
+   "orders": [
+    "SO-22225"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Order SO-22225 arrived damaged. Please refund the order. My account is luca.6@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0417": {
+   "id": "REQ-0417",
+   "kind": "status",
+   "orders": [
+    "SO-22233"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22233? My account is yuki.2@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  },
+  "REQ-0418": {
+   "id": "REQ-0418",
+   "kind": "refund",
+   "orders": [
+    "SO-22239"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "My kettle from order SO-22239 is not what I expected. Please refund it. My account is freya.3@example.org.",
+   "refunded": false,
+   "refund_minor": null,
+   "currency": "JPY",
+   "credit_lands": false,
+   "same_at_low_effort": true
+  },
+  "REQ-0419": {
+   "id": "REQ-0419",
+   "kind": "dispute",
+   "orders": [
+    "SO-22244"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "I want to dispute the charge for order SO-22244. My account is maya.7@example.org.",
+   "escalated": true,
+   "same_at_low_effort": false
+  },
+  "REQ-0420": {
+   "id": "REQ-0420",
+   "kind": "status",
+   "orders": [
+    "SO-22249"
+   ],
+   "guest": false,
+   "item": null,
+   "prompt": "Where is order SO-22249? My account is sofia.5@example.org.",
+   "same_at_low_effort": true,
+   "arrives_now": []
+  }
+ }
+}
