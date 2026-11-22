@@ -4,7 +4,7 @@ The tasks are the Harbor task directories in https://github.com/zenml-io/zenml-b
 verifiers where to find them and which image each one runs in. Rewards come from each task's own verifier
 (`/logs/verifier/reward.json`), so nothing is re-implemented here. See docs/publishing.md in that repo.
 
-    uv run eval zenml-bench -m <model> ...     # verifiers v1 CLI (`vf-eval` is the legacy runner and cannot load this)
+    uv run vf-run zenml-bench -m <model> ...     # verifiers v1 CLI (0.4.1 or newer)
 
 Images: verifiers never builds a task's `environment/Dockerfile`; it only pulls or reuses an image by name. Every
 zenml-bench task is Dockerfile-only (the Dockerfile copies the project in and seeds the ZenML store), so this
@@ -15,7 +15,7 @@ point `image_template` at it (Prime sandboxes).
 from pathlib import Path
 
 import verifiers.v1 as vf
-from verifiers.v1.tasksets.harbor import HarborConfig, HarborEnv, HarborTask, HarborTaskset
+from verifiers.v1.tasksets.harbor import HarborConfig, HarborTask, HarborTaskset
 
 REPO = "zenml-io/zenml-bench"
 VERSION = "0.1.0"
@@ -53,6 +53,5 @@ def load_taskset(config: ZenmlBenchConfig | None = None) -> ZenmlBenchTaskset:
     return ZenmlBenchTaskset(config or ZenmlBenchConfig())
 
 
-# verifiers resolves plugins through `__all__`: exactly one Taskset subclass, and the Harbor env so separate-verifier
-# grading and `--env.verifier-runtime` work if a task ever asks for them.
-__all__ = ["ZenmlBenchConfig", "ZenmlBenchTaskset", "HarborEnv", "load_taskset"]
+# verifiers resolves plugins through `__all__`: exactly one Taskset subclass.
+__all__ = ["ZenmlBenchConfig", "ZenmlBenchTaskset", "load_taskset"]
