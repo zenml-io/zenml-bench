@@ -1,4 +1,4 @@
-FROM us-docker.pkg.dev/zenml-core/kitaru-bench/base:0.27.7-1@sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9
+FROM docker.io/zenmldocker/kitaru-bench-base:0.27.7-1@sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9
 
 # ---- world: helpdesk-services ----
 # The assistant in /app/releases really runs here. Its lookups go to the order service and its refunds to the finance

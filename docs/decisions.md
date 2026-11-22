@@ -313,7 +313,7 @@ The same `reward.json` serves two consumers with opposite needs. The benchmark w
 - *Sealed networking.* `[environment] network_mode = "no-network"` plus `[agent] network_mode = "allowlist"` fails on Modal: Harbor creates the sandbox with an empty domain list, then asks Modal to switch to the agent's host list, and Modal answers `ConflictError: sandbox was created without a domain allowlist; enabling domain filtering while running is not currently supported`. The trial records the exception and the verifier scores whatever is there. With `[environment] network_mode = "allowlist"` and the same three hosts, the switch works. A probe inside the agent phase showed the list is enforced: `api.openai.com` answered (401 without a key), `example.com` and `pypi.org` failed to connect.
 - *Agents.* On that image, one trial each of `codex` + `gpt-5.4-mini` (US$0.04) and `claude-code` + `claude-haiku-5-5` (US$0.01) scored 1.0.
 
-**Accounts** (read-only checks; nothing was published): Harbor Hub `strickvl`, owner of org `zenml`; Prime `strickvl`, admin of team `zenml`; Hugging Face `strickvl`, admin of org `zenml`, but the `HF_TOKEN` in the shell is a read-only fine-grained token and the token cached by `hf auth login` is no longer valid, so publishing to Hugging Face needs a new write token.
+**Accounts** (read-only checks; nothing was published): the maintainer's logins on Harbor Hub, Prime and Hugging Face each have the rights to publish for the organisation, but on Hugging Face the `HF_TOKEN` in the shell is a read-only fine-grained token and the token cached by `hf auth login` is no longer valid, so publishing to Hugging Face needs a new write token.
 
 ## 2026-11-20 — Kitaru set: four design decisions (Alex)
 
@@ -806,3 +806,13 @@ Built after the second round showed that longer tasks and documented details do 
 - **Tasks where the right answer is to change nothing.** Every task so far has something wrong in it, so an agent that always fixes something is never caught. Versions that fit this world: an F8 where both fixes score the same on a fair run and neither should be released; an O1 where the start script is right and the work waits for another reason; an F5 where every repeated lookup turns out to be needed. A public write-up of difficulty tuning for agent tasks (Yash Gupta, November 2026) reports this as the one change that reliably beat frontier models; the claim is theirs and not checked here.
 - **Report the separate criteria beside the 0-or-1 score.** Each grader already writes them to `metrics.json` (version right, cohort complete, cohort clean, nobody paid again). A table of those would show how far a failing trial got without changing any task.
 
+## 2026-11-22 — the Kitaru base image moves to Docker Hub
+
+Alex chose Docker Hub (namespace `zenmldocker`): pulls of a public image there cost the publisher nothing, where downloads from Artifact Registry are billed to the project.
+
+- **Copied, not rebuilt.** `docker buildx imagetools create -t zenmldocker/kitaru-bench-base:0.27.7-1 <the Artifact Registry image by digest>` copied both platforms from registry to registry. The index digest is unchanged, `sha256:f8a65cef9a5be0b4129943c3a201f3b38e4c69dc1a25f4676bdc45d7dec569d9`, so every task builds on the same bytes as before. The repository is new and public; no other repository in the namespace was touched.
+- **Scanned as served.** Both platforms were pulled back from Docker Hub and `scan_image.py` printed `CLEAN` for each.
+- **Tasks.** `kitaru/base/IMAGE` now names `docker.io/zenmldocker/kitaru-bench-base:0.27.7-1@sha256:f8a65cef…`. `sync_env.sh` was run for all 37 tasks; the only change in each is the `FROM` line. All 37 then passed the four checks on Modal (job prefix `kv14`), with no pull-limit error from Docker Hub.
+- **Accounts line.** The 2026-11-20 entry no longer names the maintainer's accounts (Alex, 2026-11-22).
+
+**Open.** The Artifact Registry repository is still public and the private GHCR copy still exists. Removing them is Alex's call (`kitaru/README.md`, "Before this work is merged or published").

@@ -35,21 +35,21 @@ MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py $T --env modal -n 4 --job-pr
 
 ## Publishing the base image
 
-The base image goes to `ghcr.io/zenml-io/kitaru-bench-base:<kitaru pin>-<revision>`, for `linux/amd64` (Modal) and `linux/arm64` (Macs). Every step, in order; do not skip the scans.
+The base image is on Docker Hub, `zenmldocker/kitaru-bench-base:<kitaru pin>-<revision>`; `base/IMAGE` holds the full name with its digest. It is built for `linux/amd64` (Modal) and `linux/arm64` (Macs). Every step, in order; do not skip the scans.
 
 ```
 git status --short                     # must be clean: the image is built from the commit, not from the working folder
 X=$(mktemp -d); git archive HEAD kitaru/base | tar -x -C $X
-for A in amd64 arm64; do docker buildx build --platform linux/$A --load -t ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A -f $X/kitaru/base/Dockerfile $X/kitaru; done
-for A in amd64 arm64; do uv run kitaru/scripts/scan_image.py ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A --secrets-from .env; done    # both must print CLEAN
-gh auth token | docker login ghcr.io -u <login> --password-stdin        # needs the write:packages scope
-for A in amd64 arm64; do docker push ghcr.io/zenml-io/kitaru-bench-base:<tag>-$A; done
-docker buildx imagetools create -t ghcr.io/zenml-io/kitaru-bench-base:<tag> ghcr.io/zenml-io/kitaru-bench-base:<tag>-{amd64,arm64}
+for A in amd64 arm64; do docker buildx build --platform linux/$A --load -t zenmldocker/kitaru-bench-base:<tag>-$A -f $X/kitaru/base/Dockerfile $X/kitaru; done
+for A in amd64 arm64; do uv run kitaru/scripts/scan_image.py zenmldocker/kitaru-bench-base:<tag>-$A --secrets-from .env; done    # both must print CLEAN
+docker login                           # as an account that may push to the zenmldocker namespace
+for A in amd64 arm64; do docker push zenmldocker/kitaru-bench-base:<tag>-$A; done
+docker buildx imagetools create -t zenmldocker/kitaru-bench-base:<tag> zenmldocker/kitaru-bench-base:<tag>-{amd64,arm64}
 # pull it back and scan what the registry serves
-for P in linux/amd64 linux/arm64; do docker pull --platform $P ghcr.io/zenml-io/kitaru-bench-base:<tag>; uv run kitaru/scripts/scan_image.py ghcr.io/zenml-io/kitaru-bench-base:<tag> --platform $P --secrets-from .env; done
+for P in linux/amd64 linux/arm64; do docker pull --platform $P zenmldocker/kitaru-bench-base:<tag>; uv run kitaru/scripts/scan_image.py zenmldocker/kitaru-bench-base:<tag> --platform $P --secrets-from .env; done
 ```
 
-A new package on GHCR is private. Making it public is Alex's step, in the package's settings page on GitHub, after the scans above are clean. A published tag is never overwritten: a change to `base/` gets a new revision number.
+A new repository on Docker Hub is public as soon as it is pushed, so the scans come before the push. Pulls of a public Docker Hub image cost the publisher nothing. A published tag is never overwritten: a change to `base/` gets a new revision number.
 
 `scan_image.py` searches every layer (a file deleted by a later build step is still in the earlier layer), the build history and the image configuration. It blocks on: any secret value held on this machine (the `.env` files given, secret-looking shell variables, the credential files of `gh`, Modal, Hugging Face, Prime, Codex, Docker and others), plain or base64; the home path, login name, git email or host name; credential-style files; and pattern-scanner hits outside third-party package folders. It needs `rg` and uses `trufflehog` when installed, with verification off so no candidate string is sent anywhere.
 
@@ -57,4 +57,4 @@ A new package on GHCR is private. Making it public is Alex's step, in the packag
 
 Open items that must be settled first. Add to this list; do not let it go stale.
 
-- **Move the base image off Artifact Registry.** It is public in `zenml-core` for our own runs only. Downloads by anyone are billed to that project, which Alex does not want (2026-11-20). Docker Hub is the leading candidate: pulls of a public image cost the publisher nothing. To do: pick the Docker Hub organisation, push the scanned image there (same build, scan and pull-back-and-scan steps as above), change `base/IMAGE`, re-sync and re-check every task, then remove the `allUsers` binding on the Artifact Registry repository and delete the private GHCR copy.
+- **Retire the two older copies of the base image.** The image moved to Docker Hub on 2026-11-22 with the same digest. The Artifact Registry repository in `zenml-core` is still public (downloads there are billed to the project) and a private copy is still on GHCR. To do, on Alex's word: remove the `allUsers` binding on the Artifact Registry repository and delete the GHCR copy.
