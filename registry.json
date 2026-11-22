@@ -77,5 +77,160 @@
         "path": "tasks/r2-screen-then-confirm"
       }
     ]
+  },
+  {
+    "name": "kitaru-bench",
+    "version": "0.1.0",
+    "description": "Kitaru Bench v0.1: 37 Harbor tasks where coding agents check, diagnose, import, replay and set up agents with real Kitaru 0.27.7. Every task passed the four verifier checks (oracle 5/5, nop 0, shortcuts 0, alternatives 1). https://github.com/zenml-io/zenml-bench",
+    "tasks": [
+      {
+        "name": "c1-rule-from-builtins",
+        "path": "kitaru/tasks/c1-rule-from-builtins"
+      },
+      {
+        "name": "c1h-two-rules-from-builtins",
+        "path": "kitaru/tasks/c1h-two-rules-from-builtins"
+      },
+      {
+        "name": "c2-finding-to-check",
+        "path": "kitaru/tasks/c2-finding-to-check"
+      },
+      {
+        "name": "c3-evaluator-is-wrong",
+        "path": "kitaru/tasks/c3-evaluator-is-wrong"
+      },
+      {
+        "name": "c4-backfill-one-release",
+        "path": "kitaru/tasks/c4-backfill-one-release"
+      },
+      {
+        "name": "c5-agree-with-reviewers",
+        "path": "kitaru/tasks/c5-agree-with-reviewers"
+      },
+      {
+        "name": "c6-check-before-merge",
+        "path": "kitaru/tasks/c6-check-before-merge"
+      },
+      {
+        "name": "c7-fix-check-then-backfill",
+        "path": "kitaru/tasks/c7-fix-check-then-backfill"
+      },
+      {
+        "name": "d1-wrong-clinic",
+        "path": "kitaru/tasks/d1-wrong-clinic"
+      },
+      {
+        "name": "d2-was-it-the-release",
+        "path": "kitaru/tasks/d2-was-it-the-release"
+      },
+      {
+        "name": "d3-answers-cut-off",
+        "path": "kitaru/tasks/d3-answers-cut-off"
+      },
+      {
+        "name": "d4-what-broke",
+        "path": "kitaru/tasks/d4-what-broke"
+      },
+      {
+        "name": "d5-did-the-hotfix-work",
+        "path": "kitaru/tasks/d5-did-the-hotfix-work"
+      },
+      {
+        "name": "d6-refunded-too-much",
+        "path": "kitaru/tasks/d6-refunded-too-much"
+      },
+      {
+        "name": "d7-slower-no-release",
+        "path": "kitaru/tasks/d7-slower-no-release"
+      },
+      {
+        "name": "d8-six-to-read",
+        "path": "kitaru/tasks/d8-six-to-read"
+      },
+      {
+        "name": "d8h-triage-check-failures",
+        "path": "kitaru/tasks/d8h-triage-check-failures"
+      },
+      {
+        "name": "d9-retries-or-traffic",
+        "path": "kitaru/tasks/d9-retries-or-traffic"
+      },
+      {
+        "name": "f1-replay-without-refunding",
+        "path": "kitaru/tasks/f1-replay-without-refunding"
+      },
+      {
+        "name": "f2-fix-euro-with-evidence",
+        "path": "kitaru/tasks/f2-fix-euro-with-evidence"
+      },
+      {
+        "name": "f3-refunds-far-too-large",
+        "path": "kitaru/tasks/f3-refunds-far-too-large"
+      },
+      {
+        "name": "f4-experiment-keeps-failing",
+        "path": "kitaru/tasks/f4-experiment-keeps-failing"
+      },
+      {
+        "name": "f5-stop-asking-twice",
+        "path": "kitaru/tasks/f5-stop-asking-twice"
+      },
+      {
+        "name": "f6-run-them-together",
+        "path": "kitaru/tasks/f6-run-them-together"
+      },
+      {
+        "name": "f7-where-low-effort-is-safe",
+        "path": "kitaru/tasks/f7-where-low-effort-is-safe"
+      },
+      {
+        "name": "f8-pick-between-two-fixes",
+        "path": "kitaru/tasks/f8-pick-between-two-fixes"
+      },
+      {
+        "name": "i1-import-an-export",
+        "path": "kitaru/tasks/i1-import-an-export"
+      },
+      {
+        "name": "i2-one-ticket-one-session",
+        "path": "kitaru/tasks/i2-one-ticket-one-session"
+      },
+      {
+        "name": "i3-write-an-importer",
+        "path": "kitaru/tasks/i3-write-an-importer"
+      },
+      {
+        "name": "i3h-messy-log",
+        "path": "kitaru/tasks/i3h-messy-log"
+      },
+      {
+        "name": "i4-nightly-import-twice",
+        "path": "kitaru/tasks/i4-nightly-import-twice"
+      },
+      {
+        "name": "i4h-strays-at-scale",
+        "path": "kitaru/tasks/i4h-strays-at-scale"
+      },
+      {
+        "name": "i5-invoice-does-not-match",
+        "path": "kitaru/tasks/i5-invoice-does-not-match"
+      },
+      {
+        "name": "o1-nothing-is-running",
+        "path": "kitaru/tasks/o1-nothing-is-running"
+      },
+      {
+        "name": "o2-record-this-agent",
+        "path": "kitaru/tasks/o2-record-this-agent"
+      },
+      {
+        "name": "o3-make-it-replayable",
+        "path": "kitaru/tasks/o3-make-it-replayable"
+      },
+      {
+        "name": "o4-record-a-langgraph-agent",
+        "path": "kitaru/tasks/o4-record-a-langgraph-agent"
+      }
+    ]
   }
 ]
