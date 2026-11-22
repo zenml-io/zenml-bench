@@ -839,3 +839,19 @@ Alex's decisions (2026-11-22), each asked as a choice between concrete arrangeme
 
 **Files.** `kitaru/dataset.toml` (37 tasks pinned by digest; run `harbor sync` after any task change), a `kitaru-bench` entry in `registry.json`, `integrations/prime/kitaru_bench/` (wrapper for verifiers 0.4.1), `kitaru/scripts/build_task_images.sh` (one image per task, `zenmldocker/kitaru-bench-tasks:<task>-0.1.0`).
 
+## 2026-11-22 — `zenml/kitaru-bench` published; what building the task images showed
+
+Published to the Harbor Hub and Prime as decided earlier today; the steps and ids are in `docs/publishing.md`.
+
+**Build task images one at a time.** A task's Dockerfile starts PostgreSQL and the Kitaru server to load its history. Inside a Modal sandbox, Docker builds share the sandbox's network, so two different builds side by side use the same ports. The first run built four at a time: 14 of 37 failed at the load step, and the 23 that "passed" could not be trusted, because one build's loader can reach another build's database. All 37 were rebuilt one at a time on fresh sandboxes and pushed again. `build_on_modal.py` now builds one at a time by default and says why.
+
+**Emulated amd64 on an Apple-silicon Mac fails at the same step** (the second image, C1h, after a long wait), which is why the images are built on Modal.
+
+**The image scanner blocks on every task image, for a file the build itself makes.** `start.sh` writes `/etc/kitaru-bench/keys.env` on first start: two random keys for that image's own Kitaru server (storage encryption, token signing). The loaded history is stored under them, so the image needs the file. The scan found none of the 45 secret values held on the build machine, no home path and no login name. Alex's decision (2026-11-22): keep the images. Consequence accepted: anyone can read those two keys from a public image; inside a task the file is readable by root only, and the agent is already unrestricted over Kitaru's API. Two images also trip on a certificate bundle and one `httpx` file under `/home/agent/.cache/uv`, a package cache the scanner does not treat as third-party code.
+
+**The Hub shows the `README.md` beside `dataset.toml`.** For this set that was `kitaru/README.md`, then the developer notes. They moved to `kitaru/DEVELOPING.md`, and `kitaru/README.md` is now the public page.
+
+**Prime enforces the allow-list.** Its log shows the egress policy applied per sandbox with the task's three hosts. The first use of an image takes Prime up to ten minutes to cache.
+
+**Not done.** The ZenML wrapper still imports `HarborEnv`, which verifiers 0.4.1 no longer has. The Prime scores are private.
+

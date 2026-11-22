@@ -1,8 +1,41 @@
 # zenml-bench
 
-A public benchmark of tasks in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to build, fix, configure and research with **real ZenML**, packaged in [Harbor](https://www.harborframework.com) task format so the same tasks run as an evaluation today and as a training environment (via verifiers / prime-rl) without rewriting them.
+Two public task sets in which coding agents (Claude Code, Codex, OpenCode, Terminus 2, …) have to get real work done with real tools from [ZenML](https://www.zenml.io), and are graded on what the tool recorded, never on what the agent says it did.
 
-Status: early. Eighteen tasks (build-and-fix, research loops, and a no-framework comparison variant), each verified with the four checks and baselined with Claude Code and Codex at frontier and cheap tiers; per-task pass rates, cost and difficulty are in the generated [Results](#results) table. Design brief: `docs/2026-09-09-plan.md`. Decisions and resolved assumptions: `docs/decisions.md`. What baselines showed: `docs/findings.md`, `results/`.
+| set | tasks | the agent works with | run it | details |
+|---|---|---|---|---|
+| **ZenML Bench** v0.1 | 18 | ZenML 0.96.4: build, fix and configure pipelines, run research loops | `harbor run -d zenml/zenml-bench@v0.1 -a <agent> -m <model>` | this page |
+| **Kitaru Bench** v0.1 | 37 | Kitaru 0.27.7: check, diagnose, import and replay what AI agents did | `harbor run -d zenml/kitaru-bench@v0.1 --env modal -a <agent> -m <model>` | [`kitaru/README.md`](kitaru/README.md) |
+
+Both sets are in [Harbor](https://www.harborframework.com) task format, so the same tasks run as an evaluation today and as a training environment (through verifiers and prime-rl) without rewriting them.
+
+| where | ZenML Bench | Kitaru Bench |
+|---|---|---|
+| Harbor Hub | [`zenml/zenml-bench`](https://hub.harborframework.com/datasets/zenml/zenml-bench) | [`zenml/kitaru-bench`](https://hub.harborframework.com/datasets/zenml/kitaru-bench) |
+| Prime Intellect Environments Hub | `prime env install zenml/zenml-bench` | `prime env install zenml/kitaru-bench` |
+| this repository, no Hub account | `--repo zenml-io/zenml-bench@v0.1 -d zenml-bench@0.1.0` | `--repo zenml-io/zenml-bench@kitaru-v0.1 -d kitaru-bench@0.1.0` |
+
+## How every task is checked
+
+A task counts only after it passes four checks:
+
+1. the reference solution scores 1, five times out of five
+2. doing nothing scores 0
+3. every shortcut we could think of scores 0 (they ship with the task, under `tests/shortcuts/`)
+4. a second, different valid solution scores 1
+
+A published version never changes. A score from one month has to be comparable with the next, so fixes and new tasks go into a new version.
+
+## Where things are
+
+- `tasks/`, `shared/`: ZenML Bench. `kitaru/`: Kitaru Bench (its own README, and `kitaru/DEVELOPING.md` for building tasks).
+- `results/`: baseline tables and what each failure was, read from the transcripts. `docs/findings.md`: what the baselines showed.
+- `docs/task-authoring.md`: how to write a task. `docs/publishing.md`: how a set is published. `docs/decisions.md`: why things are the way they are.
+- `integrations/prime/`: the wrappers for the Prime Intellect Environments Hub.
+
+# ZenML Bench
+
+Eighteen tasks (build-and-fix, research loops, and a no-framework comparison variant), each baselined with Claude Code and Codex at frontier and cheap tiers; per-task pass rates, cost and difficulty are in the [Results](#results) table.
 
 ## What a task looks like
 

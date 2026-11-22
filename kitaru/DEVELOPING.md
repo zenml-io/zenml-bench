@@ -10,6 +10,7 @@ Harbor tasks in which a coding agent has to use real Kitaru at a pinned version.
 - `checks/kitaru_checks.py` — helpers every grader shares; each task carries a copy in `tests/`.
 - `scripts/sync_env.sh <task>` — rebuilds a task's `environment/` from `base/` and its world. Run after editing either.
 - `scripts/grade_local.sh <task> [script.sh ...]` — runs the grader in local Docker against a fresh container per script (about 45 s each). Use it for the four checks before spending Modal time.
+- `scripts/build_on_modal.py --ref <tag> [--push]` — builds one image per task on Modal for Prime's runner, which never builds a Dockerfile; `scripts/build_task_images.sh` does the same locally. One at a time: builds share a network and each starts PostgreSQL and the Kitaru server.
 - `spikes/` — throwaway tasks that each proved one mechanism. Not benchmark tasks; never published.
 
 ## Running

@@ -54,21 +54,28 @@ Wrapper re-push after the 0.1.1 fix (no `__all__` in 0.1.0, so the pushed enviro
 
 ## Kitaru set (`zenml/kitaru-bench`), prepared 2026-11-22
 
-Decisions (2026-11-22, Alex): its own dataset `zenml/kitaru-bench`, version 0.1.0, all 37 tasks under `kitaru/tasks/`; Harbor Hub and Prime only, nothing on Hugging Face for now; baseline scores without transcripts. Nothing below has been run yet.
+Decisions (2026-11-22, Alex): its own dataset `zenml/kitaru-bench`, version 0.1.0, all 37 tasks under `kitaru/tasks/`; Harbor Hub and Prime only, nothing on Hugging Face for now; baseline scores without transcripts. All of it was done on 2026-11-22; see "Status" at the end of this section.
 
 How it differs from the ZenML set:
 
 - **These tasks do not run on Harbor's local Docker.** They ask for a network allow-list, which only a provider such as Modal enforces: `harbor run -d zenml/kitaru-bench@v0.1 --env modal -a <agent> -m <model>`. From the repo, with no Hub account: `harbor run --repo zenml-io/zenml-bench@kitaru-v0.1 -d kitaru-bench@0.1.0 --env modal ...`.
 - **The manifest is `kitaru/dataset.toml`**, not the one at the root. Run `harbor sync` in `kitaru/` after any task change.
 - **The git tag is `kitaru-v0.1`.** `v0.1` belongs to the ZenML set and does not move.
-- **Prime needs one image per task on a registry**, because each task's Dockerfile loads a recorded history: `zenmldocker/kitaru-bench-tasks:<task>-0.1.0` on Docker Hub, built by `kitaru/scripts/build_task_images.sh` and scanned with `kitaru/scripts/scan_image.py` before the push.
+- **Prime needs one image per task on a registry**, because each task's Dockerfile loads a recorded history: `zenmldocker/kitaru-bench-tasks:<task>-0.1.0` on Docker Hub, built and pushed on Modal by `kitaru/scripts/build_on_modal.py` (Modal's machines have the right CPU type; an Apple-silicon Mac has to emulate it, and the step that loads a history fails there). `kitaru/scripts/build_task_images.sh` builds the same names locally.
 - **`harbor upload` sends a whole job folder, transcripts included.** There is no scores-only upload to the Harbor Hub, so under the decision above the Harbor scores stay in `results/`. For Prime, `scripts/harbor_to_prime_eval.py` without `--transcripts` writes scores only.
 
 Order:
 
 1. Tag the merged commit: `git tag kitaru-v0.1 && git push origin kitaru-v0.1`.
 2. Harbor Hub, private first, tasks before the dataset: `harbor publish kitaru/tasks/* -t v0.1 --private`, then `harbor publish kitaru -t v0.1 --private`. Check with `harbor run -d zenml/kitaru-bench@v0.1 --env modal -a oracle` on one task, then make the 37 tasks and the dataset public.
-3. Task images: build for `linux/amd64` from a clean checkout of the tag, scan each, push to Docker Hub.
+3. Task images: `uv run kitaru/scripts/build_on_modal.py --ref kitaru-v0.1 --push` with `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` set, then pull each distinct image back and run `kitaru/scripts/scan_image.py` on it.
 4. Prime: `cd integrations/prime/kitaru_bench && prime env push`, check `vf-validate kitaru-bench` against the pushed images, then make it public.
 5. Prime scores: convert the baseline jobs without transcripts and `prime eval push` them.
+
+Status (2026-11-22): all five steps done.
+
+- Harbor Hub: 37 tasks and the dataset public, https://hub.harborframework.com/datasets/zenml/kitaru-bench (revision 2: revision 1 showed the developer notes as its page, because the Hub shows the `README.md` beside `dataset.toml`). A download with no login fetches all 37.
+- Task images: 37 tags on `zenmldocker/kitaru-bench-tasks`, 19 distinct images, `linux/amd64` only.
+- Prime: `zenml/kitaru-bench` 0.1.0, public (Alex set the visibility in the web page; the CLI sets it only when the environment is created). On Prime's sandboxes `vf-validate kitaru-bench --only-noop true --runtime.type prime` gave 37 of 37 valid, and Codex on `gpt-5.6-terra` scored 1 on F5 and on I3.
+- Prime scores, private, no transcripts: `results/prime-evals/kitaru-bare-<model>/`, evaluations `ovtm19qhfjmco25lzo4cvfy9` (claude-sonnet-5-5, 171 of 185), `ykusaitjpb359skte6jfqlhu` (gpt-5.6-terra, 170) and `ao9ods7xyr54dkuchnxedlar` (gpt-5.4-mini, 13). Converted with `HARBOR_VERSION=0.26.0 uv run scripts/harbor_to_prime_eval.py <jobs> --out … --env zenml/kitaru-bench`.
 

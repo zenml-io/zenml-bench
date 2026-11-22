@@ -113,6 +113,6 @@ What each failure was, read from the transcripts: [`results/kitaru-level1.md`](h
 ## More
 
 - Source, graders and reference solutions: https://github.com/zenml-io/zenml-bench (`kitaru/`). Solutions and tests are public, as is usual for Harbor task sets.
-- Prime Intellect Environments Hub: `integrations/prime/kitaru_bench/` in the repository.
+- Prime Intellect Environments Hub: `prime env install zenml/kitaru-bench` (wrapper source in `integrations/prime/kitaru_bench/`).
 - Building or changing tasks: [`DEVELOPING.md`](https://github.com/zenml-io/zenml-bench/blob/main/kitaru/DEVELOPING.md).
 - License: MIT.
