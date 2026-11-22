@@ -57,4 +57,4 @@ A new repository on Docker Hub is public as soon as it is pushed, so the scans c
 
 Open items that must be settled first. Add to this list; do not let it go stale.
 
-- **Delete the old GHCR copy of the base image.** The image moved to Docker Hub on 2026-11-22 with the same digest, and the Artifact Registry repository was deleted the same day. A private copy is still on GHCR (`ghcr.io/zenml-io/kitaru-bench-base`); no task uses it. Deleting it needs a GitHub token with the `delete:packages` scope.
+- Nothing open as of 2026-11-22. The base image is on Docker Hub only; the earlier copies on Artifact Registry and GHCR are deleted.
