@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 454" width="940" height="454" role="img" aria-label="storefront (Larkspur Goods): 60 days of history, 1 June to 30 July 2026">
+<title>storefront (Larkspur Goods): 60 days of history, 1 June to 30 July 2026</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="453" rx="10"/>
+<text class="title" x="20" y="28">storefront (Larkspur Goods): 60 days of history, 1 June to 30 July 2026</text>
+<text class="subtitle" x="20" y="46">Base history (2,997 runs) for C1–C7; diagnosis history (3,117 runs) adds the four * rows for C1h and D6–D9.</text>
+<text class="axis" x="221.8" y="70.0" text-anchor="middle">1 Jun</text>
+<line class="gridline" x1="221.8" x2="221.8" y1="76.0" y2="396.0"/>
+<text class="axis" x="385.2" y="70.0" text-anchor="middle">15 Jun</text>
+<line class="gridline" x1="385.2" x2="385.2" y1="76.0" y2="396.0"/>
+<text class="axis" x="571.8" y="70.0" text-anchor="middle">1 Jul</text>
+<line class="gridline" x1="571.8" x2="571.8" y1="76.0" y2="396.0"/>
+<text class="axis" x="735.2" y="70.0" text-anchor="middle">15 Jul</text>
+<line class="gridline" x1="735.2" x2="735.2" y1="76.0" y2="396.0"/>
+<text class="axis" x="910.2" y="70.0" text-anchor="middle">30 Jul</text>
+<line class="gridline" x1="910.2" x2="910.2" y1="76.0" y2="396.0"/>
+<rect class="pill" x="18" y="101.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="113.0" text-anchor="middle">C4</text>
+<text class="row-label" x="204.0" y="113.0" text-anchor="end">agent release</text>
+<rect class="k-neutral" x="217.0" y="102.0" width="348.0" height="14" rx="3"/>
+<text class="bar-label" x="218.0" y="97.0">1.3.0</text>
+<rect class="k-neutral" x="567.0" y="102.0" width="243.0" height="14" rx="3"/>
+<text class="bar-label" x="568.0" y="97.0">1.4.0</text>
+<rect class="k-neutral" x="812.0" y="102.0" width="103.0" height="14" rx="3"/>
+<text class="bar-label" x="813.0" y="97.0">1.4.1</text>
+<rect class="pill" x="18" y="147.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="159.0" text-anchor="middle">C2</text>
+<text class="row-label" x="204.0" y="159.0" text-anchor="end">euro reply text</text>
+<rect class="k-problem" x="567.0" y="148.0" width="348.0" height="14" rx="3"/>
+<text class="bar-label" x="568.0" y="143.0">euro card replies quote 100x (money right; decoy for D6)</text>
+<rect class="pill" x="18" y="193.0" width="43.6" height="17" rx="4"/>
+<text class="pill-text mono" x="39.8" y="205.0" text-anchor="middle">C3/D8</text>
+<text class="row-label" x="204.0" y="205.0" text-anchor="end">polite-closing check</text>
+<rect class="k-decoy" x="217.0" y="194.0" width="698.0" height="14" rx="3"/>
+<text class="bar-label" x="218.0" y="189.0">wrongly fails idle timeouts (where customer just left)</text>
+<rect class="pill" x="18" y="239.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="251.0" text-anchor="middle">D6</text>
+<text class="row-label" x="204.0" y="251.0" text-anchor="end">shipping over-refund*</text>
+<rect class="k-problem" x="380.3" y="240.0" width="161.3" height="14" rx="3"/>
+<text class="bar-label" x="381.3" y="235.0">15–28 Jun: ~1 in 7 full refunds also pays shipping</text>
+<rect class="pill" x="18" y="285.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="297.0" text-anchor="middle">D9</text>
+<text class="row-label" x="204.0" y="297.0" text-anchor="end">order service outage*</text>
+<rect class="k-problem" x="450.3" y="286.0" width="9.7" height="14" rx="3"/>
+<text class="bar-label" x="451.3" y="281.0">21 Jun 10:00–20:00: 4–6 retries/conv (32)</text>
+<rect class="pill" x="18" y="331.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="343.0" text-anchor="middle">D9</text>
+<text class="row-label" x="204.0" y="343.0" text-anchor="end">summer-sale traffic*</text>
+<rect class="k-problem" x="602.0" y="332.0" width="9.7" height="14" rx="3"/>
+<text class="bar-label" x="603.0" y="327.0">4 Jul: +120 normal-cost conversations</text>
+<rect class="pill" x="18" y="377.0" width="49.6" height="17" rx="4"/>
+<text class="pill-text mono" x="42.8" y="389.0" text-anchor="middle">C1h/D7</text>
+<text class="row-label" x="204.0" y="389.0" text-anchor="end">served model swap*</text>
+<rect class="k-partial" x="660.3" y="378.0" width="44.7" height="14" rx="3"/>
+<text class="bar-label" x="706.0" y="373.0" text-anchor="end">9 Jul: ~35% -&gt; 13 Jul: 100% (2.2x slower, no release)</text>
+<rect class="k-problem" x="707.0" y="378.0" width="68.0" height="14" rx="3"/>
+<text class="note" x="20" y="418.0">Standing faults (repeated lookups, late/double refunds, curt replies, idle timeouts) occur throughout all 60 days; see table below.</text>
+<rect class="k-problem" x="20.0" y="427.0" width="13" height="13" rx="3"/>
+<text class="legend" x="39.0" y="438.0">what a task must find</text>
+<rect class="k-decoy" x="184.005" y="427.0" width="13" height="13" rx="3"/>
+<text class="legend" x="203.005" y="438.0">decoy (looks guilty, isn&#x27;t)</text>
+<rect class="k-partial" x="372.15999999999997" y="427.0" width="13" height="13" rx="3"/>
+<text class="legend" x="391.15999999999997" y="438.0">partial rollout (~35%)</text>
+<rect class="k-neutral" x="535.13" y="427.0" width="13" height="13" rx="3"/>
+<text class="legend" x="554.13" y="438.0">background or symptom</text>
+</svg>

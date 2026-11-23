@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 514" width="940" height="514" role="img" aria-label="clinic (Fernhill Vets): overlapping changes, 1 June to 20 July 2026">
+<title>clinic (Fernhill Vets): overlapping changes, 1 June to 20 July 2026</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="513" rx="10"/>
+<text class="title" x="20" y="28">clinic (Fernhill Vets): overlapping changes, 1 June to 20 July 2026</text>
+<text class="subtitle" x="20" y="46">3,211 conversations, 3 releases, 5 dated git commits. Multiple changes overlap so naive time-correlation picks the decoy.</text>
+<text class="axis" x="223.0" y="70.0" text-anchor="middle">1 Jun</text>
+<line class="gridline" x1="223.0" x2="223.0" y1="76.0" y2="442.0"/>
+<text class="axis" x="419.0" y="70.0" text-anchor="middle">15 Jun</text>
+<line class="gridline" x1="419.0" x2="419.0" y1="76.0" y2="442.0"/>
+<text class="axis" x="643.0" y="70.0" text-anchor="middle">1 Jul</text>
+<line class="gridline" x1="643.0" x2="643.0" y1="76.0" y2="442.0"/>
+<text class="axis" x="839.0" y="70.0" text-anchor="middle">15 Jul</text>
+<line class="gridline" x1="839.0" x2="839.0" y1="76.0" y2="442.0"/>
+<rect class="pill" x="18" y="101.0" width="43.6" height="17" rx="4"/>
+<text class="pill-text mono" x="39.8" y="113.0" text-anchor="middle">D2/D5</text>
+<text class="row-label" x="204.0" y="113.0" text-anchor="end">agent release</text>
+<rect class="k-neutral" x="217.0" y="102.0" width="278.0" height="14" rx="3"/>
+<text class="bar-label" x="218.0" y="97.0">1.1.0</text>
+<rect class="k-decoy" x="497.0" y="102.0" width="54.0" height="14" rx="3"/>
+<text class="bar-label" x="498.0" y="97.0">1.2.0 rollout (decoy)</text>
+<rect class="k-neutral" x="553.0" y="102.0" width="194.0" height="14" rx="3"/>
+<rect class="k-partial" x="749.0" y="102.0" width="166.0" height="14" rx="3"/>
+<text class="bar-label" x="750.0" y="97.0">1.3.0: fixes search only</text>
+<rect class="pill" x="18" y="147.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="159.0" text-anchor="middle">D3</text>
+<text class="row-label" x="204.0" y="159.0" text-anchor="end">git commits (5 total)</text>
+<rect class="k-commit" x="214.0" y="147.0" width="18" height="16" rx="3"/>
+<text class="commit-label mono" x="223.0" y="158.5" text-anchor="middle">0</text>
+<rect class="k-commit" x="480.0" y="147.0" width="18" height="16" rx="3"/>
+<text class="commit-label mono" x="489.0" y="158.5" text-anchor="middle">1</text>
+<rect class="k-commit" x="564.0" y="147.0" width="18" height="16" rx="3"/>
+<text class="commit-label mono" x="573.0" y="158.5" text-anchor="middle">2</text>
+<rect class="k-commit" x="634.0" y="147.0" width="18" height="16" rx="3"/>
+<rect class="ring" x="631.0" y="144.0" width="24" height="22" rx="5"/>
+<text class="commit-label mono" x="643.0" y="158.5" text-anchor="middle">3</text>
+<rect class="k-commit" x="732.0" y="147.0" width="18" height="16" rx="3"/>
+<text class="commit-label mono" x="741.0" y="158.5" text-anchor="middle">4</text>
+<rect class="pill" x="18" y="193.0" width="43.6" height="17" rx="4"/>
+<text class="pill-text mono" x="39.8" y="205.0" text-anchor="middle">D1/D5</text>
+<text class="row-label" x="204.0" y="205.0" text-anchor="end">wrong-clinic bookings</text>
+<rect class="k-problem" x="413.0" y="194.0" width="502.0" height="14" rx="3"/>
+<text class="bar-label" x="414.0" y="189.0">15 Jun: ~7 in 10 booked next door (98 still happen under 1.3.0)</text>
+<text class="row-label" x="204.0" y="251.0" text-anchor="end">double clinic search</text>
+<rect class="k-neutral" x="413.0" y="240.0" width="334.0" height="14" rx="3"/>
+<text class="bar-label" x="414.0" y="235.0">visible symptom; stopped by 1.3.0</text>
+<rect class="pill" x="18" y="285.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="297.0" text-anchor="middle">D1</text>
+<text class="row-label" x="204.0" y="297.0" text-anchor="end">customer complaints</text>
+<rect class="k-decoy" x="441.0" y="286.0" width="474.0" height="14" rx="3"/>
+<text class="bar-label" x="442.0" y="281.0">13 later complaint chats (not the bad bookings)</text>
+<rect class="pill" x="18" y="331.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="343.0" text-anchor="middle">D2</text>
+<text class="row-label" x="204.0" y="343.0" text-anchor="end">partner new patients</text>
+<rect class="k-problem" x="511.0" y="332.0" width="404.0" height="14" rx="3"/>
+<text class="bar-label" x="512.0" y="327.0">22 Jun: 3x model calls -&gt; drives cost rise (207)</text>
+<rect class="pill" x="18" y="377.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="389.0" text-anchor="middle">D4</text>
+<text class="row-label" x="204.0" y="389.0" text-anchor="end">litter group bookings</text>
+<rect class="k-problem" x="581.0" y="378.0" width="334.0" height="14" rx="3"/>
+<text class="bar-label" x="916.0" y="373.0" text-anchor="end">27 Jun: 4–7 pets rightly refused 422 (67; nothing broken)</text>
+<rect class="pill" x="18" y="423.0" width="30.0" height="17" rx="4"/>
+<text class="pill-text mono" x="33.0" y="435.0" text-anchor="middle">D3</text>
+<text class="row-label" x="204.0" y="435.0" text-anchor="end">cut-off replies</text>
+<rect class="k-problem" x="637.0" y="424.0" width="278.0" height="14" rx="3"/>
+<text class="bar-label" x="916.0" y="419.0" text-anchor="end">1 Jul: finish_reason=length after commit 3 (288)</text>
+<text class="note" x="20" y="464.0">Commits: 0 initial 1.1.0 (29 May, pinned to start edge); 1 release 1.2.0; 2 litter-offer prompt; 3 config max_tokens 400-&gt;120 (ringed: D3 cause, no release); 4</text>
+<text class="note" x="20" y="478.0">release 1.3.0.</text>
+<rect class="k-problem" x="20.0" y="487.0" width="13" height="13" rx="3"/>
+<text class="legend" x="39.0" y="498.0">what a task must find</text>
+<rect class="k-decoy" x="184.005" y="487.0" width="13" height="13" rx="3"/>
+<text class="legend" x="203.005" y="498.0">decoy (looks guilty, isn&#x27;t)</text>
+<rect class="k-partial" x="372.15999999999997" y="487.0" width="13" height="13" rx="3"/>
+<text class="legend" x="391.15999999999997" y="498.0">partial fix (1.3.0)</text>
+<rect class="k-neutral" x="512.935" y="487.0" width="13" height="13" rx="3"/>
+<text class="legend" x="531.935" y="498.0">background or symptom</text>
+<rect class="k-commit" x="684.53" y="487.0" width="13" height="13" rx="3"/>
+<text class="legend" x="703.53" y="498.0">git commit</text>
+<rect class="ring" x="782.99" y="487.5" width="11" height="11" rx="2"/>
+<text class="legend" x="800.49" y="498.0">D3 culprit commit</text>
+</svg>

@@ -31,6 +31,7 @@ tasks/<id>/
 3. Write shortcuts and alternatives; run each through `grade_local.sh`. Use `VERBOSE=1` to see which assertion each shortcut trips. A shortcut should fail on the check *designed* for it, not on an unrelated crash.
 4. `scripts/sync_project.sh <project> <task>`, then `uv run scripts/verify_task.py <task>` (Harbor, ~1–2 min per run).
 5. Baseline with `scripts/run_baselines.py`; read three trajectories by hand; put what you saw in `docs/findings.md`; update `difficulty_estimate`.
+6. Add or update the task's row (and its project's section and chart, if they changed) in `docs/zenml-bench.md`; charts are drawn by `docs/charts/make_charts.py`.
 
 ## Grader rules (each one cost us a bug)
 

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 324" width="940" height="324" role="img" aria-label="B1 (analytics_workspace): why the stray .zen breaks step source paths">
+<title>B1 (analytics_workspace): why the stray .zen breaks step source paths</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="323" rx="10"/>
+<text class="title" x="20" y="28">B1 (analytics_workspace): why the stray .zen breaks step source paths</text>
+<text class="subtitle" x="20" y="46">Running `zenml init` at /app breaks the neighbour; keeping jobs/backfill/.zen leaves backfill paths truncated.</text>
+<rect class="box" x="20" y="70.0" width="440.0" height="218" rx="8"/>
+<text class="section-head" x="34" y="92.0">Starting state (broken)</text>
+<text class="mono" x="34.0" y="116.0" font-size="11" font-weight="600">/app/</text>
+<rect class="k-fail-soft" x="28" y="128.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="48.0" y="141.0" font-size="11" font-weight="600" fill="var(--fail)">analytics/</text>
+<text class="note" x="220.0" y="141.0">no .zen -&gt; daily can&#x27;t import src/</text>
+<text class="mono" x="62.0" y="166.0" font-size="11" font-weight="600">src/features.py</text>
+<text class="note" x="220.0" y="166.0">shared helper</text>
+<text class="mono" x="62.0" y="191.0" font-size="11" font-weight="600">pipelines/daily.py</text>
+<text class="note" x="220.0" y="191.0">daily entrypoint</text>
+<rect class="k-fail-soft" x="28" y="203.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="62.0" y="216.0" font-size="11" font-weight="600" fill="var(--fail)">jobs/backfill/.zen</text>
+<text class="note" x="220.0" y="216.0">STRAY .zen -&gt; run.load_history</text>
+<text class="mono" x="62.0" y="241.0" font-size="11" font-weight="600">jobs/backfill/run.py</text>
+<text class="note" x="220.0" y="241.0">stops walking at stray .zen</text>
+<rect class="k-warn-soft" x="28" y="253.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="48.0" y="266.0" font-size="11" font-weight="600" fill="var(--ink)">legacy_reports/.zen</text>
+<text class="note" x="220.0" y="266.0">neighbour + 1 run (DO NOT TOUCH)</text>
+<rect class="box-good" x="480.0" y="70.0" width="440.0" height="218" rx="8"/>
+<text class="section-head" x="494.0" y="92.0">After fix (what the grader checks)</text>
+<text class="mono" x="494.0" y="116.0" font-size="11" font-weight="600">/app/</text>
+<text class="note" x="680.0" y="116.0">no .zen here (keeps neighbour safe)</text>
+<rect class="pill" x="488.0" y="128.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="508.0" y="141.0" font-size="11" font-weight="600" fill="var(--accent)">analytics/.zen</text>
+<text class="note" x="680.0" y="141.0">single root for both entrypoints</text>
+<text class="mono" x="522.0" y="166.0" font-size="11" font-weight="600">src/features.py</text>
+<text class="note" x="680.0" y="166.0">importable from /app/analytics</text>
+<rect class="pill" x="488.0" y="178.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="522.0" y="191.0" font-size="11" font-weight="600" fill="var(--accent)">pipelines/daily.py</text>
+<text class="note" x="680.0" y="191.0">records pipelines.daily.*</text>
+<text class="mono" x="522.0" y="216.0" font-size="11" font-weight="600">jobs/backfill/</text>
+<text class="note" x="680.0" y="216.0">stray .zen removed</text>
+<rect class="pill" x="488.0" y="228.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="522.0" y="241.0" font-size="11" font-weight="600" fill="var(--accent)">jobs/backfill/run.py</text>
+<text class="note" x="680.0" y="241.0">records jobs.backfill.run.*</text>
+<rect class="k-warn-soft" x="488.0" y="253.0" width="424.0" height="20" rx="4"/>
+<text class="mono" x="508.0" y="266.0" font-size="11" font-weight="600" fill="var(--ink)">legacy_reports/.zen</text>
+<text class="note" x="680.0" y="266.0">hashes, .zen &amp; run untouched</text>
+<text class="note" x="20" y="306.0">ZenML resolves step module paths relative to the nearest parent .zen directory. Hacking sys.path makes Python run, but leaves recorded sources wrong.</text>
+</svg>

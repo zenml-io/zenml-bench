@@ -29,6 +29,7 @@ A published version never changes. A score from one month has to be comparable w
 ## Where things are
 
 - `tasks/`, `shared/`: ZenML Bench. `kitaru/`: Kitaru Bench (its own README, and `kitaru/DEVELOPING.md` for building tasks).
+- [`docs/zenml-bench.md`](docs/zenml-bench.md) and [`docs/kitaru-bench.md`](docs/kitaru-bench.md): a plain-language tour of every task, project and world, with diagrams. Start here.
 - `results/`: baseline tables and what each failure was, read from the transcripts. `docs/findings.md`: what the baselines showed.
 - `docs/task-authoring.md`: how to write a task. `docs/publishing.md`: how a set is published. `docs/decisions.md`: why things are the way they are.
 - `integrations/prime/`: the wrappers for the Prime Intellect Environments Hub.
@@ -77,7 +78,7 @@ For writing tasks, `scripts/grade_local.sh <task> [patch.sh]` runs a task's grad
 
 The whole set can also be run straight from this repo without a Hub account: `harbor run --repo zenml-io/zenml-bench@v0.1 -d zenml-bench@0.1.0 -a <agent> -m <model>` (resolved from `registry.json`). Hub publishing, the Prime Intellect wrapper (`integrations/prime/`) and the release checklist are in `docs/publishing.md`.
 
-Two things every grader assumes: the agent could have forged the ZenML store (it is a writable SQLite file in the same container), so each task ships a `tests/shortcuts/tamper_store.sh` that must score 0 and every grader re-executes the agent's entrypoint on hidden inputs and checks that the runs it grades were produced by ZenML (`shared/checks/store_integrity.py`); and sixteen hand-written tasks are too few for training, so `scripts/generate_instances.py` turns a task family into as many instances as you want:
+Two things every grader assumes: the agent could have forged the ZenML store (it is a writable SQLite file in the same container), so each task ships a `tests/shortcuts/tamper_store.sh` that must score 0 and every grader re-executes the agent's entrypoint on hidden inputs and checks that the runs it grades were produced by ZenML (`shared/checks/store_integrity.py`); and eighteen hand-written tasks are too few for training, so `scripts/generate_instances.py` turns a task family into as many instances as you want:
 
 ```bash
 # five held-out instances of the B10 family (committed under tasks/generated/), then 200 training instances (gitignored)

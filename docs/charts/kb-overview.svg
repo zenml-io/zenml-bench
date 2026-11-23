@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 422" width="940" height="422" role="img" aria-label="Kitaru Bench at a glance: 5 worlds × 5 task families (37 tasks)">
+<title>Kitaru Bench at a glance: 5 worlds × 5 task families (37 tasks)</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="421" rx="10"/>
+<text class="title" x="20" y="28">Kitaru Bench at a glance: 5 worlds × 5 task families (37 tasks)</text>
+<text class="subtitle" x="20" y="46">Each world is a fictional company image reused by a group of tasks; families reflect the operational job.</text>
+<text class="section-head" x="258.5" y="74.0" text-anchor="middle">Checks (8)</text>
+<text class="section-head" x="405.5" y="74.0" text-anchor="middle">Diagnosis (10)</text>
+<text class="section-head" x="552.5" y="74.0" text-anchor="middle">Import (7)</text>
+<text class="section-head" x="699.5" y="74.0" text-anchor="middle">Replay (8)</text>
+<text class="section-head" x="846.5" y="74.0" text-anchor="middle">Setup (4)</text>
+<rect class="band" x="20" y="88.0" width="900.0" height="54.0" rx="6"/>
+<text class="box-name mono" x="30" y="110.0">storefront</text>
+<text class="note" x="30" y="127.0">Larkspur Goods · ~3k runs</text>
+<rect class="pill" x="191.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="205.0" y="108.0" text-anchor="middle">c1</text>
+<rect class="pill-hot" x="223.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-hot-text mono" x="237.0" y="108.0" text-anchor="middle">c1h</text>
+<rect class="pill" x="255.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="269.0" y="108.0" text-anchor="middle">c2</text>
+<rect class="pill" x="287.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="301.0" y="108.0" text-anchor="middle">c3</text>
+<rect class="pill" x="191.0" y="116.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="205.0" y="128.0" text-anchor="middle">c4</text>
+<rect class="pill" x="223.0" y="116.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="237.0" y="128.0" text-anchor="middle">c5</text>
+<rect class="pill" x="255.0" y="116.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="269.0" y="128.0" text-anchor="middle">c6</text>
+<rect class="pill-hot" x="287.0" y="116.0" width="28.0" height="17" rx="4"/>
+<text class="pill-hot-text mono" x="301.0" y="128.0" text-anchor="middle">c7</text>
+<rect class="pill" x="338.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="352.0" y="108.0" text-anchor="middle">d6</text>
+<rect class="pill" x="370.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="384.0" y="108.0" text-anchor="middle">d7</text>
+<rect class="pill" x="402.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="416.0" y="108.0" text-anchor="middle">d8</text>
+<rect class="pill-hot" x="434.0" y="96.0" width="28.0" height="17" rx="4"/>
+<text class="pill-hot-text mono" x="448.0" y="108.0" text-anchor="middle">d8h</text>
+<rect class="pill" x="338.0" y="116.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="352.0" y="128.0" text-anchor="middle">d9</text>
+<text class="note" x="552.5" y="119.0" text-anchor="middle">—</text>
+<text class="note" x="699.5" y="119.0" text-anchor="middle">—</text>
+<text class="note" x="846.5" y="119.0" text-anchor="middle">—</text>
+<rect class="band" x="20" y="148.0" width="900.0" height="54.0" rx="6"/>
+<text class="box-name mono" x="30" y="170.0">clinic</text>
+<text class="note" x="30" y="187.0">Fernhill Vets · 3,211 runs</text>
+<text class="note" x="258.5" y="179.0" text-anchor="middle">—</text>
+<rect class="pill" x="338.0" y="156.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="352.0" y="168.0" text-anchor="middle">d1</text>
+<rect class="pill" x="370.0" y="156.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="384.0" y="168.0" text-anchor="middle">d2</text>
+<rect class="pill" x="402.0" y="156.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="416.0" y="168.0" text-anchor="middle">d3</text>
+<rect class="pill" x="434.0" y="156.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="448.0" y="168.0" text-anchor="middle">d4</text>
+<rect class="pill" x="338.0" y="176.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="352.0" y="188.0" text-anchor="middle">d5</text>
+<text class="note" x="552.5" y="179.0" text-anchor="middle">—</text>
+<text class="note" x="699.5" y="179.0" text-anchor="middle">—</text>
+<text class="note" x="846.5" y="179.0" text-anchor="middle">—</text>
+<rect class="band" x="20" y="208.0" width="900.0" height="54.0" rx="6"/>
+<text class="box-name mono" x="30" y="230.0">exports</text>
+<text class="note" x="30" y="247.0">Tidewater · external logs</text>
+<text class="note" x="258.5" y="239.0" text-anchor="middle">—</text>
+<text class="note" x="405.5" y="239.0" text-anchor="middle">—</text>
+<rect class="pill" x="485.0" y="216.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="499.0" y="228.0" text-anchor="middle">i1</text>
+<rect class="pill" x="517.0" y="216.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="531.0" y="228.0" text-anchor="middle">i2</text>
+<rect class="pill" x="549.0" y="216.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="563.0" y="228.0" text-anchor="middle">i3</text>
+<rect class="pill-hot" x="581.0" y="216.0" width="28.0" height="17" rx="4"/>
+<text class="pill-hot-text mono" x="595.0" y="228.0" text-anchor="middle">i3h</text>
+<rect class="pill" x="485.0" y="236.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="499.0" y="248.0" text-anchor="middle">i4</text>
+<rect class="pill-hot" x="517.0" y="236.0" width="28.0" height="17" rx="4"/>
+<text class="pill-hot-text mono" x="531.0" y="248.0" text-anchor="middle">i4h</text>
+<rect class="pill" x="549.0" y="236.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="563.0" y="248.0" text-anchor="middle">i5</text>
+<text class="note" x="699.5" y="239.0" text-anchor="middle">—</text>
+<text class="note" x="846.5" y="239.0" text-anchor="middle">—</text>
+<rect class="band" x="20" y="268.0" width="900.0" height="54.0" rx="6"/>
+<text class="box-name mono" x="30" y="290.0">helpdesk-live</text>
+<text class="note" x="30" y="307.0">Live PydanticAI · 260 runs</text>
+<text class="note" x="258.5" y="299.0" text-anchor="middle">—</text>
+<text class="note" x="405.5" y="299.0" text-anchor="middle">—</text>
+<text class="note" x="552.5" y="299.0" text-anchor="middle">—</text>
+<rect class="pill" x="632.0" y="276.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="646.0" y="288.0" text-anchor="middle">f1</text>
+<rect class="pill" x="664.0" y="276.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="678.0" y="288.0" text-anchor="middle">f2</text>
+<rect class="pill" x="696.0" y="276.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="710.0" y="288.0" text-anchor="middle">f3</text>
+<rect class="pill" x="728.0" y="276.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="742.0" y="288.0" text-anchor="middle">f4</text>
+<text class="note" x="846.5" y="299.0" text-anchor="middle">—</text>
+<rect class="band" x="20" y="328.0" width="900.0" height="54.0" rx="6"/>
+<text class="box-name mono" x="30" y="350.0">helpdesk-services</text>
+<text class="note" x="30" y="367.0">Live + slow API · 420 runs</text>
+<text class="note" x="258.5" y="359.0" text-anchor="middle">—</text>
+<text class="note" x="405.5" y="359.0" text-anchor="middle">—</text>
+<text class="note" x="552.5" y="359.0" text-anchor="middle">—</text>
+<rect class="pill" x="632.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="646.0" y="348.0" text-anchor="middle">f5</text>
+<rect class="pill" x="664.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="678.0" y="348.0" text-anchor="middle">f6</text>
+<rect class="pill" x="696.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="710.0" y="348.0" text-anchor="middle">f7</text>
+<rect class="pill" x="728.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="742.0" y="348.0" text-anchor="middle">f8</text>
+<rect class="pill" x="779.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="793.0" y="348.0" text-anchor="middle">o1</text>
+<rect class="pill" x="811.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="825.0" y="348.0" text-anchor="middle">o2</text>
+<rect class="pill" x="843.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="857.0" y="348.0" text-anchor="middle">o3</text>
+<rect class="pill" x="875.0" y="336.0" width="28.0" height="17" rx="4"/>
+<text class="pill-text mono" x="889.0" y="348.0" text-anchor="middle">o4</text>
+<rect class="pill" x="20" y="394.0" width="16" height="14" rx="3"/>
+<text class="legend" x="42" y="405.0">standard task (32)</text>
+<rect class="pill-hot" x="175" y="394.0" width="16" height="14" rx="3"/>
+<text class="legend" x="197" y="405.0">harder variant added after large models saturated the original (5: c1h, c7, d8h, i3h, i4h)</text>
+</svg>

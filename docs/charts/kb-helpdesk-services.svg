@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 304" width="940" height="304" role="img" aria-label="helpdesk-services: live services and root-only logs behind F5–F8">
+<title>helpdesk-services: live services and root-only logs behind F5–F8</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="303" rx="10"/>
+<text class="title" x="20" y="28">helpdesk-services: live services and root-only logs behind F5–F8</text>
+<text class="subtitle" x="20" y="46">Setup tasks O1–O4 reuse this container image with separate worker, PydanticAI, and LangGraph exercises.</text>
+<rect class="box" x="20.0" y="82.0" width="270.0" height="96.0" rx="8"/>
+<text class="box-name mono" x="32.0" y="103.0">helpdesk-agent (v2.0.0)</text>
+<text class="box-text" x="32.0" y="121.0">Real PydanticAI agent + deterministic</text>
+<text class="box-text" x="32.0" y="135.0">planner. 420 recorded requests, 7 places</text>
+<text class="box-text" x="32.0" y="149.0">where it asks twice.</text>
+<rect class="box-warn" x="340.0" y="70.0" width="580.0" height="56" rx="8"/>
+<text class="box-name-warn mono" x="352.0" y="90.0">order service (:8092) — slow &amp; rate-limited</text>
+<text class="box-text" x="352.0" y="109.0">0.25 s per call · max 4 concurrent (5th gets HTTP 429) · root-only request log (F5, F6)</text>
+<rect class="box-hot" x="340.0" y="136.0" width="580.0" height="56" rx="8"/>
+<text class="box-name-hot mono" x="352.0" y="156.0">finance service (:8091) — real side effects</text>
+<text class="box-text" x="352.0" y="175.0">issue_refund &amp; escalate_to_human append to a root-only ledger; 1 extra row = reward 0</text>
+<path class="arrow" d="M292.0 130.0 C315.0 130.0 315.0 98.0 337.0 98.0"/>
+<path class="arrow-hot" d="M292.0 130.0 C315.0 130.0 315.0 164.0 337.0 164.0"/>
+<text class="section-head" x="20" y="226.0">Example trap (F6): why unbounded asyncio.gather() passes locally and fails hidden grading</text>
+<rect class="box" x="20" y="234.0" width="440.0" height="54" rx="8"/>
+<text class="box-name" x="32" y="254.0">Recorded history: at most 2 orders per message</text>
+<text class="box-text" x="32" y="273.0">2 concurrent calls &lt;= limit of 4 -> unbounded gather looks green</text>
+<rect class="box-hot" x="480.0" y="234.0" width="440.0" height="54" rx="8"/>
+<text class="box-name-hot" x="492.0" y="254.0">Hidden grader inputs: up to 6 orders per message</text>
+<text class="box-text" x="492.0" y="273.0">6 concurrent calls -> 429 errors unless capped (e.g. Semaphore(4))</text>
+</svg>

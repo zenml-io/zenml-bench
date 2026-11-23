@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 477" width="940" height="477" role="img" aria-label="B3 (nightly): how the grader checks content-aware caching">
+<title>B3 (nightly): how the grader checks content-aware caching</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="476" rx="10"/>
+<text class="title" x="20" y="28">B3 (nightly): how the grader checks content-aware caching</text>
+<text class="subtitle" x="20" y="46">Pipeline: load_data(path) -&gt; train(df) -&gt; evaluate(model, df). The grader swaps fixtures a, a, b, b, c at the same path.</text>
+<text class="axis mono" x="240.5" y="76.0" text-anchor="middle">run 1</text>
+<text class="axis mono" x="391.5" y="76.0" text-anchor="middle">run 2</text>
+<text class="axis mono" x="542.5" y="76.0" text-anchor="middle">run 3</text>
+<text class="axis mono" x="693.5" y="76.0" text-anchor="middle">run 4</text>
+<text class="axis mono" x="844.5" y="76.0" text-anchor="middle">run 5</text>
+<text class="section-head" x="20" y="104.0">A correct fix: cache key tracks the file&#x27;s contents (e.g. content hash or file_dependencies)</text>
+<text class="row-label" x="153.0" y="134.0" text-anchor="end">data file</text>
+<rect class="k-plain" x="171.5" y="116.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="240.5" y="134.0" text-anchor="middle">a</text>
+<rect class="k-plain" x="322.5" y="116.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="391.5" y="134.0" text-anchor="middle">a</text>
+<rect class="k-plain" x="473.5" y="116.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="542.5" y="134.0" text-anchor="middle">b</text>
+<rect class="k-plain" x="624.5" y="116.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="693.5" y="134.0" text-anchor="middle">b</text>
+<rect class="k-plain" x="775.5" y="116.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="844.5" y="134.0" text-anchor="middle">c</text>
+<text class="row-label" x="153.0" y="176.0" text-anchor="end">load_data</text>
+<rect class="k-ok" x="171.5" y="158.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="240.5" y="176.0" text-anchor="middle">ran</text>
+<rect class="k-cached" x="322.5" y="158.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="391.5" y="176.0" text-anchor="middle">cached</text>
+<rect class="k-ok" x="473.5" y="158.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="542.5" y="176.0" text-anchor="middle">ran</text>
+<rect class="k-cached" x="624.5" y="158.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="693.5" y="176.0" text-anchor="middle">cached</text>
+<rect class="k-ok" x="775.5" y="158.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="844.5" y="176.0" text-anchor="middle">ran</text>
+<text class="row-label" x="153.0" y="218.0" text-anchor="end">train (3s)</text>
+<rect class="k-ok" x="171.5" y="200.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="240.5" y="218.0" text-anchor="middle">ran</text>
+<rect class="k-cached" x="322.5" y="200.0" width="138.0" height="28" rx="5"/>
+<rect class="ring" x="319.5" y="197.0" width="144.0" height="34" rx="7"/>
+<text class="cell-text" x="391.5" y="218.0" text-anchor="middle">cached</text>
+<rect class="k-ok" x="473.5" y="200.0" width="138.0" height="28" rx="5"/>
+<rect class="ring" x="470.5" y="197.0" width="144.0" height="34" rx="7"/>
+<text class="cell-text" x="542.5" y="218.0" text-anchor="middle">ran</text>
+<rect class="k-cached" x="624.5" y="200.0" width="138.0" height="28" rx="5"/>
+<rect class="ring" x="621.5" y="197.0" width="144.0" height="34" rx="7"/>
+<text class="cell-text" x="693.5" y="218.0" text-anchor="middle">cached</text>
+<rect class="k-ok" x="775.5" y="200.0" width="138.0" height="28" rx="5"/>
+<rect class="ring" x="772.5" y="197.0" width="144.0" height="34" rx="7"/>
+<text class="cell-text" x="844.5" y="218.0" text-anchor="middle">ran</text>
+<text class="row-label" x="165.0" y="245.0" font-weight="600">Scores match every fixture; train is cached iff data is unchanged -&gt; reward 1</text>
+<text class="section-head" x="20" y="282.0">The obvious fix: enable_cache=False on load_data</text>
+<text class="row-label" x="153.0" y="312.0" text-anchor="end">load_data</text>
+<rect class="k-ok" x="171.5" y="294.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="240.5" y="312.0" text-anchor="middle">ran</text>
+<rect class="k-ok" x="322.5" y="294.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="391.5" y="312.0" text-anchor="middle">ran</text>
+<rect class="k-ok" x="473.5" y="294.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="542.5" y="312.0" text-anchor="middle">ran</text>
+<rect class="k-ok" x="624.5" y="294.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="693.5" y="312.0" text-anchor="middle">ran</text>
+<rect class="k-ok" x="775.5" y="294.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="844.5" y="312.0" text-anchor="middle">ran</text>
+<text class="row-label" x="153.0" y="354.0" text-anchor="end">train (3s)</text>
+<rect class="k-ok" x="171.5" y="336.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="240.5" y="354.0" text-anchor="middle">ran</text>
+<rect class="k-fail" x="322.5" y="336.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="391.5" y="354.0" text-anchor="middle">ran</text>
+<text class="note" x="391.5" y="378.0" text-anchor="middle">new artifact id -&gt; miss</text>
+<rect class="k-ok" x="473.5" y="336.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="542.5" y="354.0" text-anchor="middle">ran</text>
+<rect class="k-fail" x="624.5" y="336.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="693.5" y="354.0" text-anchor="middle">ran</text>
+<text class="note" x="693.5" y="378.0" text-anchor="middle">new artifact id -&gt; miss</text>
+<rect class="k-ok" x="775.5" y="336.0" width="138.0" height="28" rx="5"/>
+<text class="cell-text" x="844.5" y="354.0" text-anchor="middle">ran</text>
+<text class="row-label" x="165.0" y="394.0" font-weight="600">Scores are right, but train re-runs every time -&gt; reward 0</text>
+<text class="note" x="20" y="425.0">A freshly returned DataFrame gets a new artifact ID and pandas has no content hash, so disabling cache on load_data silently busts train&#x27;s cache.</text>
+<rect class="k-ok" x="20.0" y="451.0" width="13" height="13" rx="3"/>
+<text class="legend" x="39.0" y="462.0">ran</text>
+<rect class="k-cached" x="78.66499999999999" y="451.0" width="13" height="13" rx="3"/>
+<text class="legend" x="97.66499999999999" y="462.0">served from cache</text>
+<rect class="k-fail" x="224.04" y="451.0" width="13" height="13" rx="3"/>
+<text class="legend" x="243.04" y="462.0">wrong (should be cached)</text>
+<rect class="ring" x="406.67999999999995" y="451.5" width="11" height="11" rx="2"/>
+<text class="legend" x="424.17999999999995" y="462.0">what the grader checks</text>
+</svg>

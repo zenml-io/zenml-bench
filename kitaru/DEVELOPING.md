@@ -22,6 +22,8 @@ BUILD=1 kitaru/scripts/grade_local.sh $T $T/solution/solve.sh "" $T/solution/alt
 MODAL_ENVIRONMENT=dev uv run scripts/verify_task.py $T --env modal -n 4 --job-prefix kverify
 ```
 
+After a task or a world changes, update [`docs/kitaru-bench.md`](../docs/kitaru-bench.md) in the same change: the task's row, the world's section and its timeline chart (data in `docs/charts/make_charts.py`; rerun it).
+
 ## Rules a Kitaru task follows
 
 - The agent runs as user `agent`, never root (`[agent] user = "agent"`). It reaches Kitaru over HTTP only.

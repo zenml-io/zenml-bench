@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 485" width="940" height="485" role="img" aria-label="B14 &amp; B14H (daily_report): finding the busiest completed backfill run">
+<title>B14 &amp; B14H (daily_report): finding the busiest completed backfill run</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="484" rx="10"/>
+<text class="title" x="20" y="28">B14 &amp; B14H (daily_report): finding the busiest completed backfill run</text>
+<text class="subtitle" x="20" y="46">Numbers inside cells are the day&#x27;s summary totals. Every simpler filtering rule picks a different run.</text>
+<text class="axis mono" x="193.8" y="76.0" text-anchor="middle">08-24</text>
+<text class="axis mono" x="321.5" y="76.0" text-anchor="middle">08-25</text>
+<text class="axis mono" x="449.2" y="76.0" text-anchor="middle">08-26</text>
+<text class="axis mono" x="576.8" y="76.0" text-anchor="middle">08-27</text>
+<text class="axis mono" x="704.5" y="76.0" text-anchor="middle">08-28</text>
+<text class="axis mono" x="856.2" y="76.0" text-anchor="middle">09-08</text>
+<text class="axis" x="780.3" y="76.0" text-anchor="middle">...</text>
+<text class="section-head" x="20" y="104.0">B14: largest completed backfill run (totals from seeded CSVs)</text>
+<text class="row-label" x="118.0" y="134.0" text-anchor="end">backfill</text>
+<rect class="k-ok" x="134.0" y="116.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="193.8" y="134.0" text-anchor="middle">15,753</text>
+<rect class="k-ok" x="261.7" y="116.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="321.5" y="134.0" text-anchor="middle">16,237</text>
+<rect class="k-fail" x="389.3" y="116.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text-inv" x="449.2" y="134.0" text-anchor="middle">30,165</text>
+<text class="note" x="449.2" y="158.0" text-anchor="middle">largest, but failed</text>
+<rect class="k-ok" x="517.0" y="116.0" width="119.7" height="28" rx="5"/>
+<rect class="ring" x="514.0" y="113.0" width="125.7" height="34" rx="7"/>
+<text class="cell-text" x="576.8" y="134.0" text-anchor="middle">16,506</text>
+<text class="note" x="576.8" y="158.0" text-anchor="middle">B14 answer</text>
+<rect class="k-fail" x="644.7" y="116.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text-inv" x="704.5" y="134.0" text-anchor="middle">no file</text>
+<text class="row-label" x="118.0" y="189.0" text-anchor="end">scheduled</text>
+<rect class="k-ok" x="796.3" y="171.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="856.2" y="189.0" text-anchor="middle">22,383</text>
+<text class="note" x="856.2" y="213.0" text-anchor="middle">not a backfill</text>
+<text class="section-head" x="20" y="244.0">B14H: re-processed days — rule: &quot;the latest completed processing of each day counts&quot;</text>
+<text class="row-label" x="118.0" y="274.0" text-anchor="end">first run</text>
+<rect class="k-ok" x="134.0" y="256.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="193.8" y="274.0" text-anchor="middle">12,223</text>
+<rect class="k-ok" x="261.7" y="256.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="321.5" y="274.0" text-anchor="middle">16,179</text>
+<text class="note" x="321.5" y="298.0" text-anchor="middle">still counts (v2 failed)</text>
+<rect class="k-fail" x="389.3" y="256.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text-inv" x="449.2" y="274.0" text-anchor="middle">17,170</text>
+<text class="note" x="449.2" y="298.0" text-anchor="middle">largest summary</text>
+<rect class="k-ok" x="517.0" y="256.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="576.8" y="274.0" text-anchor="middle">16,689</text>
+<text class="note" x="576.8" y="298.0" text-anchor="middle">superseded by v2</text>
+<rect class="k-fail" x="644.7" y="256.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text-inv" x="704.5" y="274.0" text-anchor="middle">no file</text>
+<text class="row-label" x="118.0" y="329.0" text-anchor="end">re-run (v2)</text>
+<rect class="k-fail" x="261.7" y="311.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text-inv" x="321.5" y="329.0" text-anchor="middle">16,986</text>
+<text class="note" x="321.5" y="353.0" text-anchor="middle">latest, but failed</text>
+<rect class="k-ok" x="389.3" y="311.0" width="119.7" height="28" rx="5"/>
+<rect class="ring" x="386.3" y="308.0" width="125.7" height="34" rx="7"/>
+<text class="cell-text" x="449.2" y="329.0" text-anchor="middle">16,419</text>
+<text class="note" x="449.2" y="353.0" text-anchor="middle">B14H answer (v5)</text>
+<rect class="k-ok" x="517.0" y="311.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="576.8" y="329.0" text-anchor="middle">14,951</text>
+<text class="note" x="576.8" y="353.0" text-anchor="middle">counts for 08-27</text>
+<text class="row-label" x="118.0" y="384.0" text-anchor="end">scheduled</text>
+<rect class="k-ok" x="796.3" y="366.0" width="119.7" height="28" rx="5"/>
+<text class="cell-text" x="856.2" y="384.0" text-anchor="middle">22,383</text>
+<text class="note" x="856.2" y="408.0" text-anchor="middle">not a backfill</text>
+<line class="dashed" x1="780.3" x2="780.3" y1="88.0" y2="419.0"/>
+<text class="note" x="20" y="433.0">Other scheduled runs (09-05 to 09-09) and the manual 09-31 typo also sit in the store; 09-08 is shown because it has the highest scheduled total.</text>
+<rect class="k-ok" x="20.0" y="459.0" width="13" height="13" rx="3"/>
+<text class="legend" x="39.0" y="470.0">completed</text>
+<rect class="k-fail" x="115.46499999999999" y="459.0" width="13" height="13" rx="3"/>
+<text class="legend" x="134.46499999999997" y="470.0">failed</text>
+<rect class="ring" x="190.23499999999999" y="459.5" width="11" height="11" rx="2"/>
+<text class="legend" x="207.73499999999999" y="470.0">what the grader checks</text>
+</svg>
