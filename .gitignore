@@ -220,8 +220,8 @@ __marimo__/
 # ZenML local init dirs (created by `zenml init` at image build / spike time)
 .zen/
 
-# Harbor run output
-jobs/
+# Harbor run output (repo root only: a bare `jobs/` also hid B1's `analytics/jobs/backfill/run.py`)
+/jobs/
 
 # pinned clone of zenml-io/skills used by run_baselines.py
 .skills-cache/
