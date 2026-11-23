@@ -1,218 +1,182 @@
-# ZenML Bench: what we run, and why it's hard
+# ZenML Bench: how it works and what every task tests
 
-*Last checked against the repository: 2026-11-23 (ZenML 0.96.4, task set v0.1). Pass rates are not on this page; they are generated into the [`README.md` results table](../README.md#results).*
+*Last checked against the repository: 2026-11-23 (ZenML 0.96.4, task set v0.1). Live pass rates and costs are generated into the [`README.md` results table](../README.md#results); what baselines revealed is in [`findings.md`](findings.md).*
 
-Each task is a small, working ZenML project with one thing wrong, or one job left undone: a cache that serves stale data, a pipeline written for a five-year-old API, a scheduled run that failed among several that failed for other reasons. A coding agent gets the project and a one-paragraph instruction. A hidden grader scores 1 or 0 by reading what ZenML recorded (runs, step statuses, artifacts, model versions, compiled settings) and by re-running the agent's code on data it never saw.
+ZenML Bench tests whether a coding agent can build, debug, configure, and run real ML pipelines using [ZenML](https://www.zenml.io). Each task drops an agent into a small, working Python project with one realistic problem or job left undone.
 
-This page covers every project and every task. The sister page for the Kitaru set is [`kitaru-bench.md`](kitaru-bench.md). How to write a task is in [`task-authoring.md`](task-authoring.md).
+Instead of grading prose or diffs, a hidden grader **inspects the state ZenML actually recorded** (runs, step statuses, cache keys, artifacts, model versions, compiled settings) and **re-runs the agent's code on inputs it never saw**. Scores are binary: `1` or `0`.
 
-## The short version
+![ZenML Bench at a glance: 18 tasks, 13 projects, 3 conditions](charts/zb-overview.svg)
 
-| | count | what it means |
+This page is the plain-language tour of every task and how grading works. The sister page for the Kitaru set is [`kitaru-bench.md`](kitaru-bench.md). To write or modify tasks, see [`task-authoring.md`](task-authoring.md).
+
+## Key ZenML concepts used here
+
+If you are new to ZenML, five concepts explain almost every task on this page:
+
+| concept | plain-English meaning |
+|---|---|
+| **pipeline & steps** | A Python workflow made of `@step` functions wired together inside a `@pipeline`. ZenML tracks every run and step status in its store. |
+| **cache key** | Before running a step, ZenML hashes its code, parameters, and input artifact IDs. If the hash matches a past run, the step is skipped (`cached`). |
+| **artifact & materializer** | Every step output is saved as a versioned **artifact** by a **materializer** (a serializer/deserializer). Downstream steps receive artifacts as typed inputs. |
+| **model version & stage** | A named ZenML Model (like `demand_forecaster`) groups versioned artifacts and metrics; a **stage** (like `production`) points at the active version. |
+| **repository (`.zen`) & stack** | ZenML finds a project's root by walking up to the nearest `.zen` directory, and runs pipelines against an active **stack** (orchestrator, artifact store, container registry, etc.). |
+
+## Anatomy of a task: `b3-stale-cache`
+
+To see what makes these tasks hard, look at one task end-to-end: **`b3-stale-cache`**.
+
+- **What the agent gets:** A working `nightly_training` pipeline (`load_data(path) → train(df) → evaluate(model, df)`) where `train` sleeps for 3 seconds to stand in for expensive training. The prompt says: *"Yesterday `data/train.csv` was replaced with new rows at the same path, but the pipeline kept reporting the old evaluation score because ZenML served cached results. Make changed data re-run dependent steps while keeping `train` cached when the file has not changed. Do not disable caching for the whole pipeline."*
+- **Why the obvious fix fails:** ZenML hashes `load_data`'s parameter — the path *string* `"data/train.csv"` — not the file's contents. Many agents respond by adding `enable_cache=False` to `load_data`. The score now updates and the run looks green, **yet it scores 0**: each fresh DataFrame returned by `load_data` gets a new artifact ID (and pandas has no content hash), so `train` now misses its cache on *every* run.
+- **What actually works:** Give ZenML a content hash of the file (via a small hashing step, a custom `cache_func`, or `file_dependencies`), so `load_data` re-runs *only* when bytes change and `train` stays cached otherwise.
+- **How the grader proves it:** The grader swaps unseen CSV fixtures `a, a, b, b, c` into `data/train.csv`, runs `python run.py` five times, and checks both the scores and the recorded step statuses:
+
+![B3 grading: five runs with fixtures a a b b c, correct fix vs obvious fix](charts/zb-b3-grading.svg)
+
+Every task in ZenML Bench follows this pattern: **real ZenML behaviour creates a plausible shortcut that goes green locally and still fails grading.**
+
+---
+
+## The 18 tasks, grouped by what they test
+
+*(Task IDs reflect the original design plan; numbers like `B8`, `B12`, and `B13` were deferred rather than built, so IDs are not contiguous.)*
+
+### 1. Caching & determinism (2 tasks)
+
+Projects: `nightly` (B3) and `sampling` (B4).
+
+B3 (walked through above) tests making a cache *invalidate* when file contents change without breaking downstream caching. B4 tests the mirror problem: a QA sampling pipeline (`load_events() → sample_events(events, n) → review_report(sample)`) over 20,000 synthetic payment events caches the random sampler, so every QA review inspects the exact same 50 events.
+
+![B4 grading: fresh random sample every run while loader stays cached](charts/zb-sampling.svg)
+
+| task | goal | the trap & how it's graded |
 |---|---|---|
-| tasks | 18 | 13 build-and-fix tasks (B), 3 research-loop tasks (R1, R2, R1-clock), 2 no-framework twins (R1-bare, R1-bare-clock) |
-| projects | 11 | working example projects under `shared/projects/`, each copied into the tasks that use it |
-| conditions | 3 | the same agent with nothing extra (`bare`), with ZenML's written skills (`skill`), or with the ZenML MCP server (`mcp`) |
-| generated families | 2 | `b10` and `b3`: a script turns one verified task into as many varied instances as you want; seeds 0–4 of each are committed as a held-out set |
+| `b3-stale-cache` | Make changed data at `data/train.csv` invalidate downstream steps while unchanged reruns keep `train` cached. | **Trap:** `enable_cache=False` on `load_data` creates a new DataFrame artifact ID every run, silently busting `train`'s cache.<br>**Graded on:** 5 grader runs with unseen fixtures `a, a, b, b, c`: right scores, `train` executed on runs 3 & 5 and cached on 2 & 4. |
+| `b4-nondeterministic-step` | Make `sample_events` draw a fresh random sample every run while the slow `load_events` step stays cached. | **Trap:** `CachePolicy(expires_after=0)` looks like "expire immediately", but `0` means unset so the step stays cached; disabling cache on the loader or report also fails.<br>**Graded on:** 2 grader runs with an unseen `n`: loader cached, sampler executed, samples differ, each report matches its own sample. |
 
-- **What makes a task hard is ZenML's real behaviour, not trick questions.** The cache key includes a file *path*, not its contents. A model version is not part of the cache key. `zenml stack set` outside a project changes the global stack, not the project's. Several tasks have an obvious fix that makes the run go green and still scores 0, because ZenML recorded something different from what the agent thinks it did.
-- **History is real, not mocked.** Where a task needs past runs (B1, B6, B10, B10H, B14, B14H), the image build runs the real pipeline several times, with real failures, so the store holds exactly what ZenML would record.
-- **Every grader assumes the store was forged.** The store is a writable SQLite file in the same container as the agent. So each non-research task ships a `tamper_store.sh` shortcut that hand-writes the "right" rows and must score 0, and graders check that the runs they read were genuinely produced by ZenML.
+### 2. Pipeline authoring & migration (3 tasks)
 
-## How a run works
+Projects: `credit_script` (B2), `legacy_training` (B9), and `churn_scoring` (B5).
 
-![How one ZenML Bench attempt runs: image build, agent, grader, store, reward](charts/zb-how-a-run-works.svg)
+These tasks test core authoring skills: converting plain Python into a ZenML pipeline, modernising old ZenML code, and persisting objects that pickle cannot handle.
 
-The container:
-
-- **No server.** ZenML uses its default local SQLite store inside the container. Tier A tasks need nothing else. Tier C tasks (B7, part of B11) register a Kubernetes stack with no cluster behind it and are graded by compiling the pipeline without running it.
-- **Network.** The image build and the grader run with no network. The agent may reach only `api.anthropic.com`, `api.openai.com` and `chatgpt.com`. These policies need OrbStack (or Linux); Docker Desktop rejects them. Terminus 2 calls its model from the host, so the policy does not apply to it.
-- **Docs offline.** `/opt/zenml-docs/llms-full.txt` holds ZenML's documentation as one file. Every instruction ends by pointing to it.
-- **Time.** 30 minutes for B tasks, 40 for R1, R2 and R1-bare, 25 for the two clock tasks (which also get 2 CPUs).
-
-The three conditions add one thing each, and the task directories stay the same:
-
-| condition | what the agent gets | how |
+| task | goal | the trap & how it's graded |
 |---|---|---|
-| `bare` | the container and the offline docs | default |
-| `skill` | ZenML's pipeline-authoring and quick-wins skills from `zenml-io/skills`, pinned by SHA | `harbor run --skill <dir>` (set by `scripts/run_baselines.py`) |
-| `mcp` | the ZenML MCP server, started by the agent CLI over stdio, reading the container's own store | `harbor run --mcp-config shared/mcp/zenml.json` |
+| `b2-script-to-pipeline` | Turn a plain `train.py` (`prepare`, `train`, `evaluate` on 2,400 synthetic credit rows) into pipeline `credit_training` with ≥ 3 typed steps and artifacts `model` and `accuracy`. | **Trap:** Returning `train_test_split(...)` without a `Tuple[...]` return annotation creates *one* tuple output instead of four; an `evaluate` step that retrains gets the right number without wiring the `model` artifact.<br>**Graded on:** Entrypoint run on visible + unseen 900-row data: accuracy matches the original script and `evaluate` takes `model` as a recorded step input. |
+| `b9-modernise-old-api` | Upgrade a 4-step training pipeline (`load_data → split → train → evaluate`) written in ZenML 0.4x (`BaseParameters`, `Output(...)`, `post_execution`) to run identically on 0.96.4. | **Trap:** Unlearning 0.4x conventions: missing `Tuple` annotations collapse multi-output steps, and invoking a step standalone registers an extra stray pipeline.<br>**Graded on:** Runs on visible and unseen data: exact pipeline name, step names, output names, recorded step parameters, and evaluation score. |
+| `b5-custom-materializer` | Symptom only (`TypeError: cannot pickle 'sqlite3.Connection'`): make `churn_training` (`load_data → train → evaluate`) complete and store `ChurnScorer` as artifact `churn_scorer` so `serve.py` scores identically in a fresh process. | **Trap:** `ChurnScorer` holds an in-memory SQLite table of segment adjustments plus features and a threshold. Saving a bare model or guessing the threshold runs green and scores wrong.<br>**Graded on:** Grader run produces `churn_scorer`; a fresh Python process loads it and scores unseen data within `1e-6`. |
 
-### Four checks before a task counts
+### 3. Run history & artifact lineage (4 tasks)
 
-1. The reference solution scores 1, five times out of five.
-2. Doing nothing scores 0.
-3. Every shortcut in `tests/shortcuts/` scores 0. Shortcuts are the tempting wrong fixes: "turn caching off everywhere", "hard-code the score", "forge the run".
-4. A second, different valid solution scores 1. Most tasks also have `solve_then_run_twice.sh`, because a real agent keeps running the pipeline after it has fixed it, and that can fill the cache in ways the oracle never does.
+Projects: `daily_report` (B10, B14, B14H) and `daily_report_hard` (B10H).
 
-### How graders refuse a forged store
+All four tasks use a regional sales pipeline (`load(date) → parse → summarise → write_report`). During image build, ZenML actually runs the pipeline across multiple days—producing real completed runs, real failures, and real artifacts—so the agent has to query ZenML's store rather than guess from source files. Scheduled runs are named `scheduled-<date>` (tagged `scheduled`); manual runs are named `manual-<date>-<time>` (tagged `manual`).
 
-> **Why this matters.** An agent being trained with reinforcement learning will take the shortest path to reward 1. If that path is "write a completed run into SQLite", it will find it. So graders never trust a row just because it is there.
+**Debugging failures (`B10`, `B10H`):** Most seeded failures are operational distractors (missing export file, missing `reports/` directory, or a hand-run typo for `2026-09-31` that ran *after* `09-09` and is therefore the most recent failed run overall). Only the ringed runs are code faults:
 
-`shared/checks/store_integrity.py` provides `assert_genuine_run(run)`. For every step of a graded run:
+![B10 and B10H seeded runs in the store](charts/zb-b10-history.svg)
 
-- **A completed step** must have a cache key, and each of its outputs must be a real step output produced by that same step, with the file present on disk.
-- **A cached step** must point at an original completed step in a *different* run, with the same cache key and the *same artifact versions*.
+**Tracing artifact lineage (`B14`, `B14H`):** Backfill runs from late August were run by hand and tagged `backfill` afterwards. In `B14H`, three backfill days were re-processed with corrected exports, introducing a supersession rule (*"the most recent completed processing of a day counts"*). Putting the actual day totals in the cells shows why every simpler filter lands on the wrong run:
 
-On top of that, most graders run the agent's entrypoint themselves on a fixture the agent never saw, find the run they just created by comparing run ids before and after, and grade that run.
+![B14 and B14H seeded runs with actual summary totals](charts/zb-b14-history.svg)
 
-## Projects and their tasks
-
-### Caching: `nightly` (B3) and `sampling` (B4)
-
-**`nightly`**, pipeline `nightly_training(path)`. The training step sleeps for 3 seconds to stand in for something expensive.
-
-![nightly pipeline: load_data, train, evaluate](charts/zb-nightly.svg)
-
-The fault: ZenML builds `load_data`'s cache key from its code and its parameters. The parameter is the path *string*. Replace the file at that path and the key does not change, so the step is served from the cache with the old data.
-
-![B3 grading: five runs with fixtures a a b b c, a correct fix against the obvious fix](charts/zb-b3-grading.svg)
-
-**`sampling`**, pipeline `qa_sampling(n)`. 20,000 synthetic payment events.
-
-![sampling pipeline: load_events, sample_events, review_report](charts/zb-sampling.svg)
-
-The fault is the opposite: the sampler should be random every run, but ZenML caches it, so every QA review gets the same 50 events.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b3-stale-cache` | make changed data rerun the steps that read it, while an unchanged rerun keeps `train` cached; caching must stay on | the obvious fix, `enable_cache=False` on `load_data`, fails: each fresh DataFrame is a new artifact, so `train` reruns every time. A working fix gives ZenML a content hash of the file (an extra small step, a `cache_func`, or `file_dependencies`) | the grader swaps fixtures a, a, b, b, c and runs each: scores right, `train` executed on runs 3 and 5 and cached on 2 and 4 |
-| `b4-nondeterministic-step` | the sampler must draw a fresh sample every run while the expensive loader keeps caching | `CachePolicy(expires_after=0)` looks like "expire now" but 0 means "not set", so the step stays cached; switching caching off on the loader or the report is also wrong | two grader runs with an `n` the agent never saw: loader cached, sampler executed, samples differ, each report matches its own sample |
-
-### Old API: `legacy_training` (B9) and its modern twin `k8s_training` (B7)
-
-Both projects are the same four-step training pipeline. `legacy_training` is written in the ZenML 0.4x API on purpose (`BaseParameters`, `Output(...)` annotations, `post_execution`).
-
-![training pipeline: load_data, split, train, evaluate](charts/zb-training.svg)
-
-For B7 the image registers a Kubernetes orchestrator `k8s` (context `zenml-prod`, namespace `ml-training`), a container registry and a stack `k8s-stack`. There is no cluster; `default` stays the active stack.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b9-modernise-old-api` | make the 0.4x project run on 0.96.4 with identical behaviour: same pipeline name, steps, output names, recorded parameters and score | unlearning an old mental model; a step that returns a tuple without a `Tuple` annotation is one output, not four; running a step alone registers an extra pipeline | runs on the image's data and on unseen data: steps, output names, parameter values in the step config, the score |
-| `b7-kubernetes-settings` | give the `train` step's pod 1 GPU, 8Gi memory, node selector `gpu=true` and service account `pipeline-runner`, for `k8s-stack` only; everything else keeps defaults | the details are spread across several docs pages; `pod_settings.service_account_name` looks right but is not a field, and ZenML accepts it silently; the top-level `service_account_name` also changes the orchestrator's pod | a local run on `default`, then a dry-run compile against `k8s-stack` that reads each step's compiled settings |
-
-### Artifacts: `churn_scoring` (B5) and `credit_script` (B2)
-
-**`churn_scoring`**, pipeline `churn_training()`: `load_data → train → evaluate`. `train` returns a `ChurnScorer` that holds an in-memory `sqlite3` table of segment adjustments. `serve.py` loads the artifact `churn_scorer` in a new process.
-
-**`credit_script`** is not a pipeline yet: a plain `train.py` with `prepare`, `train` and `evaluate` functions on 2,400 synthetic credit rows.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b5-custom-materializer` | symptom only, `TypeError: cannot pickle 'sqlite3.Connection'`: make the run complete and store the scorer as `churn_scorer`, so `serve.py` gives the same scores in a fresh process | the fix must keep features, threshold and the SQLite calibration; saving a bare model, or a materializer that guesses the threshold, runs green and scores wrong | the grader's run must output `churn_scorer`; a fresh interpreter loads it and scores hidden data within 1e-6 |
-| `b2-script-to-pipeline` | turn the script into pipeline `credit_training` with at least three typed steps and artifacts named `model` and `accuracy` | `prepare` returns `train_test_split(...)` directly, which a `Tuple`-annotated step treats as one output (the same trap as B9); an `evaluate` that retrains gets the right number without using the `model` artifact | the entrypoint on the visible and a hidden 900-row file: accuracy equals the original script's, and `evaluate` takes `model` as input |
-
-### Run history: `daily_report` (B10, B14, B14H) and `daily_report_hard` (B10H)
-
-A daily regional sales report. Pipeline `daily_report(date)`:
-
-![daily_report pipeline: load, parse, summarise, write_report](charts/zb-daily-report.svg)
-
-`python run.py --date D --trigger scheduled` names the run `scheduled-D` and tags it `scheduled`. A run started by hand is named `manual-D-<time>` and tagged `manual`. In `daily_report_hard`, `load` is never cached, `summarise` rejects rows from unknown regions, and `bin/nightly.sh` is the cron job that starts scheduled runs.
-
-**B10's history.** The image build runs the pipeline six times. Most runs fail, and only one failure is a code fault:
-
-![B10 seeded runs by day](charts/zb-b10-history.svg)
-
-The most recent *failed* run is the hand-started typo, not the scheduled run the instruction means. The real cause sits in the 09-09 run's `parse` step `exception_info`: amounts of 1,000 or more were written as `"1,234.50"`.
-
-**B10H's history** has ten runs. On top of B10's pattern, an old manual run for 08-30 fails on ISO `T` timestamps, and the scheduled run for 09-03 fails in `summarise` on regions spelled `"North"` and `"west "`. Both failed days' exports (09-03 and 09-09) are then moved off the box, so the agent can only read the cause from the recorded traceback or from the `load` step's output artifact.
-
-![B10H seeded runs by day](charts/zb-b10h-history.svg)
-
-**B14's and B14H's history** adds hand-run backfill days before the scheduled ones. All of them were tagged `backfill` after the fact.
-
-![B14 seeded runs by day](charts/zb-b14-history.svg)
-
-B14H then re-processes three backfill days with corrected exports. The rule is "the most recent processing of a day that *completed* counts for that day". Each simpler rule picks a different run, which is the point:
-
-![B14H seeded runs: first processing, re-processing and scheduled](charts/zb-b14h-history.svg)
-
-| rule the agent might use | run it picks | right? |
+| task | goal | the trap & how it's graded |
 |---|---|---|
-| largest summary, any status | 08-26 first processing (failed) | no |
-| largest completed, ignoring re-processing | 08-27 first processing (superseded by its v2) | no |
-| latest processing, any status | 08-25 v2 (failed, so 08-25's first run still counts) | no |
-| largest of every completed run, not only backfills | scheduled 09-08 | no |
-| supersession rule, then largest day | **08-26 v2** (`daily_report::summarise::output` version 5) | yes |
+| `b10-why-did-it-fail` | The latest scheduled run failed: find the day and cause, fix the code so every row counts, and re-run that day. | **Trap:** The newest failed run overall is the manual `09-31` typo, not scheduled `09-09` (which failed in `parse` on `"1,234.50"`). Dropping or coercing bad rows goes green while losing revenue from totals.<br>**Graded on:** Genuine completed `09-09` run with exact totals, plus two unseen exports (with/without separators); seeded history untouched. |
+| `b10h-why-did-it-fail-hard` | As B10, without being told how scheduled runs are named, with the failed CSVs moved off the box, and requiring *every* code-preventable scheduled failure of the week to be fixed. | **Trap:** Re-running `09-09` blindly fails with file-not-found (evidence sits only in ZenML's traceback and `load` output artifact); `09-03` has a *second* code fault (`"North"` / `"west "` casing & whitespace); hard-coding `"North"` fails unseen regions.<br>**Graded on:** Restored `09-09` export plus 4 hidden exports (plain, separators, odd regions, both). |
+| `b14-artifact-retrieval` | Find the completed backfill run with the largest total, and build a one-step `region_report` pipeline whose recorded input is that run's summary artifact. | **Trap:** `08-26` (`30,165`) failed in `write_report`; scheduled `09-08` (`22,383`) is not a backfill; recomputing from the CSV gets the right number without ZenML artifact lineage.<br>**Graded on:** Recorded step input points to `08-27`'s (`16,506`) summary artifact; report matches; grader also runs `region_report.py <id>` on an unseen summary. |
+| `b14h-artifact-retrieval-hard` | As B14, with re-processed days under the supersession rule, and the report must cite the artifact's ZenML name and version. | **Trap:** Every naive rule picks a different run—largest summary (`08-26` first, `17,170`), largest completed (`08-27` first, `16,689`), latest any status (`08-25` v2, `16,986`), any run (`09-08`, `22,383`). Only supersession picks **`08-26` v2** (`16,419`, `daily_report::summarise::output` v5).<br>**Graded on:** As B14, plus exact cited artifact name and version. |
 
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b10-why-did-it-fail` | the most recent scheduled run failed: find the day and cause, fix the code so that day counts every row, run it | distractor failures in `load` and `write_report`, and a more recent manual failure; dropping or coercing the bad rows runs green and loses money from the totals | a completed, genuine 09-09 run with the right summary, then two hidden exports (with and without separators); seeded runs and data untouched |
-| `b10h-why-did-it-fail-hard` | as B10, without being told how scheduled runs are named, with the export quarantined, and with every *code-preventable* scheduled failure of the week fixed | a blind rerun of 09-09 fails with a different error (the file is gone); the second code fault on 09-03 means fixing only this morning's cause scores 0; adding `"North"` to the allowed regions is a patch, not a fix | runs for every day on disk, the restored 09-09 export, four hidden exports (plain, separators, odd regions, both) |
-| `b14-artifact-retrieval` | find the completed backfill run with the largest total; build a one-step `region_report` pipeline whose recorded input is that run's summary artifact | a failed backfill holds the largest summary; a scheduled run beats every backfill day; recomputing from the CSV gets the number without the lineage | the step's recorded input artifact, the report, then the grader saves an unseen summary and runs `region_report.py <id>` |
-| `b14h-artifact-retrieval-hard` | as B14 with re-processed days and the supersession rule; the report cites the artifact's ZenML name and version | every simpler rule picks a different run (table above) | as B14, plus the cited name and version |
+### 4. Models, stacks & repository roots (4 tasks)
 
-### Model versions: `model_promotion` (B6)
+Projects: `model_promotion` (B6), `k8s_training` (B7), `stack_onboarding` (B11), and `analytics_workspace` (B1).
 
-Two pipelines share the model `demand_forecaster`:
+These tasks test operational ZenML mechanics: model stage promotion, Kubernetes pod configuration, offline stack registration, and repository root discovery.
 
-![model_promotion: training and inference pipelines](charts/zb-model-promotion.svg)
+**Model promotion (`B6`):** The image trains `demand_forecaster` v1 (linear, lower `val_mae` = better) and v2 (random forest, worse), then runs `batch_forecast` once (picking "latest", v2). Simply switching inference to `Model(version="production")` fails when the grader flips `production` to the other version on the same batch:
 
-The image trains version 1 (linear, the better one), then version 2 (random forest, worse), then runs inference once, which reads "latest", that is, version 2.
+![B6 model promotion and the cache trap](charts/zb-model-promotion.svg)
 
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b6-model-promotion` | promote the version with the lowest `val_mae` to `production`, and make inference follow the stage from now on | the model version is not in ZenML's cache key: switch to `Model(version="production")` and `predict` is still served from the cache, linked to the new version while its predictions come from the old one | production is the better version; then the grader promotes the *other* version and reruns on the same hidden batch: the link and the predictions must follow |
+**Repository roots (`B1`):** ZenML records step module paths relative to the nearest parent `.zen` folder. A stray `.zen` inside `analytics/jobs/backfill/` truncates backfill step paths, while a neighbouring project (`/app/legacy_reports`) has its own `.zen` and recorded run that must stay untouched:
 
-### Repository roots: `analytics_workspace` (B1)
+![B1 analytics_workspace directory tree before and after](charts/zb-b1-roots.svg)
 
-The workspace root is `/app`. Inside it, `analytics/` holds two entrypoints (a daily job and a backfill job in `jobs/backfill/`) that share `src/features.py`. `legacy_reports/` is a neighbouring project with its own `.zen` and one recorded run, and it must not be touched.
-
-ZenML finds its repository by walking up from the current directory to the nearest `.zen` folder, and records every step's source relative to that root. The image build puts a stray `.zen` inside `analytics/jobs/backfill/`, so the backfill's steps are recorded as `run.load_history` instead of `jobs.backfill.run.load_history`.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b1-source-root-repair` | make both entrypoints run with the repository root at `/app/analytics`, leaving `/app/legacy_reports` exactly as it is | fixing the import with `sys.path` alone leaves the roots wrong; `zenml init` at `/app` moves the neighbour's root too; keeping the stray `.zen` means the backfill still finds it first | the grader runs both entrypoints: every recorded source imports from `/app/analytics`, `.zen` only there, the neighbour's file hashes, `.zen` and run unchanged |
-
-### Stacks: `stack_onboarding` (B11)
-
-A two-step smoke-check pipeline with no data. The task is the stack, not the pipeline.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `b11-stack-registration` | register an AWS service connector, an S3 artifact store linked through it, a Kubernetes orchestrator and a container registry, assemble stack `prod-k8s` and make it active *for this project*, keeping `default` intact | there is no route to AWS: `artifact-store register --connector` always verifies, prints an error when that fails and leaves the store unlinked; `zenml stack set` outside the project changes the global stack, not the project's | the recorded components, the connector link and bucket, the project's active stack, and a run on `default` |
-
-### Research loops: `research` (R1, R2, R1-clock) and `research_bare` (R1-bare, R1-bare-clock)
-
-A small binary classification problem. Pipeline `research(config, seed)`; every run is attached to the model `research_model`, with the version named after the config.
-
-![The chain the R1 and R2 grader walks](charts/zb-research-chain.svg)
-
-> **"A link is not evidence."** ZenML lets you attach any artifact to any model version. So the grader does not trust the link. It walks a chain: the `production` version → a linked run of `research` that completed → that run's `train` step → the `model` output that step produced. Only a model that survives the chain is scored, by the grader's own evaluator on hidden data. The step also records how many rows it trained on and a digest of them, so "train on the full set" is visible in the record.
-
-`gap_closed` measures how far the agent got from the baseline (logistic regression, hidden log loss 0.6585) towards a reference (gradient boosting, 0.4581). 0.5 means halfway.
-
-| task | what the agent is asked | why it's hard | graded on |
-|---|---|---|---|
-| `r1-improve-within-budget` | at most 12 runs; lower validation loss; promote the best version to `production` | promoting a hand-saved model, training on the full set, or editing the evaluation all look like success | `gap_closed ≥ 0.5` on hidden data through the chain, within budget, on the seed's slice |
-| `r2-screen-then-confirm` | as R1, but the production version needs 3 completed runs on 3 different seeds with mean loss ≤ 0.56 | running the same seed three times gives cache hits, not evidence; a single good seed is luck | R1's checks plus the evidence rule |
-| `r1-clock-improve-within-budget` | R1 with a stated 25-minute clock and 2 CPUs, enforced by Harbor | the clock binds where the run budget doesn't: tool-call latency is the agent's real cost | as R1 |
-| `r1-bare-improve-within-budget` | the same problem with no framework: `train.py` appends to `results.tsv` and saves a pickle; promotion is copying a file to `best_model.pkl` | the agent keeps its own lab notebook; deleting rows to hide extra runs is caught | `best_model.pkl` tied to a results row by sha256, then the same hidden-data scoring |
-| `r1-bare-clock-improve-within-budget` | R1-bare with the same clock | the twin of R1-clock: the pair differs only in ZenML being present | as R1-bare |
-
-The with-and-without-ZenML comparison these twins were built for is written up in `results/level3-comparison.md`.
-
-## Generated instances
-
-`scripts/generate_instances.py <family> --n N --seed S --out <dir>` turns one verified task into many. It varies surface details and the fault, runs the reference through ZenML in a throwaway store to compute expected values, and checks that the unfixed project fails the way the instance says it does. Seeds 0–4 of each family are committed under `tasks/generated/` as a held-out set; training sets use seeds from 1000 up in the gitignored `tasks/generated-train/`.
-
-| family | from | what changes per instance |
+| task | goal | the trap & how it's graded |
 |---|---|---|
-| `b10` | B10 | month and days, region names, the fault (thousands separators, region spelling, slashed dates, negative amounts in brackets, a new column), which distractor failures appear, the run naming and tag scheme, the pipeline name |
-| `b3` | B3 | pipeline, step and output names, the data path, whether the path is a parameter, which step is expensive (trainer or evaluator), data size and noise |
+| `b6-model-promotion` | Promote the lower-`val_mae` version of `demand_forecaster` to `production` and make `batch_forecast` always follow that stage. | **Trap:** The model version is not part of ZenML's cache key—switching to `Model(version="production")` still serves cached predictions from the previous version on the same input batch.<br>**Graded on:** Better version holds `production`; grader then promotes the *other* version and re-runs on the same hidden batch—both link and predictions must change. |
+| `b7-kubernetes-settings` | Give only the `train` step's pod 1 GPU, 8Gi memory, node selector `gpu=true`, and service account `pipeline-runner` on `k8s-stack` (leaving `default` active and other steps untouched). | **Trap:** `pod_settings.service_account_name` looks valid and ZenML accepts it silently, but it is not a real field; setting `service_account_name` at the orchestrator top level also changes the orchestrator's pod.<br>**Graded on:** Local run on `default`, then a dry-run compile against `k8s-stack` inspecting each step's compiled settings (no real cluster needed). |
+| `b11-stack-registration` | Register an AWS service connector, an S3 artifact store linked to it, a Kubernetes orchestrator, and a container registry into stack `prod-k8s`, set it active *for this project*, and keep `default` intact. | **Trap:** There is no network route to AWS, so `artifact-store register --connector` tries to verify and leaves the store unlinked unless verification is bypassed; running `zenml stack set` outside the project changes the *global* stack instead of the project's.<br>**Graded on:** Recorded components, connector link and bucket, project-scoped active stack, and a smoke run on `default`. |
+| `b1-source-root-repair` | Make both `/app/analytics` entrypoints run with the repository root at `/app/analytics`, leaving `/app/legacy_reports` completely unchanged. | **Trap:** Patching `sys.path` leaves recorded step sources wrong; running `zenml init` at `/app` hijacks `legacy_reports`; leaving `jobs/backfill/.zen` keeps backfill paths truncated.<br>**Graded on:** Grader runs both entrypoints (all step sources import from `/app/analytics`, `.zen` exists only there) and checks `legacy_reports` file hashes, `.zen`, and run are untouched. |
 
-The committed `b10` held-out instances use the date-format, bracketed-negative and separator faults; none uses the region or new-column faults.
+### 5. Research loops & framework comparison (5 tasks)
+
+Projects: `research` (R1, R2, R1-clock) and `research_bare` (R1-bare, R1-bare-clock).
+
+Unlike the B tasks, R tasks are open-ended iterative ML optimization on a binary classification problem (`research(config, seed)` attached to `research_model`). Progress is measured by **`gap_closed`**: how far the promoted model moves from the logistic-regression baseline (hidden log loss `0.6585`) toward a gradient-boosting reference (`0.4581`), where `0.5` is halfway.
+
+Because ZenML lets you attach any artifact to any model version, **a link alone is not evidence**—the grader walks the full lineage chain before scoring on hidden data:
+
+![R1 and R2 lineage chain vs rejected manual link](charts/zb-research-chain.svg)
+
+| task | goal | the trap & how it's graded |
+|---|---|---|
+| `r1-improve-within-budget` | Run at most 12 trials of `research`, lower validation log loss, and promote the best model version to `production`. | **Trap:** Promoting a hand-saved model, training on the full dataset, or editing evaluation code all fail lineage/row-digest checks.<br>**Graded on:** `gap_closed ≥ 0.5` on hidden data through the verified chain, ≤ 12 runs, trained on the seed's slice. |
+| `r2-screen-then-confirm` | As R1, except `production` must be backed by 3 completed runs on 3 *distinct* seeds with mean validation loss ≤ `0.56`. | **Trap:** Re-running the same seed 3 times produces cache hits instead of multi-seed evidence; promoting a lucky single seed scores 0.<br>**Graded on:** All R1 checks plus the 3-distinct-seed evidence rule. |
+| `r1-clock-improve-within-budget` | R1 under an explicit 25-minute wall-clock timeout and 2 CPUs enforced by Harbor. | **Trap:** Tool-call latency and iteration speed bind where the 12-run cap alone does not.<br>**Graded on:** As R1, within the 25-minute clock. |
+| `r1-bare-improve-within-budget` | The exact same problem with **no ZenML**: `train.py` logs to `results.tsv` and saves pickles; promotion copies a file to `best_model.pkl`. | **Trap:** The agent maintains its own lab notebook; deleting rows to hide extra runs is caught.<br>**Graded on:** `best_model.pkl` matched by SHA-256 to a `results.tsv` row, then the same hidden-data `gap_closed` check. |
+| `r1-bare-clock-improve-within-budget` | `r1-bare` with the same 25-minute / 2-CPU clock — the twin of `r1-clock`, differing only in whether ZenML is present. | **Purpose:** Built for the controlled with-vs-without-ZenML comparison in [`results/level3-comparison.md`](../results/level3-comparison.md).<br>**Graded on:** As `r1-bare`. |
+
+---
+
+## How a run works & why the scores are trustworthy
+
+Every task executes inside a single isolated container with a local SQLite ZenML store (no external server).
+
+![How one ZenML Bench attempt runs](charts/zb-how-a-run-works.svg)
+
+### Container & condition setup
+
+- **Offline docs & restricted network:** Image builds and grading run with no network. During the agent's turn, egress is restricted to `api.anthropic.com`, `api.openai.com`, and `chatgpt.com` (requires OrbStack on macOS or Linux; Docker Desktop rejects the network policy; Terminus 2 calls its model from the host). Offline ZenML docs live at `/opt/zenml-docs/llms-full.txt`.
+- **Time limits:** 30 minutes for B tasks, 40 minutes for R1 / R2 / R1-bare, and 25 minutes (with 2 CPUs) for the two clock tasks.
+- **Tiers:** Tier A tasks use only the local SQLite store. Tier C tasks (`B7`, part of `B11`) register a Kubernetes stack with no real cluster and are graded by dry-run pipeline compilation.
+- **Three conditions** let the exact same tasks test whether skills or MCP tools help:
+
+| condition | what changes | how it's invoked |
+|---|---|---|
+| `bare` | container + offline docs only | default |
+| `skill` | adds ZenML's `pipeline-authoring` and `quick-wins` skills from `zenml-io/skills` (pinned by SHA) | `harbor run --skill <dir>` (via `scripts/run_baselines.py`) |
+| `mcp` | starts the ZenML MCP server over stdio against the container's local store | `harbor run --mcp-config shared/mcp/zenml.json` |
+
+### Anti-cheating & quality gates
+
+> **Why graders assume the store could be forged.** An RL-trained agent will take the shortest path to reward `1`—including writing fake rows straight into SQLite. So every non-research task ships a `tests/shortcuts/tamper_store.sh` script that hand-forges the "right" rows and **must score 0**.
+
+- **Genuine-run verification:** `shared/checks/store_integrity.py` (`assert_genuine_run`) checks that every completed step has a valid cache key and real output files on disk, and that every cached step points to an original completed step in a *different* run with the same cache key and artifact versions. On top of that, graders run the agent's entrypoint themselves on unseen data and grade the new run ID.
+- **Four checks before any task counts:**
+  1. Reference solution (`solution/solve.sh`) scores `1` five times out of five.
+  2. Doing nothing scores `0`.
+  3. Every shortcut in `tests/shortcuts/` (disabling cache everywhere, hard-coding scores, forging the store, etc.) scores `0`.
+  4. At least one different valid solution scores `1` (most tasks also verify `solve_then_run_twice.sh`, since real agents often re-run pipelines after fixing them).
+
+### Generated instances (for RL training)
+
+Eighteen hand-written tasks are enough for evaluation, not RL training. `scripts/generate_instances.py <family> --n N --seed S --out <dir>` generates verified variations by running each generated instance's reference solution through ZenML in a throwaway store to compute exact expected outputs and confirming the unfixed project fails as intended.
+
+| family | base task | what varies per instance |
+|---|---|---|
+| `b10` | B10 | month/days, region names, fault type (thousands separators, region spelling, slashed dates, bracketed negatives, extra column), distractor failures, run naming/tags, pipeline name |
+| `b3` | B3 | pipeline/step/output names, data path, whether path is a parameter, which step is expensive (trainer or evaluator), dataset size and noise |
+
+Seeds `0–4` of each family are committed under `tasks/generated/` as a held-out set (the committed `b10` seeds use the date-format, bracketed-negative, and separator faults). Training sets use seeds `1000+` in gitignored `tasks/generated-train/`.
 
 ## Where things live
 
 | what | where |
 |---|---|
-| base image (ZenML pin, agent CLIs, docs, MCP server) | `shared/base/Dockerfile` |
-| a project | `shared/projects/<project>/`; copied into tasks with `scripts/sync_project.sh` |
-| a task | `tasks/<id>/` (`instruction.md`, `task.toml`, `environment/`, `solution/`, `tests/`) |
-| forged-store check | `shared/checks/store_integrity.py`; copied into tasks by `scripts/sync_checks.sh` |
-| the four checks through Harbor | `scripts/verify_task.py <task>`; fast local loop: `scripts/grade_local.sh <task> [patch.sh]` |
-| baselines and the README table | `scripts/run_baselines.py`, `scripts/results_table.py`, `results/` |
-| why things are the way they are | `docs/decisions.md`, `docs/findings.md` |
+| Base image (ZenML pin, agent CLIs, docs, MCP server) | `shared/base/Dockerfile` |
+| Shared projects (13 total) | `shared/projects/<project>/` (synced into tasks via `scripts/sync_project.sh`) |
+| Task definitions (18 total) | `tasks/<id>/` (`instruction.md`, `task.toml`, `environment/`, `solution/`, `tests/`) |
+| Forged-store check | `shared/checks/store_integrity.py` (synced via `scripts/sync_checks.sh`) |
+| Verification & fast local grading | `scripts/verify_task.py <task>` (Harbor); `scripts/grade_local.sh <task> [patch.sh]` (seconds, no container) |
+| Baselines & README score table | `scripts/run_baselines.py`, `scripts/results_table.py`, `results/` |
+| Design rationale & baseline analysis | [`docs/decisions.md`](decisions.md), [`docs/findings.md`](findings.md) |

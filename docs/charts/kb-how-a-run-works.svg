@@ -1,83 +1,99 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 330" width="920" height="330" role="img" aria-label="How one Kitaru Bench attempt runs">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 348" width="940" height="348" role="img" aria-label="How one Kitaru Bench attempt runs">
 <title>How one Kitaru Bench attempt runs</title>
 <style>
 svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
   --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
-  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
 @media (prefers-color-scheme: dark) {
   svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
     --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
-    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
 }
 text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
 .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
 .bg { fill: var(--surface); stroke: var(--rule); }
 .title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
 .axis { font-size: 11px; fill: var(--muted); }
 .row-label { font-size: 12px; }
 .bar-label { font-size: 11.5px; }
 .note { font-size: 11px; fill: var(--muted); }
-.legend { font-size: 12px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
 .gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
 .k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
 .k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
-.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
-.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .box { fill: var(--paper); stroke: var(--rule); }
 .box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
 .box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
 .box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
 .box-text { font-size: 11.5px; fill: var(--muted); }
 .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
 .commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
 .cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
 .cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
 </style>
-<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
-<rect class="bg" x="0.5" y="0.5" width="919" height="329" rx="10"/>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="347" rx="10"/>
 <text class="title" x="20" y="28">How one Kitaru Bench attempt runs</text>
-<text class="row-label" x="20" y="62.0" font-weight="600">Image build, once per task</text>
-<rect class="box" x="20.0" y="72.0" width="273.3" height="74" rx="8"/>
-<text class="box-name mono" x="30.0" y="92.0">base image</text>
-<text class="box-text" x="30.0" y="110.0">Kitaru 0.27.7, PostgreSQL, agent CLIs,</text>
-<text class="box-text" x="30.0" y="124.0">plugin wheels, offline docs</text>
-<path class="arrow" d="M295.3 109.0 C308.3 109.0 308.3 109.0 320.3 109.0"/>
-<rect class="box" x="323.3" y="72.0" width="273.3" height="74" rx="8"/>
-<text class="box-name mono" x="333.3" y="92.0">world section</text>
-<text class="box-text" x="333.3" y="110.0">load.py imports or records the history</text>
-<text class="box-text" x="333.3" y="124.0">story.py planned</text>
-<path class="arrow" d="M598.7 109.0 C611.7 109.0 611.7 109.0 623.7 109.0"/>
-<rect class="box" x="626.7" y="72.0" width="273.3" height="74" rx="8"/>
-<text class="box-name mono" x="636.7" y="92.0">task section</text>
-<text class="box-text" x="636.7" y="110.0">optional setup/: an agent version, a cohort,</text>
-<text class="box-text" x="636.7" y="124.0">earlier imports</text>
-<text class="row-label" x="20" y="180.0" font-weight="600">One attempt</text>
-<rect class="box" x="20.0" y="190.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="30.0" y="210.0">start.sh</text>
-<text class="box-text" x="30.0" y="228.0">healthcheck starts</text>
-<text class="box-text" x="30.0" y="242.0">Postgres, the Kitaru</text>
-<text class="box-text" x="30.0" y="256.0">server and a worker</text>
-<path class="arrow" d="M174.0 241.0 C187.0 241.0 187.0 241.0 199.0 241.0"/>
-<rect class="box" x="202.0" y="190.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="212.0" y="210.0">agent</text>
-<text class="box-text" x="212.0" y="228.0">user &#x27;agent&#x27;, over</text>
-<text class="box-text" x="212.0" y="242.0">HTTP only; 30 minutes,</text>
-<text class="box-text" x="212.0" y="256.0">2 CPUs</text>
-<path class="arrow" d="M356.0 241.0 C369.0 241.0 369.0 241.0 381.0 241.0"/>
-<rect class="box-good" x="384.0" y="190.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="394.0" y="210.0">grader</text>
-<text class="box-text" x="394.0" y="228.0">root; stops the agent&#x27;s</text>
-<text class="box-text" x="394.0" y="242.0">processes, starts its</text>
-<text class="box-text" x="394.0" y="256.0">own worker as &#x27;grader&#x27;</text>
-<path class="arrow" d="M538.0 241.0 C551.0 241.0 551.0 241.0 563.0 241.0"/>
-<rect class="box-good" x="566.0" y="190.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="576.0" y="210.0">checks</text>
-<text class="box-text" x="576.0" y="228.0">Kitaru&#x27;s records,</text>
-<text class="box-text" x="576.0" y="242.0">finance rows, the</text>
-<text class="box-text" x="576.0" y="256.0">agent&#x27;s code on hidden</text>
-<text class="box-text" x="576.0" y="270.0">inputs</text>
-<path class="arrow" d="M720.0 241.0 C733.0 241.0 733.0 241.0 745.0 241.0"/>
-<rect class="box" x="748.0" y="190.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="758.0" y="210.0">reward</text>
-<text class="box-text" x="758.0" y="228.0">1 or 0</text>
+<text class="subtitle" x="20" y="46">Everything runs inside one container; Linux users and root-only logs prevent the agent from reading answers or faking payments.</text>
+<text class="section-head" x="20" y="80.0">1. Image build (once per task)</text>
+<rect class="box" x="20.0" y="88.0" width="281.3" height="68.0" rx="8"/>
+<text class="box-name mono" x="30.0" y="108.0">base image</text>
+<text class="box-text" x="30.0" y="125.0">Kitaru 0.27.7, PostgreSQL, agent CLIs,</text>
+<text class="box-text" x="30.0" y="139.0">plugin wheels, offline docs</text>
+<path class="arrow" d="M303.3 122.0 L326.3 122.0"/>
+<rect class="box" x="329.3" y="88.0" width="281.3" height="68.0" rx="8"/>
+<text class="box-name mono" x="339.3" y="108.0">world section</text>
+<text class="box-text" x="339.3" y="125.0">load.py imports or records the seeded</text>
+<text class="box-text" x="339.3" y="139.0">history story.py planned</text>
+<path class="arrow" d="M612.7 122.0 L635.7 122.0"/>
+<rect class="box" x="638.7" y="88.0" width="281.3" height="68.0" rx="8"/>
+<text class="box-name mono" x="648.7" y="108.0">task section</text>
+<text class="box-text" x="648.7" y="125.0">optional setup/: pre-registered versions,</text>
+<text class="box-text" x="648.7" y="139.0">cohorts, damaged imports</text>
+<path class="arrow-accent" d="M470.0 159.0 L470.0 181.0"/>
+<text class="axis" x="480.0" y="174.0">runs on Modal (network allow-list: model APIs only)</text>
+<text class="section-head" x="20" y="200.0">2. One attempt (three Linux users enforce isolation)</text>
+<rect class="box" x="20.0" y="210.0" width="208.5" height="96.0" rx="8"/>
+<text class="box-name mono" x="30.0" y="230.0">start.sh (root)</text>
+<text class="box-text" x="30.0" y="247.0">healthcheck starts Postgres</text>
+<text class="box-text" x="30.0" y="261.0">(fresh password), Kitaru server</text>
+<text class="box-text" x="30.0" y="275.0">&amp; bench-worker</text>
+<path class="arrow" d="M230.5 258.0 L247.5 258.0"/>
+<rect class="box" x="250.5" y="210.0" width="208.5" height="96.0" rx="8"/>
+<text class="box-name mono" x="260.5" y="230.0">agent (user: agent)</text>
+<text class="box-text" x="260.5" y="247.0">HTTP only (127.0.0.1:8000); 30</text>
+<text class="box-text" x="260.5" y="261.0">min (45m on F7), 2 CPUs; cannot</text>
+<text class="box-text" x="260.5" y="275.0">read DB or /tests</text>
+<path class="arrow" d="M461.0 258.0 L478.0 258.0"/>
+<rect class="box-good" x="481.0" y="210.0" width="208.5" height="96.0" rx="8"/>
+<text class="box-name mono" x="491.0" y="230.0">grader (root + &#x27;grader&#x27;)</text>
+<text class="box-text" x="491.0" y="247.0">locks /tests, kills agent procs,</text>
+<text class="box-text" x="491.0" y="261.0">runs agent&#x27;s registered code as</text>
+<text class="box-text" x="491.0" y="275.0">user &#x27;grader&#x27;</text>
+<path class="arrow" d="M691.5 258.0 L708.5 258.0"/>
+<rect class="box-good" x="711.5" y="210.0" width="208.5" height="96.0" rx="8"/>
+<text class="box-name mono" x="721.5" y="230.0">reward</text>
+<text class="box-text" x="721.5" y="247.0">1 or 0 from Kitaru records,</text>
+<text class="box-text" x="721.5" y="261.0">root-only service logs &amp; hidden</text>
+<text class="box-text" x="721.5" y="275.0">inputs</text>
+<rect class="box-good" x="21.0" y="321.0" width="12" height="12" rx="3"/>
+<text class="legend" x="39.0" y="332.0">privileged grading phase (isolated from agent code)</text>
 </svg>

@@ -1,77 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 370" width="920" height="370" role="img" aria-label="exports: the nightly import before I4 starts, 1 to 8 August 2026">
-<title>exports: the nightly import before I4 starts, 1 to 8 August 2026</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 378" width="940" height="378" role="img" aria-label="I4 / I4h (exports): how the 2-day sliding window creates strays and stray-only tickets">
+<title>I4 / I4h (exports): how the 2-day sliding window creates strays and stray-only tickets</title>
 <style>
 svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
   --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
-  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
 @media (prefers-color-scheme: dark) {
   svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
     --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
-    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
 }
 text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
 .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
 .bg { fill: var(--surface); stroke: var(--rule); }
 .title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
 .axis { font-size: 11px; fill: var(--muted); }
 .row-label { font-size: 12px; }
 .bar-label { font-size: 11.5px; }
 .note { font-size: 11px; fill: var(--muted); }
-.legend { font-size: 12px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
 .gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
 .k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
 .k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
-.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
-.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .box { fill: var(--paper); stroke: var(--rule); }
 .box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
 .box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
 .box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
 .box-text { font-size: 11.5px; fill: var(--muted); }
 .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
 .commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
 .cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
 .cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
 </style>
-<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
-<rect class="bg" x="0.5" y="0.5" width="919" height="369" rx="10"/>
-<text class="title" x="20" y="28">exports: the nightly import before I4 starts, 1 to 8 August 2026</text>
-<text class="axis" x="234.1" y="52.0" text-anchor="middle">1 Aug</text>
-<line class="gridline" x1="234.1" x2="234.1" y1="58.0" y2="286.0"/>
-<text class="axis" x="322.4" y="52.0" text-anchor="middle">2 Aug</text>
-<line class="gridline" x1="322.4" x2="322.4" y1="58.0" y2="286.0"/>
-<text class="axis" x="410.6" y="52.0" text-anchor="middle">3 Aug</text>
-<line class="gridline" x1="410.6" x2="410.6" y1="58.0" y2="286.0"/>
-<text class="axis" x="498.9" y="52.0" text-anchor="middle">4 Aug</text>
-<line class="gridline" x1="498.9" x2="498.9" y1="58.0" y2="286.0"/>
-<text class="axis" x="587.1" y="52.0" text-anchor="middle">5 Aug</text>
-<line class="gridline" x1="587.1" x2="587.1" y1="58.0" y2="286.0"/>
-<text class="axis" x="675.4" y="52.0" text-anchor="middle">6 Aug</text>
-<line class="gridline" x1="675.4" x2="675.4" y1="58.0" y2="286.0"/>
-<text class="axis" x="763.6" y="52.0" text-anchor="middle">7 Aug</text>
-<line class="gridline" x1="763.6" x2="763.6" y1="58.0" y2="286.0"/>
-<text class="axis" x="851.9" y="52.0" text-anchor="middle">8 Aug</text>
-<line class="gridline" x1="851.9" x2="851.9" y1="58.0" y2="286.0"/>
-<text class="row-label" x="178.0" y="95.0" text-anchor="end">script v1</text>
-<rect class="k-neutral" x="191.0" y="84.0" width="439.2" height="14" rx="3"/>
-<text class="bar-label" x="192.0" y="79.0">nights 1-5: identity tidewater-support, correct</text>
-<text class="row-label" x="178.0" y="141.0" text-anchor="end">cohort</text>
-<rect class="k-neutral" x="544.0" y="130.0" width="86.2" height="14" rx="3"/>
-<text class="bar-label" x="545.0" y="125.0">reviewed-week-31 created</text>
-<text class="row-label" x="178.0" y="187.0" text-anchor="end">commit</text>
-<rect class="k-commit" x="579.1" y="176.0" width="16" height="14" rx="3"/>
-<text class="bar-label" x="589.1" y="171.0">5 Aug: identity taken from the file name</text>
-<text class="row-label" x="178.0" y="233.0" text-anchor="end">script v2</text>
-<rect class="k-problem" x="632.2" y="222.0" width="174.5" height="14" rx="3"/>
-<text class="bar-label" x="633.2" y="217.0">nights 6-7: 96 stray sessions</text>
-<text class="row-label" x="178.0" y="279.0" text-anchor="end">grader</text>
-<rect class="k-neutral" x="808.8" y="268.0" width="86.2" height="14" rx="3"/>
-<text class="bar-label" x="896.0" y="263.0" text-anchor="end">night 8, run twice</text>
-<text class="note" x="20" y="326.0">Each night&#x27;s file holds the day before and the day itself. The 48 tickets of days 6 and 7 exist only as strays.</text>
-<rect class="k-problem" x="20.0" y="340.0" width="14" height="14" rx="3"/>
-<text class="legend" x="40.0" y="352.0">the cause a task is after</text>
-<rect class="k-neutral" x="208.88" y="340.0" width="14" height="14" rx="3"/>
-<text class="legend" x="228.88" y="352.0">background or symptom</text>
-<rect class="k-commit" x="381.91999999999996" y="340.0" width="14" height="14" rx="3"/>
-<text class="legend" x="401.91999999999996" y="352.0">git commit</text>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="377" rx="10"/>
+<text class="title" x="20" y="28">I4 / I4h (exports): how the 2-day sliding window creates strays and stray-only tickets</text>
+<text class="subtitle" x="20" y="46">Every nightly file holds yesterday + today. Changing the source ID on 5 Aug broke deduplication for nights 6 and 7.</text>
+<text class="axis mono" x="325.6" y="74.0" text-anchor="middle">Day 4</text>
+<line class="gridline" x1="260.0" x2="260.0" y1="82.0" y2="310.0"/>
+<text class="axis mono" x="456.8" y="74.0" text-anchor="middle">Day 5</text>
+<line class="gridline" x1="391.2" x2="391.2" y1="82.0" y2="310.0"/>
+<text class="axis mono" x="588.0" y="74.0" text-anchor="middle">Day 6</text>
+<line class="gridline" x1="522.4" x2="522.4" y1="82.0" y2="310.0"/>
+<text class="axis mono" x="719.2" y="74.0" text-anchor="middle">Day 7</text>
+<line class="gridline" x1="653.6" x2="653.6" y1="82.0" y2="310.0"/>
+<text class="axis mono" x="850.4" y="74.0" text-anchor="middle">Day 8</text>
+<line class="gridline" x1="784.8" x2="784.8" y1="82.0" y2="310.0"/>
+<text class="row-label" x="248.0" y="108.0" text-anchor="end">Night 5 (v1: tidewater-support)</text>
+<rect class="k-ok" x="264.0" y="92.0" width="254.4" height="24" rx="5"/>
+<text class="cell-text" x="391.2" y="108.0" text-anchor="middle">d4 skipped · d5 imported</text>
+<text class="note" x="391.2" y="130.0" text-anchor="middle">reviewed-week-31 cohort pinned to these IDs</text>
+<text class="row-label" x="248.0" y="158.0" text-anchor="end">5 Aug commit breaks source ID</text>
+<line class="dashed" x1="260.0" x2="916.0" y1="154.0" y2="154.0"/>
+<rect class="k-commit" x="515.4" y="147.0" width="14" height="14" rx="3"/>
+<text class="note" x="536.4" y="158.0">source becomes filename: support-2026-08-06, ...-07</text>
+<text class="row-label" x="248.0" y="190.0" text-anchor="end">Night 6 (v2: filename source)</text>
+<rect class="k-fail" x="395.2" y="174.0" width="254.4" height="24" rx="5"/>
+<text class="cell-text-inv" x="522.4" y="190.0" text-anchor="middle">d5 duplicated · d6 STRAY ONLY</text>
+<text class="note" x="522.4" y="212.0" text-anchor="middle">48 strays (24 dupes of d5 + 24 new d6)</text>
+<text class="row-label" x="248.0" y="240.0" text-anchor="end">Night 7 (v2: filename source)</text>
+<rect class="k-fail" x="526.4" y="224.0" width="254.4" height="24" rx="5"/>
+<text class="cell-text-inv" x="653.6" y="240.0" text-anchor="middle">d6 duplicated · d7 STRAY ONLY</text>
+<text class="note" x="653.6" y="262.0" text-anchor="middle">48 strays (24 dupes of d6 + 24 new d7)</text>
+<text class="row-label" x="248.0" y="290.0" text-anchor="end">Night 8 (grader runs your fix ×2)</text>
+<rect class="k-accent-soft" x="657.6" y="274.0" width="254.4" height="24" rx="5"/>
+<text class="cell-text" x="784.8" y="290.0" text-anchor="middle">d7 skipped · d8 imported once</text>
+<text class="note" x="784.8" y="312.0" text-anchor="middle">2nd run must create 0 new sessions</text>
+<text class="note" x="20" y="336.0">Why naive fixes fail: wiping the store destroys the reviewed-week-31 sessions; deleting all strays without re-importing loses days 6 and 7.</text>
+<rect class="k-ok" x="20.0" y="351.0" width="13" height="13" rx="3"/>
+<text class="legend" x="39.0" y="362.0">correct identity (keep)</text>
+<rect class="k-fail" x="194.58499999999998" y="351.0" width="13" height="13" rx="3"/>
+<text class="legend" x="213.58499999999998" y="362.0">stray identity (96 sessions)</text>
+<rect class="k-accent-soft" x="396.885" y="351.0" width="13" height="13" rx="3"/>
+<text class="legend" x="415.885" y="362.0">grader verification</text>
 </svg>

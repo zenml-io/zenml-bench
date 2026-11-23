@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 390" width="940" height="390" role="img" aria-label="ZenML Bench at a glance: 18 tasks, 13 projects, 3 conditions">
+<title>ZenML Bench at a glance: 18 tasks, 13 projects, 3 conditions</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="389" rx="10"/>
+<text class="title" x="20" y="28">ZenML Bench at a glance: 18 tasks, 13 projects, 3 conditions</text>
+<text class="subtitle" x="20" y="46">Every task grades what ZenML actually recorded in its store — never what the agent claims in chat.</text>
+<rect class="box" x="20.0" y="70.0" width="170.4" height="226.0" rx="8"/>
+<text class="box-name" x="30.0" y="90.0">Author &amp; migrate</text>
+<text class="axis" x="30.0" y="104.0">3 tasks</text>
+<rect class="pill" x="28.0" y="114.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="33.0" y="126.5" font-size="9.5">b2-script-to-pipeline</text>
+<rect class="pill" x="28.0" y="136.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="33.0" y="148.5" font-size="9.5">b9-modernise-old-api</text>
+<rect class="pill" x="28.0" y="158.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="33.0" y="170.5" font-size="9.5">b5-custom-materializer</text>
+<text class="note" x="30.0" y="236.0">Turn scripts into typed</text>
+<text class="note" x="30.0" y="249.0">pipelines, upgrade 0.4x</text>
+<text class="note" x="30.0" y="262.0">APIs, write materializers.</text>
+<rect class="box" x="202.4" y="70.0" width="170.4" height="226.0" rx="8"/>
+<text class="box-name" x="212.4" y="90.0">Caching</text>
+<text class="axis" x="212.4" y="104.0">2 tasks</text>
+<rect class="pill" x="210.4" y="114.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="215.4" y="126.5" font-size="9.5">b3-stale-cache</text>
+<rect class="pill" x="210.4" y="136.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="215.4" y="148.5" font-size="9.5">b4-nondeterministic-step</text>
+<text class="note" x="212.4" y="236.0">Invalidate on file contents</text>
+<text class="note" x="212.4" y="249.0">(not path strings) and keep</text>
+<text class="note" x="212.4" y="262.0">random steps fresh.</text>
+<rect class="box" x="384.8" y="70.0" width="170.4" height="226.0" rx="8"/>
+<text class="box-name" x="394.8" y="90.0">History &amp; lineage</text>
+<text class="axis" x="394.8" y="104.0">4 tasks</text>
+<rect class="pill" x="392.8" y="114.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="397.8" y="126.5" font-size="9.5">b10-why-did-it-fail</text>
+<rect class="pill-hot" x="392.8" y="136.0" width="154.4" height="18" rx="4"/>
+<text class="pill-hot-text mono" x="397.8" y="148.5" font-size="9.5">b10h (hard)</text>
+<rect class="pill" x="392.8" y="158.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="397.8" y="170.5" font-size="9.5">b14-artifact-retrieval</text>
+<rect class="pill-hot" x="392.8" y="180.0" width="154.4" height="18" rx="4"/>
+<text class="pill-hot-text mono" x="397.8" y="192.5" font-size="9.5">b14h (hard)</text>
+<text class="note" x="394.8" y="236.0">Diagnose real failures past</text>
+<text class="note" x="394.8" y="249.0">decoys; trace lineage with</text>
+<text class="note" x="394.8" y="262.0">supersession rules.</text>
+<rect class="box" x="567.2" y="70.0" width="170.4" height="226.0" rx="8"/>
+<text class="box-name" x="577.2" y="90.0">Models &amp; config</text>
+<text class="axis" x="577.2" y="104.0">4 tasks</text>
+<rect class="pill" x="575.2" y="114.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="580.2" y="126.5" font-size="9.5">b6-model-promotion</text>
+<rect class="pill" x="575.2" y="136.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="580.2" y="148.5" font-size="9.5">b7-kubernetes-settings</text>
+<rect class="pill" x="575.2" y="158.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="580.2" y="170.5" font-size="9.5">b11-stack-registration</text>
+<rect class="pill" x="575.2" y="180.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="580.2" y="192.5" font-size="9.5">b1-source-root-repair</text>
+<text class="note" x="577.2" y="236.0">Promote stages safely,</text>
+<text class="note" x="577.2" y="249.0">configure K8s pods,</text>
+<text class="note" x="577.2" y="262.0">register stacks, fix .zen</text>
+<text class="note" x="577.2" y="275.0">roots.</text>
+<rect class="box" x="749.6" y="70.0" width="170.4" height="226.0" rx="8"/>
+<text class="box-name" x="759.6" y="90.0">Research loops</text>
+<text class="axis" x="759.6" y="104.0">5 tasks</text>
+<rect class="pill" x="757.6" y="114.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="762.6" y="126.5" font-size="9.5">r1-improve-within-budget</text>
+<rect class="pill" x="757.6" y="136.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="762.6" y="148.5" font-size="9.5">r2-screen-then-confirm</text>
+<rect class="pill" x="757.6" y="158.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="762.6" y="170.5" font-size="9.5">r1-clock</text>
+<rect class="pill" x="757.6" y="180.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="762.6" y="192.5" font-size="9.5">r1-bare</text>
+<rect class="pill" x="757.6" y="202.0" width="154.4" height="18" rx="4"/>
+<text class="pill-text mono" x="762.6" y="214.5" font-size="9.5">r1-bare-clock</text>
+<text class="note" x="759.6" y="236.0">Iterative ML under a</text>
+<text class="note" x="759.6" y="249.0">12-run or 25-min budget,</text>
+<text class="note" x="759.6" y="262.0">plus no-framework twins.</text>
+<rect class="box-soft" x="20" y="312.0" width="540.0" height="62" rx="8"/>
+<text class="box-name" x="32" y="332.0">Three evaluation conditions (same tasks, same graders)</text>
+<text class="box-text" x="32" y="350.0">bare: container + offline docs  ·  skill: + pinned ZenML skills  ·  mcp: + ZenML MCP server</text>
+<text class="note" x="32" y="365.0">Lets you measure whether docs, skills, or MCP tools actually move pass rates.</text>
+<rect class="box" x="574.0" y="312.0" width="346.0" height="62" rx="8"/>
+<text class="box-name" x="586.0" y="332.0">Generated families (for RL training)</text>
+<text class="box-text" x="586.0" y="350.0">b10 &amp; b3 generators vary faults, names &amp; data</text>
+<text class="note" x="586.0" y="365.0">Seeds 0–4 committed as held-out; 1000+ for training.</text>
+</svg>

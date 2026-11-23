@@ -1,68 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 204" width="920" height="204" role="img" aria-label="R1 and R2: the chain the grader walks before it trusts a model">
-<title>R1 and R2: the chain the grader walks before it trusts a model</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 300" width="940" height="300" role="img" aria-label="R1 &amp; R2: the lineage chain the grader walks before scoring a model">
+<title>R1 &amp; R2: the lineage chain the grader walks before scoring a model</title>
 <style>
 svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
   --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
-  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; --band:#e9efec; --warn-soft:#f6ebd4; --fail-soft:#f7e2de; }
 @media (prefers-color-scheme: dark) {
   svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
     --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
-    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; --band:#1e2926; --warn-soft:#332b1c; --fail-soft:#351f1c; }
 }
 text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
 .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
 .bg { fill: var(--surface); stroke: var(--rule); }
 .title { font-size: 15px; font-weight: 600; }
+.subtitle { font-size: 12px; fill: var(--muted); }
 .axis { font-size: 11px; fill: var(--muted); }
 .row-label { font-size: 12px; }
 .bar-label { font-size: 11.5px; }
 .note { font-size: 11px; fill: var(--muted); }
-.legend { font-size: 12px; fill: var(--muted); }
+.legend { font-size: 11.5px; fill: var(--muted); }
 .gridline { stroke: var(--rule); stroke-width: 1; }
+.dashed { stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 4 3; fill: none; }
+.band { fill: var(--band); stroke: none; }
 .k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
 .k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
-.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
-.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); }
+.k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); } .k-accent-soft { fill: var(--accent-soft); stroke: var(--accent); }
+.k-warn-soft { fill: var(--warn-soft); stroke: var(--warn); } .k-fail-soft { fill: var(--fail-soft); stroke: var(--fail); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .box { fill: var(--paper); stroke: var(--rule); }
 .box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
 .box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-warn { fill: var(--paper); stroke: var(--warn); stroke-width: 2; }
+.box-soft { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
 .box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-name-hot { font-size: 12.5px; font-weight: 600; fill: var(--fail); }
+.box-name-warn { font-size: 12.5px; font-weight: 600; fill: var(--warn); }
 .box-text { font-size: 11.5px; fill: var(--muted); }
 .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.arrow-accent { stroke: var(--accent); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-accent); }
+.arrow-hot { stroke: var(--fail); stroke-width: 1.75; fill: none; marker-end: url(#arrowhead-hot); }
 .commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
 .cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
 .cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+.pill { fill: var(--accent-soft); stroke: none; }
+.pill-text { font-size: 10.5px; font-weight: 600; fill: var(--accent); }
+.pill-hot { fill: var(--fail-soft); stroke: var(--fail); stroke-width: 1; }
+.pill-hot-text { font-size: 10.5px; font-weight: 600; fill: var(--fail); }
+.section-head { font-size: 12px; font-weight: 600; fill: var(--ink); }
 </style>
-<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
-<rect class="bg" x="0.5" y="0.5" width="919" height="203" rx="10"/>
-<text class="title" x="20" y="28">R1 and R2: the chain the grader walks before it trusts a model</text>
-<rect class="box" x="20.0" y="50.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="30.0" y="70.0">production version</text>
-<text class="box-text" x="30.0" y="88.0">of research_model</text>
-<path class="arrow" d="M174.0 101.0 C187.0 101.0 187.0 101.0 199.0 101.0"/>
-<rect class="box" x="202.0" y="50.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="212.0" y="70.0">linked run</text>
-<text class="box-text" x="212.0" y="88.0">of the research</text>
-<text class="box-text" x="212.0" y="102.0">pipeline, status</text>
-<text class="box-text" x="212.0" y="116.0">completed</text>
-<path class="arrow" d="M356.0 101.0 C369.0 101.0 369.0 101.0 381.0 101.0"/>
-<rect class="box" x="384.0" y="50.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="394.0" y="70.0">train step</text>
-<text class="box-text" x="394.0" y="88.0">of that run; also</text>
-<text class="box-text" x="394.0" y="102.0">recorded n_train_rows</text>
-<text class="box-text" x="394.0" y="116.0">and a digest of the</text>
-<text class="box-text" x="394.0" y="130.0">rows</text>
-<path class="arrow" d="M538.0 101.0 C551.0 101.0 551.0 101.0 563.0 101.0"/>
-<rect class="box" x="566.0" y="50.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="576.0" y="70.0">model output</text>
-<text class="box-text" x="576.0" y="88.0">produced by that same</text>
-<text class="box-text" x="576.0" y="102.0">step, not attached</text>
-<text class="box-text" x="576.0" y="116.0">later</text>
-<path class="arrow" d="M720.0 101.0 C733.0 101.0 733.0 101.0 745.0 101.0"/>
-<rect class="box-good" x="748.0" y="50.0" width="152.0" height="102" rx="8"/>
-<text class="box-name mono" x="758.0" y="70.0">hidden data</text>
-<text class="box-text" x="758.0" y="88.0">the grader&#x27;s own</text>
-<text class="box-text" x="758.0" y="102.0">evaluator scores it:</text>
-<text class="box-text" x="758.0" y="116.0">gap_closed</text>
-<text class="note" x="20" y="178.0">ZenML lets you attach any artifact to any model version, so a link alone proves nothing. A model that breaks the chain is not scored.</text>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker><marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#17667a"/></marker><marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c2412d"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="939" height="299" rx="10"/>
+<text class="title" x="20" y="28">R1 &amp; R2: the lineage chain the grader walks before scoring a model</text>
+<text class="subtitle" x="20" y="46">ZenML lets you attach any artifact to any model version, so a link alone is not evidence.</text>
+<rect class="box" x="20.0" y="109.0" width="281.3" height="72" rx="8"/>
+<text class="box-name mono" x="30.0" y="129.0">production</text>
+<text class="box-text" x="30.0" y="146.0">version of research_model</text>
+<path class="arrow-accent" d="M303.3 145.0 C315.3 145.0 315.3 104.0 326.3 104.0"/>
+<path class="arrow-hot" d="M303.3 145.0 C315.3 145.0 315.3 186.0 326.3 186.0"/>
+<rect class="box-good" x="329.3" y="68.0" width="281.3" height="72" rx="8"/>
+<text class="box-name mono" x="339.3" y="88.0">linked run</text>
+<text class="box-text" x="339.3" y="105.0">completed run of research pipeline -&gt; train</text>
+<text class="box-text" x="339.3" y="119.0">step (+ row digest) -&gt; model output</text>
+<path class="arrow-accent" d="M612.7 104.0 C624.7 104.0 624.7 145.0 635.7 145.0"/>
+<rect class="box-hot" x="329.3" y="150.0" width="281.3" height="72" rx="8"/>
+<text class="box-name-hot mono" x="339.3" y="170.0">manual link</text>
+<text class="box-text" x="339.3" y="187.0">artifact attached directly without a</text>
+<text class="box-text" x="339.3" y="201.0">completed run -&gt; rejected (reward 0)</text>
+<rect class="box-good" x="638.7" y="109.0" width="281.3" height="72" rx="8"/>
+<text class="box-name mono" x="648.7" y="129.0">hidden score</text>
+<text class="box-text" x="648.7" y="146.0">grader&#x27;s evaluator computes gap_closed on</text>
+<text class="box-text" x="648.7" y="160.0">unseen data</text>
+<text class="note" x="20" y="246.0">The train step also logs n_train_rows and a digest of the training rows, so training on the full dataset is caught.</text>
+<rect class="box-good" x="21.0" y="274.0" width="12" height="12" rx="3"/>
+<text class="legend" x="39.0" y="285.0">verified lineage path</text>
+<rect class="box-hot" x="182.47499999999997" y="274.0" width="12" height="12" rx="3"/>
+<text class="legend" x="200.47499999999997" y="285.0">shortcut refused by grader</text>
 </svg>
