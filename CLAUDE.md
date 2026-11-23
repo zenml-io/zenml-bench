@@ -18,6 +18,19 @@ Alex is building this partly to learn: Harbor, verifiers, RL environments, bench
 
 Any agent that adds a directory, a script, a convention, or resolves a decision must update this file (and `README.md` / `docs/` where relevant) in the same change. A stale CLAUDE.md is worse than none.
 
+## Keep the two benchmark pages current (hard rule)
+
+`docs/zenml-bench.md` and `docs/kitaru-bench.md` describe every task, project and world in plain language, with charts: what the agent is asked, why it is hard, how it is graded, and what history each world or project holds. They are the pages a newcomer reads first, so they must match the repository. Update the matching page **in the same change** whenever you:
+
+- add, remove, rename or re-version a task (including a harder `h` variant or a generated-instance family);
+- change what a task asks, its trap, its shortcuts or what its grader checks;
+- change a shared project's pipeline or a Kitaru world's story (new sessions, releases, planted problems, services), or add a project or world;
+- change the base image, the conditions (bare / skill / mcp) or how a run works.
+
+What to touch: the counts at the top, the task's row in its table, the project's or world's section, its chart, and the "Last checked" date. A chart that no longer matches the story is worse than no chart; fix it or delete it.
+
+The charts are SVG files in `docs/charts/`, embedded as images (GitHub strips inline `<svg>` from markdown). Never edit an SVG by hand: change the data in `docs/charts/make_charts.py` (story timelines, run grids and flows, in the style of the "Kaizen Benchmarks Today" page), run `uv run docs/charts/make_charts.py`, and look at the result in a browser before committing. Do not use Mermaid for these pages. Pass rates live in `README.md` and `kitaru/README.md` (generated or copied from results), not on these pages.
+
 ## Pinned versions (single source of truth: `docs/decisions.md`)
 
 - ZenML `0.96.4` on Python `3.14`. The pin lives in exactly one place once `shared/base/Dockerfile` exists; read it from there everywhere else.
@@ -25,7 +38,7 @@ Any agent that adds a directory, a script, a convention, or resolves a decision 
 
 ## Layout (grows as levels land; see brief section 9)
 
-- `docs/` — brief, `decisions.md`, `task-authoring.md` (read before writing a task), `findings.md`. `future-experiments.md` lists experiments that are not part of the benchmark (framework comparison, replications, registry images, training); add new ideas there rather than in chat.
+- `docs/` — brief, `decisions.md`, `task-authoring.md` (read before writing a task), `findings.md`. `zenml-bench.md` and `kitaru-bench.md` are the plain-language tours of the two sets (every task, project and world, with charts drawn by `docs/charts/make_charts.py`); see "Keep the two benchmark pages current" above. `future-experiments.md` lists experiments that are not part of the benchmark (framework comparison, replications, registry images, training); add new ideas there rather than in chat.
 - `experiments/<name>/` — code for those experiments (tracked); their `jobs/` and `outputs/` are gitignored; their results stay out of `results/`, the README table and the Hubs. `publishing.md` (Hub org/visibility decisions, `registry.json`/`dataset.toml`, Prime wrapper, release checklist).
 - `registry.json` (Harbor legacy registry: run the set via `--repo zenml-io/zenml-bench`) and `dataset.toml` (Hub manifest; `harbor sync` after any task change) at the root; `integrations/prime/zenml_bench/` is the verifiers v1 taskset for the Prime Intellect Environments Hub (run with verifiers' `eval`, not `vf-eval`; every task maps to a prebuilt `zenml-bench/<task>:0.1.0` image). Task ids are `zenml/<name>`; published versions are frozen, so bump `[task].version` and re-sync before any re-publish.
 - `shared/base/Dockerfile` — base image; the ZenML pin lives here (`ARG ZENML_PIN`), and so does the `mcp-zenml` pin (`ARG MCP_ZENML_SHA`, `mcp[cli]==1.26.0`: the server needs `mcp<2`).

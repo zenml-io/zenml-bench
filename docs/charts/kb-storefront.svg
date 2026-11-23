@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 508" width="920" height="508" role="img" aria-label="storefront: Larkspur Goods returns assistant, 1 June to 30 July 2026">
+<title>storefront: Larkspur Goods returns assistant, 1 June to 30 July 2026</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 12px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="919" height="507" rx="10"/>
+<text class="title" x="20" y="28">storefront: Larkspur Goods returns assistant, 1 June to 30 July 2026</text>
+<text class="axis" x="195.9" y="52.0" text-anchor="middle">1 Jun</text>
+<line class="gridline" x1="195.9" x2="195.9" y1="58.0" y2="424.0"/>
+<text class="axis" x="360.6" y="52.0" text-anchor="middle">15 Jun</text>
+<line class="gridline" x1="360.6" x2="360.6" y1="58.0" y2="424.0"/>
+<text class="axis" x="548.9" y="52.0" text-anchor="middle">1 Jul</text>
+<line class="gridline" x1="548.9" x2="548.9" y1="58.0" y2="424.0"/>
+<text class="axis" x="713.6" y="52.0" text-anchor="middle">15 Jul</text>
+<line class="gridline" x1="713.6" x2="713.6" y1="58.0" y2="424.0"/>
+<text class="axis" x="890.1" y="52.0" text-anchor="middle">30 Jul</text>
+<line class="gridline" x1="890.1" x2="890.1" y1="58.0" y2="424.0"/>
+<text class="row-label" x="178.0" y="95.0" text-anchor="end">agent release</text>
+<rect class="k-neutral" x="191.0" y="84.0" width="351.0" height="14" rx="3"/>
+<text class="bar-label" x="192.0" y="79.0">1.3.0</text>
+<rect class="k-neutral" x="544.0" y="84.0" width="245.1" height="14" rx="3"/>
+<text class="bar-label" x="545.0" y="79.0">1.4.0</text>
+<rect class="k-neutral" x="791.1" y="84.0" width="103.9" height="14" rx="3"/>
+<text class="bar-label" x="792.1" y="79.0">1.4.1</text>
+<text class="row-label" x="178.0" y="141.0" text-anchor="end">reply text</text>
+<rect class="k-problem" x="544.0" y="130.0" width="351.0" height="14" rx="3"/>
+<text class="bar-label" x="545.0" y="125.0">euro card refunds quoted 100x (the money is right)</text>
+<text class="row-label" x="178.0" y="187.0" text-anchor="end">standing faults</text>
+<rect class="k-neutral" x="191.0" y="176.0" width="704.0" height="14" rx="3"/>
+<text class="bar-label" x="192.0" y="171.0">too many lookups, late and double refunds, curt replies, idle timeouts</text>
+<text class="row-label" x="178.0" y="233.0" text-anchor="end">refunds (diag.)</text>
+<rect class="k-problem" x="355.7" y="222.0" width="162.7" height="14" rx="3"/>
+<text class="bar-label" x="356.7" y="217.0">full refunds also pay a shipping fee</text>
+<text class="row-label" x="178.0" y="279.0" text-anchor="end">order service (diag.)</text>
+<rect class="k-problem" x="426.3" y="268.0" width="9.8" height="14" rx="3"/>
+<text class="bar-label" x="427.3" y="263.0">21 Jun: down 10:00-20:00, retries</text>
+<text class="row-label" x="178.0" y="325.0" text-anchor="end">traffic (diag.)</text>
+<rect class="k-problem" x="579.3" y="314.0" width="9.8" height="14" rx="3"/>
+<text class="bar-label" x="580.3" y="309.0">4 Jul: summer-sale, +120 ordinary conversations</text>
+<text class="row-label" x="178.0" y="371.0" text-anchor="end">served model (diag.)</text>
+<rect class="k-partial" x="638.1" y="360.0" width="45.1" height="14" rx="3"/>
+<text class="bar-label" x="684.2" y="355.0" text-anchor="end">9 Jul: dated snapshot served to ~35%, from 13 Jul to all</text>
+<rect class="k-problem" x="685.2" y="360.0" width="68.6" height="14" rx="3"/>
+<text class="row-label" x="178.0" y="417.0" text-anchor="end">polite-closing check</text>
+<rect class="k-decoy" x="191.0" y="406.0" width="704.0" height="14" rx="3"/>
+<text class="bar-label" x="192.0" y="401.0">fails idle timeouts, where nothing went wrong</text>
+<text class="note" x="20" y="464.0">Rows marked (diag.) exist only in the diagnosis history used by C1h and the D tasks. Amber = a decoy for the diagnosis and checks tasks.</text>
+<rect class="k-problem" x="20.0" y="478.0" width="14" height="14" rx="3"/>
+<text class="legend" x="40.0" y="490.0">the cause a task is after</text>
+<rect class="k-decoy" x="208.88" y="478.0" width="14" height="14" rx="3"/>
+<text class="legend" x="228.88" y="490.0">a decoy: looks guilty, isn&#x27;t</text>
+<rect class="k-partial" x="404.6" y="478.0" width="14" height="14" rx="3"/>
+<text class="legend" x="424.6" y="490.0">a partial fix</text>
+<rect class="k-neutral" x="518.24" y="478.0" width="14" height="14" rx="3"/>
+<text class="legend" x="538.24" y="490.0">background or symptom</text>
+</svg>

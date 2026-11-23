@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 333" width="920" height="333" role="img" aria-label="B10H: ten runs; two of the failures are code faults">
+<title>B10H: ten runs; two of the failures are code faults</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 12px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="919" height="332" rx="10"/>
+<text class="title" x="20" y="28">B10H: ten runs; two of the failures are code faults</text>
+<text class="axis mono" x="206.5" y="58.0" text-anchor="middle">08-30</text>
+<text class="axis mono" x="279.5" y="58.0" text-anchor="middle">09-02</text>
+<text class="axis mono" x="352.5" y="58.0" text-anchor="middle">09-03</text>
+<text class="axis mono" x="425.5" y="58.0" text-anchor="middle">09-04</text>
+<text class="axis mono" x="498.5" y="58.0" text-anchor="middle">09-05</text>
+<text class="axis mono" x="571.5" y="58.0" text-anchor="middle">09-06</text>
+<text class="axis mono" x="644.5" y="58.0" text-anchor="middle">09-07</text>
+<text class="axis mono" x="717.5" y="58.0" text-anchor="middle">09-08</text>
+<text class="axis mono" x="790.5" y="58.0" text-anchor="middle">09-09</text>
+<text class="axis mono" x="863.5" y="58.0" text-anchor="middle">typo</text>
+<text class="row-label" x="158.0" y="92.0" text-anchor="end">scheduled</text>
+<rect class="k-ok" x="248.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text" x="279.5" y="92.0" text-anchor="middle">ok</text>
+<rect class="k-fail" x="321.0" y="74.0" width="63.0" height="28" rx="5"/>
+<rect class="ring" x="318.0" y="71.0" width="69.0" height="34" rx="7"/>
+<text class="cell-text-inv" x="352.5" y="92.0" text-anchor="middle">failed</text>
+<text class="note" x="352.5" y="117.0" text-anchor="middle">summarise:</text>
+<text class="note" x="352.5" y="130.0" text-anchor="middle">regions</text>
+<text class="note" x="352.5" y="143.0" text-anchor="middle">&quot;North&quot;,</text>
+<text class="note" x="352.5" y="156.0" text-anchor="middle">&quot;west &quot;</text>
+<rect class="k-ok" x="394.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text" x="425.5" y="92.0" text-anchor="middle">ok</text>
+<rect class="k-fail" x="467.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="498.5" y="92.0" text-anchor="middle">failed</text>
+<text class="note" x="498.5" y="117.0" text-anchor="middle">load: no</text>
+<text class="note" x="498.5" y="130.0" text-anchor="middle">export</text>
+<rect class="k-fail" x="540.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="571.5" y="92.0" text-anchor="middle">failed</text>
+<text class="note" x="571.5" y="117.0" text-anchor="middle">write_report:</text>
+<text class="note" x="571.5" y="130.0" text-anchor="middle">folder gone</text>
+<rect class="k-ok" x="613.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text" x="644.5" y="92.0" text-anchor="middle">ok</text>
+<rect class="k-ok" x="686.0" y="74.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text" x="717.5" y="92.0" text-anchor="middle">ok</text>
+<rect class="k-fail" x="759.0" y="74.0" width="63.0" height="28" rx="5"/>
+<rect class="ring" x="756.0" y="71.0" width="69.0" height="34" rx="7"/>
+<text class="cell-text-inv" x="790.5" y="92.0" text-anchor="middle">failed</text>
+<text class="note" x="790.5" y="117.0" text-anchor="middle">parse:</text>
+<text class="note" x="790.5" y="130.0" text-anchor="middle">separators;</text>
+<text class="note" x="790.5" y="143.0" text-anchor="middle">&quot;this</text>
+<text class="note" x="790.5" y="156.0" text-anchor="middle">morning&quot;</text>
+<text class="row-label" x="158.0" y="188.0" text-anchor="end">manual</text>
+<rect class="k-fail" x="175.0" y="170.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="206.5" y="188.0" text-anchor="middle">failed</text>
+<text class="note" x="206.5" y="213.0" text-anchor="middle">parse: old</text>
+<text class="note" x="206.5" y="226.0" text-anchor="middle">ISO</text>
+<text class="note" x="206.5" y="239.0" text-anchor="middle">timestamps</text>
+<rect class="k-fail" x="832.0" y="170.0" width="63.0" height="28" rx="5"/>
+<text class="cell-text-inv" x="863.5" y="188.0" text-anchor="middle">failed</text>
+<text class="note" x="863.5" y="213.0" text-anchor="middle">load: typo</text>
+<text class="note" x="863.5" y="226.0" text-anchor="middle">date</text>
+<text class="note" x="20" y="267.0">The 09-03 and 09-09 exports are moved off the box after they fail, so the cause can only be read from the recorded traceback or from the load step&#x27;s output</text>
+<text class="note" x="20" y="281.0">artifact.</text>
+<rect class="k-ok" x="20.0" y="305.0" width="14" height="14" rx="3"/>
+<text class="legend" x="40.0" y="317.0">completed</text>
+<rect class="k-fail" x="117.80000000000001" y="305.0" width="14" height="14" rx="3"/>
+<text class="legend" x="137.8" y="317.0">failed</text>
+<rect class="ring" x="195.14000000000001" y="306.5" width="11" height="11" rx="2"/>
+<text class="legend" x="213.64000000000001" y="317.0">what the grader checks</text>
+</svg>

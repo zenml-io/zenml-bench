@@ -29,6 +29,7 @@ A published version never changes. A score from one month has to be comparable w
 ## Where things are
 
 - `tasks/`, `shared/`: ZenML Bench. `kitaru/`: Kitaru Bench (its own README, and `kitaru/DEVELOPING.md` for building tasks).
+- [`docs/zenml-bench.md`](docs/zenml-bench.md) and [`docs/kitaru-bench.md`](docs/kitaru-bench.md): a plain-language tour of every task, project and world, with diagrams. Start here.
 - `results/`: baseline tables and what each failure was, read from the transcripts. `docs/findings.md`: what the baselines showed.
 - `docs/task-authoring.md`: how to write a task. `docs/publishing.md`: how a set is published. `docs/decisions.md`: why things are the way they are.
 - `integrations/prime/`: the wrappers for the Prime Intellect Environments Hub.

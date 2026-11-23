@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 370" width="920" height="370" role="img" aria-label="exports: the nightly import before I4 starts, 1 to 8 August 2026">
+<title>exports: the nightly import before I4 starts, 1 to 8 August 2026</title>
+<style>
+svg { --paper:#f3f5f2; --surface:#fbfcfa; --ink:#1b2422; --muted:#56635e; --rule:#d5ddd8; --accent:#17667a;
+  --accent-soft:#dcebee; --ok:#a9cdb3; --fail:#c2412d; --warn:#d9a13a; --stale:#b7c0bc; --partial:#e08a6a;
+  --commit:#2c4a52; --commit-ink:#f3f5f2; --fail-ink:#ffffff; }
+@media (prefers-color-scheme: dark) {
+  svg { --paper:#111816; --surface:#18201e; --ink:#e3ebe7; --muted:#9aaaa4; --rule:#2c3835; --accent:#6cc0d4;
+    --accent-soft:#1c3339; --ok:#3f7a55; --fail:#e0634e; --warn:#d9a54a; --stale:#56625e; --partial:#e59a7c;
+    --commit:#a9ccd4; --commit-ink:#111816; --fail-ink:#111816; }
+}
+text { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: var(--ink); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.bg { fill: var(--surface); stroke: var(--rule); }
+.title { font-size: 15px; font-weight: 600; }
+.axis { font-size: 11px; fill: var(--muted); }
+.row-label { font-size: 12px; }
+.bar-label { font-size: 11.5px; }
+.note { font-size: 11px; fill: var(--muted); }
+.legend { font-size: 12px; fill: var(--muted); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.k-problem { fill: var(--fail); } .k-decoy { fill: var(--warn); } .k-partial { fill: var(--partial); }
+.k-neutral { fill: var(--stale); } .k-ok { fill: var(--ok); } .k-fail { fill: var(--fail); }
+.k-cached { fill: var(--stale); } .k-plain { fill: var(--paper); stroke: var(--rule); } .k-commit { fill: var(--commit); } .k-accent { fill: var(--accent); }
+.ring { fill: none; stroke: var(--accent); stroke-width: 3; }
+.box { fill: var(--paper); stroke: var(--rule); }
+.box-hot { fill: var(--paper); stroke: var(--fail); stroke-width: 2; }
+.box-good { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.box-name { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.box-text { font-size: 11.5px; fill: var(--muted); }
+.arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.commit-label { font-size: 10px; font-weight: 600; fill: var(--commit-ink); }
+.cell-text { font-size: 11px; font-weight: 600; fill: var(--ink); }
+.cell-text-inv { font-size: 11px; font-weight: 600; fill: var(--fail-ink); }
+</style>
+<defs><marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8a9893"/></marker></defs>
+<rect class="bg" x="0.5" y="0.5" width="919" height="369" rx="10"/>
+<text class="title" x="20" y="28">exports: the nightly import before I4 starts, 1 to 8 August 2026</text>
+<text class="axis" x="234.1" y="52.0" text-anchor="middle">1 Aug</text>
+<line class="gridline" x1="234.1" x2="234.1" y1="58.0" y2="286.0"/>
+<text class="axis" x="322.4" y="52.0" text-anchor="middle">2 Aug</text>
+<line class="gridline" x1="322.4" x2="322.4" y1="58.0" y2="286.0"/>
+<text class="axis" x="410.6" y="52.0" text-anchor="middle">3 Aug</text>
+<line class="gridline" x1="410.6" x2="410.6" y1="58.0" y2="286.0"/>
+<text class="axis" x="498.9" y="52.0" text-anchor="middle">4 Aug</text>
+<line class="gridline" x1="498.9" x2="498.9" y1="58.0" y2="286.0"/>
+<text class="axis" x="587.1" y="52.0" text-anchor="middle">5 Aug</text>
+<line class="gridline" x1="587.1" x2="587.1" y1="58.0" y2="286.0"/>
+<text class="axis" x="675.4" y="52.0" text-anchor="middle">6 Aug</text>
+<line class="gridline" x1="675.4" x2="675.4" y1="58.0" y2="286.0"/>
+<text class="axis" x="763.6" y="52.0" text-anchor="middle">7 Aug</text>
+<line class="gridline" x1="763.6" x2="763.6" y1="58.0" y2="286.0"/>
+<text class="axis" x="851.9" y="52.0" text-anchor="middle">8 Aug</text>
+<line class="gridline" x1="851.9" x2="851.9" y1="58.0" y2="286.0"/>
+<text class="row-label" x="178.0" y="95.0" text-anchor="end">script v1</text>
+<rect class="k-neutral" x="191.0" y="84.0" width="439.2" height="14" rx="3"/>
+<text class="bar-label" x="192.0" y="79.0">nights 1-5: identity tidewater-support, correct</text>
+<text class="row-label" x="178.0" y="141.0" text-anchor="end">cohort</text>
+<rect class="k-neutral" x="544.0" y="130.0" width="86.2" height="14" rx="3"/>
+<text class="bar-label" x="545.0" y="125.0">reviewed-week-31 created</text>
+<text class="row-label" x="178.0" y="187.0" text-anchor="end">commit</text>
+<rect class="k-commit" x="579.1" y="176.0" width="16" height="14" rx="3"/>
+<text class="bar-label" x="589.1" y="171.0">5 Aug: identity taken from the file name</text>
+<text class="row-label" x="178.0" y="233.0" text-anchor="end">script v2</text>
+<rect class="k-problem" x="632.2" y="222.0" width="174.5" height="14" rx="3"/>
+<text class="bar-label" x="633.2" y="217.0">nights 6-7: 96 stray sessions</text>
+<text class="row-label" x="178.0" y="279.0" text-anchor="end">grader</text>
+<rect class="k-neutral" x="808.8" y="268.0" width="86.2" height="14" rx="3"/>
+<text class="bar-label" x="896.0" y="263.0" text-anchor="end">night 8, run twice</text>
+<text class="note" x="20" y="326.0">Each night&#x27;s file holds the day before and the day itself. The 48 tickets of days 6 and 7 exist only as strays.</text>
+<rect class="k-problem" x="20.0" y="340.0" width="14" height="14" rx="3"/>
+<text class="legend" x="40.0" y="352.0">the cause a task is after</text>
+<rect class="k-neutral" x="208.88" y="340.0" width="14" height="14" rx="3"/>
+<text class="legend" x="228.88" y="352.0">background or symptom</text>
+<rect class="k-commit" x="381.91999999999996" y="340.0" width="14" height="14" rx="3"/>
+<text class="legend" x="401.91999999999996" y="352.0">git commit</text>
+</svg>
